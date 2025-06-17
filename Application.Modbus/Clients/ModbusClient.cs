@@ -1,6 +1,6 @@
 namespace Application.Modbus;
 
-public class ModbusMessage
+public class ModbusClient
 {
     
 }

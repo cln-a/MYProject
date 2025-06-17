@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Timers;
 
-namespace Application.Modbus.Clients
+namespace Application.Modbus
 {
     public class PlcState : ICommunicationStateMachine
     {
