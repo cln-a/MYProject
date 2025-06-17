@@ -68,10 +68,14 @@ namespace Application.Modbus
                     {
                         Variable.WriteAnyValueEx(HearBeatValue);
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         //Logger
                         throw;
+                    }
+                    finally
+                    {
+                        Thread.Sleep(Option.HeartBeatInterval);
                     }
                 }
                 catch (Exception e) 
