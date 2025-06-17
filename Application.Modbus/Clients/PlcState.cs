@@ -1,82 +1,83 @@
 ﻿using Application.Common;
+using System.Net;
 using System.Net.Sockets;
+using System.Timers;
 
 namespace Application.Modbus.Clients
 {
     public class PlcState : ICommunicationStateMachine
     {
-        private readonly Model.ModbusDevice _device;
-        private TcpClient _tcpClient;
+        private System.Timers.Timer _timer = null!;
+        private TcpClient _tcpClient = null!;
+        private readonly Model.ModbusDevice _device = null!;
         private CommunicationStateEnum _state;
-        private System.Timers.Timer _timer;
 
-        public string Name => _device.DeviceName;
-
-        public string Description => _device.Description;
-        public string RemoteIPAddress { get; set; }
-        public string LocalIPAddress { get; set; }
-        public int RemotePort { get; set; }
-        public int LocalPort => _device.LocalPort;
-        public int ConnectInterval { get; set; }
-        public bool Enabled { get; set; }
-        public bool IsConnected => Enabled && State == CommunicationStateEnum.Connected;
-        public bool IsNotConnected => Enabled && State == CommunicationStateEnum.NotConnected;
-        public bool IsCommunicating => Enabled && State == CommunicationStateEnum.Communicating;
-        public TcpClient TcpClient => _tcpClient;
-        public CommunicationStateEnum State 
+        public string Name => _device.DeviceUri;
+        public string Description => _device.DeviceName;
+        private string RemoteIpAddress { set; get; } = null!;
+        private string LocalIpAddress { set; get; } = null!;
+        private int RemotePort { set; get; }
+        private int LocalPort => _device.LocalPort;
+        private int ConnectInterval { get; set; }
+        private bool Enable { get; set; }
+        public bool IsConnected => Enable && State == CommunicationStateEnum.Connected; 
+        public bool IsNotConnected => Enable && State != CommunicationStateEnum.Connected;
+        public bool IsCommunicating => Enable && State == CommunicationStateEnum.Communicating;
+        public TcpClient Client => _tcpClient;
+        public CommunicationStateEnum State
         {
-            get => _state;
+            get  => _state;
             private set
             {
                 if (_state != value)
                 {
                     _state = value;
-                    if (Enabled)
+                    if (Enable)
                     {
                         switch (_state)
                         {
                             case CommunicationStateEnum.Connected:
-                                ConnectEvent?.Invoke(this, new EventArgs());
+                                ConnectEvent?.Invoke(this, EventArgs.Empty);
                                 break;
                             case CommunicationStateEnum.NotConnected:
-                                DisconnectEvent?.Invoke(this, new EventArgs());
+                                DisConnectEvent?.Invoke(this, EventArgs.Empty);
                                 break;
                             case CommunicationStateEnum.Communicating:
                                 break;
-                            default:
-                                break;
                         }
-                        CommunicationStateChangedEvent?.Invoke(this, new CommunicationStateChangedEventArgs(Name, Description, State));
+                        CommunicationStateChangedEvent?.Invoke(this,
+                            new CommunicationStateChangedEventArgs(Name, Description, State));
                     }
                 }
             }
         }
 
-        public event EventHandler ConnectEvent;
-        public event EventHandler DisconnectEvent;
-        public event EventHandler<CommunicationStateChangedEventArgs> CommunicationStateChangedEvent;
+        public event EventHandler ConnectEvent = null!;
+        public event EventHandler DisConnectEvent = null!;
+        public event EventHandler<CommunicationStateChangedEventArgs>? CommunicationStateChangedEvent;
 
         public PlcState(Model.ModbusDevice device)
         {
-            this._device = device;
+            _device = device;
             Init(_device.LocalIpAddress, _device.RemoteIpAddress, _device.RemotePort, _device.ReconnectInterval);
         }
 
-        public PlcState(string localIpAddress, string remoteIpAddress, int remotePort, int reconnectInterval)
-            => Init(localIpAddress, remoteIpAddress, remotePort, reconnectInterval);
-
+        public PlcState(string localIp, string remoteIp, int port, int interval) =>
+            Init(localIp, remoteIp, port, interval);
+        
+        
         private void Init(string localIpAddress, string remoteIpAddress, int remotePort, int reconnectInterval)
         {
-            this.LocalIPAddress = localIpAddress;
-            this.RemoteIPAddress = remoteIpAddress;
-            this.RemotePort = remotePort;
-            this.ConnectInterval = reconnectInterval;
+            LocalIpAddress = localIpAddress;
+            RemoteIpAddress = remoteIpAddress;
+            RemotePort = remotePort;
+            ConnectInterval = reconnectInterval;
             _state = CommunicationStateEnum.NotConnected;
             _timer = new System.Timers.Timer(ConnectInterval) { AutoReset = false, Interval = ConnectInterval };
-            _timer.Elapsed += _timer_Elapsed;
+            _timer.Elapsed += TimerOnElapsed;
         }
 
-        private void _timer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
+        private void TimerOnElapsed(object? sender, ElapsedEventArgs e)
         {
             if (!IsConnected)
             {
@@ -84,38 +85,20 @@ namespace Application.Modbus.Clients
                 try
                 {
                     _tcpClient = new TcpClient();
-                    if (!string.IsNullOrEmpty(LocalIPAddress))
-                        _tcpClient.Client.Bind(new System.Net.IPEndPoint(System.Net.IPAddress.Parse(LocalIPAddress), LocalPort));
-                    _tcpClient.Connect(RemoteIPAddress, RemotePort);
+                    if (!string.IsNullOrEmpty(LocalIpAddress))
+                        _tcpClient.Client.Bind(new IPEndPoint(IPAddress.Parse(LocalIpAddress), LocalPort));
+                    _tcpClient.Connect(RemoteIpAddress, RemotePort);
                     SetConnected();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    //Loger
                     SetDisConnected();
                 }
             }
         }
-
-        public void Start()
-        {
-            if (!Enabled)
-            {
-                Enabled = true;
-                SetDisConnected();
-            }
-        }
-
-        public void Stop()
-        {
-            Enabled = false;
-            if (_tcpClient != null && _tcpClient.Connected) 
-                _tcpClient.Close();
-            _tcpClient = null!;
-        }
-
+        
         /// <summary>
-        /// 初始化时设置状态为正在连接中
+        /// 设置状态为正在连接中
         /// </summary>
         public void SetCommunicating()
         {
@@ -124,7 +107,7 @@ namespace Application.Modbus.Clients
         }
 
         /// <summary>
-        /// 初始化时设置状态为已连接
+        /// 设置状态为已经连接
         /// </summary>
         public void SetConnected()
         {
@@ -136,7 +119,7 @@ namespace Application.Modbus.Clients
         }
 
         /// <summary>
-        /// 出现异常情况时处理，可以理解为断线重连操作
+        /// 该方法为出现异常时的重连方法
         /// </summary>
         public void SetDisConnected()
         {
@@ -146,6 +129,23 @@ namespace Application.Modbus.Clients
                 _timer.Start();
             else
                 _timer.Stop();
+        }
+        
+        public void Start()
+        {
+            if (!Enable)
+            {
+                Enable = true;
+                SetDisConnected();
+            }
+        }
+
+        public void Stop()
+        {
+            Enable = false;
+            if (_tcpClient.Connected)
+                _tcpClient.Close();
+            _tcpClient = null!;
         }
     }
 }
