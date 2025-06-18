@@ -1,4 +1,5 @@
 ﻿using Application.Common;
+using Application.Model;
 
 namespace Application.Modbus
 {
@@ -36,6 +37,12 @@ namespace Application.Modbus
 
         public ModbusDataType RegisterType => throw new NotImplementedException();
 
+        public int Index {  get; set; }
+
+        public ModbusMessage Message { get; set; }
+
+        public ModbusRegister Model { get; set; }
+
         public event EventHandler<ValueChangedEventArgs<object>> ValueChangedEvent;
         public event EventHandler<ValueReadedEventArgs<object>> ValueReadedEvent;
 
@@ -60,6 +67,26 @@ namespace Application.Modbus
         }
 
         public void WriteStringValue(string value)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void SetSingleValue(ushort[] value, int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void SetUnicodeValue(ushort[] value, int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void SetValue(byte[] data, int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void SetValue(ushort[] value, int index)
         {
             throw new NotImplementedException();
         }

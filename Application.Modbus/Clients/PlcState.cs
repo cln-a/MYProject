@@ -1,4 +1,5 @@
 ﻿using Application.Common;
+using CommonServiceLocator;
 using System.Net;
 using System.Net.Sockets;
 using System.Timers;
@@ -87,6 +88,7 @@ namespace Application.Modbus
                     _tcpClient = new TcpClient();
                     if (!string.IsNullOrEmpty(LocalIpAddress))
                         _tcpClient.Client.Bind(new IPEndPoint(IPAddress.Parse(LocalIpAddress), LocalPort));
+                    //主动向远程端口发起连接
                     _tcpClient.Connect(RemoteIpAddress, RemotePort);
                     SetConnected();
                 }
