@@ -57,6 +57,7 @@ namespace Application.Modbus
             try
             {
                 //谁主动发起连接（Connect）并且发出Modbus请求（如读写寄存器），谁就是主站
+                //改行代码用于创建一个ModbusTCP主站
             }
             catch (Exception ex)
             {
