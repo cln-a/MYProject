@@ -58,6 +58,8 @@ namespace Application.Modbus
             {
                 //谁主动发起连接（Connect）并且发出Modbus请求（如读写寄存器），谁就是主站
                 //改行代码用于创建一个ModbusTCP主站
+                _master = ModbusIpMaster.CreateIp(_plcState.Client);
+                ModbusClientConnectedEvent?.Invoke(this,new ModbusClientConnectedEventArgs(_modbusDevice,true));
             }
             catch (Exception ex)
             {
