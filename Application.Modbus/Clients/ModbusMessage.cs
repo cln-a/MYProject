@@ -12,6 +12,10 @@ namespace Application.Modbus
         protected List<ModbusVariable> _variables;
 
         public ushort StartAddress { get; set; }
+
+        /// <summary>
+        /// 寄存器长度
+        /// </summary>
         public ushort DataLength => _dataLength;
         public List<ModbusVariable> Variables => _variables;
         public ModbusDataType DataType {  get; set; }
@@ -70,7 +74,7 @@ namespace Application.Modbus
      *       Modbus 数据类型           单元大小          典型类型（T）              对应消息类          
      *  | ------------------------ | ------------  | -------------------- | -----------------  |
      *  | Coil / Discrete Input    | 1 bit（1 位）  | `bool`               | `BitMessage`       |
-     *  | Holding / Input Register | 16 bit（2 字节 | `ushort`（16位无符号） | `RegisterMessage`  |
+     *  | Holding / Input Register | 16 bit（2 字节） | `ushort`（16位无符号） | `RegisterMessage`  |
      */
 
     /// <summary>
@@ -82,7 +86,7 @@ namespace Application.Modbus
 
         public RegisterMessage(ModbusDataType dataType, ushort startAddress, ushort dataLength, List<ModbusVariable> modbusVariables)
             : base(dataType, startAddress, dataLength, modbusVariables)
-        //dataLength代表寄存器长度，一个寄存器长度是2字节（ushort也占用两字节），所以总共dataLength * 2字节
+        //dataLength代表寄存器长度，一个寄存器长度是2字节（ushort也占用两字节，byte为一字节），所以总共dataLength * 2字节
         //Modbus寄存器传输的数据是连续的ushort[](2字节*N)
         => Data = new byte[dataLength * 2];
 
@@ -121,7 +125,7 @@ namespace Application.Modbus
         {
         }
 
-        public void SetData(ushort[] value) 
+        public void SetData(bool[] value) 
         {
             foreach (var variable in _variables)
                 variable.SetValue(value, variable.Index);

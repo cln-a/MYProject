@@ -81,12 +81,12 @@ namespace Application.Modbus
             throw new NotImplementedException();
         }
 
-        internal void SetValue(byte[] data, int index)
+        internal void SetValue(bool[] data, int index)
         {
             throw new NotImplementedException();
         }
 
-        internal void SetValue(ushort[] value, int index)
+        internal void SetValue(byte[] data, int index)
         {
             throw new NotImplementedException();
         }
