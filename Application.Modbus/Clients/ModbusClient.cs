@@ -427,9 +427,62 @@ namespace Application.Modbus
 
         }
 
+        /// <summary>
+        /// 递归的将varList中的ModbusVariable按地址区间拆分为一系列RegisterMessage对象，加入到message列表中
+        /// </summary>
+        /// <param name="dataType">表示寄存器的数据类型（例如输入寄存器，保持寄存器等）</param>
+        /// <param name="messages">引用传入的消息列表，用于存储生成的RegisterMessage</param>
+        /// <param name="firstIndex">当前处理的起始索引</param>
+        /// <param name="varList">所有变量的列表，每个变量都包含一个Model，其定义了StartAddress和NumberOfPoints</param>
         private void InitRegisters(global::Modbus.Data.ModbusDataType dataType, ref List<RegisterMessage> messages, int firstIndex, List<ModbusVariable> varList)
         {
+            //获取起始变量
+            var first = varList[firstIndex];
+            if (first != null)
+            {
+                // 查找最大连续区域的末尾变量
+                var lastIndex = varList.FindLastIndex(x => x.Model.StartAddress + x.Model.NumberOfPoints <= first.Model.StartAddress + 100);
+                //如果找到合适的末尾变量，则合并生成一个RegisterMessage
+                if (lastIndex != -1)
+                {
+                    var last = varList[lastIndex];
+                    if (last != null)
+                    {
+                        var msg = new RegisterMessage(dataType,
+                            first.Model.StartAddress,
+                            (ushort)(last.Model.StartAddress + last.Model.NumberOfPoints - first.Model.StartAddress),
+                            varList.GetRange(firstIndex, lastIndex - firstIndex + 1));
+                        messages.Add(msg);
+                    }
+                    //递归处理剩余的变量
+                    if(lastIndex + 1< varList.Count)
+                        InitRegisters(dataType, ref messages, lastIndex + 1, varList);
+                }
+            }
+        }
 
+        private void InitBit(global::Modbus.Data.ModbusDataType dataType, ref List<BitMessage> messages, int firstIndex, List<ModbusVariable> varList)
+        {
+            var first = varList[firstIndex];
+            if (first != null)
+            {
+                var lastIndex = varList.FindLastIndex(x => x.Model.StartAddress + x.Model.NumberOfPoints <= first.Model.StartAddress + 100);
+                if (lastIndex != -1)
+                {
+                    var last = varList[lastIndex];
+                    if (last != null)
+                    {
+                        var msg = new BitMessage(dataType,
+                            first.Model.StartAddress,
+                            (ushort)(last.Model.StartAddress + last.Model.NumberOfPoints - first.Model.StartAddress),
+                            varList.GetRange(firstIndex, lastIndex - firstIndex + 1));
+                        messages.Add(msg);
+                    }
+                    //递归处理剩余的变量
+                    if (lastIndex + 1 < varList.Count)
+                        InitBit(dataType, ref messages, lastIndex + 1, varList);
+                }
+            }
         }
     }
 }

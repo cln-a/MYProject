@@ -1,47 +1,60 @@
 ﻿using Application.Common;
 using Application.Model;
+using CommonServiceLocator;
 
 namespace Application.Modbus
 {
     public class ModbusVariable : IVariable
     {
-        public int Id => throw new NotImplementedException();
+        private ModbusClient _client;
 
-        public string Path => throw new NotImplementedException();
+        public int Id => Model == null ? 0 : Model.Id;
 
-        public int DbNumber => throw new NotImplementedException();
+        public string Path => Model.RegisterUri;
 
-        public Type ValueType => throw new NotImplementedException();
+        public int DbNumber => 0; //not Used;
 
-        public object AnyValue => throw new NotImplementedException();
+        public Type ValueType => GetValueType();
 
-        public string DeviceName => throw new NotImplementedException();
+        public object AnyValue 
+        {
+            get => ReadAnyValue();
+            set => SetAnyValue(value);
+        }
 
-        public string ValueString => throw new NotImplementedException();
+        public string DeviceName => DeviceModel.DeviceName;
 
-        public bool IsEnabled => throw new NotImplementedException();
+        public string ValueString => GetValueString();
 
-        public bool Readable => throw new NotImplementedException();
+        public bool IsEnabled => Model.IsEnabled == true;
 
-        public bool Writable => throw new NotImplementedException();
+        public bool Readable => Model.Readable == true;
 
-        public int StartAddress => throw new NotImplementedException();
+        public bool Writable => Model.Writeable == true;
 
-        public int NumberOfPoints => throw new NotImplementedException();
+        public int StartAddress => Model == null ? 0 : Model.StartAddress;
 
-        public string Description => throw new NotImplementedException();
+        public int NumberOfPoints => Model == null ? 0 : Model.NumberOfPoints;
 
-        public bool IsConnected => throw new NotImplementedException();
+        public string Description => Model.Description;
 
-        public ValueDataType DataType => throw new NotImplementedException();
+        public bool IsConnected => Client.Connected == true;
 
-        public ModbusDataType RegisterType => throw new NotImplementedException();
+        public ValueDataType DataType => Model.ValueDataType;
+
+        public ModbusDataType RegisterType => Model == null ? ModbusDataType.HoldingRegister : Model.ModbusType;
 
         public int Index {  get; set; }
 
         public ModbusMessage Message { get; set; }
 
         public ModbusRegister Model { get; set; }
+
+        public ModbusDevice DeviceModel { get; set; }
+
+        public string VariableName => Model.RegisterName;
+
+        public ModbusClient Client => _client ?? ServiceLocator.Current.GetInstance<ModbusClient>(DeviceModel.DeviceUri.Trim());
 
         public event EventHandler<ValueChangedEventArgs<object>> ValueChangedEvent;
         public event EventHandler<ValueReadedEventArgs<object>> ValueReadedEvent;
@@ -87,6 +100,26 @@ namespace Application.Modbus
         }
 
         internal void SetValue(byte[] data, int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        private string GetValueString()
+        {
+            throw new NotImplementedException();
+        }
+
+        private Type GetValueType()
+        {
+            throw new NotImplementedException();
+        }
+
+        private object ReadAnyValue()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SetAnyValue(object value)
         {
             throw new NotImplementedException();
         }
