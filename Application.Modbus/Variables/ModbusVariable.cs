@@ -2,6 +2,7 @@
 using Application.Model;
 using CommonServiceLocator;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace Application.Modbus
 {
@@ -127,10 +128,46 @@ namespace Application.Modbus
 
         public int TypeSize => IsBoolType ? 1 : Marshal.SizeOf<T>();
 
-        public ModbusVariable(ModbusRegister register, ModbusDevice deviceModel) : base(register, deviceModel) { }
-
         public event EventHandler<ValueChangedEventArgs<T>> ValueTChangedEvent;
         public event EventHandler<ValueReadedEventArgs<T>> ValueTReadedEvent;
+
+        public ModbusVariable(ModbusRegister register, ModbusDevice deviceModel) : base(register, deviceModel) { }
+
+        /// <summary>
+        /// 将Value强制转换成泛型类型T，并返回这个值
+        /// </summary>
+        /// <typeparam name="T1"></typeparam>
+        /// <returns></returns>
+        public override T1 GetValue<T1>() => (T1)Convert.ChangeType(Value,typeof(T1));
+
+        public override T1 ReadValue<T1>()
+        {
+            ReadValueAsync();
+            return (T1)Convert.ChangeType(Value, typeof(T1));
+        }
+
+        public async Task ReadValueAsync()
+        {
+            try
+            {
+                if (Model.ModbusType == ModbusDataType.Coil)
+                {
+                    bool[] data = await Client.ReadMultipleCoilsAsync(Model);
+                    SetValue(data, 0);
+                }
+                else if (Model.ModbusType == ModbusDataType.HoldingRegister) 
+                {
+                    byte[] temp = new byte[Model.NumberOfPoints * 2];
+                    ushort[] data = await Client.ReadHoldingRegistersAsync(Model);
+                    SetValue(temp, 0);
+                }
+            }
+            catch(Exception ex)
+            {
+                //Logger
+                throw;
+            }
+        }
 
         public void WriteValue(T value, bool updateLocalStoreOption = true)
         {
