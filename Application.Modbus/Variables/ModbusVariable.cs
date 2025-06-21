@@ -1,6 +1,7 @@
 ﻿using Application.Common;
 using Application.Model;
 using CommonServiceLocator;
+using System.Runtime.InteropServices;
 
 namespace Application.Modbus
 {
@@ -16,7 +17,7 @@ namespace Application.Modbus
 
         public Type ValueType => GetValueType();
 
-        public object AnyValue 
+        public object AnyValue
         {
             get => ReadAnyValue();
             set => SetAnyValue(value);
@@ -44,7 +45,7 @@ namespace Application.Modbus
 
         public ModbusDataType RegisterType => Model == null ? ModbusDataType.HoldingRegister : Model.ModbusType;
 
-        public int Index {  get; set; }
+        public int Index { get; set; }
 
         public ModbusMessage Message { get; set; }
 
@@ -59,67 +60,84 @@ namespace Application.Modbus
         public event EventHandler<ValueChangedEventArgs<object>> ValueChangedEvent;
         public event EventHandler<ValueReadedEventArgs<object>> ValueReadedEvent;
 
-        public T GetValue<T>()
+        public ModbusVariable(ModbusRegister register, ModbusDevice deviceModel)
+        {
+            this.Model = register;
+            this.DeviceModel = deviceModel;
+        }
+
+        public virtual T GetValue<T>() => default!;
+
+        public virtual T ReadValue<T>() => default!;
+
+        public Task<T> ReadValueAsync<T>() => default!;
+
+        public virtual void WriteAnyValue(object value, bool updateLocalStoreOption = true) { }
+
+        public virtual void WriteStringValue(string value) { }
+
+        public virtual void SetSingleValue(ushort[] value, int index) { }
+
+        public virtual void SetUnicodeValue(ushort[] value, int index) { }
+
+        public virtual void SetValue(bool[] data, int index) { }
+
+        public virtual void SetValue(byte[] data, int index) { }
+
+        public virtual string GetValueString() => "";
+
+        public virtual Type GetValueType() => typeof(object);
+
+        public virtual object ReadAnyValue() => default!;
+
+        public virtual void SetAnyValue(object value) { }
+
+        protected void PublishChangedEvent(object oldVal, object newVal)
+        {
+            try
+            {
+                ValueChangedEvent?.Invoke(this, new ValueChangedEventArgs<object>(this, oldVal, newVal));
+            }
+            catch (Exception ex)
+            {
+                //Logger
+            }
+        }
+
+        protected void PublishReadedEvent(object value)
+        {
+            try
+            {
+                ValueReadedEvent?.Invoke(this, new ValueReadedEventArgs<object>(this, value));
+            }
+            catch (Exception ex)
+            {
+                //Logger
+            }
+        }
+    }
+
+    public class ModbusVariable<T> : ModbusVariable, IVriable<T> where T : IComparable
+    {
+        private T _value;
+
+        public T Value { get => _value; set => _value = value; }
+
+        public bool IsBoolType => typeof(bool) == typeof(T);
+
+        public int TypeSize => IsBoolType ? 1 : Marshal.SizeOf<T>();
+
+        public ModbusVariable(ModbusRegister register, ModbusDevice deviceModel) : base(register, deviceModel) { }
+
+        public event EventHandler<ValueChangedEventArgs<T>> ValueTChangedEvent;
+        public event EventHandler<ValueReadedEventArgs<T>> ValueTReadedEvent;
+
+        public void WriteValue(T value, bool updateLocalStoreOption = true)
         {
             throw new NotImplementedException();
         }
 
-        public T ReadValue<T>()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<T> ReadValueAsync<T>()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void WriteAnyValue(object value, bool updateLocalStoreOption = true)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void WriteStringValue(string value)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal void SetSingleValue(ushort[] value, int index)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal void SetUnicodeValue(ushort[] value, int index)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal void SetValue(bool[] data, int index)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal void SetValue(byte[] data, int index)
-        {
-            throw new NotImplementedException();
-        }
-
-        private string GetValueString()
-        {
-            throw new NotImplementedException();
-        }
-
-        private Type GetValueType()
-        {
-            throw new NotImplementedException();
-        }
-
-        private object ReadAnyValue()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void SetAnyValue(object value)
+        public void WriteValueAsync(T value)
         {
             throw new NotImplementedException();
         }
