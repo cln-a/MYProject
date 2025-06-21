@@ -2,6 +2,7 @@
 using Application.Model;
 using CommonServiceLocator;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.Modbus
@@ -146,7 +147,7 @@ namespace Application.Modbus
             return (T1)Convert.ChangeType(Value, typeof(T1));
         }
 
-        public async Task ReadValueAsync()
+        public async void ReadValueAsync()
         {
             try
             {
@@ -166,6 +167,160 @@ namespace Application.Modbus
             {
                 //Logger
                 throw;
+            }
+        }
+
+        public override void SetValue(bool[] data, int index) 
+        {
+            try
+            {
+                // 计算需要的字节数并初始化(因为bool值是bit级别的，要按8位一组装成byte数组)
+                var b_data = new byte[Model.NumberOfPoints / 8 + (Model.NumberOfPoints % 8 == 0 ? 0 : 1)];
+                //将bool打包成字节（bit编码）
+                //在Modbus中，线圈/离散输入是按位bit表示的，但数据在Modbus通讯中需要打包成字节（byte[]进行传输）
+                //外层循环：一个字节一组，每个字节最多可容纳8个bool值
+                for (int i = 0; i < b_data.Length; i++)
+                {
+                    b_data[i] = 0;
+                    //内层循环：一个字节的8个bit（这里每次处理一个字节中的bit位，最多8位）
+                    for (int j = 0; j < data.Length && j < 8 && index + i * 8 + j < data.Length; j++)
+                    {
+                        //如果这个bool值为true，就设置当前字节的第j位为1
+                        //（1<<j）是位移操作，表示第j位为1，其余为0
+                        // |=是按位与：将第j位设置为1，而其它位保持原样
+                        if (data[index + i * 8 + j])
+                            b_data[i] |= (byte)(1 << j);
+                    }
+                    if(typeof(T) == typeof(string))
+                        SetByteValue(b_data);
+                    else
+                    {
+                        if (!IsBoolType)
+                        {
+                            var tempData = new byte[TypeSize];
+                            int copyLength = new int[] { tempData.Length, b_data.Length }.Where(x => x != 0).Min();
+                            if (copyLength > 0)
+                            {
+                                Buffer.BlockCopy(data, index, tempData, 0, copyLength);
+                                SetByteValue(tempData);
+                            }
+                        }
+                        else
+                            SetValue((T)Convert.ChangeType(data[index], typeof(bool)));
+                    }
+                }
+            }
+            catch (Exception ex) 
+            {
+                //Logger
+            }
+        }
+
+        private void SetByteValue(byte[] b_data)
+        {
+            try
+            {
+                if (typeof(T) == typeof(string))
+                    SetValue(ConvertTo(ToString(b_data)));
+                else
+                {
+                    if (typeof(T) == typeof(bool))
+                        SetValue(ConvertTo(ToBoolean(b_data)));
+                    else if (typeof(T) == typeof(char))
+                        SetValue(ConvertTo((char)b_data[0]));
+                    else if (typeof(T) == typeof(byte))
+                        SetValue(ConvertTo(b_data[0]));
+                    else if (typeof(T) == typeof(sbyte))
+                        SetValue(ConvertTo((sbyte)b_data[0]));
+                    else if (typeof(T) == typeof(short))
+                        SetValue(ConvertTo(ToInt16(b_data)));
+                    else if (typeof(T) == typeof(ushort))
+                        SetValue(ConvertTo(ToUInt16(b_data)));
+                    else if (typeof(T) == typeof(int))
+                        SetValue(ConvertTo(ToInt32(b_data)));
+                    else if (typeof(T) == typeof(uint))
+                        SetValue(ConvertTo(ToUInt32(b_data)));
+                    else if (typeof(T) == typeof(long))
+                        SetValue(ConvertTo(ToInt64(b_data)));
+                    else if (typeof(T) == typeof(ulong))
+                        SetValue(ConvertTo(ToUInt64(b_data)));
+                    else if (typeof(T) == typeof(float))
+                        SetValue(ConvertTo(ToSingle(b_data)));
+                    else if (typeof(T) == typeof(double))
+                        SetValue(ConvertTo(ToDouble(b_data)));
+                    else
+                        throw new NotSupportedException("");
+                }
+            }
+            catch (Exception e)
+            {
+                //Logger
+                throw;
+            }
+        }
+
+        protected T ConvertTo<T2>(T2 newValue)
+        {
+            try
+            {
+                return (T)Convert.ChangeType(newValue, typeof(T))!;
+            }
+            catch(Exception ex)
+            {
+                //Logger
+            }
+            return default!;
+        }
+
+        protected virtual bool ToBoolean(byte[] data) => BitConverter.ToBoolean(data, 0);
+        protected virtual short ToInt16(byte[] data) => BitConverter.ToInt16(data, 0);
+        protected virtual ushort ToUInt16(byte[] data) => BitConverter.ToUInt16(data, 0);
+        protected virtual int ToInt32(byte[] data) => BitConverter.ToInt32(data, 0);
+        protected virtual uint ToUInt32(byte[] data) => BitConverter.ToUInt32(data, 0);
+        protected virtual long ToInt64(byte[] data) => BitConverter.ToInt64(data, 0);
+        protected virtual ulong ToUInt64(byte[] data) => BitConverter.ToUInt64(data, 0);
+        protected virtual float ToSingle(byte[] data) => BitConverter.ToSingle(data, 0);
+        protected virtual double ToDouble(byte[] data) => BitConverter.ToDouble(data, 0);
+        protected virtual string ToString(byte[] data)
+        {
+            var temp = new List<byte>();
+            for (int i = 0; i < data.Length; i++)
+            {
+                //从byte中提取有效的非空字符（遇到\0截断）
+                if (data[i] != '\0')
+                    temp.Add(data[i]);
+                else
+                    break;
+            }
+
+            if (DataType == ValueDataType.Unicode)
+                return Encoding.Unicode.GetString(temp.ToArray());
+            else
+                return Encoding.ASCII.GetString(temp.ToArray());
+        }
+
+        private void SetValue(T newValue)
+        {
+            try
+            {
+                T oldValue = default!;
+                if (_value is ICloneable cloneable)
+                    oldValue = (T)cloneable.Clone();
+                else
+                    oldValue = Value;
+                _value = newValue;
+                PublishReadedEvent(newValue);
+                if (oldValue != null)
+                {
+                    if (oldValue.CompareTo(newValue) != 0)
+                        PublishChangedEvent(oldValue, newValue);
+                }
+                else
+                    PublishChangedEvent(oldValue!, newValue);
+            }
+            catch (Exception ex) 
+            {
+                //Logger
             }
         }
 
