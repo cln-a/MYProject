@@ -127,6 +127,9 @@ namespace Application.Modbus
 
         public bool IsBoolType => typeof(bool) == typeof(T);
 
+        /// <summary>
+        /// Marshal.SizeOf<T>() 
+        /// </summary>
         public int TypeSize => IsBoolType ? 1 : Marshal.SizeOf<T>();
 
         public event EventHandler<ValueChangedEventArgs<T>> ValueTChangedEvent;
@@ -214,6 +217,11 @@ namespace Application.Modbus
             {
                 //Logger
             }
+        }
+
+        public override void SetValue(byte[] data, int index)
+        {
+
         }
 
         private void SetByteValue(byte[] b_data)
