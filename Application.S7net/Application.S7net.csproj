@@ -14,12 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Clients\" />
-    <Folder Include="Events\" />
-    <Folder Include="Exceptions\" />
-    <Folder Include="Options\" />
-    <Folder Include="Services\" />
-    <Folder Include="Variables\" />
+    <ProjectReference Include="..\Application.Common\Application.Common.csproj" />
   </ItemGroup>
 
 </Project>
