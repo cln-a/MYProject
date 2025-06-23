@@ -35,7 +35,7 @@
     {
         T Value { get; set; }
         void WriteValue(T value, bool updateLocalStoreOption = true);
-        void WriteValueAsync(T value);
+        Task WriteValueAsync(T value);
 
         event EventHandler<ValueChangedEventArgs<T>> ValueTChangedEvent;
         event EventHandler<ValueReadedEventArgs<T>> ValueTReadedEvent;

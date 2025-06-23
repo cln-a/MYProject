@@ -1,9 +1,9 @@
 ﻿using Application.Common;
 using Application.Model;
 using CommonServiceLocator;
+using System.Collections;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Modbus
 {
@@ -128,7 +128,7 @@ namespace Application.Modbus
         public bool IsBoolType => typeof(bool) == typeof(T);
 
         /// <summary>
-        /// Marshal.SizeOf<T>() 
+        /// Marshal.SizeOf<T>() 用来获取类型T在非托管内存中的大小
         /// </summary>
         public int TypeSize => IsBoolType ? 1 : Marshal.SizeOf<T>();
 
@@ -140,15 +140,22 @@ namespace Application.Modbus
         /// <summary>
         /// 将Value强制转换成泛型类型T，并返回这个值
         /// </summary>
-        /// <typeparam name="T1"></typeparam>
+        /// <typeparam name="T1"></typeparam>   
         /// <returns></returns>
-        public override T1 GetValue<T1>() => (T1)Convert.ChangeType(Value,typeof(T1));
+        public override T1 GetValue<T1>()
+        {
+            return (T1)Convert.ChangeType(Value, typeof(T1));
+        }
 
         public override T1 ReadValue<T1>()
         {
             ReadValueAsync();
             return (T1)Convert.ChangeType(Value, typeof(T1));
         }
+
+        public override Type GetValueType() => typeof(T);
+
+        public override string GetValueString() => Value?.ToString()!;
 
         public async void ReadValueAsync()
         {
@@ -172,6 +179,8 @@ namespace Application.Modbus
                 throw;
             }
         }
+
+        public override object ReadAnyValue() => Value;
 
         public override void SetValue(bool[] data, int index) 
         {
@@ -221,7 +230,75 @@ namespace Application.Modbus
 
         public override void SetValue(byte[] data, int index)
         {
+            try
+            {
+                if(typeof (T) == typeof(string))
+                {
+                    //NumberOfPoints表示读取了多少个寄存器
+                    //字符串在Modbus中通常是定长的ASCII和Unicode字节数组
+                    //没有固定的结束标志，可能以空字符\0结尾，也可能没有
+                    //为了完整的获取字符串，需要将所有相关寄存器的数据都读取出来
+                    var tempData = new byte[Model.NumberOfPoints * 2];
+                    Buffer.BlockCopy(data, index, tempData, 0, new int[] { tempData.Length, data.Length - index }.Min());
+                    SetByteValue(tempData);
+                }
+                else
+                {
+                    var tempData = new byte[TypeSize];
+                    int copyLength = new int[] { tempData.Length, Model.NumberOfPoints * 2, data.Length - index }.Where(x => x != 0).Min();
+                    if(copyLength > 0)
+                    {
+                        Buffer.BlockCopy(data, index, tempData, 0, copyLength);
+                        SetByteValue(tempData);
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                //Logger
+            }
+        }
 
+        /// <summary>
+        /// Modbus是基于16位(ushort)寄存器的协议
+        /// Modbus通讯中：
+        /// 每个寄存器是2个字节（16bit）
+        /// 所以ushort[] data就是寄存器数组
+        /// 而 Unicode（UTF-16）编码中，每个字符通常也是 2 字节（比如英文字符），对应刚好一个 ushort；
+        /// 因此，只要按顺序读取这些寄存器的原始内容，再还原为 byte[]，就可以直接用于 Unicode 解码。
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="index"></param>
+        public override void SetUnicodeValue(ushort[] data, int index)
+        {
+            var tempData = new byte[Model.NumberOfPoints * 2];
+            Buffer.BlockCopy(data, index * 2, tempData, 0, Model.NumberOfPoints * 2);
+            SetByteValue(tempData);
+        }
+
+        /// <summary>
+        /// Modbus每个寄存器是16位（2字节）
+        /// float和uint32类型占32位（4字节）
+        /// 所以读取一个float或uint32类型，需要连续读取2个寄存器，即4字节
+        /// 故此处产生大小端问题
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="index"></param>
+        public override void SetSingleValue(ushort[] data, int index)
+        {
+            var tempData = new byte[TypeSize];
+            int copyLength = new int[] { tempData.Length, Model.NumberOfPoints * 2, data.Length - index / 2 }.Where(x => x != 0).Min();
+            if (copyLength > 0)
+            {
+                Buffer.BlockCopy(data, index, tempData, 0, copyLength);
+                byte[] temp = new byte[tempData.Length];
+                temp[0] = tempData[2];
+                temp[1] = tempData[3];
+                temp[2] = tempData[0];
+                temp[3] = tempData[1];
+
+                SetByteValue(temp);
+            }
         }
 
         private void SetByteValue(byte[] b_data)
@@ -332,14 +409,231 @@ namespace Application.Modbus
             }
         }
 
-        public void WriteValue(T value, bool updateLocalStoreOption = true)
+        protected void PublishReadedEvent(T value)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ValueTReadedEvent?.Invoke(this, new ValueReadedEventArgs<T>(this, value));
+                base.PublishReadedEvent(value);
+            }
+            catch(Exception ex)
+            {
+                //Logger
+            }
         }
 
-        public void WriteValueAsync(T value)
+        protected void PublishChangedEvent(T oldvalue, T newvalue)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ValueTChangedEvent?.Invoke(this, new ValueChangedEventArgs<T>(this, oldvalue, newvalue));
+                base.PublishChangedEvent(oldvalue, newvalue);
+            }
+            catch (Exception ex) 
+            {
+                //Logger
+            }
         }
+
+        public void WriteValue(T value, bool updateLocalStoreOption = true)
+        {
+            try
+            {
+                if (Client.Connected && value != null) 
+                {
+                    if (!value.Equals(Value)) 
+                    {
+                        if(!Writable)
+                            throw new UnwriteableException(this);
+                        if (Model.ModbusType == ModbusDataType.Coil)
+                            Client.WriteValue(Model, GetBits(value));
+                        else if(Model.ModbusType == ModbusDataType.HoldingRegister) 
+                        {
+                            if (Model.ValueDataType == ValueDataType.Unicode)
+                                Client.WriteUnicodeValue(Model, GetUnicodeBytes(value), NumberOfPoints, value.ToString()!.Length);
+                            else if (Model.ValueDataType == ValueDataType.Single || Model.ValueDataType == ValueDataType.UInt32)
+                                Client.WriteSingleValue(Model, GetSingleBytes(value));
+                            else
+                                Client.WriteValue(Model, GetDoubleBytes(value));
+                        }
+                        //将value这个值写给plc之后也会将将这个值写入本地，更新Value属性
+                        if (updateLocalStoreOption)
+                            SetValue(value);
+                    }
+                }
+                else
+                    throw new Exception($"{Client.DeviceName}未连接!");
+            }
+            catch(Exception ex)
+            {
+                //Logger
+                throw;
+            }
+        }
+
+        public Task WriteValueAsync(T value)
+        {
+            try
+            {
+                if (Model.ModbusType == ModbusDataType.Coil)
+                    return Client.WriteValueAsync(Model, GetBits(value));
+                else if (Model.ModbusType == ModbusDataType.HoldingRegister)
+                    return Client.WriteValueAsync(Model, GetDoubleBytes(value));
+                return null!;
+            }
+            catch (Exception e)
+            {
+                //Logger
+                throw;
+            }
+        }
+
+        public override void WriteAnyValue(object value, bool updateLocalStoreOption = true)
+        {
+            try
+            {
+                if (value != null)
+                    WriteValue((T)Convert.ChangeType(value, typeof(T)), updateLocalStoreOption);
+                else
+                    WriteValue(default!, updateLocalStoreOption);
+            }
+            catch(Exception ex)
+            {
+                //Logger
+                throw;
+            }
+        }
+
+        public override void WriteStringValue(string value)
+        {
+            WriteValue((T)Convert.ChangeType(value, typeof(T)), true);
+        }
+
+        public override void SetAnyValue(object value)
+        {
+            WriteStringValue(value.ToString()!);
+        }
+
+        /// <summary>
+        /// 将泛型类型T的值Value转换成对应的字节数组byte[]，然后再展开为bool[](位数组)
+        /// 适用于Modbus等按位通信或解析场景
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        protected bool[] GetBits(T value)
+        {
+            //优化布尔值的处理，无需展开位
+            if (IsBoolType)
+                return new bool[1] { (bool)Convert.ChangeType(value, typeof(bool)) };
+            //BitArray用于按位存储true/false值
+            //它的构造函数BitArray(byte[])会将字节数组转换为位数组
+            //每个byte都会被拆解成8个二进制位，BitArray将其按位填充至数组
+            var bitArray = new BitArray(ConvertToBytes(value));
+            bool[] ret = new bool[bitArray.Length];
+            for (int i = 0; i < bitArray.Length; i++)
+                ret[i] = bitArray[i];
+            return ret;
+        }
+
+        /// <summary>
+        /// 所谓Double Bytes，也就是ushort
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        protected ushort[] GetDoubleBytes(T value)
+        {
+            //将值转换为字节数组
+            byte[] data = ConvertToBytes(value);
+            //声明用于装入Modbus数据的ushort[]（若byte[]长度为奇数，需要额外补一个寄存器装最后一个字节）
+            ushort[] ret = new ushort[data.Length / 2 + data.Length % 2];
+            Buffer.BlockCopy(data, 0, ret, 0, new int[] { data.Length, ret.Length * 2 }.Min());
+            return ret;
+        }
+
+        protected ushort[] GetSingleBytes(T value)
+        {
+            byte[] data = ConvertToBytes(value);
+            byte[] temp = new byte[data.Length];
+            temp[0] = data[2];
+            temp[1] = data[3];
+            temp[2] = data[0];
+            temp[3] = data[1];
+            ushort[] ret = new ushort[data.Length / 2 + data.Length % 2];
+            Buffer.BlockCopy(temp, 0, ret, 0, new int[] { temp.Length, ret.Length * 2 }.Min());
+            return ret;
+        }
+
+        protected ushort[] GetUnicodeBytes(T value)
+        {
+            //先将value转换为byte[]
+            var str = value.ToString();
+            var data = new byte[NumberOfPoints * 2];
+            Buffer.BlockCopy(Encoding.Unicode.GetBytes(str), 0, data, 0, str.Length * 2);
+            //再将bytep[]转换为ushort[]
+            var ret = new ushort[data.Length / 2];
+            Buffer.BlockCopy(data, 0, ret, 0, ret.Length * 2);
+            return ret;
+        }
+
+
+        /// <summary>
+        /// 字节转换逻辑，此处的Convert.To我认为是一种保护机制
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        protected byte[] ConvertToBytes(T value)
+        {
+            try
+            {
+                if (typeof(T) == typeof(bool))
+                    return GetBytes(Convert.ToBoolean(value));
+                else if (typeof(T) == typeof(char))
+                    return GetBytes(Convert.ToChar(value));
+                else if (typeof(T) == typeof(byte))
+                    return GetBytes(Convert.ToByte(value));
+                else if (typeof(T) == typeof(sbyte))
+                    return GetBytes(Convert.ToSByte(value));
+                else if (typeof(T) == typeof(short))
+                    return GetBytes(Convert.ToInt16(value));
+                else if (typeof(T) == typeof(ushort))
+                    return GetBytes(Convert.ToUInt16(value));
+                else if (typeof(T) == typeof(int))
+                    return GetBytes(Convert.ToInt32(value));
+                else if (typeof(T) == typeof(uint))
+                    return GetBytes(Convert.ToUInt32(value));
+                else if (typeof(T) == typeof(long))
+                    return GetBytes(Convert.ToInt64(value));
+                else if (typeof(T) == typeof(ulong))
+                    return GetBytes(Convert.ToUInt64(value));
+                else if (typeof(T) == typeof(float))
+                    return GetBytes(Convert.ToSingle(value));
+                else if (typeof(T) == typeof(double))
+                    return GetBytes(Convert.ToDouble(value));
+                else if (typeof(T) == typeof(string))
+                    return GetBytes(Convert.ToString(value)!);
+                return null!;
+            }
+            catch (Exception e)
+            {
+                //Logger
+                throw;
+            }
+        }
+
+        /*
+         * 对于所有数值类型，布尔，字符类型，使用BitConverter.GetBytes()生成对应的字节数组
+         */
+
+        protected virtual byte[] GetBytes(bool value) => BitConverter.GetBytes(value);
+        protected virtual byte[] GetBytes(char value) => BitConverter.GetBytes(value);
+        protected virtual byte[] GetBytes(short value) => BitConverter.GetBytes(value);
+        protected virtual byte[] GetBytes(ushort value) => BitConverter.GetBytes(value);
+        protected virtual byte[] GetBytes(int value) => BitConverter.GetBytes(value);
+        protected virtual byte[] GetBytes(uint value) => BitConverter.GetBytes(value);
+        protected virtual byte[] GetBytes(long value) => BitConverter.GetBytes(value);
+        protected virtual byte[] GetBytes(ulong value) => BitConverter.GetBytes(value);
+        protected virtual byte[] GetBytes(float value) => BitConverter.GetBytes(value);
+        protected virtual byte[] GetBytes(double value) => BitConverter.GetBytes(value);
+        protected virtual byte[] GetBytes(string value) => Encoding.ASCII.GetBytes(value);
     }
 }
