@@ -1,6 +1,4 @@
-﻿using System.Windows.Input;
-
-namespace Application.S7net
+﻿namespace Application.S7net
 {
     public class S7netMessage
     {

@@ -201,7 +201,7 @@ namespace Application.Modbus
                     //字符串在Modbus中通常是定长的ASCII和Unicode字节数组
                     //没有固定的结束标志，可能以空字符\0结尾，也可能没有
                     //为了完整的获取字符串，需要将所有相关寄存器的数据都读取出来
-                    var tempData = new byte[Model.NumberOfPoints * 2];
+                    var tempData = new byte[Model.NumberOfPoints * 2]; //每个寄存器两个字节
                     Buffer.BlockCopy(data, index, tempData, 0, new int[] { tempData.Length, data.Length - index }.Min());
                     SetByteValue(tempData);
                 }
@@ -329,6 +329,15 @@ namespace Application.Modbus
         protected virtual ulong ToUInt64(byte[] data) => BitConverter.ToUInt64(data, 0);
         protected virtual float ToSingle(byte[] data) => BitConverter.ToSingle(data, 0);
         protected virtual double ToDouble(byte[] data) => BitConverter.ToDouble(data, 0);
+        /// <summary>
+        /// 每个寄存器为 16 位（2 字节）；
+        /// 没有明确的数据类型（数据类型是逻辑层决定的）；
+        /// 字符串是手动通过多个寄存器组合的，通常是定长的；
+        /// 读取字符串时需要 全部相关寄存器，否则数据不完整；
+        /// 字符串可能以 \0 结尾，也可能没有结尾标志
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         protected virtual string ToString(byte[] data)
         {
             var temp = new List<byte>();
