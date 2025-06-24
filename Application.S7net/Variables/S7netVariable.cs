@@ -83,7 +83,9 @@ namespace Application.S7net
 
     public class S7netVariable<T> : S7netVariable, IVariable<T> where T : IComparable
     {
-        public T Value { get; set; }
+        private T _value;
+
+        public T Value { get => _value; set => this._value = value; }
         
         public event EventHandler<ValueChangedEventArgs<T>>? ValueTChangedEvent;
         public event EventHandler<ValueReadedEventArgs<T>>? ValueTReadedEvent;
