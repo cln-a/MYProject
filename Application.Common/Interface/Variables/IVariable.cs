@@ -31,7 +31,7 @@
         event EventHandler<ValueReadedEventArgs<object>> ValueReadedEvent;
     }
 
-    public interface IVriable<T> : IVariable where T : IComparable
+    public interface IVariable<T> : IVariable where T : IComparable
     {
         T Value { get; set; }
         void WriteValue(T value, bool updateLocalStoreOption = true);

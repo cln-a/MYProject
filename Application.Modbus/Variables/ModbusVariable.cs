@@ -72,7 +72,7 @@ namespace Application.Modbus
 
         public virtual T ReadValue<T>() => default!;
 
-        public Task<T> ReadValueAsync<T>() => default!;
+        public Task<T> ReadValueAsync<T>() => null!;
 
         public virtual void WriteAnyValue(object value, bool updateLocalStoreOption = true) { }
 
@@ -119,7 +119,7 @@ namespace Application.Modbus
         }
     }
 
-    public class ModbusVariable<T> : ModbusVariable, IVriable<T> where T : IComparable
+    public class ModbusVariable<T> : ModbusVariable, IVariable<T> where T : IComparable
     {
         private T _value;
 

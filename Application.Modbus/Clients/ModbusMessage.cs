@@ -59,6 +59,8 @@ namespace Application.Modbus
                     if (modbusVariables[i].DataType == Common.ValueDataType.Unicode)
                         modbusVariables[i].Index = (modbusVariables[i].Model.StartAddress - modbusVariables[0].Model.StartAddress);
                     //其他如 int, short，按字节大小乘计算偏移。
+                    //每个Modbus：Holding Register = 16位 = 2字节，乘以Marshal.SizeOf<T>()的原因是需要从寄存器偏移转换为字节偏移。
+                    //操作一格一格的方块内存，每块2字节：你知道要去第N个方块，但不知道每个变量占多少个字节，所以要算
                     else
                         modbusVariables[i].Index = (modbusVariables[i].Model.StartAddress - modbusVariables[0].Model.StartAddress) * Marshal.SizeOf<T>();
                 else
