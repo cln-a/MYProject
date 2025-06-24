@@ -20,7 +20,8 @@ namespace Application.S7net
         public bool IsEnabled { get; }
         public bool Readable { get; }
         public bool Writable { get; }
-        public int StartAddress { get; }
+        int IVariable.StartAddress { get; }
+        public ushort StartAddress { get; }
         public int NumberOfPoints { get; }
         public string Description { get; }
         public bool IsConnected { get; }
