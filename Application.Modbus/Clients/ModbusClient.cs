@@ -1,4 +1,5 @@
 using Application.Common;
+using Application.IDAL;
 using Application.Model;
 using CommonServiceLocator;
 using Modbus.Device;
@@ -424,7 +425,39 @@ namespace Application.Modbus
         /// </summary>
         public void Init()
         {
-
+            if (_variables == null)
+                _variables = new List<ModbusVariable>();
+            else
+                _variables.Clear();
+            var registerDAL = ServiceLocator.Current.GetInstance<IModbusRegisterDAL>();
+            var tempList = registerDAL.GetAllReadableByDeviceId(_modbusDevice.Id);
+            var readList = tempList.OrderBy(x=>x.StartAddress).ToList();
+            foreach ( var item in readList ) 
+            {
+                if (IO.TryGet(item.RegisterUri.Trim(), out ModbusVariable variable))
+                    _variables.Add(variable);
+            }
+            var groupList = _variables.GroupBy(x => x.Model.ModbusType);
+            foreach (var group in groupList)
+            {
+                switch ((global::Modbus.Data.ModbusDataType)(group.Key))
+                {
+                    case global::Modbus.Data.ModbusDataType.HoldingRegister:
+                        InitRegisters(global::Modbus.Data.ModbusDataType.HoldingRegister, ref _holdingRegisters, 0, group.ToList());
+                        break;
+                    case global::Modbus.Data.ModbusDataType.InputRegister:
+                        InitRegisters(global::Modbus.Data.ModbusDataType.InputRegister, ref _inputRegisters, 0, group.ToList());
+                        break;
+                    case global::Modbus.Data.ModbusDataType.Coil:
+                        InitBit(global::Modbus.Data.ModbusDataType.Coil, ref _coils, 0, group.ToList());
+                        break;
+                    case global::Modbus.Data.ModbusDataType.Input:
+                        InitBit(global::Modbus.Data.ModbusDataType.Input, ref _inputs, 0, group.ToList());
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
         /// <summary>

@@ -1,5 +1,7 @@
 ﻿using Application.Common;
+using Application.DAL;
 using Application.Model;
+using CommonServiceLocator;
 using S7.Net;
 using System.Runtime.CompilerServices;
 
@@ -181,7 +183,26 @@ namespace Application.S7net
         /// </summary>
         public void Init()
         {
-
+            if (_variables == null)
+                _variables = [];
+            else
+                _variables.Clear();
+            var registerBLL = ServiceLocator.Current.GetInstance<S7netRegisterDAL>();
+            try
+            {
+                var tempList = registerBLL.GetAllReadableByDeviceId(_s7netDevice.Id);
+                var readList = tempList.OrderBy(x => x.StartAddress).ToList();
+                foreach (var item in readList)
+                {
+                    if (IO.TryGet(item.RegisterUri.Trim(), out S7netVariable variable))
+                        _variables.Add(variable);
+                }
+                InitRegisters(ref _s7Messages, 0, _variables);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         private void InitRegisters(ref List<RegisterMessage> messages, int firstIndex, List<S7netVariable> varList)

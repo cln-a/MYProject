@@ -11,5 +11,17 @@ namespace Application.DAL
             : base(sqlSugarClient)
         {
         }
+
+        public List<S7netRegister> GetAllReadableByDeviceId(int deviceId)
+        {
+            try
+            {
+                return SqlSugarClient.Queryable<S7netRegister>().Where(x => x.DeviceId == deviceId && x.Readable).ToList();
+            }
+            catch (System.Exception e)
+            {
+                throw;
+            }
+        }
     }
 }

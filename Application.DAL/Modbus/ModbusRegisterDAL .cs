@@ -11,5 +11,18 @@ namespace Application.DAL
             : base(sqlSugarClient)
         {
         }
+
+        public List<ModbusRegister> GetAllReadableByDeviceId(int deviceId)
+        {
+            try
+            {
+                return SqlSugarClient.Queryable<ModbusRegister>().Where(x => x.DeviceId == deviceId && x.Readable).ToList();
+            }
+            catch(Exception e)
+            {
+                //Logger
+                throw;
+            }
+        }
     }
 }
