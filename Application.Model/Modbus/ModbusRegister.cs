@@ -1,7 +1,9 @@
 ﻿using Application.Common;
+using SqlSugar;
 
 namespace Application.Model
 {
+    [SugarTable]
     public class ModbusRegister : BaseDomain
     {
         protected int _deviceId;
@@ -17,6 +19,7 @@ namespace Application.Model
         /// <summary>
         /// 寄存器对应设备
         /// </summary>
+        [SugarColumn]
         public int DeviceId
         {
             get => _deviceId;
@@ -26,6 +29,7 @@ namespace Application.Model
         /// <summary>
         /// 寄存器唯一路径标识符
         /// </summary>
+        [SugarColumn]
         public string? RegisterUri
         {
             get => _registerUri;
@@ -35,6 +39,7 @@ namespace Application.Model
         /// <summary>
         /// 寄存器唯一路径标识符
         /// </summary>
+        [SugarColumn]
         public string? RegisterName
         {
             get => _registerName;
@@ -44,6 +49,7 @@ namespace Application.Model
         /// <summary>
         /// 数据类型
         /// </summary>
+        [SugarColumn]
         public ValueDataType ValueDataType
         {
             get => _valueDataType;
@@ -53,6 +59,7 @@ namespace Application.Model
         /// <summary>
         /// Modbus寄存器类别
         /// </summary>
+        [SugarColumn]
         public ModbusDataType ModbusType
         {
             get => _modbusType;
@@ -62,6 +69,7 @@ namespace Application.Model
         /// <summary>
         /// Modbus寄存器起始地址
         /// </summary>
+        [SugarColumn]
         public ushort StartAddress
         {
             get => _startAddress;
@@ -71,6 +79,7 @@ namespace Application.Model
         /// <summary>
         /// 寄存器数量
         /// </summary>
+        [SugarColumn]
         public ushort NumberOfPoints
         {
             get => _numberOfPoints;
@@ -80,6 +89,7 @@ namespace Application.Model
         /// <summary>
         /// 可读
         /// </summary>
+        [SugarColumn]
         public bool Readable
         {
             get => _readable;
@@ -89,6 +99,7 @@ namespace Application.Model
         /// <summary>
         /// 可写
         /// </summary>
+        [SugarColumn]
         public bool Writeable
         {
             get => _writeable;

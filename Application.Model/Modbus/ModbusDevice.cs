@@ -1,5 +1,8 @@
-﻿namespace Application.Model
+﻿using SqlSugar;
+
+namespace Application.Model
 {
+    [SugarTable]
     public class ModbusDevice : BaseDomain
     {
         protected string? _deviceUri;
@@ -16,6 +19,7 @@
         /// <summary>
         /// 设备唯一标识符
         /// </summary>
+        [SugarColumn]
         public string? DeviceUri
         {
             get => _deviceUri;
@@ -25,6 +29,7 @@
         /// <summary>
         /// 设备唯一标识符
         /// </summary>
+        [SugarColumn]
         public string? DeviceName
         {
             get => _deviceName;
@@ -34,6 +39,7 @@
         /// <summary>
         /// 远程端口
         /// </summary>
+        [SugarColumn]
         public string? RemoteIpAddress
         {
             get => _remoteIpAddress;
@@ -43,6 +49,7 @@
         /// <summary>
         /// 本地端口
         /// </summary>
+        [SugarColumn]
         public string? LocalIpAddress
         {
             get => _localIpAddress;
@@ -52,6 +59,7 @@
         /// <summary>
         /// 从机Id
         /// </summary>
+        [SugarColumn]
         public byte slaveId
         {
             get => _slaveId;
@@ -61,6 +69,7 @@
         /// <summary>
         /// 远程端口
         /// </summary>
+        [SugarColumn]
         public int RemotePort
         {
             get => _remotePort;
@@ -70,6 +79,7 @@
         /// <summary>
         /// 本地端口
         /// </summary>
+        [SugarColumn]
         public int LocalPort
         {
             get => _localPort;
@@ -79,6 +89,7 @@
         /// <summary>
         /// 重连间隔
         /// </summary>
+        [SugarColumn]
         public int ReconnectInterval
         {
             get => _reconnectInterval;
@@ -88,6 +99,7 @@
         /// <summary>
         /// 读取间隔
         /// </summary>
+        [SugarColumn]
         public int ReadInterval
         {
             get => _readInterval;
@@ -97,6 +109,7 @@
         /// <summary>
         /// 设备品牌
         /// </summary>
+        [SugarColumn]
         public string? DeviceBrand
         {
             get => _deviceBrand;

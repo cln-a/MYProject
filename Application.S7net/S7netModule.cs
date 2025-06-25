@@ -1,5 +1,4 @@
-﻿
-namespace Application.S7net
+﻿namespace Application.S7net
 {
     public class S7netModule : IModule
     {
@@ -10,7 +9,7 @@ namespace Application.S7net
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-
+            IUnityContainer unityContainer = containerRegistry.GetContainer();
         }
     }
 }

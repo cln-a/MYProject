@@ -1,6 +1,6 @@
-﻿namespace Application.Modbus
+﻿namespace Application.DAL
 {
-    public class ModbusModule : IModule
+    public class DALModule : IModule
     {
         public void OnInitialized(IContainerProvider containerProvider)
         {
