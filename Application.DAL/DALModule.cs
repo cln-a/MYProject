@@ -27,7 +27,7 @@ namespace Application.DAL
                 {
                     if (sqliteOption.IsEnabled)
                     {
-                        unityContainer.RegisterInstance<ISqlSugarClient>(sqliteOption.ConnectionName,
+                        unityContainer.RegisterInstance<ISqlSugarClient>(sqliteOption.ConnectionName.Trim(),
                             new SqlSugarClient(new ConnectionConfig() 
                             { 
                                 DbType = DbType.Sqlite, 

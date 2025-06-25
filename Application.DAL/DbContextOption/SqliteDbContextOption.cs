@@ -9,6 +9,6 @@ namespace Application.DAL
         public new SqliteDbContextOption Value => this;
 
         public string ConnectionString => 
-            $"Data Source={Path.Combine(Environment.CurrentDirectory, DBFileName)};";
+            $"Data Source={Path.Combine(Environment.CurrentDirectory, DBFileName!)};";
     }
 }

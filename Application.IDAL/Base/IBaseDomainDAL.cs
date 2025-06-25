@@ -2,7 +2,8 @@
 
 namespace Application.IDAL
 {
-    public interface IBaseDomainDAL<DomainType> where DomainType : BaseDomain
+    public interface IBaseDomainDAL<DomainType> 
     {
+        void CreateTable();
     }
 }
