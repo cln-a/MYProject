@@ -1,5 +1,6 @@
 ﻿using Application.Common;
 using Application.DAL;
+using Application.Login;
 using Application.Main;
 using ApplicationFrameWork.Views;
 using Prism.Common;
@@ -43,6 +44,7 @@ namespace ApplicationFrameWork
         {
             moduleCatalog.AddModule<DALModule>();
             moduleCatalog.AddModule<ApplicationMainModule>();
+            moduleCatalog.AddModule<ApplicationLoginModule>();
         }
     }
 }

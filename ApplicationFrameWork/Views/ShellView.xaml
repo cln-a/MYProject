@@ -12,6 +12,7 @@
     Width="800"
     Height="450"
     prism:ViewModelLocator.AutoWireViewModel="True"
+    Loaded="MetroWindow_Loaded"
     WindowStartupLocation="CenterScreen"
     WindowState="Maximized"
     mc:Ignorable="d">
