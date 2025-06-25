@@ -1,7 +1,9 @@
-﻿using System.Windows;
+﻿using Application.Common;
 using Application.DAL;
+using Application.Main;
 using ApplicationFrameWork.Views;
 using Prism.Common;
+using System.Windows;
 
 namespace ApplicationFrameWork
 {
@@ -40,7 +42,7 @@ namespace ApplicationFrameWork
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
             moduleCatalog.AddModule<DALModule>();
+            moduleCatalog.AddModule<ApplicationMainModule>();
         }
     }
-
 }

@@ -1,15 +1,21 @@
-<Window
+<mah:MetroWindow
     x:Class="ApplicationFrameWork.Views.ShellView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:common="clr-namespace:Application.Common;assembly=Application.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ApplicationFrameWork.Views"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
     Title="ShellView"
     Width="800"
     Height="450"
     prism:ViewModelLocator.AutoWireViewModel="True"
+    WindowStartupLocation="CenterScreen"
+    WindowState="Maximized"
     mc:Ignorable="d">
-    <Grid />
-</Window>
+    <Grid>
+        <ContentControl prism:RegionManager.RegionName="{x:Static common:ConstName.MainRegion}" />
+    </Grid>
+</mah:MetroWindow>
