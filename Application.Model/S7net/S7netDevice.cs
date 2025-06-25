@@ -45,7 +45,7 @@
         public int RemotePort 
         { 
             get => _remotePort; 
-            set => SetProperty(ref _remotePort, value); 
+            set => _remotePort = value;
         }
 
         /// <summary>
@@ -54,7 +54,7 @@
         public short DeviceRack 
         { 
             get => _deviceRack; 
-            set => SetProperty(ref _deviceRack, value);
+            set => _deviceRack = value;
         }
 
         /// <summary>
@@ -63,7 +63,7 @@
         public short DeviceSlot 
         { 
             get => _deviceSlot; 
-            set => SetProperty(ref _deviceSlot, value); 
+            set => _deviceSlot = value;
         }
 
         /// <summary>
@@ -72,7 +72,7 @@
         public int ReconnectInterval 
         {
             get => _reconnectInterval;
-            set => SetProperty(ref _reconnectInterval, value); 
+            set => _reconnectInterval = value;
         }
 
         /// <summary>
@@ -81,7 +81,7 @@
         public int ReadInterval 
         {
             get => _readInterval; 
-            set => SetProperty(ref _readInterval, value); 
+            set => _readInterval = value;
         }
 
         /// <summary>
@@ -90,7 +90,7 @@
         public string? DeviceBrand 
         { 
             get => _deviceBrand; 
-            set => SetProperty(ref _deviceBrand, value); 
+            set => _deviceBrand = value;
         }
     }
 }

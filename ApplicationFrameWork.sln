@@ -17,6 +17,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.S7net", "Applic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S7.Net", "S7.Net\S7.Net.csproj", "{D78F17EC-A83A-4650-AA79-B21378698A66}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Communication", "Communication", "{D0C737FB-F339-445A-8BE6-8B5106358AFE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Protocol", "Protocol", "{1704C3CC-BD92-4E4B-8A08-31860941F74F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{A4557402-8AE0-4420-8347-8EEED2B04A51}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +60,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2501CE4A-3F4F-4E77-B6FD-7C3FEEC8C8E2} = {D0C737FB-F339-445A-8BE6-8B5106358AFE}
+		{10F535E5-F8F1-4FE7-AF07-9E604EA88662} = {A4557402-8AE0-4420-8347-8EEED2B04A51}
+		{BFC93E9E-7DF1-DE76-A516-6A8B8191BBCE} = {1704C3CC-BD92-4E4B-8A08-31860941F74F}
+		{9A8E0233-C3F4-428D-A748-9DE9E9D37AC0} = {D0C737FB-F339-445A-8BE6-8B5106358AFE}
+		{D78F17EC-A83A-4650-AA79-B21378698A66} = {1704C3CC-BD92-4E4B-8A08-31860941F74F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {03FAA2E3-B831-4B51-9E55-9E41C3365066}

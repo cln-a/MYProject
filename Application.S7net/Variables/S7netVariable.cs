@@ -14,13 +14,13 @@ namespace Application.S7net
         public S7netMessage Message { get; set; }
         public S7netRegister RegisterModel { get; set; }
         public S7netDevice DeviceModel { get; set; }
-        public S7netClient Client => _client ?? ServiceLocator.Current.GetInstance<S7netClient>(DeviceModel.DeviceUri.Trim());
+        public S7netClient Client => _client ?? ServiceLocator.Current.GetInstance<S7netClient>(DeviceModel.DeviceUri!.Trim());
         public int Id => RegisterModel == null ? 0 : RegisterModel.Id;
         public string Path => RegisterModel?.RegisterUri!;
         public int DbNumber => RegisterModel.DbNumber;
         public Type ValueType => GetValueType();
         public object AnyValue { get => ReadAnyValue(); set => SetAnyValue(value); }
-        public string DeviceName => DeviceModel.DeviceName;
+        public string DeviceName => DeviceModel.DeviceName!;
         public string ValueString => GetValueString();
         public bool IsEnabled => RegisterModel.IsEnabled;
         public bool Readable => RegisterModel.Readable == true;
@@ -28,7 +28,7 @@ namespace Application.S7net
         int IVariable.StartAddress => RegisterModel.StartAddress;
         public ushort StartAddress => RegisterModel == null ? (ushort)0 : RegisterModel.StartAddress;
         public int NumberOfPoints => RegisterModel == null ? 0 : RegisterModel.NumberOfPoints;
-        public string Description => RegisterModel.Description;
+        public string Description => RegisterModel.Description!;
         public bool IsConnected => Client?.Connected == true;
         public ValueDataType DataType => RegisterModel.ValueDataType;
         public ModbusDataType RegisterType => ModbusDataType.Input;
