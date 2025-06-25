@@ -9,9 +9,9 @@ namespace Application.Modbus
            ModbusRegister register, ModbusDevice device) where T : IComparable
         {
             if (!string.IsNullOrEmpty(device.DeviceBrand))
-                IO.Add(register.RegisterUri.Trim(), new ModbusVariable<T>(register, device));
+                IO.Add(register.RegisterUri!.Trim(), new ModbusVariable<T>(register, device));
             else
-                IO.Add(register.RegisterUri.Trim(), new ModbusVariable<T>(register, device));
+                IO.Add(register.RegisterUri!.Trim(), new ModbusVariable<T>(register, device));
         }
 
         public static void RegisterVariableType(this IUnityContainer container,

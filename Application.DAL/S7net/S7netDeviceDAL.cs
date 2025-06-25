@@ -1,6 +1,8 @@
-﻿namespace Application.DAL
+﻿using Application.IDAL;
+
+namespace Application.DAL
 {
-    public class S7netDeviceDAL
+    public class S7netDeviceDAL : IS7netDeviceDAL
     {
     }
 }

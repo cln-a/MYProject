@@ -1,0 +1,9 @@
+﻿{
+  "sqlitesqls": [
+    {
+      "IsEnabled": true,
+      "ConnectionName": "ApplicationDataBase",
+      "DBFileName": "ApplicationDataBase.db"
+    }
+  ]
+}

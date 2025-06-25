@@ -1,6 +1,8 @@
-﻿namespace Application.IDAL
+﻿using Application.Model;
+
+namespace Application.IDAL
 {
-    public interface IModbusRegisterDAL 
+    public interface IModbusRegisterDAL : IBaseDomainDAL<ModbusRegister>
     {
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Application.IDAL
 {
-    public interface IModbusDeviceDAL 
+    public interface IModbusDeviceDAL : IBaseDomainDAL<ModbusDevice>
     {
     }
 }

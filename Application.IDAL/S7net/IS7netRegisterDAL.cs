@@ -1,6 +1,8 @@
-﻿namespace Application.IDAL
+﻿using Application.Model;
+
+namespace Application.IDAL
 {
-    public interface IS7netRegisterDAL
+    public interface IS7netRegisterDAL : IBaseDomainDAL<S7netRegister>
     {
     }
 }

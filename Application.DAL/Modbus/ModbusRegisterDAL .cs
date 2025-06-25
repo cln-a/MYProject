@@ -1,6 +1,8 @@
-﻿namespace Application.DAL
+﻿using Application.IDAL;
+
+namespace Application.DAL
 {
-    public class ModbusRegisterDAL
+    public class ModbusRegisterDAL : IModbusRegisterDAL
     {
     }
 }
