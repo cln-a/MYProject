@@ -1,42 +1,42 @@
 ﻿namespace Application.Model
 {
-    public class S7netDevice : BaseDomain<int>
+    public class S7netDevice : BaseDomain
     {
-        protected string _deviceUri;
-        protected string _deviceName;
-        protected string _remoteIpAddress;
+        protected string? _deviceUri;
+        protected string? _deviceName;
+        protected string? _remoteIpAddress;
         protected int _remotePort;
         protected short _deviceRack;
         protected short _deviceSlot;
         protected int _reconnectInterval;
         protected int _readInterval;
-        protected string _deviceBrand;
+        protected string? _deviceBrand;
 
         /// <summary>
         /// 设备唯一标识符
         /// </summary>
-        public string DeviceUri 
+        public string? DeviceUri 
         { 
             get => _deviceUri; 
-            set => SetProperty(ref _deviceUri, value); 
+            set => _deviceUri = value;
         }
 
         /// <summary>
         /// 设备名称
         /// </summary>
-        public string DeviceName 
+        public string? DeviceName 
         { 
             get => _deviceName; 
-            set => SetProperty(ref _deviceName, value); 
+            set => _deviceName = value;
         }
 
         /// <summary>
         /// 远程IP
         /// </summary>
-        public string RemoteIpAddress 
+        public string? RemoteIpAddress 
         { 
             get => _remoteIpAddress; 
-            set => SetProperty(ref _remoteIpAddress, value); 
+            set => _remoteIpAddress = value;
         }
 
         /// <summary>
@@ -87,7 +87,7 @@
         /// <summary>
         /// 设备品牌
         /// </summary>
-        public string DeviceBrand 
+        public string? DeviceBrand 
         { 
             get => _deviceBrand; 
             set => SetProperty(ref _deviceBrand, value); 

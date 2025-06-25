@@ -2,11 +2,11 @@
 
 namespace Application.Model
 {
-    public class ModbusRegister : BaseDomain<int>
+    public class ModbusRegister : BaseDomain
     {
         protected int _deviceId;
-        protected string _registerUri;
-        protected string _registerName;
+        protected string? _registerUri;
+        protected string? _registerName;
         protected ValueDataType _valueDataType;
         protected ModbusDataType _modbusType;
         protected ushort _startAddress;
@@ -20,25 +20,25 @@ namespace Application.Model
         public int DeviceId
         {
             get => _deviceId;
-            set => SetProperty(ref _deviceId, value);
+            set => _deviceId = value;
         }
 
         /// <summary>
         /// 寄存器唯一路径标识符
         /// </summary>
-        public string RegisterUri
+        public string? RegisterUri
         {
             get => _registerUri;
-            set => SetProperty(ref _registerUri, value);
+            set => _registerUri = value;
         }
 
         /// <summary>
         /// 寄存器唯一路径标识符
         /// </summary>
-        public string RegisterName
+        public string? RegisterName
         {
             get => _registerName;
-            set => SetProperty(ref _registerName, value);
+            set => _registerName = value;
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace Application.Model
         public ValueDataType ValueDataType
         {
             get => _valueDataType;
-            set => SetProperty(ref _valueDataType, value);
+            set => _valueDataType = value;
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace Application.Model
         public ModbusDataType ModbusType
         {
             get => _modbusType;
-            set => SetProperty(ref _modbusType, value);
+            set => _modbusType = value;
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Application.Model
         public ushort StartAddress
         {
             get => _startAddress;
-            set => SetProperty(ref _startAddress, value);
+            set => _startAddress = value;
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace Application.Model
         public ushort NumberOfPoints
         {
             get => _numberOfPoints;
-            set => SetProperty(ref _numberOfPoints, value);
+            set => _numberOfPoints = value;
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace Application.Model
         public bool Readable
         {
             get => _readable;
-            set => SetProperty(ref _readable, value);
+            set => _readable = value;
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace Application.Model
         public bool Writeable
         {
             get => _writeable;
-            set => SetProperty(ref _writeable, value);
+            set => _writeable = value;
         }
     }
 }
