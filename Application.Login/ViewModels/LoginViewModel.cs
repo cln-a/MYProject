@@ -1,4 +1,4 @@
-﻿namespace Application.Login.ViewModels
+﻿namespace Application.Login
 {
     public class LoginViewModel : BindableBase
     {

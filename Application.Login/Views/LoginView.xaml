@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
     xmlns:behavior="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:viewmodel="clr-namespace:Application.Login.ViewModels"
+    xmlns:viewmodel="clr-namespace:Application.Login"
     xmlns:common="clr-namespace:Application.Common;assembly=Application.Common"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"

@@ -1,7 +1,7 @@
-﻿using Application.Common;
-using Application.DAL;
+﻿using Application.DAL;
 using Application.Login;
 using Application.Main;
+using ApplicationFrame.Core;
 using ApplicationFrameWork.Views;
 using Prism.Common;
 using System.Windows;
