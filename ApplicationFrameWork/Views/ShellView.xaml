@@ -8,14 +8,21 @@
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
+    xmlns:behavior="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:viewmodel="clr-namespace:ApplicationFrameWork.ViewModels"
+    d:DataContext="{d:DesignInstance viewmodel:ShellViewModel}"
     Title="ShellView"
     Width="800"
     Height="450"
     prism:ViewModelLocator.AutoWireViewModel="True"
-    Loaded="MetroWindow_Loaded"
     WindowStartupLocation="CenterScreen"
     WindowState="Maximized"
     mc:Ignorable="d">
+    <behavior:Interaction.Triggers>
+        <behavior:EventTrigger EventName="Loaded">
+            <behavior:InvokeCommandAction Command="{Binding ShellLoadCommand}"/>
+        </behavior:EventTrigger>
+    </behavior:Interaction.Triggers>
     <Grid>
         <ContentControl prism:RegionManager.RegionName="{x:Static common:ConstName.MainRegion}" />
     </Grid>
