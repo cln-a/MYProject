@@ -12,7 +12,6 @@ namespace Application.Main
 
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            _moduleManager.LoadModule(ConstName.ApplicationImageModule);
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
