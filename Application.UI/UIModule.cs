@@ -1,4 +1,5 @@
-﻿
+﻿using Application.Common;
+
 namespace Application.UI
 {
     public class UIModule : IModule
@@ -9,6 +10,8 @@ namespace Application.UI
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            IUnityContainer unityContainer = containerRegistry.GetContainer();
+            unityContainer.RegisterSingleton<ILanguageManager, LanguageManager>();
         }
     }
 }

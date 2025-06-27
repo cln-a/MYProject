@@ -43,6 +43,7 @@ namespace Application.DAL
             unityContainer.RegisterType<IModbusRegisterDAL, ModbusRegisterDAL>();
             unityContainer.RegisterType<IS7netDeviceDAL, S7netDeviceDAL>();
             unityContainer.RegisterType<IS7netRegisterDAL, S7netRegisterDAL>();
+            unityContainer.RegisterType<ISystemUserDAL, SystemUserDAL>();
         }
     }
 }

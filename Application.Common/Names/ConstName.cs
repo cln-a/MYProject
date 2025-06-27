@@ -16,5 +16,6 @@
         /// 模块名称
         /// </summary>
         public const string ApplicationLoginModule = "ApplicationLoginModule";
+        public const string ApplicationMainModule = "ApplicationMainModule";
     }
 }

@@ -22,4 +22,8 @@
     <Resource Include="Image\LoginBackground.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Application.Common\Application.Common.csproj" />
+  </ItemGroup>
+
 </Project>

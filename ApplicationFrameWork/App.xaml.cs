@@ -1,10 +1,14 @@
 ﻿using Application.DAL;
 using Application.Login;
+using Application.Login.Views;
 using Application.Main;
-using ApplicationFrame.Core;
+using Application.Main.ViewModels;
+using Application.Main.Views;
+using ApplicationFrameWork.ViewModels;
 using ApplicationFrameWork.Views;
 using Prism.Common;
 using System.Windows;
+using Application.UI;
 
 namespace ApplicationFrameWork
 {
@@ -42,9 +46,19 @@ namespace ApplicationFrameWork
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
+            base.ConfigureModuleCatalog(moduleCatalog);
             moduleCatalog.AddModule<DALModule>();
-            moduleCatalog.AddModule<ApplicationMainModule>();
+            moduleCatalog.AddModule<UIModule>();
             moduleCatalog.AddModule<ApplicationLoginModule>();
+            moduleCatalog.AddModule<ApplicationMainModule>();
+        }
+
+        protected override void ConfigureViewModelLocator()
+        {
+            base.ConfigureViewModelLocator();
+            ViewModelLocationProvider.Register<ShellView, ShellViewModel>();
+            ViewModelLocationProvider.Register<LoginView, LoginViewModel>();
+            ViewModelLocationProvider.Register<MainView, MainViewModel>();
         }
     }
 }
