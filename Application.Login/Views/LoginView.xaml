@@ -92,7 +92,7 @@
                         VerticalAlignment="Bottom"
                         Margin="5">
                 <RadioButton x:Name="CN" 
-                             Content="Chinese" 
+                             Content="简体中文" 
                              Foreground="White"
                              HorizontalAlignment="Center"
                              VerticalAlignment="Center"

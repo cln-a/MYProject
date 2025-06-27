@@ -28,7 +28,7 @@ namespace Application.Login
         {
             switch (context.ToString())
             {
-                case "Chinese":
+                case "简体中文":
                     LanguageManager.SetLanguage(LanguageType.CN);
                     break;
                 case "English":

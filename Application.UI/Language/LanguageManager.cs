@@ -22,7 +22,7 @@ public class LanguageManager : ILanguageManager
     
     public LanguageType CurrentLanguageType { get; private set; }
 
-    public LanguageManager() => SetLanguage(LanguageType.CN); // 设置默认语言
+    public LanguageManager() { }
     
     public void SetLanguage(LanguageType languageType)
     {
