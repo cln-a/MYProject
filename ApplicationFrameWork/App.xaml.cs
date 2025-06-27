@@ -9,6 +9,8 @@ using ApplicationFrameWork.Views;
 using Prism.Common;
 using System.Windows;
 using Application.UI;
+using Application.Image;
+using Application.Common;
 
 namespace ApplicationFrameWork
 {
@@ -47,10 +49,11 @@ namespace ApplicationFrameWork
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
             base.ConfigureModuleCatalog(moduleCatalog);
-            moduleCatalog.AddModule<DALModule>();
-            moduleCatalog.AddModule<UIModule>();
-            moduleCatalog.AddModule<ApplicationLoginModule>();
-            moduleCatalog.AddModule<ApplicationMainModule>();
+            moduleCatalog.AddModule<DALModule>()
+                .AddModule<UIModule>()
+                .AddModule<ApplicationLoginModule>()
+                .AddModule<ApplicationMainModule>(ConstName.ApplicationMainModule, InitializationMode.OnDemand)
+                .AddModule<ApplicationImageModule>(ConstName.ApplicationImageModule, InitializationMode.OnDemand);
         }
 
         protected override void ConfigureViewModelLocator()
@@ -59,6 +62,7 @@ namespace ApplicationFrameWork
             ViewModelLocationProvider.Register<ShellView, ShellViewModel>();
             ViewModelLocationProvider.Register<LoginView, LoginViewModel>();
             ViewModelLocationProvider.Register<MainView, MainViewModel>();
+            ViewModelLocationProvider.Register<ImageView, ImageViewModel>();
         }
     }
 }

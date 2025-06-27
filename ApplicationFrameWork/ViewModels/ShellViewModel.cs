@@ -8,7 +8,6 @@ namespace ApplicationFrameWork.ViewModels;
 
 public class ShellViewModel : BindableBase
 {
-
     private readonly IModuleManager _moduleManager;
     private readonly IRegionManager _regionManager;
     private readonly IEventAggregator _eventAggregator;
@@ -23,7 +22,9 @@ public class ShellViewModel : BindableBase
         this.RegionManager.RequestNavigate(ConstName.MainRegion, nameof(LoginView));
         this.EventAggregator.GetEvent<LoginInEvents>().Subscribe(() =>
         {
+            //加载主界面模块
             ModuleManager.LoadModule(ConstName.ApplicationMainModule);
+            //导航到主区域
             RegionManager.RequestNavigate(ConstName.MainRegion, nameof(MainView));
             PopupBox.Show("Welcome to ApplicationFrameWork");
         },ThreadOption.UIThread);

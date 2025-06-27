@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Application.Common\Application.Common.csproj" />
     <ProjectReference Include="..\Application.DAL\Application.DAL.csproj" />
+    <ProjectReference Include="..\Application.Image\Application.Image.csproj" />
     <ProjectReference Include="..\Application.Login\Application.Login.csproj" />
     <ProjectReference Include="..\Application.Main\Application.Main.csproj" />
     <ProjectReference Include="..\Application.Modbus\Application.Modbus.csproj" />
