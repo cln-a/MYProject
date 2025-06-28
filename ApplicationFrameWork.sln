@@ -43,6 +43,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.Login", "Applic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Image", "Application.Image\Application.Image.csproj", "{C4A0E579-42E0-4CCF-929C-C84D39CCA06B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Camera", "Application.Camera\Application.Camera.csproj", "{F6693BE8-F78A-4A99-883F-A0FC19E50A12}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +107,10 @@ Global
 		{C4A0E579-42E0-4CCF-929C-C84D39CCA06B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4A0E579-42E0-4CCF-929C-C84D39CCA06B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4A0E579-42E0-4CCF-929C-C84D39CCA06B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6693BE8-F78A-4A99-883F-A0FC19E50A12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6693BE8-F78A-4A99-883F-A0FC19E50A12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6693BE8-F78A-4A99-883F-A0FC19E50A12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6693BE8-F78A-4A99-883F-A0FC19E50A12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -123,6 +129,7 @@ Global
 		{0D068EED-BCEE-463C-A51F-E535458A72C2} = {16BCABEE-0867-4DA2-BC51-61B740A4DB43}
 		{B7A327D9-B3DD-4035-A655-4DC54B9930C6} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{C4A0E579-42E0-4CCF-929C-C84D39CCA06B} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{F6693BE8-F78A-4A99-883F-A0FC19E50A12} = {9532FB79-61A9-4397-9CE8-09E2E6FB9DE1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {03FAA2E3-B831-4B51-9E55-9E41C3365066}
