@@ -1,0 +1,211 @@
+﻿<UserControl x:Class="Application.Image.Views.IamgeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:viewmodel="clr-namespace:Application.Image"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             d:DataContext="{d:DesignInstance viewmodel:ImageViewModel}"
+             xmlns:local="clr-namespace:Application.Image.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="850"
+             d:DesignWidth="1600"
+             Background="White">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="1" Margin="5">
+                <StackPanel Margin="5" Orientation="Horizontal">
+                        <TextBlock Text="相机选择：" 
+                                   TextAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                        <ComboBox Name="cbDeviceList" Width="450" />
+                    </StackPanel>
+                <UniformGrid Margin="5" Columns="2">
+                    <Button Name="bnEnum"
+                                Height="50"
+                                Margin="5"
+                                Content="查找相机"
+                                materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                                materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                materialDesign:ButtonProgressAssist.Value="-1"
+                                Style="{StaticResource MaterialDesignRaisedButton}" />
+                    <Button Name="bnOpen"
+                                Height="50"
+                                Margin="5"
+                                Content="打开相机"
+                                materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                                materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                materialDesign:ButtonProgressAssist.Value="-1"  
+                                Style="{StaticResource MaterialDesignRaisedButton}"/>
+                    <Button Name="bnClose"
+                                Height="50"
+                                Margin="5"
+                                Content="关闭相机" 
+                                materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                                materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                materialDesign:ButtonProgressAssist.Value="-1"
+                                Style="{StaticResource MaterialDesignRaisedButton}"/>
+                    <Button Name="bnStartGrab"
+                                Height="50"
+                                Margin="5"
+                                Content="开始采集" 
+                                materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                                materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                materialDesign:ButtonProgressAssist.Value="-1"
+                                Style="{StaticResource MaterialDesignRaisedButton}"/>
+                    <Button Name="bnStopGrab"
+                                Height="50"
+                                Margin="5"
+                                Content="停止采集" 
+                                materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                                materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                materialDesign:ButtonProgressAssist.Value="-1"
+                                Style="{StaticResource MaterialDesignRaisedButton}"/>
+                    <Button Name="bnTriggerExec"
+                                Height="50"
+                                Margin="5"
+                                Content="单次采集" 
+                                materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                                materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                materialDesign:ButtonProgressAssist.Value="-1"
+                                Style="{StaticResource MaterialDesignRaisedButton}"/>
+                    <Button Name="bnSavePng"
+                                Height="50"
+                                Margin="5"
+                                Content="保存图片" 
+                                materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                                materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                materialDesign:ButtonProgressAssist.Value="-1"
+                                Style="{StaticResource MaterialDesignRaisedButton}"/>
+                    <Button Name="bnGetParam"
+                                Height="50"
+                                Margin="5"
+                                Content="获取参数" 
+                                materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                                materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                materialDesign:ButtonProgressAssist.Value="-1"
+                                Style="{StaticResource MaterialDesignRaisedButton}"/>
+                    <Button Name="bnSetParam"
+                                Height="50"
+                                Margin="5"
+                                Content="设置参数" 
+                                materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                                materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                materialDesign:ButtonProgressAssist.Value="-1"
+                                Style="{StaticResource MaterialDesignRaisedButton}"/>
+                    <Button Margin="5"
+                                Height="50"
+                                Content="加载方案" 
+                                materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                                materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                materialDesign:ButtonProgressAssist.Value="-1"
+                                Style="{StaticResource MaterialDesignRaisedButton}"/>
+                    <Button Margin="5"
+                                Height="50"
+                                Content="保存方案" 
+                                materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                                materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                materialDesign:ButtonProgressAssist.Value="-1"
+                                Style="{StaticResource MaterialDesignRaisedButton}"/>
+                    <Button Margin="5"
+                                Height="50"
+                                Content="获取结果" 
+                                materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                                materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                materialDesign:ButtonProgressAssist.Value="-1"
+                                Style="{StaticResource MaterialDesignRaisedButton}"/>
+                    <Button Name="btnPushVmImage"
+                                Height="50"
+                                Margin="5"
+                                Content="推送图像" 
+                                materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                                materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                materialDesign:ButtonProgressAssist.Value="-1"
+                                Style="{StaticResource MaterialDesignRaisedButton}"/>
+                </UniformGrid>
+                <UniformGrid Columns="2" Margin="5">
+                    <RadioButton x:Name="bnContinuesMode"
+                        Content="连续触发模式"
+                        Style="{StaticResource MahApps.Styles.RadioButton.Win10}"
+                        IsChecked="True" />
+                    <RadioButton x:Name="bnTriggerMode"
+                        Content="单次触发模式" 
+                        Style="{StaticResource MahApps.Styles.RadioButton.Win10}"/>
+                </UniformGrid>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <TextBlock Margin="5" 
+                        Text="曝光："
+                        Style="{StaticResource MahApps.Styles.TextBlock.HamburgerMenuHeader}"/>
+                    <Slider x:Name="SliderExposure" 
+                        Margin="5"
+                        Minimum="0"
+                        Maximum="10000"
+                        Width="400"
+                        TickFrequency="500"
+                        IsSnapToTickEnabled="True"/>
+                    <TextBlock Margin="5"
+                               Text="{Binding ElementName=SliderExposure,Path=Value}"
+                               Style="{StaticResource MahApps.Styles.TextBlock.HamburgerMenuHeader}"/>
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <TextBlock Margin="5" 
+                        Text="增益："
+                        Style="{StaticResource MahApps.Styles.TextBlock.HamburgerMenuHeader}"/>
+                    <Slider x:Name="SliderGain"
+                        Margin="5"
+                        Minimum="0"
+                        Maximum="10000"
+                        Width="400"
+                        TickFrequency="500"
+                        IsSnapToTickEnabled="True"/>
+                    <TextBlock Margin="5"
+                        Text="{Binding ElementName=SliderGain,Path=Value}"
+                        Style="{StaticResource MahApps.Styles.TextBlock.HamburgerMenuHeader}"/>
+                </StackPanel>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <TextBlock Margin="5" 
+                        Text="帧率："
+                        Style="{StaticResource MahApps.Styles.TextBlock.HamburgerMenuHeader}"/>
+                    <Slider  x:Name="SliderFrameRate"
+                        Margin="5"
+                        Minimum="0"
+                        Maximum="10000"
+                        Width="400"
+                        TickFrequency="500"
+                        IsSnapToTickEnabled="True"/>
+                    <TextBlock Margin="5"
+                        Text="{Binding ElementName=SliderFrameRate,Path=Value}"
+                        Style="{StaticResource MahApps.Styles.TextBlock.HamburgerMenuHeader}"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0"
+                  Margin="5"
+                  Background="LightGray"/>
+            <TextBox x:Name="txtLog"
+                     Grid.Row="1"
+                     Margin="5"
+                     TextWrapping="Wrap"
+                     VerticalScrollBarVisibility="Auto"
+                     BorderThickness="1"
+                     BorderBrush="Black"/>
+        </Grid>
+    </Grid>
+</UserControl>

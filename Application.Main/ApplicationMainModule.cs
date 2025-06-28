@@ -7,11 +7,14 @@ namespace Application.Main
     {
         private readonly IModuleManager _moduleManager;
 
+        public IModuleManager ModuleManager => _moduleManager;
+
         public ApplicationMainModule(IModuleManager moduleManager)
-        => _moduleManager = moduleManager;
+        => this._moduleManager = moduleManager;
 
         public void OnInitialized(IContainerProvider containerProvider)
         {
+            ModuleManager.LoadModule(ConstName.ApplicationImageModule);
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)

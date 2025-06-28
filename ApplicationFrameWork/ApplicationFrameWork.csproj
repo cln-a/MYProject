@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Application.Common\Application.Common.csproj" />
     <ProjectReference Include="..\Application.DAL\Application.DAL.csproj" />
+    <ProjectReference Include="..\Application.Image\Application.Image.csproj" />
     <ProjectReference Include="..\Application.Logger\Application.Logger.csproj" />
     <ProjectReference Include="..\Application.Login\Application.Login.csproj" />
     <ProjectReference Include="..\Application.Main\Application.Main.csproj" />

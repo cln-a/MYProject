@@ -11,6 +11,7 @@ using System.Windows;
 using Application.UI;
 using Application.Common;
 using Application.Logger;
+using Application.Image;
 
 namespace ApplicationFrameWork
 {
@@ -54,8 +55,8 @@ namespace ApplicationFrameWork
                 .AddModule<DALModule>()
                 .AddModule<UIModule>()
                 .AddModule<ApplicationLoginModule>()
-                .AddModule<ApplicationMainModule>(ConstName.ApplicationMainModule, InitializationMode.OnDemand);
-                
+                .AddModule<ApplicationMainModule>(ConstName.ApplicationMainModule, InitializationMode.OnDemand)
+                .AddModule<ApplicationImageModule>(ConstName.ApplicationImageModule, InitializationMode.OnDemand, ConstName.ApplicationMainModule);   
         }
 
         protected override void ConfigureViewModelLocator()
