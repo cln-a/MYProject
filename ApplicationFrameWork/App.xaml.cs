@@ -10,6 +10,7 @@ using Prism.Common;
 using System.Windows;
 using Application.UI;
 using Application.Common;
+using Application.Logger;
 
 namespace ApplicationFrameWork
 {
@@ -48,7 +49,9 @@ namespace ApplicationFrameWork
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
             base.ConfigureModuleCatalog(moduleCatalog);
-            moduleCatalog.AddModule<DALModule>()
+            moduleCatalog
+                .AddModule<LoggerModule>()
+                .AddModule<DALModule>()
                 .AddModule<UIModule>()
                 .AddModule<ApplicationLoginModule>()
                 .AddModule<ApplicationMainModule>(ConstName.ApplicationMainModule, InitializationMode.OnDemand);
