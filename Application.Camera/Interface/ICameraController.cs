@@ -4,5 +4,6 @@
     {
         void InitializeAllCameras();
         IReadOnlyList<ICamera> Cameras { get; }
+        ICamera? GetBySerial(string serial);
     }
 }

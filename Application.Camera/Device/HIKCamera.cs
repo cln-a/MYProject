@@ -17,7 +17,10 @@ namespace Application.Camera
 
         public ILogger Logger => _logger;
 
-        public string SerialNumber => Encoding.ASCII.GetString(_device.SpecialInfo.stGigEInfo).TrimEnd('\0');
+        //public string SerialNumber => Encoding.ASCII.GetString(_device.SpecialInfo.stGigEInfo).TrimEnd('\0');
+        public string SerialNumber => "OPT_Camera";
+
+        public event EventHandler<CameraFrameEventArgs>? OnImageReceived;
 
         public HIKCamera(MyCamera.MV_CC_DEVICE_INFO _device, ILogger logger)
         {
@@ -44,7 +47,7 @@ namespace Application.Camera
                 return false;
             }
             m_MyCamera.MV_CC_SetEnumValue_NET("AcquisitionMode", (uint)MyCamera.MV_CAM_ACQUISITION_MODE.MV_ACQ_MODE_CONTINUOUS);
-            m_MyCamera.MV_CC_SetEnumValue_NET("TriggerMode", (uint)MyCamera.MV_CAM_TRIGGER_MODE.MV_TRIGGER_MODE_OFF);
+            m_MyCamera.MV_CC_SetEnumValue_NET("TriggerMode", (uint)MyCamera.MV_CAM_TRIGGER_MODE.MV_TRIGGER_MODE_ON);
             return true;
         }
 
@@ -76,7 +79,7 @@ namespace Application.Camera
         /// <param name="pUser">用户自定义指针</param>
         private void ImageCallback(nint pData, ref MyCamera.MV_FRAME_OUT_INFO_EX pFrameInfo, nint pUser)
         {
-            
+           
         }
 
         public bool StopGrabbing()

@@ -27,5 +27,7 @@
         /// </summary>
         /// <returns></returns>
         bool Close();
+
+        public event EventHandler<CameraFrameEventArgs>? OnImageReceived;
     }
 }

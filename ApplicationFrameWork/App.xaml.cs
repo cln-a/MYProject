@@ -13,6 +13,7 @@ using Application.Common;
 using Application.Logger;
 using Application.Image;
 using Application.Camera;
+using Application.Image.Views;
 
 namespace ApplicationFrameWork
 {
@@ -55,10 +56,11 @@ namespace ApplicationFrameWork
                 .AddModule<LoggerModule>()
                 .AddModule<DALModule>()
                 .AddModule<UIModule>()
+                .AddModule<ApplicationCameraModule>()
                 .AddModule<ApplicationLoginModule>()
                 .AddModule<ApplicationMainModule>(ConstName.ApplicationMainModule, InitializationMode.OnDemand)
-                .AddModule<ApplicationImageModule>(ConstName.ApplicationImageModule, InitializationMode.OnDemand, ConstName.ApplicationMainModule)
-                .AddModule<ApplicationCameraModule>();   
+                .AddModule<ApplicationImageModule>(ConstName.ApplicationImageModule, InitializationMode.OnDemand, ConstName.ApplicationMainModule);
+                 
         }
 
         protected override void ConfigureViewModelLocator()
@@ -67,6 +69,7 @@ namespace ApplicationFrameWork
             ViewModelLocationProvider.Register<ShellView, ShellViewModel>();
             ViewModelLocationProvider.Register<LoginView, LoginViewModel>();
             ViewModelLocationProvider.Register<MainView, MainViewModel>();
+            ViewModelLocationProvider.Register<IamgeView,ImageViewModel>();
         }
     }
 }

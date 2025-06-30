@@ -146,7 +146,9 @@
             </Grid.RowDefinitions>
             <Grid Grid.Row="0"
                   Margin="5"
-                  Background="LightGray"/>
+                  Background="LightGray">
+                <Image Source="{Binding ImageSource}"/>
+            </Grid>
             <TextBox x:Name="txtLog"
                      Grid.Row="1"
                      Margin="5"
