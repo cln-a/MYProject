@@ -37,14 +37,9 @@ namespace Application.Camera
         public void StopAllCameras() 
         {
             foreach (var camera in _cameras) 
-            {
                 camera.Close();
-            }
         }
 
-        public ICamera? GetBySerial(string serial)
-        {
-            return _serialToCamera.TryGetValue(serial, out var cam) ? cam : null;
-        }
+        public ICamera? GetBySerial(string serial) => _serialToCamera.TryGetValue(serial, out var cam) ? cam : null;
     }
 }

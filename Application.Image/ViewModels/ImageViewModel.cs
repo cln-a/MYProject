@@ -24,8 +24,6 @@ namespace Application.Image
         public ImageViewModel(ICameraController _cameraController, ILogger logger) 
         {
             this._cameraController = _cameraController;
-            _cameraController.InitializeAllCameras();   
-
             this._hikcamera = CameraController.GetBySerial("OPT_Camera")!;
             this._logger = logger;
 

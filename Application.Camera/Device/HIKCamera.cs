@@ -85,6 +85,7 @@ namespace Application.Camera
                         return false;  
                 }
             }
+            //notice:海康SDK的MV_ACQ_MODE_SINGLE对应OPT的连续采集模式
             m_MyCamera.MV_CC_SetEnumValue_NET("AcquisitionMode", (uint)MyCamera.MV_CAM_ACQUISITION_MODE.MV_ACQ_MODE_SINGLE);
             m_MyCamera.MV_CC_SetEnumValue_NET("TriggerMode", (uint)MyCamera.MV_CAM_TRIGGER_MODE.MV_TRIGGER_MODE_OFF);
             return true;

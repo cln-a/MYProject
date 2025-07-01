@@ -6,6 +6,8 @@ namespace Application.Camera
     {
         public void OnInitialized(IContainerProvider containerProvider)
         {
+            var cameracontroller = containerProvider.Resolve<ICameraController>();
+            cameracontroller.InitializeAllCameras();
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
