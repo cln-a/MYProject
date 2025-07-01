@@ -14,6 +14,8 @@ using Application.Logger;
 using Application.Image;
 using Application.Camera;
 using Application.Image.Views;
+using CommonServiceLocator;
+using Unity.ServiceLocation;
 
 namespace ApplicationFrameWork
 {
@@ -23,6 +25,13 @@ namespace ApplicationFrameWork
     public partial class App : PrismApplication
     {
         IContainerExtension _containerExtension;
+
+        protected override IContainerExtension CreateContainerExtension()
+        {
+            IUnityContainer unityContainer = new UnityContainer();
+            ServiceLocator.SetLocatorProvider(() => new UnityServiceLocator(unityContainer));
+            return new UnityContainerExtension(unityContainer);
+        }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
@@ -60,7 +69,6 @@ namespace ApplicationFrameWork
                 .AddModule<ApplicationLoginModule>()
                 .AddModule<ApplicationMainModule>(ConstName.ApplicationMainModule, InitializationMode.OnDemand)
                 .AddModule<ApplicationImageModule>(ConstName.ApplicationImageModule, InitializationMode.OnDemand, ConstName.ApplicationMainModule);
-                 
         }
 
         protected override void ConfigureViewModelLocator()
@@ -70,6 +78,12 @@ namespace ApplicationFrameWork
             ViewModelLocationProvider.Register<LoginView, LoginViewModel>();
             ViewModelLocationProvider.Register<MainView, MainViewModel>();
             ViewModelLocationProvider.Register<IamgeView,ImageViewModel>();
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            var cameracontroller = ServiceLocator.Current.GetInstance<ICameraController>();
+            cameracontroller.StopAllCameras();  
         }
     }
 }

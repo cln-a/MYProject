@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using MvCamCtrl.NET;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace Application.Camera
 {
@@ -46,14 +45,25 @@ namespace Application.Camera
                 Logger.LogDebug($"打开设备失败,错误码：{nRet}");
                 return false;
             }
+            // ch:探测网络最佳包大小(只对GigE相机有效) | en:Detection network optimal package size(It only works for the GigE camera)
+            if (_device.nTLayerType == MyCamera.MV_GIGE_DEVICE)
+            {
+                int nPacketSize = m_MyCamera.MV_CC_GetOptimalPacketSize_NET();
+                if (nPacketSize > 0)
+                {
+                    nRet = m_MyCamera.MV_CC_SetIntValue_NET("GevSCPSPacketSize", (uint)nPacketSize);
+                    if (nRet != MyCamera.MV_OK)
+                        return false;  
+                }
+            }
             m_MyCamera.MV_CC_SetEnumValue_NET("AcquisitionMode", (uint)MyCamera.MV_CAM_ACQUISITION_MODE.MV_ACQ_MODE_CONTINUOUS);
-            m_MyCamera.MV_CC_SetEnumValue_NET("TriggerMode", (uint)MyCamera.MV_CAM_TRIGGER_MODE.MV_TRIGGER_MODE_ON);
+            m_MyCamera.MV_CC_SetEnumValue_NET("TriggerMode", (uint)MyCamera.MV_CAM_TRIGGER_MODE.MV_TRIGGER_MODE_OFF);
             return true;
         }
 
         public bool StartGrabbing()
         {
-            _imageCallback = new MyCamera.cbOutputExdelegate(ImageCallback);
+            _imageCallback = new MyCamera.cbOutputExdelegate(ImageGrayCallback);
             //注册回调函数
             int ret = m_MyCamera.MV_CC_RegisterImageCallBackEx_NET(_imageCallback, IntPtr.Zero);
             if (ret != MyCamera.MV_OK)
@@ -77,9 +87,28 @@ namespace Application.Camera
         /// <param name="pData">图像数据指针</param>
         /// <param name="pFrameInfo">图像帧信息结构体</param>
         /// <param name="pUser">用户自定义指针</param>
-        private void ImageCallback(nint pData, ref MyCamera.MV_FRAME_OUT_INFO_EX pFrameInfo, nint pUser)
+        private void ImageGrayCallback(nint pData, ref MyCamera.MV_FRAME_OUT_INFO_EX pFrameInfo, nint pUser)
         {
-           
+            Logger.LogDebug("开始执行回调函数");
+            // 1. 图像大小
+            int dataLength = (int)pFrameInfo.nFrameLen;
+
+            if (dataLength == 0 || pData == IntPtr.Zero)
+                return;
+
+            // 2. 将非托管图像数据复制到托管 byte[]
+            byte[] buffer = new byte[dataLength];
+            Marshal.Copy(pData, buffer, 0, dataLength);
+
+            // 3. 构造事件参数并触发事件
+            var args = new CameraFrameEventArgs(
+                buffer,
+                (int)pFrameInfo.nWidth,
+                (int)pFrameInfo.nHeight,
+                pFrameInfo.enPixelType
+            );
+
+            OnImageReceived?.Invoke(this, args);
         }
 
         public bool StopGrabbing()

@@ -2,7 +2,8 @@
 {
     public interface ICameraController
     {
-        void InitializeAllCameras();
+        void InitializeAllCameras(); 
+        void StopAllCameras();
         IReadOnlyList<ICamera> Cameras { get; }
         ICamera? GetBySerial(string serial);
     }

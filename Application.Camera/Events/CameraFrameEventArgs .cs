@@ -4,10 +4,17 @@ namespace Application.Camera
 {
     public class CameraFrameEventArgs : EventArgs
     {
-        public int Width { get; set; }
-        public int Height { get; set; }
-        public IntPtr DataPtr { get; set; }
-        public uint DataLen { get; set; }
-        public MyCamera.MvGvspPixelType PixelType { get; set; }
+        public byte[] Buffer { get; }
+        public int Width { get; }
+        public int Height { get; }
+        public MyCamera.MvGvspPixelType PixelType { get; }
+
+        public CameraFrameEventArgs(byte[] buffer, int width, int height, MyCamera.MvGvspPixelType pixelType)
+        {
+            Buffer = buffer;
+            Width = width;
+            Height = height;
+            PixelType = pixelType;
+        }
     }
 }

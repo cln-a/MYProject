@@ -19,5 +19,6 @@
         public const string ApplicationLoginModule = "ApplicationLoginModule";
         public const string ApplicationMainModule = "ApplicationMainModule";
         public const string ApplicationImageModule = "ApplicationImageModule";
+        public const string ApplicationCameraModule = "ApplicationCameraModule";
     }
 }
