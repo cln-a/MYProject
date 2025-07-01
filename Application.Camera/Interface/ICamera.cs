@@ -1,4 +1,6 @@
-﻿namespace Application.Camera
+﻿using System.Diagnostics;
+
+namespace Application.Camera
 {
     public interface ICamera
     {
@@ -29,5 +31,8 @@
         bool Close();
 
         public event EventHandler<CameraFrameEventArgs>? OnImageReceived;
+        public event EventHandler ConnectEvent;
+        public event EventHandler DisconnectEvent;
+        public event EventHandler<CameraStateChangedEventArgs> CameraStateChangedEvent;
     }
 }

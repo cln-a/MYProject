@@ -1,25 +1,54 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Application.Common;
+using Microsoft.Extensions.Logging;
 using MvCamCtrl.NET;
 using System.Runtime.InteropServices;
 
 namespace Application.Camera
 {
-    public class HIKCamera : ICamera , IDisposable
+    public class HIKCamera : ICamera, IDisposable
     {
         private readonly ILogger _logger;
 
         private MyCamera.MV_CC_DEVICE_INFO _device;
         private MyCamera m_MyCamera;
         private MyCamera.cbOutputExdelegate _imageCallback = null!;
+        private MyCamera.cbExceptiondelegate _exceptionCallback = null!;
         private IntPtr m_BufForDriver;
         private uint m_nBufSizeForDriver;
+        private CommunicationStateEnum _state;
 
         public ILogger Logger => _logger;
 
         //public string SerialNumber => Encoding.ASCII.GetString(_device.SpecialInfo.stGigEInfo).TrimEnd('\0');
         public string SerialNumber => "OPT_Camera";
+        public CommunicationStateEnum State
+        {
+            get => _state;
+            private set
+            {
+                if (_state != value)
+                {
+                    _state = value;
+                    switch (_state)
+                    {
+                        case CommunicationStateEnum.Connected:
+                            ConnectEvent?.Invoke(this, EventArgs.Empty);
+                            break;
+                        case CommunicationStateEnum.NotConnected:
+                            DisconnectEvent?.Invoke(this, EventArgs.Empty); 
+                            break;
+                        default:
+                            break;
+                    }
+                    CameraStateChangedEvent?.Invoke(this, new CameraStateChangedEventArgs(this.SerialNumber, State));
+                }
+            }
+        }
 
         public event EventHandler<CameraFrameEventArgs>? OnImageReceived;
+        public event EventHandler ConnectEvent;
+        public event EventHandler DisconnectEvent;
+        public event EventHandler<CameraStateChangedEventArgs> CameraStateChangedEvent;
 
         public HIKCamera(MyCamera.MV_CC_DEVICE_INFO _device, ILogger logger)
         {
@@ -56,7 +85,7 @@ namespace Application.Camera
                         return false;  
                 }
             }
-            m_MyCamera.MV_CC_SetEnumValue_NET("AcquisitionMode", (uint)MyCamera.MV_CAM_ACQUISITION_MODE.MV_ACQ_MODE_CONTINUOUS);
+            m_MyCamera.MV_CC_SetEnumValue_NET("AcquisitionMode", (uint)MyCamera.MV_CAM_ACQUISITION_MODE.MV_ACQ_MODE_SINGLE);
             m_MyCamera.MV_CC_SetEnumValue_NET("TriggerMode", (uint)MyCamera.MV_CAM_TRIGGER_MODE.MV_TRIGGER_MODE_OFF);
             return true;
         }
@@ -64,11 +93,19 @@ namespace Application.Camera
         public bool StartGrabbing()
         {
             _imageCallback = new MyCamera.cbOutputExdelegate(ImageGrayCallback);
-            //注册回调函数
+            //注册图像回调函数
             int ret = m_MyCamera.MV_CC_RegisterImageCallBackEx_NET(_imageCallback, IntPtr.Zero);
             if (ret != MyCamera.MV_OK)
             {
                 Logger.LogDebug($"注册图像回调失败，错误码: {ret}");
+                return false;
+            }
+            _exceptionCallback = new MyCamera.cbExceptiondelegate(ExceptionCallback);
+            //注册异常处理回调函数
+            ret = m_MyCamera.MV_CC_RegisterExceptionCallBack_NET(_exceptionCallback, IntPtr.Zero);
+            if (ret != MyCamera.MV_OK)
+            {
+                Logger.LogDebug($"注册异常处理回调失败，错误码：{ret}");
                 return false;
             }
             //开启取流
@@ -89,7 +126,7 @@ namespace Application.Camera
         /// <param name="pUser">用户自定义指针</param>
         private void ImageGrayCallback(nint pData, ref MyCamera.MV_FRAME_OUT_INFO_EX pFrameInfo, nint pUser)
         {
-            Logger.LogDebug("开始执行回调函数");
+            Logger.LogDebug("开始执行图像采集回调函数");
             // 1. 图像大小
             int dataLength = (int)pFrameInfo.nFrameLen;
 
@@ -111,6 +148,41 @@ namespace Application.Camera
             OnImageReceived?.Invoke(this, args);
         }
 
+        /// <summary>
+        /// 注册给HikCamera的回调函数，用于在出现异常时进行重连
+        /// </summary>
+        /// <param name="nMsgType"></param>
+        /// <param name="pUser"></param>
+        private void ExceptionCallback(uint nMsgType, nint pUser)
+        {
+            Logger.LogDebug($"出现异常，开始执行异常重连回调函数");
+            if (nMsgType == MyCamera.MV_EXCEPTION_DEV_DISCONNECT)
+            {
+                //停止取流并关闭设备
+                Close();
+                // ch:打开设备 | en:Open Device
+                while (true) 
+                {
+                    if (!Open())
+                    {
+                        Logger.LogDebug($"重连过程中打开相机失败！");
+                        Thread.Sleep(5);
+                        continue;
+                    }
+                    if (!StartGrabbing())
+                    {
+                        Logger.LogDebug($"重连过程中注册回调并开始取流失败！");
+                        Thread.Sleep(5);
+                        continue;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+
         public bool StopGrabbing()
         {
             //停止取流
@@ -125,6 +197,7 @@ namespace Application.Camera
 
         public bool Close()
         {
+            //停止采集
             StopGrabbing();
             //关闭设备
             var ret = m_MyCamera.MV_CC_CloseDevice_NET();
