@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace Application.Camera
+﻿namespace Application.Camera
 {
     public interface ICamera
     {

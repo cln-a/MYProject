@@ -30,7 +30,7 @@
                                    TextAlignment="Center"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"/>
-                        <ComboBox Name="cbDeviceList" Width="450" />
+                        <TextBlock Name="tb" Width="450" />
                     </StackPanel>
                 <UniformGrid Margin="5" Columns="2">
                     <Button Name="bnEnum"
