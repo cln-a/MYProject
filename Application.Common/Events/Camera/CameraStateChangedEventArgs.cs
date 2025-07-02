@@ -1,6 +1,6 @@
 ﻿using Application.Common;
 
-namespace Application.Camera
+namespace Application.Common
 {
     public class CameraStateChangedEventArgs : EventArgs
     {

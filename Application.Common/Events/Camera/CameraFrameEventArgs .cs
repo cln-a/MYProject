@@ -1,6 +1,6 @@
 ﻿using MvCamCtrl.NET;
 
-namespace Application.Camera
+namespace Application.Common
 {
     public class CameraFrameEventArgs : EventArgs
     {

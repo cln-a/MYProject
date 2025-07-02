@@ -8,6 +8,7 @@ namespace Application.Camera
     public class HIKCamera : ICamera, IDisposable
     {
         private readonly ILogger _logger;
+        private readonly IEventAggregator _eventAggregator;
 
         private MyCamera.MV_CC_DEVICE_INFO _device;
         private MyCamera m_MyCamera;
@@ -18,48 +19,66 @@ namespace Application.Camera
         private CommunicationStateEnum _state;
 
         public ILogger Logger => _logger;
+        public IEventAggregator EventAggregator => _eventAggregator;
 
-        //public string SerialNumber => Encoding.ASCII.GetString(_device.SpecialInfo.stGigEInfo).TrimEnd('\0');
-        public string SerialNumber => "OPT_Camera";
+        public string? SerialNumber {get; set;}
+
         public CommunicationStateEnum State
         {
             get => _state;
-            private set
+            set
             {
-                if (_state != value)
+                _state = value;
+                switch (_state)
                 {
-                    _state = value;
-                    switch (_state)
-                    {
-                        case CommunicationStateEnum.Connected:
-                            ConnectEvent?.Invoke(this, EventArgs.Empty);
-                            break;
-                        case CommunicationStateEnum.NotConnected:
-                            DisconnectEvent?.Invoke(this, EventArgs.Empty); 
-                            break;
-                        default:
-                            break;
-                    }
-                    CameraStateChangedEvent?.Invoke(this, new CameraStateChangedEventArgs(this.SerialNumber, State));
+                    case CommunicationStateEnum.Connected:
+                        EventAggregator.GetEvent<CameraConnectEvent>().Publish();
+                        break;
+                    case CommunicationStateEnum.NotConnected:
+                        EventAggregator.GetEvent<CameraNotConnectedEvent>().Publish();
+                        break;
+                    default:
+                        break;
                 }
             }
         }
 
-        public event EventHandler<CameraFrameEventArgs>? OnImageReceived;
-        public event EventHandler ConnectEvent;
-        public event EventHandler DisconnectEvent;
-        public event EventHandler<CameraStateChangedEventArgs> CameraStateChangedEvent;
-
-        public HIKCamera(MyCamera.MV_CC_DEVICE_INFO _device, ILogger logger)
+        public HIKCamera(MyCamera.MV_CC_DEVICE_INFO _device, ILogger logger, IEventAggregator eventAggregator)
         {
             this._device = _device;
             this._logger = logger;
+            this._eventAggregator = eventAggregator;
 
             this.m_MyCamera = new MyCamera();
+
+            SetCameraSerialNumber(_device);
+        }
+
+        private void SetCameraSerialNumber(MyCamera.MV_CC_DEVICE_INFO device)
+        {
+            if (device.nTLayerType == MyCamera.MV_GIGE_DEVICE)
+            {
+                MyCamera.MV_GIGE_DEVICE_INFO gigeInfo = 
+                    (MyCamera.MV_GIGE_DEVICE_INFO)MyCamera.ByteToStruct(device.SpecialInfo.stGigEInfo, typeof(MyCamera.MV_GIGE_DEVICE_INFO));
+                if (gigeInfo.chUserDefinedName != "")
+                    SerialNumber = "GEV: " + gigeInfo.chUserDefinedName + " (" + gigeInfo.chSerialNumber + ")";
+                else
+                    SerialNumber = "GEV: " + gigeInfo.chManufacturerName + " " + gigeInfo.chModelName + " (" + gigeInfo.chSerialNumber + ")";
+            }
+            else if (device.nTLayerType == MyCamera.MV_USB_DEVICE)
+            {
+                MyCamera.MV_USB3_DEVICE_INFO usbInfo = 
+                    (MyCamera.MV_USB3_DEVICE_INFO)MyCamera.ByteToStruct(device.SpecialInfo.stUsb3VInfo, typeof(MyCamera.MV_USB3_DEVICE_INFO));
+                if (usbInfo.chUserDefinedName != "")
+                    SerialNumber = "U3V: " + usbInfo.chUserDefinedName + " (" + usbInfo.chSerialNumber + ")";
+                else
+                    SerialNumber = "U3V: " + usbInfo.chManufacturerName + " " + usbInfo.chModelName + " (" + usbInfo.chSerialNumber + ")";
+            }
         }
 
         public bool Open()
         {
+            State = CommunicationStateEnum.NotConnected;
             //创建句柄
             int nRet = m_MyCamera.MV_CC_CreateDevice_NET(ref _device);
             if (nRet != MyCamera.MV_OK)
@@ -116,6 +135,7 @@ namespace Application.Camera
                 Logger.LogDebug($"开始取流失败，错误码: {ret}");
                 return false;
             }
+            State = CommunicationStateEnum.Connected;   
             return true;
         }
 
@@ -138,15 +158,11 @@ namespace Application.Camera
             byte[] buffer = new byte[dataLength];
             Marshal.Copy(pData, buffer, 0, dataLength);
 
-            // 3. 构造事件参数并触发事件
-            var args = new CameraFrameEventArgs(
+            EventAggregator.GetEvent<CameraFrameEvent>().Publish(new CameraFrameEventArgs(
                 buffer,
                 (int)pFrameInfo.nWidth,
                 (int)pFrameInfo.nHeight,
-                pFrameInfo.enPixelType
-            );
-
-            OnImageReceived?.Invoke(this, args);
+                pFrameInfo.enPixelType));
         }
 
         /// <summary>
@@ -156,6 +172,8 @@ namespace Application.Camera
         /// <param name="pUser"></param>
         private void ExceptionCallback(uint nMsgType, nint pUser)
         {
+            State = CommunicationStateEnum.NotConnected;
+
             Logger.LogDebug($"出现异常，开始执行异常重连回调函数");
             if (nMsgType == MyCamera.MV_EXCEPTION_DEV_DISCONNECT)
             {
@@ -214,6 +232,7 @@ namespace Application.Camera
                 Logger.LogDebug($"销毁句柄失败");
                 return false;
             }
+            State = CommunicationStateEnum.NotConnected;
             return true;
         }
 

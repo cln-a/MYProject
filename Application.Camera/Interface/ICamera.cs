@@ -1,4 +1,6 @@
-﻿namespace Application.Camera
+﻿using Application.Common;
+
+namespace Application.Camera
 {
     public interface ICamera
     {
@@ -28,9 +30,9 @@
         /// <returns></returns>
         bool Close();
 
-        public event EventHandler<CameraFrameEventArgs>? OnImageReceived;
-        public event EventHandler ConnectEvent;
-        public event EventHandler DisconnectEvent;
-        public event EventHandler<CameraStateChangedEventArgs> CameraStateChangedEvent;
+        /// <summary>
+        /// 相机状态
+        /// </summary>
+        CommunicationStateEnum State { get; set; }
     }
 }

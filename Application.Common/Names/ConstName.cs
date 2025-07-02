@@ -20,5 +20,10 @@
         public const string ApplicationMainModule = "ApplicationMainModule";
         public const string ApplicationImageModule = "ApplicationImageModule";
         public const string ApplicationCameraModule = "ApplicationCameraModule";
+
+        /// <summary>
+        /// 相机名称
+        /// </summary>
+        public const string OptCameraName = "GEV: OPT-CHCL8-GX31 (P15BL080006)";
     }
 }
