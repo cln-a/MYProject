@@ -4,8 +4,6 @@ using Microsoft.Extensions.Logging;
 using System.Windows.Media;
 using Application.Common;
 using HalconDotNet;
-using System.Web;
-using System.Diagnostics;
 
 namespace Application.Image
 {

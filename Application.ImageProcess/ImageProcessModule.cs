@@ -18,6 +18,7 @@ namespace Application.ImageProcess
             IUnityContainer unityContainer = containerRegistry.GetContainer();
 
             unityContainer.RegisterSingleton<BlockingCollection<ImageData>>();
+            unityContainer.RegisterSingleton<IImageProcessor, HalconImageProcessor>();
             unityContainer.RegisterSingleton<IProducer, ImageProducer>();
             unityContainer.RegisterSingleton<IConsumer, ImageConsumer>();
         }

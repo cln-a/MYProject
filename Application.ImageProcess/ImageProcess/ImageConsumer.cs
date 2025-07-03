@@ -1,25 +1,22 @@
-﻿using HalconDotNet;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
-using Application.Common;
-using Application.Common.Helper;
 
 namespace Application.ImageProcess
 {
     public class ImageConsumer : IConsumer
     {
         private readonly BlockingCollection<ImageData> _imageQueue;
-        private readonly IEventAggregator _eventAggregator;
         private readonly ILogger _logger;
+        public readonly IImageProcessor _imageProcessor;
         private CancellationTokenSource _cancellationTokenSource;
 
         public ILogger Logger => _logger;
 
-        public ImageConsumer(BlockingCollection<ImageData> imageQueue, IEventAggregator eventAggregator, ILogger logger)
+        public ImageConsumer(BlockingCollection<ImageData> imageQueue, ILogger logger, IImageProcessor imageProcessor)
         {
             this._imageQueue = imageQueue;   
-            this._eventAggregator = eventAggregator;
             this._logger = logger;  
+            this._imageProcessor = imageProcessor;  
 
             _cancellationTokenSource = new CancellationTokenSource();   
         }
@@ -34,14 +31,7 @@ namespace Application.ImageProcess
                     {
                         try
                         {
-                            Logger.LogDebug($"Consume image: {image.Width}x{image.Height}, {image.PixelType}, size={image.Buffer.Length}");
-
-                            HObject halconImage
-                                = ImageConvertHelper.ConvertToHalconImage(image.Width, image.Height, image.PixelType, image.pData);
-
-                            _eventAggregator.GetEvent<ImageProcessedEvent>().Publish(halconImage);
-                            Logger.LogDebug($"Consume image Completed！");
-
+                            _imageProcessor.Process(image);
                         }
                         catch (Exception e)
                         {
@@ -62,7 +52,7 @@ namespace Application.ImageProcess
 
         public void StopConsum()
         {
-            //_cancellationTokenSource.Cancel();
+            _cancellationTokenSource.Cancel();
             _imageQueue.CompleteAdding();
         }
     }
