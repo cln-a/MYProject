@@ -12,6 +12,7 @@ namespace Application.Camera
         private readonly List<ICamera> _cameras = new();
         private readonly Dictionary<string, ICamera> _serialToCamera = new();
         private readonly System.Timers.Timer _retryTimer;
+        private object _lock = new object();    
 
         public ILogger Logger => _logger;
         public IReadOnlyList<ICamera> Cameras => _cameras;
@@ -48,42 +49,45 @@ namespace Application.Camera
 
         private bool TryInitializeCameras()
         {
-            //枚举设备
-            var devices = _cameraManager.EnumerateDevices();
-            if(devices.Count == 0)
+            lock (_lock) 
             {
-                Logger.LogDebug("未检测到任何相机设备");
-                return false;
-            }
-
-            bool success = true;
-            foreach (var device in devices) 
-            {
-                if (_serialToCamera.ContainsKey(ConstName.OptCameraName))
-                    continue;
-
-                try
+                //枚举设备
+                var devices = _cameraManager.EnumerateDevices();
+                if (devices.Count == 0)
                 {
-                    var camera = _cameraFactory.Create(device);
-                    if (!camera.Open() || !(camera.StartGrabbing()))
-                    {
-                        Logger.LogDebug($"连接相机失败：{camera.SerialNumber}");
-                        success = false;
+                    Logger.LogDebug("未检测到任何相机设备");
+                    return false;
+                }
+
+                bool success = true;
+                foreach (var device in devices)
+                {
+                    if (_serialToCamera.ContainsKey(ConstName.OptCameraName))
                         continue;
+
+                    try
+                    {
+                        var camera = _cameraFactory.Create(device);
+                        if (!camera.Open() || !(camera.StartGrabbing()))
+                        {
+                            Logger.LogDebug($"连接相机失败：{camera.SerialNumber}");
+                            success = false;
+                            continue;
+                        }
+
+                        _cameras.Add(camera);
+                        _serialToCamera[camera.SerialNumber] = camera;
+                        camera.State = CommunicationStateEnum.Connected;
                     }
+                    catch (Exception ex)
+                    {
+                        Logger.LogDebug($"初始化相机异常：{Encoding.ASCII.GetString(device.SpecialInfo.stGigEInfo).TrimEnd('\0')}");
+                        success = false;
+                    }
+                }
 
-                    _cameras.Add(camera);
-                    _serialToCamera[camera.SerialNumber] = camera;
-                    camera.State = CommunicationStateEnum.Connected;
-                }
-                catch (Exception ex) 
-                {
-                    Logger.LogDebug($"初始化相机异常：{Encoding.ASCII.GetString(device.SpecialInfo.stGigEInfo).TrimEnd('\0')}");
-                    success = false;
-                }
+                return success && _cameras.Count > 0;
             }
-
-            return success && _cameras.Count > 0;
         }
 
         public void StopAllCameras() 

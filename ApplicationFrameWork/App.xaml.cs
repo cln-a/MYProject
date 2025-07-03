@@ -16,6 +16,7 @@ using Application.Camera;
 using Application.Image.Views;
 using CommonServiceLocator;
 using Unity.ServiceLocation;
+using Application.ImageProcess;
 
 namespace ApplicationFrameWork
 {
@@ -65,6 +66,7 @@ namespace ApplicationFrameWork
                 .AddModule<LoggerModule>()
                 .AddModule<DALModule>()
                 .AddModule<UIModule>()
+                .AddModule<ImageProcessModule>()
                 .AddModule<ApplicationCameraModule>()
                 .AddModule<ApplicationLoginModule>()
                 .AddModule<ApplicationMainModule>(ConstName.ApplicationMainModule, InitializationMode.OnDemand)
@@ -82,6 +84,9 @@ namespace ApplicationFrameWork
 
         protected override void OnExit(ExitEventArgs e)
         {
+            var consumer = ServiceLocator.Current.GetInstance<IConsumer>();
+            consumer.StopConsum();
+
             var cameracontroller = ServiceLocator.Current.GetInstance<ICameraController>();
             cameracontroller.StopAllCameras();  
         }

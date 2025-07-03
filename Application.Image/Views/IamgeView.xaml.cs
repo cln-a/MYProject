@@ -11,6 +11,12 @@ namespace Application.Image.Views
         public IamgeView()
         {
             InitializeComponent();
+
+            Loaded += (s, e) =>
+            {
+                if (DataContext is ImageViewModel vm)
+                    vm.HalconControl = HWinControl;
+            };
         }
     }
 }

@@ -3,6 +3,9 @@ using Application.Common.Helper;
 using Microsoft.Extensions.Logging;
 using System.Windows.Media;
 using Application.Common;
+using HalconDotNet;
+using System.Web;
+using System.Diagnostics;
 
 namespace Application.Image
 {
@@ -22,6 +25,7 @@ namespace Application.Image
             set => SetProperty(ref _imagesource, value);
         }
         public ICamera? HIKCamera { get; private set; }
+        public HWindowControlWPF? HalconControl { get; set; } 
 
         public ImageViewModel(ICameraController _cameraController, ILogger logger, IEventAggregator eventAggregator) 
         {
@@ -30,8 +34,27 @@ namespace Application.Image
             this._eventAggregator = eventAggregator;
 
             EventAggregator.GetEvent<CameraConnectEvent>().Subscribe(OnCameraConnected);
+            EventAggregator.GetEvent<ImageProcessedEvent>().Subscribe(OnImageProcessed);
 
             CameraController.InitializeAllCameras();
+        }
+
+        private void OnImageProcessed(HObject hobject)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(() =>
+            {
+                try
+                {
+                    HOperatorSet.GetImageSize(hobject, out HTuple width, out HTuple height);
+                    HalconControl?.HalconWindow.SetPart(0, 0, width.D, height.D);
+                    HalconControl?.HalconWindow.ClearWindow();
+                    HalconControl?.HalconWindow.DispObj(hobject);
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogError(ex, "Halcon 显示图像失败");
+                }
+            });
         }
 
         private void OnCameraConnected()

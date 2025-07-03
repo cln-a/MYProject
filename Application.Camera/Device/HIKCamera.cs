@@ -154,6 +154,9 @@ namespace Application.Camera
             if (dataLength == 0 || pData == IntPtr.Zero)
                 return;
 
+            MyCamera.MV_FRAME_OUT mV_FRAME_OUT = new MyCamera.MV_FRAME_OUT();
+            mV_FRAME_OUT.pBufAddr = pData;
+
             // 2. 将非托管图像数据复制到托管 byte[]
             byte[] buffer = new byte[dataLength];
             Marshal.Copy(pData, buffer, 0, dataLength);
@@ -162,7 +165,8 @@ namespace Application.Camera
                 buffer,
                 (int)pFrameInfo.nWidth,
                 (int)pFrameInfo.nHeight,
-                pFrameInfo.enPixelType));
+                pFrameInfo.enPixelType,
+                mV_FRAME_OUT.pBufAddr));
         }
 
         /// <summary>

@@ -7,6 +7,7 @@
              xmlns:viewmodel="clr-namespace:Application.Image"
              prism:ViewModelLocator.AutoWireViewModel="True"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:halcon="http://schemas.mvtec.com/halcondotnet"
              d:DataContext="{d:DesignInstance viewmodel:ImageViewModel}"
              xmlns:local="clr-namespace:Application.Image.Views"
              mc:Ignorable="d" 
@@ -14,21 +15,33 @@
              d:DesignWidth="1600"
              Background="White">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.1*"/>
-            <ColumnDefinition Width="2*"/>
-        </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0">
-        </Grid>
-        <Grid Grid.Column="1" Margin="5">
+        <Grid Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0"
                   Margin="5"
-                  Background="LightGray">
-                <Image Source="{Binding ImageSource}"/>
+                  Background="white">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0"
+                        Margin="5"
+                        BorderBrush="Black"
+                        BorderThickness="1" 
+                        Background="White">
+                    <Image Margin="5" 
+                           Source="{Binding ImageSource}"/>
+                </Border>
+                <Border Grid.Column="1"
+                        Margin="5"
+                        BorderBrush="Black"
+                        BorderThickness="1" 
+                        Background="white">
+                    <halcon:HWindowControlWPF x:Name="HWinControl" />
+                </Border>
             </Grid>
             <TextBox x:Name="txtLog"
                      Grid.Row="1"
