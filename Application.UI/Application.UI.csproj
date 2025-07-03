@@ -9,7 +9,9 @@
 
   <ItemGroup>
     <None Remove="Font\FontAwesome.otf" />
+    <None Remove="Image\Exit.png" />
     <None Remove="Image\LoginBackground.png" />
+    <None Remove="Image\莫比乌斯环.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,7 +22,9 @@
 
   <ItemGroup>
     <Resource Include="Font\FontAwesome.otf" />
+    <Resource Include="Image\Exit.png" />
     <Resource Include="Image\LoginBackground.png" />
+    <Resource Include="Image\莫比乌斯环.png" />
   </ItemGroup>
 
   <ItemGroup>

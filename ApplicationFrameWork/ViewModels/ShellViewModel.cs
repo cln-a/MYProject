@@ -1,7 +1,6 @@
 using Application.Common;
 using Application.Login;
-using Application.Login.Views;
-using Application.Main.Views;
+using Application.Main;
 using Application.UI.Dialog;
 
 namespace ApplicationFrameWork.ViewModels;

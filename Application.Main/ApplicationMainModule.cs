@@ -1,5 +1,4 @@
 ﻿using Application.Common;
-using Application.Main.Views;
 
 namespace Application.Main
 {

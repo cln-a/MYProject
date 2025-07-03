@@ -1,9 +1,6 @@
 ﻿using Application.DAL;
 using Application.Login;
-using Application.Login.Views;
 using Application.Main;
-using Application.Main.ViewModels;
-using Application.Main.Views;
 using ApplicationFrameWork.ViewModels;
 using ApplicationFrameWork.Views;
 using Prism.Common;
@@ -13,10 +10,13 @@ using Application.Common;
 using Application.Logger;
 using Application.Image;
 using Application.Camera;
-using Application.Image.Views;
 using CommonServiceLocator;
 using Unity.ServiceLocation;
 using Application.ImageProcess;
+using ControlzEx.Theming;
+using System.Windows.Media;
+using Application.Communicate;
+using Application.ArtificialIntelligence;
 
 namespace ApplicationFrameWork
 {
@@ -48,6 +48,8 @@ namespace ApplicationFrameWork
 
         private void DisPlayShellView()
         {
+            ThemeManager.Current.ChangeTheme(this, ThemeManager.Current.AddTheme(RuntimeThemeGenerator.Current.GenerateRuntimeTheme("Light", Colors.AliceBlue)!));
+
             _containerExtension = ContainerLocator.Current;
             var shell = Container.Resolve<ShellView>();
             if (shell != null)
@@ -79,7 +81,9 @@ namespace ApplicationFrameWork
             ViewModelLocationProvider.Register<ShellView, ShellViewModel>();
             ViewModelLocationProvider.Register<LoginView, LoginViewModel>();
             ViewModelLocationProvider.Register<MainView, MainViewModel>();
-            ViewModelLocationProvider.Register<IamgeView,ImageViewModel>();
+            ViewModelLocationProvider.Register<ImageView,ImageViewModel>();
+            ViewModelLocationProvider.Register<CommunicateView, CommunicateViewModel>();
+            ViewModelLocationProvider.Register<ArtificialIntelligenceView, ArtificialIntelligenceViewModel>();
         }
 
         protected override void OnExit(ExitEventArgs e)

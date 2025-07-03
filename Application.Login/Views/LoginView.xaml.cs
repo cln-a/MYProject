@@ -1,8 +1,6 @@
-﻿using System;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
-
-namespace Application.Login.Views
+namespace Application.Login
 {
     /// <summary>
     /// LoginView.xaml 的交互逻辑

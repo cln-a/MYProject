@@ -1,6 +1,4 @@
 ﻿using Application.Common;
-using Application.Image.Views;
-using Prism.Navigation.Regions;
 
 namespace Application.Image
 {
@@ -8,12 +6,12 @@ namespace Application.Image
     {
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            containerProvider.Resolve<IRegionManager>().RegisterViewWithRegion<IamgeView>(ConstName.MainViewRegion);
+            containerProvider.Resolve<IRegionManager>().RegisterViewWithRegion<ImageView>(ConstName.MainViewRegion);
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterForNavigation<IamgeView>();
+            containerRegistry.RegisterForNavigation<ImageView>();
         }
     }
 }

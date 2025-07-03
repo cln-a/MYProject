@@ -1,15 +1,13 @@
-﻿namespace Application.Login
+﻿namespace Application.Communicate
 {
-    public class ApplicationLoginModule : IModule
+    public class ApplicationCommunicateModule : IModule
     {
         public void OnInitialized(IContainerProvider containerProvider)
         {
-
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterForNavigation<LoginView>();
         }
     }
 }

@@ -8,6 +8,8 @@ namespace Application.DAL
     {
         public void OnInitialized(IContainerProvider containerProvider)
         {
+            var systemMenu = containerProvider.Resolve<ISystemMenuDAL>();
+            systemMenu.CreateTable();
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
@@ -44,6 +46,7 @@ namespace Application.DAL
             unityContainer.RegisterType<IS7netDeviceDAL, S7netDeviceDAL>();
             unityContainer.RegisterType<IS7netRegisterDAL, S7netRegisterDAL>();
             unityContainer.RegisterType<ISystemUserDAL, SystemUserDAL>();
+            unityContainer.RegisterType<ISystemMenuDAL, SystemMenuDAL>();
         }
     }
 }
