@@ -8,6 +8,7 @@
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterForNavigation<ArtificialIntelligenceView>();
         }
     }
 }

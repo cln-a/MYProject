@@ -40,6 +40,11 @@
                         Text="Leev Vision" />
                 </StackPanel>
                 <ListBox x:Name="ListMenu" ItemsSource="{Binding MenuBars}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding NavigateCommand}" CommandParameter="{Binding ElementName=ListMenu, Path=SelectedItem}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                     <ListBox.ItemContainerStyle>
                         <Style BasedOn="{StaticResource MaterialDesignFilterChipOutlineListBoxItem}" TargetType="ListBoxItem" />
                     </ListBox.ItemContainerStyle>

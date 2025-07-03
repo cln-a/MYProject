@@ -72,7 +72,9 @@ namespace ApplicationFrameWork
                 .AddModule<ApplicationCameraModule>()
                 .AddModule<ApplicationLoginModule>()
                 .AddModule<ApplicationMainModule>(ConstName.ApplicationMainModule, InitializationMode.OnDemand)
-                .AddModule<ApplicationImageModule>(ConstName.ApplicationImageModule, InitializationMode.OnDemand, ConstName.ApplicationMainModule);
+                .AddModule<ApplicationImageModule>(ConstName.ApplicationImageModule, InitializationMode.OnDemand, ConstName.ApplicationMainModule)
+                .AddModule<ApplicationCommunicateModule>()
+                .AddModule<ApplicationArtificialIntelligenceModule>();
         }
 
         protected override void ConfigureViewModelLocator()
