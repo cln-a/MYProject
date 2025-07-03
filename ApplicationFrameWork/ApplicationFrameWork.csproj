@@ -23,8 +23,10 @@
     <ProjectReference Include="..\Application.Common\Application.Common.csproj" />
     <ProjectReference Include="..\Application.Communicate\Application.Communicate.csproj" />
     <ProjectReference Include="..\Application.DAL\Application.DAL.csproj" />
+    <ProjectReference Include="..\Application.Device\Application.Device.csproj" />
     <ProjectReference Include="..\Application.ImageProcess\Application.ImageProcess.csproj" />
     <ProjectReference Include="..\Application.Image\Application.Image.csproj" />
+    <ProjectReference Include="..\Application.Journal\Application.Journal.csproj" />
     <ProjectReference Include="..\Application.Logger\Application.Logger.csproj" />
     <ProjectReference Include="..\Application.Login\Application.Login.csproj" />
     <ProjectReference Include="..\Application.Main\Application.Main.csproj" />

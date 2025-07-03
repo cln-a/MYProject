@@ -17,6 +17,8 @@ using ControlzEx.Theming;
 using System.Windows.Media;
 using Application.Communicate;
 using Application.ArtificialIntelligence;
+using Application.Journal;
+using Application.Device;
 
 namespace ApplicationFrameWork
 {
@@ -74,7 +76,9 @@ namespace ApplicationFrameWork
                 .AddModule<ApplicationMainModule>(ConstName.ApplicationMainModule, InitializationMode.OnDemand)
                 .AddModule<ApplicationImageModule>(ConstName.ApplicationImageModule, InitializationMode.OnDemand, ConstName.ApplicationMainModule)
                 .AddModule<ApplicationCommunicateModule>()
-                .AddModule<ApplicationArtificialIntelligenceModule>();
+                .AddModule<ApplicationArtificialIntelligenceModule>()
+                .AddModule<ApplicationJournalModule>()
+                .AddModule<ApplicationDeviceModule>();
         }
 
         protected override void ConfigureViewModelLocator()
@@ -86,6 +90,8 @@ namespace ApplicationFrameWork
             ViewModelLocationProvider.Register<ImageView,ImageViewModel>();
             ViewModelLocationProvider.Register<CommunicateView, CommunicateViewModel>();
             ViewModelLocationProvider.Register<ArtificialIntelligenceView, ArtificialIntelligenceViewModel>();
+            ViewModelLocationProvider.Register<JournalView, JournalViewModel>();
+            ViewModelLocationProvider.Register<DeviceView, DeviceViewModel>();
         }
 
         protected override void OnExit(ExitEventArgs e)
