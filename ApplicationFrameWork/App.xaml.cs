@@ -19,6 +19,7 @@ using Application.Communicate;
 using Application.ArtificialIntelligence;
 using Application.Journal;
 using Application.Device;
+using Application.RestSharp;
 
 namespace ApplicationFrameWork
 {
@@ -72,6 +73,7 @@ namespace ApplicationFrameWork
                 .AddModule<UIModule>()
                 .AddModule<ImageProcessModule>()
                 .AddModule<ApplicationCameraModule>()
+                .AddModule<ApplicationRestSharpModule>()
                 .AddModule<ApplicationLoginModule>()
                 .AddModule<ApplicationMainModule>(ConstName.ApplicationMainModule, InitializationMode.OnDemand)
                 .AddModule<ApplicationImageModule>(ConstName.ApplicationImageModule, InitializationMode.OnDemand, ConstName.ApplicationMainModule)
