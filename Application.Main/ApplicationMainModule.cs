@@ -13,7 +13,7 @@ namespace Application.Main
 
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            ModuleManager.LoadModule(ConstName.ApplicationImageModule);
+            //ModuleManager.LoadModule(ConstName.ApplicationImageModule);
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)

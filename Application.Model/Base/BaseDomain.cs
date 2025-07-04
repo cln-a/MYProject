@@ -12,7 +12,7 @@ namespace Application.Model
         protected bool _isEnabled;
         protected string? _description;
 
-        [SugarColumn]
+        [SugarColumn(IsPrimaryKey = true, IsIdentity = true)]
         public virtual int Id
         {
             get => _id; 

@@ -67,20 +67,19 @@ namespace ApplicationFrameWork
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
             base.ConfigureModuleCatalog(moduleCatalog);
-            moduleCatalog
-                .AddModule<LoggerModule>()
-                .AddModule<DALModule>()
-                .AddModule<UIModule>()
-                .AddModule<ImageProcessModule>()
-                .AddModule<ApplicationCameraModule>()
-                .AddModule<ApplicationRestSharpModule>()
-                .AddModule<ApplicationLoginModule>()
-                .AddModule<ApplicationMainModule>(ConstName.ApplicationMainModule, InitializationMode.OnDemand)
-                .AddModule<ApplicationImageModule>(ConstName.ApplicationImageModule, InitializationMode.OnDemand, ConstName.ApplicationMainModule)
-                .AddModule<ApplicationCommunicateModule>()
-                .AddModule<ApplicationArtificialIntelligenceModule>()
-                .AddModule<ApplicationJournalModule>()
-                .AddModule<ApplicationDeviceModule>();
+            moduleCatalog.AddModule<LoggerModule>();
+            moduleCatalog.AddModule<DALModule>();
+            moduleCatalog.AddModule<UIModule>();
+            //moduleCatalog.AddModule<ImageProcessModule>();
+            //moduleCatalog.AddModule<ApplicationCameraModule>();
+            //moduleCatalog.AddModule<ApplicationRestSharpModule>();
+            moduleCatalog.AddModule<ApplicationLoginModule>();
+            moduleCatalog.AddModule<ApplicationMainModule>(ConstName.ApplicationMainModule, InitializationMode.OnDemand);
+            //moduleCatalog.AddModule<ApplicationImageModule>(ConstName.ApplicationImageModule, InitializationMode.OnDemand, ConstName.ApplicationMainModule);
+            moduleCatalog.AddModule<ApplicationCommunicateModule>();
+            //moduleCatalog.AddModule<ApplicationArtificialIntelligenceModule>();
+            moduleCatalog.AddModule<ApplicationJournalModule>();
+            moduleCatalog.AddModule<ApplicationDeviceModule>();
         }
 
         protected override void ConfigureViewModelLocator()
@@ -89,20 +88,20 @@ namespace ApplicationFrameWork
             ViewModelLocationProvider.Register<ShellView, ShellViewModel>();
             ViewModelLocationProvider.Register<LoginView, LoginViewModel>();
             ViewModelLocationProvider.Register<MainView, MainViewModel>();
-            ViewModelLocationProvider.Register<ImageView,ImageViewModel>();
+            //ViewModelLocationProvider.Register<ImageView,ImageViewModel>();
             ViewModelLocationProvider.Register<CommunicateView, CommunicateViewModel>();
-            ViewModelLocationProvider.Register<ArtificialIntelligenceView, ArtificialIntelligenceViewModel>();
+            //ViewModelLocationProvider.Register<ArtificialIntelligenceView, ArtificialIntelligenceViewModel>();
             ViewModelLocationProvider.Register<JournalView, JournalViewModel>();
             ViewModelLocationProvider.Register<DeviceView, DeviceViewModel>();
         }
 
         protected override void OnExit(ExitEventArgs e)
         {
-            var consumer = ServiceLocator.Current.GetInstance<IConsumer>();
-            consumer.StopConsum();
+            //var consumer = ServiceLocator.Current.GetInstance<IConsumer>();
+            //consumer.StopConsum();
 
-            var cameracontroller = ServiceLocator.Current.GetInstance<ICameraController>();
-            cameracontroller.StopAllCameras();  
+            //var cameracontroller = ServiceLocator.Current.GetInstance<ICameraController>();
+            //cameracontroller.StopAllCameras();  
         }
     }
 }

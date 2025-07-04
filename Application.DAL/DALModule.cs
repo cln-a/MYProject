@@ -9,7 +9,11 @@ namespace Application.DAL
         public void OnInitialized(IContainerProvider containerProvider)
         {
             var systemMenu = containerProvider.Resolve<ISystemMenuDAL>();
+            var modbusdevice = containerProvider.Resolve<IModbusDeviceDAL>();
+            var modbusregister = containerProvider.Resolve<IModbusRegisterDAL>();
             systemMenu.CreateTable();
+            modbusdevice.CreateTable();
+            modbusregister.CreateTable();
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)

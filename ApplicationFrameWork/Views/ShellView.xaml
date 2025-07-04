@@ -11,7 +11,7 @@
     xmlns:behavior="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:viewmodel="clr-namespace:ApplicationFrameWork.ViewModels"
     d:DataContext="{d:DesignInstance viewmodel:ShellViewModel}"
-    Title="ShellView"
+    Title="Leev Vision"
     Width="800"
     Height="450"
     prism:ViewModelLocator.AutoWireViewModel="True"
@@ -24,6 +24,10 @@
         </behavior:EventTrigger>
     </behavior:Interaction.Triggers>
     <Grid>
-        <ContentControl prism:RegionManager.RegionName="{x:Static common:ConstName.MainRegion}" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="27*"/>
+            <ColumnDefinition Width="373*"/>
+        </Grid.ColumnDefinitions>
+        <ContentControl prism:RegionManager.RegionName="{x:Static common:ConstName.MainRegion}" Grid.ColumnSpan="2" />
     </Grid>
 </mah:MetroWindow>
