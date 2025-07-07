@@ -11,5 +11,20 @@ namespace Application.DAL
             : base(sqlSugarClient)
         {
         }
+
+        public PageResult<ModbusDevice> GetPage(int pagenumber, int pagesize)
+        {
+            try
+            {
+                var totalCount = 1;
+                var totalPage = 5;
+                var pageData = SqlSugarClient.Queryable<ModbusDevice>().ToPageList(pagenumber, pagesize, ref totalCount, ref totalPage);
+                return PageResult<ModbusDevice>.CreatePageFromSqlSugar(pageData, pagenumber, pagesize, totalCount, totalPage);
+            }
+            catch (Exception ex) 
+            {
+                throw;
+            }
+        }
     }
 }

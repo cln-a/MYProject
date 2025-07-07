@@ -49,15 +49,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BLL", "BLL", "{CAD44F8A-AE6
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.ImageProcess", "Application.ImageProcess\Application.ImageProcess.csproj", "{4AC92FF1-0A21-4DCC-B4A4-E038C4510252}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Communicate", "Application.Communicate\Application.Communicate.csproj", "{2DFBA52F-02E8-4888-B908-5C735091BE39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.Communicate", "Application.Communicate\Application.Communicate.csproj", "{2DFBA52F-02E8-4888-B908-5C735091BE39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.ArtificialIntelligence", "Application.ArtificialIntelligence\Application.ArtificialIntelligence.csproj", "{1FB9C355-57CA-4F64-BDBF-175F24C88ED4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.ArtificialIntelligence", "Application.ArtificialIntelligence\Application.ArtificialIntelligence.csproj", "{1FB9C355-57CA-4F64-BDBF-175F24C88ED4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Journal", "Application.Journal\Application.Journal.csproj", "{BF27EAB3-933D-401C-BAB9-1C1F01FEFB24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.Journal", "Application.Journal\Application.Journal.csproj", "{BF27EAB3-933D-401C-BAB9-1C1F01FEFB24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Device", "Application.Device\Application.Device.csproj", "{01B6AC5A-1BA2-43B4-B540-EA2D571B2E11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.Device", "Application.Device\Application.Device.csproj", "{01B6AC5A-1BA2-43B4-B540-EA2D571B2E11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.RestSharp", "Application.RestSharp\Application.RestSharp.csproj", "{04266575-B051-4666-B4E5-E55A61E6FBF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.RestSharp", "Application.RestSharp\Application.RestSharp.csproj", "{04266575-B051-4666-B4E5-E55A61E6FBF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Mapper", "ApplicationFrame.Mapper\Application.Mapper.csproj", "{824AE14B-8888-41A0-9BFD-DEC9878BD393}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -149,6 +151,10 @@ Global
 		{04266575-B051-4666-B4E5-E55A61E6FBF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04266575-B051-4666-B4E5-E55A61E6FBF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04266575-B051-4666-B4E5-E55A61E6FBF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{824AE14B-8888-41A0-9BFD-DEC9878BD393}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{824AE14B-8888-41A0-9BFD-DEC9878BD393}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{824AE14B-8888-41A0-9BFD-DEC9878BD393}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{824AE14B-8888-41A0-9BFD-DEC9878BD393}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -174,6 +180,7 @@ Global
 		{BF27EAB3-933D-401C-BAB9-1C1F01FEFB24} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{01B6AC5A-1BA2-43B4-B540-EA2D571B2E11} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{04266575-B051-4666-B4E5-E55A61E6FBF1} = {CAD44F8A-AE6F-4F9B-9650-F15AE019869F}
+		{824AE14B-8888-41A0-9BFD-DEC9878BD393} = {16BCABEE-0867-4DA2-BC51-61B740A4DB43}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {03FAA2E3-B831-4B51-9E55-9E41C3365066}

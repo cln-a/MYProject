@@ -3,11 +3,11 @@
 namespace Application.Communicate
 {
     /// <summary>
-    /// CommunicateView.xaml 的交互逻辑
+    /// ModbusMonitorView.xaml 的交互逻辑
     /// </summary>
-    public partial class CommunicateView : UserControl
+    public partial class ModbusMonitorView : UserControl
     {
-        public CommunicateView()
+        public ModbusMonitorView()
         {
             InitializeComponent();
         }

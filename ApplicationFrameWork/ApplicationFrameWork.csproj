@@ -33,6 +33,7 @@
     <ProjectReference Include="..\Application.Modbus\Application.Modbus.csproj" />
     <ProjectReference Include="..\Application.S7net\Application.S7net.csproj" />
     <ProjectReference Include="..\Application.UI\Application.UI.csproj" />
+    <ProjectReference Include="..\ApplicationFrame.Mapper\Application.Mapper.csproj" />
   </ItemGroup>
 
   <ItemGroup>

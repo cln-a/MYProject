@@ -9,7 +9,7 @@ namespace Application.Device
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterForNavigation<DeviceView>();
+            containerRegistry.RegisterForNavigation<ModbusDeviceView>();
         }
     }
 }

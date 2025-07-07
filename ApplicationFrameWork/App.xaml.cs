@@ -20,6 +20,7 @@ using Application.ArtificialIntelligence;
 using Application.Journal;
 using Application.Device;
 using Application.RestSharp;
+using Application.Mapper;
 
 namespace ApplicationFrameWork
 {
@@ -68,6 +69,7 @@ namespace ApplicationFrameWork
         {
             base.ConfigureModuleCatalog(moduleCatalog);
             moduleCatalog.AddModule<LoggerModule>();
+            moduleCatalog.AddModule<ApplicationMapperModule>();
             moduleCatalog.AddModule<DALModule>();
             moduleCatalog.AddModule<UIModule>();
             //moduleCatalog.AddModule<ImageProcessModule>();
@@ -89,10 +91,10 @@ namespace ApplicationFrameWork
             ViewModelLocationProvider.Register<LoginView, LoginViewModel>();
             ViewModelLocationProvider.Register<MainView, MainViewModel>();
             //ViewModelLocationProvider.Register<ImageView,ImageViewModel>();
-            ViewModelLocationProvider.Register<CommunicateView, CommunicateViewModel>();
+            ViewModelLocationProvider.Register<ModbusMonitorView, ModbusMonitorViewModel>();
             //ViewModelLocationProvider.Register<ArtificialIntelligenceView, ArtificialIntelligenceViewModel>();
             ViewModelLocationProvider.Register<JournalView, JournalViewModel>();
-            ViewModelLocationProvider.Register<DeviceView, DeviceViewModel>();
+            ViewModelLocationProvider.Register<ModbusDeviceView, ModbusDeviceViewModel>();
         }
 
         protected override void OnExit(ExitEventArgs e)
