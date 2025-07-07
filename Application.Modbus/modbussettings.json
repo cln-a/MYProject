@@ -1,0 +1,10 @@
+﻿{
+  "HeartBeatMasterOptions": [
+    {
+      "DeviceName": "ModbusDevice",
+      "VariablePath": "PC_HeartBeat",
+      "HeartBeatInterval": "1000",
+      "HeartBeatValues": [ 0, 1 ]
+    }
+  ]
+}

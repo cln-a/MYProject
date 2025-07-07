@@ -12,6 +12,19 @@ namespace Application.DAL
         {
         }
 
+        public List<ModbusRegister> GetAllEnabledByDeviceId(int deviceId)
+        {
+            try
+            {
+                return SqlSugarClient.Queryable<ModbusRegister>().Where(x => x.DeviceId == deviceId && x.IsEnabled).ToList();
+            }
+            catch(Exception e)
+            {
+                //Logger
+                throw;
+            }
+        }
+
         public List<ModbusRegister> GetAllReadableByDeviceId(int deviceId)
         {
             try

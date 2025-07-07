@@ -32,6 +32,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Application.Common\Application.Common.csproj" />
     <ProjectReference Include="..\Application.Model\Application.Model.csproj" />
+    <ProjectReference Include="..\ApplicationFrame.Mapper\Application.Mapper.csproj" />
   </ItemGroup>
 
 </Project>

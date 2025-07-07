@@ -12,17 +12,15 @@ namespace Application.DAL
         {
         }
 
-        public PageResult<ModbusDevice> GetPage(int pagenumber, int pagesize)
+        public List<ModbusDevice> GetAllEnabledDevices()
         {
             try
             {
-                var totalCount = 1;
-                var totalPage = 5;
-                var pageData = SqlSugarClient.Queryable<ModbusDevice>().ToPageList(pagenumber, pagesize, ref totalCount, ref totalPage);
-                return PageResult<ModbusDevice>.CreatePageFromSqlSugar(pageData, pagenumber, pagesize, totalCount, totalPage);
+                return SqlSugarClient.Queryable<ModbusDevice>().Where(x => x.IsEnabled).ToList();   
             }
             catch (Exception ex) 
             {
+                //Logger
                 throw;
             }
         }

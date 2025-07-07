@@ -9,6 +9,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:controls="https://handyorg.github.io/handycontrol"
              xmlns:viewmodel="clr-namespace:Application.Communicate"
+             xmlns:tools="clr-namespace:Application.UI;assembly=Application.UI"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              prism:ViewModelLocator.AutoWireViewModel="True"
              d:DataContext="{d:DesignInstance viewmodel:ModbusMonitorViewModel}"
              mc:Ignorable="d" 
@@ -18,6 +20,11 @@
              TextElement.FontSize="16"
              TextElement.FontWeight="Regular"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding RefreshCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -31,15 +38,215 @@
             Style="{StaticResource TextBlockTitleBold}" 
             Margin="5"/>
         <Grid Grid.Row="1">
-            
+            <DataGrid
+                x:Name="ioMonitoringList"
+                Margin="5"
+                controls:DataGridAttach.CanUnselectAllWithBlankArea="True"
+                AutoGenerateColumns="False"
+                CanUserAddRows="False"
+                HeadersVisibility="All"
+                IsReadOnly="True"
+                ItemsSource="{Binding Items}"
+                MinRowHeight="45"
+                RowHeaderWidth="60"
+                SelectionUnit="FullRow">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        <Setter Property="Padding" Value="5" />
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="MinWidth" Value="100" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="DataGridColumnHeader">
+                                    <Border
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                        <ContentPresenter
+                                            Margin="{TemplateBinding Padding}"
+                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                    <DataTemplate x:Key="CheckBoxTemplate">
+                        <CheckBox
+                            HorizontalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            IsChecked="{Binding Writable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource CheckBoxBaseStyle}" />
+                    </DataTemplate>
+                    <DataTemplate x:Key="NumericUpDownTemplate">
+                        <controls:NumericUpDown Width="Auto" Value="{Binding WriteValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </DataTemplate>
+                    <DataTemplate x:Key="Int16NumericUpDownTemplate">
+                        <controls:NumericUpDown Width="Auto" Value="{Binding Int16Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </DataTemplate>
+                    <DataTemplate x:Key="UInt16NumericUpDownTemplate">
+                        <controls:NumericUpDown Width="Auto" Value="{Binding UInt16Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </DataTemplate>
+                    <DataTemplate x:Key="Int32NumericUpDownTemplate">
+                        <controls:NumericUpDown Width="Auto" Value="{Binding Int32Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </DataTemplate>
+                    <DataTemplate x:Key="UInt32NumericUpDownTemplate">
+                        <controls:NumericUpDown Width="Auto" Value="{Binding UInt32Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </DataTemplate>
+                    <DataTemplate x:Key="Int64NumericUpDownTemplate">
+                        <controls:NumericUpDown Width="Auto" Value="{Binding Int64Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </DataTemplate>
+                    <DataTemplate x:Key="UInt64NumericUpDownTemplate">
+                        <controls:NumericUpDown Width="Auto" Value="{Binding UInt64Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </DataTemplate>
+                    <DataTemplate x:Key="SingleNumericUpDownTemplate">
+                        <controls:NumericUpDown
+                            Width="Auto"
+                            DecimalPlaces="2"
+                            Value="{Binding SingleValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </DataTemplate>
+                    <DataTemplate x:Key="DoubleNumericUpDownTemplate">
+                        <controls:NumericUpDown
+                            Width="Auto"
+                            DecimalPlaces="2"
+                            Value="{Binding DoubleValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </DataTemplate>
+                    <DataTemplate x:Key="TextBoxTemplate">
+                        <controls:TextBox Width="Auto" Text="{Binding WriteValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </DataTemplate>
+                    <DataTemplate x:Key="WordNumericUpDownTemplate">
+                        <controls:TextBox Width="Auto" Text="{Binding WordValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </DataTemplate>
+                    <DataTemplate x:Key="DWordNumericUpDownTemplate">
+                        <controls:TextBox Width="Auto" Text="{Binding DWordValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </DataTemplate>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="HorizontalAlignment" Value="Center" />
+                        <Setter Property="BorderThickness" Value="0" />
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Width="Auto"
+                        Binding="{Binding Id}"
+                        CanUserSort="True"
+                        Header="序号"
+                        SortMemberPath="Id" />
+                    <DataGridTextColumn
+                        Width="Auto"
+                        Binding="{Binding DeviceId}"
+                        CanUserSort="True"
+                        Header="设备序号"
+                        SortMemberPath="DeviceId" />
+                    <DataGridTextColumn
+                        Width="Auto"
+                        Binding="{Binding Description}"
+                        CanUserSort="True"
+                        Header="描述"
+                        SortMemberPath="Description" />
+                    <DataGridTextColumn
+                        Width="Auto"
+                        Binding="{Binding Value}"
+                        CanUserSort="False"
+                        Header="值" />
+                    <DataGridTemplateColumn Width="Auto" CanUserResize="False" Header="操作">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <ContentPresenter Content="{Binding DataContext,RelativeSource={RelativeSource AncestorType=DataGridRow}}">
+                                        <ContentPresenter.ContentTemplateSelector>
+                                            <tools:IOMonitorDataTemplateSelector 
+                                                CheckBoxTemplate="{StaticResource CheckBoxTemplate}"
+                                                NumericUpDownTemplate="{StaticResource NumericUpDownTemplate}"
+                                                Int16NumericUpDownTemplate="{StaticResource Int16NumericUpDownTemplate}"
+                                                Int32NumericUpDownTemplate="{StaticResource Int32NumericUpDownTemplate}"
+                                                UInt16NumericUpDownTemplate="{StaticResource UInt16NumericUpDownTemplate}"
+                                                UInt32NumericUpDownTemplate="{StaticResource UInt32NumericUpDownTemplate}"
+                                                Int64NumericUpDownTemplate="{StaticResource Int64NumericUpDownTemplate}"
+                                                UInt64NumericUpDownTemplate="{StaticResource UInt64NumericUpDownTemplate}"
+                                                SingleNumericUpDownTemplate="{StaticResource SingleNumericUpDownTemplate}"
+                                                DoubleNumericUpDownTemplate="{StaticResource DoubleNumericUpDownTemplate}"
+                                                TextBoxTemplate="{StaticResource TextBoxTemplate}"
+                                                WordNumericUpDownTemplate="{StaticResource WordNumericUpDownTemplate}"
+                                                DWordNumericUpDownTemplate="{StaticResource DWordNumericUpDownTemplate}"/>
+                                        </ContentPresenter.ContentTemplateSelector>
+                                    </ContentPresenter>
+                                    <Button 
+                                        Style="{StaticResource ButtonDefault}" 
+                                        Margin="5 0 0 0" 
+                                        Grid.Column="1" 
+                                        controls:IconElement.Geometry="{StaticResource SaveGeometry}"
+                                        Content="写入" 
+                                        Command="{Binding DataContext.WriteValueCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        CommandParameter="{Binding}">
+                                    </Button>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn
+                        Width="Auto"
+                        Binding="{Binding ValueDataTypeText}"
+                        CanUserSort="True"
+                        Header="数据类型"
+                        SortMemberPath="ValueDataType" />
+                    <DataGridTextColumn 
+                        Width="Auto" 
+                        CanUserSort="True" 
+                        SortMemberPath="ModbusType" 
+                        Binding="{Binding ModbusTypeText}" 
+                        Header="寄存器类型" />
+                    <DataGridTextColumn 
+                        Width="Auto" 
+                        CanUserSort="True" 
+                        SortMemberPath="StartAddress" 
+                        Binding="{Binding StartAddress}" 
+                        Header="起始地址" />
+                    <DataGridTextColumn 
+                        Width="Auto" 
+                        CanUserSort="True" 
+                        SortMemberPath="NumberOfPoints" 
+                        Binding="{Binding NumberOfPoints}" 
+                        Header="寄存器数量" />
+                    <DataGridTextColumn 
+                        Width="Auto" 
+                        CanUserSort="True" 
+                        SortMemberPath="RegisterUri" 
+                        Binding="{Binding RegisterUri}" 
+                        Header="路径" />
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
         <StackPanel Grid.Row="2"
                     Margin="0,5,0,5"
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
-            <materialDesign:PackIcon>
-                
-            </materialDesign:PackIcon>
+            <materialDesign:PackIcon
+                Width="24"
+                Height="24"
+                Cursor="Hand"
+                Kind="ChevronLeft"/>
+            <TextBlock
+                Margin="10,0"
+                VerticalAlignment="Center"
+                Text="{Binding pageNumber, StringFormat='第{0}页'}" />
+            <materialDesign:PackIcon
+                Width="24"
+                Height="24"
+                Cursor="Hand"
+                Kind="ChevronRight"/>
+            <TextBlock
+                Margin="0,0,10,0"
+                VerticalAlignment="Center"
+                Text="{Binding totalPage, StringFormat='共{0}页'}" />
         </StackPanel>
     </Grid>
 </UserControl>

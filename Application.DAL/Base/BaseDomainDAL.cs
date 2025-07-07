@@ -45,5 +45,21 @@ namespace Application.DAL
                 throw;
             }
         }
+
+        public PageResult<DomainType> GetPage(int pagenumber, int pagesize)
+        {
+            try
+            {
+                var totalCount = 1;
+                var totalPage = 5;
+                var pageData = SqlSugarClient.Queryable<DomainType>().ToPageList(pagenumber, pagesize, ref totalCount, ref totalPage);
+                return PageResult<DomainType>.CreatePageFromSqlSugar(pageData, pagenumber, pagesize, totalCount, totalPage);
+            }
+            catch (Exception ex)
+            {
+                //Logger
+                throw;
+            }
+        }
     }
 }

@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Application.IDAL\Application.IDAL.csproj" />
     <ProjectReference Include="..\Application.UI\Application.UI.csproj" />
     <ProjectReference Include="..\ApplicationFrame.Mapper\Application.Mapper.csproj" />
   </ItemGroup>

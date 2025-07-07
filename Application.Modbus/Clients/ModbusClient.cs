@@ -3,7 +3,6 @@ using Application.IDAL;
 using Application.Model;
 using CommonServiceLocator;
 using Modbus.Device;
-using System.Windows.Documents;
 
 namespace Application.Modbus
 {

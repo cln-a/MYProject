@@ -21,6 +21,8 @@ using Application.Journal;
 using Application.Device;
 using Application.RestSharp;
 using Application.Mapper;
+using Application.Modbus;
+using Microsoft.Extensions.Logging;
 
 namespace ApplicationFrameWork
 {
@@ -71,6 +73,7 @@ namespace ApplicationFrameWork
             moduleCatalog.AddModule<LoggerModule>();
             moduleCatalog.AddModule<ApplicationMapperModule>();
             moduleCatalog.AddModule<DALModule>();
+            moduleCatalog.AddModule<ModbusModule>();
             moduleCatalog.AddModule<UIModule>();
             //moduleCatalog.AddModule<ImageProcessModule>();
             //moduleCatalog.AddModule<ApplicationCameraModule>();
@@ -78,10 +81,10 @@ namespace ApplicationFrameWork
             moduleCatalog.AddModule<ApplicationLoginModule>();
             moduleCatalog.AddModule<ApplicationMainModule>(ConstName.ApplicationMainModule, InitializationMode.OnDemand);
             //moduleCatalog.AddModule<ApplicationImageModule>(ConstName.ApplicationImageModule, InitializationMode.OnDemand, ConstName.ApplicationMainModule);
+            moduleCatalog.AddModule<ApplicationDeviceModule>();
             moduleCatalog.AddModule<ApplicationCommunicateModule>();
             //moduleCatalog.AddModule<ApplicationArtificialIntelligenceModule>();
             moduleCatalog.AddModule<ApplicationJournalModule>();
-            moduleCatalog.AddModule<ApplicationDeviceModule>();
         }
 
         protected override void ConfigureViewModelLocator()
@@ -104,6 +107,34 @@ namespace ApplicationFrameWork
 
             //var cameracontroller = ServiceLocator.Current.GetInstance<ICameraController>();
             //cameracontroller.StopAllCameras();  
+
+            var logger = ServiceLocator.Current.GetInstance<ILogger>();
+            var clients = ServiceLocator.Current.GetAllInstances<ModbusClient>();
+
+            foreach (var client in clients)
+            {
+                try
+                {
+                    client.Stop();
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError( ex.Message);
+                }
+            }
+
+            var heartBeatMasters = ServiceLocator.Current.GetAllInstances<HeartBeatMaster>();
+            foreach (var master in heartBeatMasters)
+            {
+                try
+                {
+                    master.Stop();
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError( ex.Message);
+                }
+            }
         }
     }
 }

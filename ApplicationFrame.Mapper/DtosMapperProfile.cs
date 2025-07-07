@@ -7,6 +7,7 @@ namespace Application.Mapper
         public DtosMapperProfile() 
         {
             CreateMap<ModbusDevice, ModbusDeviceDto>().ReverseMap();
+            CreateMap<ModbusRegister, ModbusRegisterDto>().ReverseMap();
         }
     }
 }
