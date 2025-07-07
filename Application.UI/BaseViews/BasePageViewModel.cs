@@ -7,7 +7,7 @@ namespace Application.UI
     {
         protected ObservableCollection<T> _items;
         protected int _pagenumber = 1;
-        protected int _pagesize = 25;
+        protected int _pagesize = 15;
         protected int _totalcount;
         protected int _totalpage = 1;
 
@@ -43,18 +43,17 @@ namespace Application.UI
             totalPage = pageResult.totalPage;
         }
 
-        protected virtual PageResult<T> GetPage() =>
-            new() { pagenumber = 1, pageSize = 25, totalCount = 0, totalPage = 1 };
+        protected virtual Task<PageResult<T>> GetPage() => null!;
 
-        protected virtual void PageUpdateCmd()
+        protected virtual async void PageUpdateCmd()
         {
-            var pageResult = GetPage();
+            var pageResult = await GetPage();
             Items.Clear();
             Items.AddRange(pageResult.items);
             SetPageResult(pageResult);
         }
 
-        protected override void Initialize() => PageUpdateCmd();
+        protected override void Initialize() =>  PageUpdateCmd();
 
         protected virtual void InsertCmd() { }
 

@@ -1,0 +1,73 @@
+﻿{
+  "SetParameterOption": [
+    {
+      "Name": "Set",
+
+      "SetEnableOneUri": "SetEnableOne",
+      "SetEnableTwoUri": "SetEnableTwo",
+      "SetEnableThreeUri": "SetEnableThree",
+      "SetEnableFourUri": "SetEnableFour",
+      "SetEnableFiveUri": "SetEnableFive",
+      "SetEnableSixUri": "SetEnableSix",
+      "SetEnableSevenUri": "SetEnableSeven",
+      "SetEnableEightUri": "SetEnableEight",
+      "SetEnableNineUri": "SetEnableNine",
+      "SetEnableTenUri": "SetEnableTen",
+      "SetEnableEleven": "SetEnableEleven",
+
+      "SetDelayOneUri": "SetDelayOne",
+      "SetDelayTwoUri": "SetDelayTwo",
+      "SetDelayThreeUri": "SetDelayThree",
+      "SetDelayFourUri": "SetDelayFour",
+      "SetDelayFiveUri": "SetDelayFive",
+      "SetDelaySixUri": "SetDelaySix",
+      "SetDelaySevenUri": "SetDelaySeven",
+      "SetDelayEightUri": "SetDelayEight",
+      "SetDelayNineUri": "SetDelayNine",
+      "SetDelayTenUri": "SetDelayTen",
+      "SetDelayElevenUri": "SetDelayEleven",
+
+      "SetTimeUri": "SetTime"
+    }
+  ],
+  "CurParameterOption": [
+    {
+      "Name": "Cur",
+
+      "CurTimeConsumeOneUri": "CurTimeConsumeOne",
+      "CurTimeConsumeTwoUri": "CurTimeConsumeTwo",
+      "CurTimeConsumeThreeUri": "CurTimeConsumeThree",
+      "CurTimeConsumeFourUri": "CurTimeConsumeFour",
+      "CurTimeConsumeFiveUri": "CurTimeConsumeFive",
+      "CurTimeConsumeSixUri": "CurTimeConsumeSix",
+      "CurTimeConsumeSevenUri": "CurTimeConsumeSeven",
+      "CurTimeConsumeEightUri": "CurTimeConsumeEight",
+      "CurTimeConsumeNineUri": "CurTimeConsumeNine",
+      "CurTimeConsumeTenUri": "CurTimeConsumeTen",
+      "CurTimeConsumeEleven": "CurTimeConsumeEleven",
+
+      "CurDelayOneUri": "CurDelayOne",
+      "CurDelayTwoUri": "CurDelayTwo",
+      "CurDelayThreeUri": "CurDelayThree",
+      "CurDelayFourUri": "CurDelayFour",
+      "CurDelayFiveUri": "CurDelayFive",
+      "CurDelaySixUri": "CurDelaySix",
+      "CurDelaySevenUri": "CurDelaySeven",
+      "CurDelayEightUri": "CurDelayEight",
+      "CurDelayNineUri": "CurDelayNine",
+      "CurDelayTenUri": "CurDelayTen",
+      "CurDelayElevenUri": "CurDelayEleven",
+
+      "CurTimeUri": "CurTime"
+    }
+  ],
+  "TriggerParameterOption": [
+    {
+      "Name": "Trigger",
+
+      "TriggerTimeUri": "TriggerTime",
+      "TriggerTimeConsumeUri": "TriggerTimeConsume",
+      "TriggerTimeDelayUri": "TriggerTimeDelay"
+    }
+  ]
+}

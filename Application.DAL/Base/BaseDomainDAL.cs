@@ -46,13 +46,13 @@ namespace Application.DAL
             }
         }
 
-        public PageResult<DomainType> GetPage(int pagenumber, int pagesize)
+        public async Task<PageResult<DomainType>> GetPage(int pagenumber, int pagesize)
         {
             try
             {
-                var totalCount = 1;
-                var totalPage = 5;
-                var pageData = SqlSugarClient.Queryable<DomainType>().ToPageList(pagenumber, pagesize, ref totalCount, ref totalPage);
+                RefAsync<int> totalCount = 1;
+                RefAsync<int> totalPage = 5;
+                var pageData = await SqlSugarClient.Queryable<DomainType>().ToPageListAsync(pagenumber, pagesize, totalCount, totalPage);
                 return PageResult<DomainType>.CreatePageFromSqlSugar(pageData, pagenumber, pagesize, totalCount, totalPage);
             }
             catch (Exception ex)

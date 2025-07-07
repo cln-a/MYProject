@@ -2,6 +2,7 @@ using Application.Common;
 using Application.IDAL;
 using Application.Model;
 using CommonServiceLocator;
+using Microsoft.Extensions.Logging;
 using Modbus.Device;
 
 namespace Application.Modbus
@@ -29,6 +30,8 @@ namespace Application.Modbus
         private PlcState _plcState;
         private ModbusIpMaster _master;
         private Model.ModbusDevice _modbusDevice;
+
+        [Unity.Dependency] public ILogger Logger { get; set; }  
         
         public Model.ModbusDevice DeviceModel => _modbusDevice;
         public byte SlaveId => DeviceModel.slaveId;
@@ -91,7 +94,7 @@ namespace Application.Modbus
                 if (!_readRunning)
                 {
                     _readRunning = true;
-                    ThreadPool.QueueUserWorkItem(ReadAction);
+                    ThreadPool.QueueUserWorkItem(new WaitCallback(ReadAction));
                 }
             }
             catch(Exception ex)
@@ -121,32 +124,33 @@ namespace Application.Modbus
                                 var data = _master.ReadCoils(SlaveId, coil.StartAddress, coil.DataLength);
                                 if (data.Length > 0)
                                     coil.SetData(data);
-                                //else
-                                //Logger.LogError("{0}获取PLC线圈数据失败,地址{1}长度{2}", _modbusDevice.DeviceName, coil.StartAddress, coil.DataLength);
+                                else
+                                    Logger.LogDebug("{0}获取PLC线圈数据失败,地址{1}长度{2}", _modbusDevice.DeviceName, coil.StartAddress, coil.DataLength);
                             }
+                            
                             foreach (var holdingRegister in _holdingRegisters)
                             {
                                 var data = _master.ReadHoldingRegisters(SlaveId, holdingRegister.StartAddress, holdingRegister.DataLength);
                                 if (data.Length > 0)
                                     holdingRegister.SetData(data);
-                                //else
-                                //Logger.LogError("{0}获取PLC保持寄存器数据失败,地址{1}长度{2}", _modbusDevice.DeviceName, holdingRegister.StartAddress, holdingRegister.DataLength);
+                                else
+                                    Logger.LogDebug("{0}获取PLC保持寄存器数据失败,地址{1}长度{2}", _modbusDevice.DeviceName, holdingRegister.StartAddress, holdingRegister.DataLength);
                             }
-                            foreach (var input in _inputs)
+                            foreach (var input in _inputs)  
                             {
                                 var data = _master.ReadInputs(SlaveId, input.StartAddress, input.DataLength);
                                 if (data.Length > 0)
                                     input.SetData(data);
-                                //else
-                                    //Logger.LogError("{0}获取PLC输入数据失败,地址{1}长度{2}", input.StartAddress, input.DataLength);
+                                else
+                                    Logger.LogDebug("{0}获取PLC输入数据失败,地址{1}长度{2}", SlaveId, input.StartAddress, input.DataLength);
                             }
                             foreach (var inputRegister in _inputRegisters)
                             {
                                 var data = _master.ReadHoldingRegisters(SlaveId, inputRegister.StartAddress, inputRegister.DataLength);
                                 if (data.Length > 0)
                                     inputRegister.SetData(data);
-                                //else
-                                    //Logger.LogError("{0}获取PLC输入寄存器数据失败,地址{1}长度{2}", _modbusDevice.DeviceName, inputRegister.StartAddress, inputRegister.DataLength);
+                                else
+                                    Logger.LogDebug("{0}获取PLC输入寄存器数据失败,地址{1}长度{2}", _modbusDevice.DeviceName, inputRegister.StartAddress, inputRegister.DataLength);
                             }
                         }
                     }

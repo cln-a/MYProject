@@ -18,8 +18,11 @@ namespace Application.Communicate
             this._modbusRegisterDAL = modbusRegisterDAL;    
         }
 
-        protected override PageResult<ModbusRegisterDto> GetPage()
-            => ModbusRegisterDAL.GetPage(pageNumber, pageSize).Map(Mapper.Map<ModbusRegisterDto>);
+        protected async override Task<PageResult<ModbusRegisterDto>> GetPage()
+        {
+            var result = await ModbusRegisterDAL.GetPage(pageNumber, pageSize);
+            return result.Map(x => Mapper.Map<ModbusRegisterDto>(x));
+        }
 
         protected override void WriteValueCmd(ModbusRegisterDto dto)
         {

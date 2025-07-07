@@ -6,6 +6,6 @@ namespace Application.IDAL
     {
         void CreateTable();
         List<DomainType> GetAllEnabled();
-        PageResult<DomainType> GetPage(int pagenumber, int pagesize);
+        Task<PageResult<DomainType>> GetPage(int pagenumber, int pagesize);
     }
 }

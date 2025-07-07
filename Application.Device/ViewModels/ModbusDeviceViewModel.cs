@@ -16,7 +16,10 @@ namespace Application.Device
             this._modbusDeviceDAL = modbusDeviceDAL;
         }
 
-        protected override PageResult<ModbusDeviceDto> GetPage()
-            => ModbusDeviceDAL.GetPage(pageNumber, pageSize).Map(Mapper.Map<ModbusDeviceDto>);
+        protected async override Task<PageResult<ModbusDeviceDto>> GetPage()
+        {
+            var result = await ModbusDeviceDAL.GetPage(pageNumber, pageSize);
+            return result.Map(x => Mapper.Map<ModbusDeviceDto>(x));
+        }
     }
 }

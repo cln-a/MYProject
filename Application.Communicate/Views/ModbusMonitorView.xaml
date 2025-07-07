@@ -233,7 +233,13 @@
                 Width="24"
                 Height="24"
                 Cursor="Hand"
-                Kind="ChevronLeft"/>
+                Kind="ChevronLeft">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                        <i:InvokeCommandAction Command="{Binding PreviousPageCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </materialDesign:PackIcon>
             <TextBlock
                 Margin="10,0"
                 VerticalAlignment="Center"
@@ -242,7 +248,13 @@
                 Width="24"
                 Height="24"
                 Cursor="Hand"
-                Kind="ChevronRight"/>
+                Kind="ChevronRight">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                        <i:InvokeCommandAction Command="{Binding NextPageCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </materialDesign:PackIcon>
             <TextBlock
                 Margin="0,0,10,0"
                 VerticalAlignment="Center"
