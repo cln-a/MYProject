@@ -2,7 +2,6 @@
   "SetParameterOption": [
     {
       "Name": "Set",
-
       "SetEnableOneUri": "SetEnableOne",
       "SetEnableTwoUri": "SetEnableTwo",
       "SetEnableThreeUri": "SetEnableThree",
@@ -14,7 +13,6 @@
       "SetEnableNineUri": "SetEnableNine",
       "SetEnableTenUri": "SetEnableTen",
       "SetEnableEleven": "SetEnableEleven",
-
       "SetDelayOneUri": "SetDelayOne",
       "SetDelayTwoUri": "SetDelayTwo",
       "SetDelayThreeUri": "SetDelayThree",
@@ -26,14 +24,12 @@
       "SetDelayNineUri": "SetDelayNine",
       "SetDelayTenUri": "SetDelayTen",
       "SetDelayElevenUri": "SetDelayEleven",
-
       "SetTimeUri": "SetTime"
     }
   ],
   "CurParameterOption": [
     {
       "Name": "Cur",
-
       "CurTimeConsumeOneUri": "CurTimeConsumeOne",
       "CurTimeConsumeTwoUri": "CurTimeConsumeTwo",
       "CurTimeConsumeThreeUri": "CurTimeConsumeThree",
@@ -44,8 +40,7 @@
       "CurTimeConsumeEightUri": "CurTimeConsumeEight",
       "CurTimeConsumeNineUri": "CurTimeConsumeNine",
       "CurTimeConsumeTenUri": "CurTimeConsumeTen",
-      "CurTimeConsumeEleven": "CurTimeConsumeEleven",
-
+      "CurTimeConsumeElevenUri": "CurTimeConsumeEleven",
       "CurDelayOneUri": "CurDelayOne",
       "CurDelayTwoUri": "CurDelayTwo",
       "CurDelayThreeUri": "CurDelayThree",
@@ -57,14 +52,12 @@
       "CurDelayNineUri": "CurDelayNine",
       "CurDelayTenUri": "CurDelayTen",
       "CurDelayElevenUri": "CurDelayEleven",
-
       "CurTimeUri": "CurTime"
     }
   ],
   "TriggerParameterOption": [
     {
       "Name": "Trigger",
-
       "TriggerTimeUri": "TriggerTime",
       "TriggerTimeConsumeUri": "TriggerTimeConsume",
       "TriggerTimeDelayUri": "TriggerTimeDelay"

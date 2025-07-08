@@ -8,21 +8,18 @@ using System.Windows;
 using Application.UI;
 using Application.Common;
 using Application.Logger;
-using Application.Image;
-using Application.Camera;
 using CommonServiceLocator;
 using Unity.ServiceLocation;
-using Application.ImageProcess;
 using ControlzEx.Theming;
 using System.Windows.Media;
 using Application.Communicate;
-using Application.ArtificialIntelligence;
 using Application.Journal;
 using Application.Device;
-using Application.RestSharp;
 using Application.Mapper;
 using Application.Modbus;
 using Microsoft.Extensions.Logging;
+using Application.SemiAuto;
+using Application.GeneralControl;
 
 namespace ApplicationFrameWork
 {
@@ -72,18 +69,15 @@ namespace ApplicationFrameWork
             base.ConfigureModuleCatalog(moduleCatalog);
             moduleCatalog.AddModule<LoggerModule>();
             moduleCatalog.AddModule<ApplicationMapperModule>();
+            moduleCatalog.AddModule<SemiAutoModule>();
             moduleCatalog.AddModule<DALModule>();
             moduleCatalog.AddModule<ModbusModule>();
             moduleCatalog.AddModule<UIModule>();
-            //moduleCatalog.AddModule<ImageProcessModule>();
-            //moduleCatalog.AddModule<ApplicationCameraModule>();
-            //moduleCatalog.AddModule<ApplicationRestSharpModule>();
             moduleCatalog.AddModule<ApplicationLoginModule>();
             moduleCatalog.AddModule<ApplicationMainModule>(ConstName.ApplicationMainModule, InitializationMode.OnDemand);
-            //moduleCatalog.AddModule<ApplicationImageModule>(ConstName.ApplicationImageModule, InitializationMode.OnDemand, ConstName.ApplicationMainModule);
+            moduleCatalog.AddModule<ApplicationGeneralControlModule>();
             moduleCatalog.AddModule<ApplicationDeviceModule>();
             moduleCatalog.AddModule<ApplicationCommunicateModule>();
-            //moduleCatalog.AddModule<ApplicationArtificialIntelligenceModule>();
             moduleCatalog.AddModule<ApplicationJournalModule>();
         }
 
@@ -93,21 +87,14 @@ namespace ApplicationFrameWork
             ViewModelLocationProvider.Register<ShellView, ShellViewModel>();
             ViewModelLocationProvider.Register<LoginView, LoginViewModel>();
             ViewModelLocationProvider.Register<MainView, MainViewModel>();
-            //ViewModelLocationProvider.Register<ImageView,ImageViewModel>();
             ViewModelLocationProvider.Register<ModbusMonitorView, ModbusMonitorViewModel>();
-            //ViewModelLocationProvider.Register<ArtificialIntelligenceView, ArtificialIntelligenceViewModel>();
             ViewModelLocationProvider.Register<JournalView, JournalViewModel>();
             ViewModelLocationProvider.Register<ModbusDeviceView, ModbusDeviceViewModel>();
+            ViewModelLocationProvider.Register<GeneralControlView, GeneralControlViewModel>();
         }
 
         protected override void OnExit(ExitEventArgs e)
         {
-            //var consumer = ServiceLocator.Current.GetInstance<IConsumer>();
-            //consumer.StopConsum();
-
-            //var cameracontroller = ServiceLocator.Current.GetInstance<ICameraController>();
-            //cameracontroller.StopAllCameras();  
-
             var logger = ServiceLocator.Current.GetInstance<ILogger>();
             var clients = ServiceLocator.Current.GetAllInstances<ModbusClient>();
 
