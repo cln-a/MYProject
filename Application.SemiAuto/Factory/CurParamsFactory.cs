@@ -32,6 +32,18 @@ namespace Application.SemiAuto
 
         private readonly IVariable _curTimeVariable;
 
+        private readonly IVariable _curEnableOneVariable;
+        private readonly IVariable _curEnableTwoVariable;
+        private readonly IVariable _curEnableThreeVariable;
+        private readonly IVariable _curEnableFourVariable;
+        private readonly IVariable _curEnableFiveVariable;
+        private readonly IVariable _curEnableSixVariable;
+        private readonly IVariable _curEnableSevenVariable;
+        private readonly IVariable _curEnableEightVariable;
+        private readonly IVariable _curEnableNineVariable;
+        private readonly IVariable _curEnableTenVariable;
+        private readonly IVariable _curEnableElevenVariable;
+
         public IVariable CurTimeConsumeOneVariable => _curTimeConsumeOneVariable;
         public IVariable CurTimeConsumeTwoVariable => _curTimeConsumeTwoVariable;
         public IVariable CurTimeConsumeThreeVariale => _curTimeConsumeThreeVariale;
@@ -57,6 +69,18 @@ namespace Application.SemiAuto
         public IVariable CurDelayElevenVariable => _curDelayElevenVariable;
 
         public IVariable CurTimeVariable => _curTimeVariable;
+
+        public IVariable CurEnableOneVariable => _curEnableOneVariable;
+        public IVariable CurEnableTwoVariable => _curEnableTwoVariable;
+        public IVariable CurEnableThreeVariable => _curEnableThreeVariable;
+        public IVariable CurEnableFourVariable => _curEnableFourVariable;
+        public IVariable CurEnableFiveVariable => _curEnableFiveVariable;
+        public IVariable CurEnableSixVariable => _curEnableSixVariable;
+        public IVariable CurEnableSevenVariable => _curEnableSevenVariable;
+        public IVariable CurEnableEightVariable => _curEnableEightVariable;
+        public IVariable CurEnableNineVariable => _curEnableNineVariable;
+        public IVariable CurEnableTenVariable => _curEnableTenVariable;
+        public IVariable CurEnableElevenVariable => _curEnableElevenVariable;
 
         public float CurTimeConsumeOne
         {
@@ -292,6 +316,115 @@ namespace Application.SemiAuto
             }
         }
 
+        public ushort CurEnableOne
+        {
+            get => CurEnableOneVariable.GetValueEx<ushort>();
+            set
+            {
+                CurEnableOneVariable.WriteAnyValueEx(value);
+                RaisePropertyChanged(nameof(CurEnableOne));
+            }
+        }
+
+        public ushort CurEnableTwo
+        {
+            get => CurEnableTwoVariable.GetValueEx<ushort>();
+            set
+            {
+                CurEnableTwoVariable.WriteAnyValueEx(value);
+                RaisePropertyChanged(nameof(CurEnableTwo));
+            }
+        }
+
+        public ushort CurEnableThree
+        {
+            get => CurEnableThreeVariable.GetValueEx<ushort>(); set
+            {
+                CurEnableThreeVariable.WriteAnyValueEx(value);
+                RaisePropertyChanged(nameof(CurEnableThree));   
+            }
+        }
+
+        public ushort CurEnableFour
+        {
+            get => CurEnableFourVariable.GetValueEx<ushort>();
+            set
+            {
+                CurEnableFourVariable.WriteAnyValueEx(value);
+                RaisePropertyChanged(nameof(CurEnableFour));
+            }
+        }
+
+        public ushort CurEnableFive
+        {
+            get => CurEnableFiveVariable.GetValueEx<ushort>();
+            set
+            {
+                CurEnableFiveVariable.WriteAnyValueEx(value);
+                RaisePropertyChanged(nameof(CurEnableFive));
+            }
+        }
+
+        public ushort CurEnableSix
+        {
+            get => CurEnableSixVariable.GetValueEx<ushort>();
+            set
+            {
+                CurEnableFiveVariable.WriteAnyValueEx(value);
+                RaisePropertyChanged(nameof(CurEnableSix));
+            }
+        }
+
+        public ushort CurEnableSeven
+        {
+            get => CurEnableSevenVariable.GetValueEx<ushort>();
+            set
+            {
+                CurEnableSevenVariable.WriteAnyValueEx(value);
+                RaisePropertyChanged(nameof(CurEnableSeven));
+            }
+        }
+
+        public ushort CurEnableEight
+        {
+            get => CurEnableEightVariable.GetValueEx<ushort>();
+            set
+            {
+                CurEnableEightVariable.WriteAnyValueEx(value);
+                RaisePropertyChanged(nameof(CurEnableEight));
+            }
+        }
+
+        public ushort CurEnableNine
+        {
+            get => CurEnableNineVariable.GetValueEx<ushort>();
+            set
+            {
+                CurEnableNineVariable.WriteAnyValueEx(value);
+                RaisePropertyChanged(nameof(CurEnableNine));
+            }
+        }
+
+        public ushort CurEnableTen
+        {
+            get => CurEnableTenVariable.GetValueEx<ushort>();
+            set
+            {
+                CurEnableTenVariable.WriteAnyValueEx(value);
+                RaisePropertyChanged(nameof(CurEnableTen));
+            }
+        }
+
+        public ushort CurEnableEleven
+        {
+            get => CurEnableElevenVariable.GetValueEx<ushort>();
+            set
+            {
+                CurEnableElevenVariable.WriteAnyValueEx(value);
+                RaisePropertyChanged(nameof(CurEnableEleven));
+            }
+        }
+
         public CurParamsFactory(CurParameterOption option)
         {
             this._option = option;
@@ -344,6 +477,29 @@ namespace Application.SemiAuto
 
             IO.TryGet(_option.CurTimeUri!,out _curTimeVariable);
             _curTimeVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurTime));
+
+            IO.TryGet(/*_option.CurEnableOneUri!*/"CurEnableOne", out _curEnableOneVariable);
+            _curEnableOneVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurEnableOne));
+            IO.TryGet(/*_option.CurEnableTwoUri!*/"CurEnableTwo", out _curEnableTwoVariable);
+            _curEnableTwoVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurEnableTwo));
+            IO.TryGet(/*_option.CurEnableThreeUri!*/"CurEnableThree", out _curEnableThreeVariable);
+            _curEnableThreeVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurEnableThree));
+            IO.TryGet(/*_option.CurEnableFourUri!*/"CurEnableFour", out _curEnableFourVariable);
+            _curEnableFourVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurEnableFour));
+            IO.TryGet(/*_option.CurEnableFiveUri!*/"CurEnableFive", out _curEnableFiveVariable);
+            _curEnableFiveVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurEnableFive));
+            IO.TryGet(/*_option.CurEnableSixUri!*/"CurEnableSix", out _curEnableSixVariable);
+            _curEnableSixVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurEnableSix));
+            IO.TryGet(/*_option.CurEnableSevenUri!*/"CurEnableSeven", out _curEnableSevenVariable);
+            _curEnableSevenVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurEnableSeven));
+            IO.TryGet(/*_option.CurEnableEightUri!*/"CurEnableEight", out _curEnableEightVariable);
+            _curEnableEightVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurEnableEight));
+            IO.TryGet(/*_option.CurEnableNineUri!*/"CurEnableNine", out _curEnableNineVariable);
+            _curEnableNineVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurEnableNine));
+            IO.TryGet(/*_option.CurEnableTenUri!*/"CurEnableTen", out _curEnableTenVariable);
+            _curEnableTenVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurEnableTen));
+            IO.TryGet(/*_option.CurEnableElevenUri!*/"CurEnableEleven", out _curEnableElevenVariable);
+            _curEnableElevenVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurEnableEleven));
         }
     }
 }

@@ -30,6 +30,17 @@
   "CurParameterOption": [
     {
       "Name": "Cur",
+      "CurEnableOneUri": "CurEnableOne",
+      "CurEnableTwoUri": "CurEnableTwo",
+      "CurEnableThreeUri": "CurEnableThree",
+      "CurEnableFourUri": "CurEnableFour",
+      "CurEnableFiveUri": "CurEnableFive",
+      "CurEnableSixUri": "CurEnableSix",
+      "CurEnableSevenUri":"CurEnableSeven",
+      "CurEnableEightUri":"CurEnableEight",
+      "CurEnableNineUri":"CurEnableNine",
+      "CurEnableTenUri":"CurEnableTen",
+      "CurEnableElevenUri":"CurEnableEleven",
       "CurTimeConsumeOneUri": "CurTimeConsumeOne",
       "CurTimeConsumeTwoUri": "CurTimeConsumeTwo",
       "CurTimeConsumeThreeUri": "CurTimeConsumeThree",
@@ -59,7 +70,7 @@
     {
       "Name": "Trigger",
       "TriggerTimeUri": "TriggerTime",
-      "TriggerTimeConsumeUri": "TriggerTimeConsume",
+      "TriggerEnableUri": "TriggerEnable",
       "TriggerTimeDelayUri": "TriggerTimeDelay"
     }
   ]

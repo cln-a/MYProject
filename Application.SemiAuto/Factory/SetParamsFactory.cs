@@ -110,7 +110,7 @@ namespace Application.SemiAuto
         public ushort SetEnableNine
         {
             get => SetEnableNineVariable.GetValueEx<ushort>();
-            set => SetEnableEightVariable.WriteAnyValueEx(value);
+            set => SetEnableNineVariable.WriteAnyValueEx(value);
         }
         
         public ushort SetEnableTen

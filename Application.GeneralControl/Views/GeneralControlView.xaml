@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:prism="http://prismlibrary.com/"
              xmlns:viewmodel="clr-namespace:Application.GeneralControl"
+             xmlns:behavior = "http://schemas.microsoft.com/xaml/behaviors"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="1080" 
@@ -13,10 +14,14 @@
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:controls="https://handyorg.github.io/handycontrol"
+             xmlns:conv="clr-namespace:Application.UI;assembly=Application.UI"
              FontFamily="Microsoft YaHei"
              TextElement.FontSize="16"
              TextElement.FontWeight="Regular"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+    <UserControl.Resources>
+        <conv:UshortToBoolConverter x:Key="UshortToBoolConverter" />
+    </UserControl.Resources>
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -33,19 +38,22 @@
                     Margin="10"
                     Background="#38A941"
                     Content="总启动"
-                    Style="{StaticResource MaterialDesignRaisedButton}" />
+                    Style="{StaticResource MaterialDesignRaisedButton}" 
+                    Command="{Binding SendStartCommand}"/>
                 <Button
                     Width="120"
                     Margin="10"
                     Background="#4B91E2"
                     Content="设定耗时时间"
-                    Style="{StaticResource MaterialDesignRaisedButton}" />
+                    Style="{StaticResource MaterialDesignRaisedButton}" 
+                    Command="{Binding SendSetTimeCommand}"/>
                 <Button
                     Width="120"
                     Margin="10"
                     Background="Crimson"
                     Content="设定延时时间"
-                    Style="{StaticResource MaterialDesignRaisedButton}" />
+                    Style="{StaticResource MaterialDesignRaisedButton}" 
+                    Command="{Binding SendDeleayTimeCommand}"/>
             </StackPanel>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
@@ -91,7 +99,8 @@
                                     Margin="10"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center"
-                                    Width="300"/>
+                                    Width="300"
+                                    Text="{Binding GeneralControlModel.SetTime}"/>
                             </StackPanel>
                             <UniformGrid
                                     Grid.Row="2"
@@ -117,7 +126,7 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="True"
+                                        IsChecked="{Binding GeneralControlModel.SetEnableOne, Mode=TwoWay, Converter={StaticResource UshortToBoolConverter}, UpdateSourceTrigger=PropertyChanged}" 
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" />
                                     <TextBlock Margin="10"
@@ -143,7 +152,8 @@
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"/>
+                                        Width="100"
+                                        Text="{Binding GeneralControlModel.SetDelayOne}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -165,7 +175,7 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="True"
+                                        IsChecked="{Binding GeneralControlModel.SetEnableTwo, Mode=TwoWay, Converter={StaticResource UshortToBoolConverter}, UpdateSourceTrigger=PropertyChanged}" 
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" />
                                     <TextBlock Margin="10"
@@ -191,7 +201,8 @@
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"/>
+                                        Width="100"
+                                        Text="{Binding GeneralControlModel.SetDelayTwo}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -213,7 +224,7 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="True"
+                                        IsChecked="{Binding GeneralControlModel.SetEnableThree, Mode=TwoWay, Converter={StaticResource UshortToBoolConverter}, UpdateSourceTrigger=PropertyChanged}" 
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" />
                                     <TextBlock Margin="10"
@@ -239,7 +250,8 @@
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"/>
+                                        Width="100"
+                                        Text="{Binding GeneralControlModel.SetDelayThree}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -261,7 +273,7 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="True"
+                                        IsChecked="{Binding GeneralControlModel.SetEnableFour, Mode=TwoWay, Converter={StaticResource UshortToBoolConverter}, UpdateSourceTrigger=PropertyChanged}" 
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" />
                                     <TextBlock Margin="10"
@@ -287,7 +299,8 @@
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"/>
+                                        Width="100"
+                                        Text="{Binding GeneralControlModel.SetDelayFour}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -309,7 +322,7 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="True"
+                                        IsChecked="{Binding GeneralControlModel.SetEnableFive, Mode=TwoWay, Converter={StaticResource UshortToBoolConverter}, UpdateSourceTrigger=PropertyChanged}" 
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" />
                                     <TextBlock Margin="10"
@@ -335,7 +348,8 @@
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"/>
+                                        Width="100"
+                                        Text="{Binding GeneralControlModel.SetDelayFive}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -357,7 +371,7 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="True"
+                                        IsChecked="{Binding GeneralControlModel.SetEnableSix, Mode=TwoWay, Converter={StaticResource UshortToBoolConverter}, UpdateSourceTrigger=PropertyChanged}" 
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" />
                                     <TextBlock Margin="10"
@@ -383,7 +397,8 @@
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"/>
+                                        Width="100"
+                                        Text="{Binding GeneralControlModel.SetDelaySix}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -405,7 +420,7 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="True"
+                                        IsChecked="{Binding GeneralControlModel.SetEnableSeven, Mode=TwoWay, Converter={StaticResource UshortToBoolConverter}, UpdateSourceTrigger=PropertyChanged}" 
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" />
                                     <TextBlock Margin="10"
@@ -431,7 +446,8 @@
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"/>
+                                        Width="100"
+                                        Text="{Binding GeneralControlModel.SetDelaySeven}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -453,7 +469,7 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="True"
+                                        IsChecked="{Binding GeneralControlModel.SetEnableEight, Mode=TwoWay, Converter={StaticResource UshortToBoolConverter}, UpdateSourceTrigger=PropertyChanged}" 
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" />
                                     <TextBlock Margin="10"
@@ -479,7 +495,8 @@
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"/>
+                                        Width="100"
+                                        Text="{Binding GeneralControlModel.SetDelayEight}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -501,7 +518,7 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="True"
+                                        IsChecked="{Binding GeneralControlModel.SetEnableNine, Mode=TwoWay, Converter={StaticResource UshortToBoolConverter}, UpdateSourceTrigger=PropertyChanged}" 
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" />
                                     <TextBlock Margin="10"
@@ -527,7 +544,8 @@
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"/>
+                                        Width="100"
+                                        Text="{Binding GeneralControlModel.SetDelayNine}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -549,7 +567,7 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="True"
+                                        IsChecked="{Binding GeneralControlModel.SetEnableTen, Mode=TwoWay, Converter={StaticResource UshortToBoolConverter}, UpdateSourceTrigger=PropertyChanged}" 
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" />
                                     <TextBlock Margin="10"
@@ -575,7 +593,8 @@
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"/>
+                                        Width="100"
+                                        Text="{Binding GeneralControlModel.SetDelayTen}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -597,7 +616,7 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="True"
+                                        IsChecked="{Binding GeneralControlModel.SetEnableEleven, Mode=TwoWay, Converter={StaticResource UshortToBoolConverter}, UpdateSourceTrigger=PropertyChanged}" 
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" />
                                     <TextBlock Margin="10"
@@ -623,7 +642,8 @@
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"/>
+                                        Width="100"
+                                        Text="{Binding GeneralControlModel.SetDelayEleven}"/>
                                 </StackPanel>
                             </UniformGrid>
                         </Grid>
@@ -674,7 +694,7 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="True"
+                                        IsChecked="{Binding CurParamsFactory.CurEnableOne}"
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" 
                                         IsHitTestVisible ="False"/>
@@ -725,7 +745,7 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="True"
+                                        IsChecked="{Binding CurParamsFactory.CurEnableTwo}"
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" 
                                         IsHitTestVisible ="False"/>
@@ -776,7 +796,7 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="True"
+                                        IsChecked="{Binding CurParamsFactory.CurEnableThree}"
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" 
                                         IsHitTestVisible ="False"/>
@@ -827,7 +847,7 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="True"
+                                        IsChecked="{Binding CurParamsFactory.CurEnableFour}"
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" 
                                         IsHitTestVisible ="False"/>
@@ -878,7 +898,7 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="True"
+                                        IsChecked="{Binding CurParamsFactory.CurEnableFive}"
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" 
                                         IsHitTestVisible ="False"/>
@@ -929,7 +949,7 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="True"
+                                        IsChecked="{Binding CurParamsFactory.CurEnableSix}"
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" 
                                         IsHitTestVisible ="False"/>
@@ -980,7 +1000,7 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="True"
+                                        IsChecked="{Binding CurParamsFactory.CurEnableSeven}"
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" 
                                         IsHitTestVisible ="False"/>
@@ -1031,7 +1051,7 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="True"
+                                        IsChecked="{Binding CurParamsFactory.CurEnableEight}"
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" 
                                         IsHitTestVisible ="False"/>
@@ -1082,7 +1102,7 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="True"
+                                        IsChecked="{Binding CurParamsFactory.CurEnableNine}"
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" 
                                         IsHitTestVisible ="False"/>
@@ -1133,7 +1153,7 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="True"
+                                        IsChecked="{Binding CurParamsFactory.CurEnableTen}"
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" 
                                         IsHitTestVisible ="False"/>
@@ -1184,7 +1204,7 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="True"
+                                        IsChecked="{Binding CurParamsFactory.CurEnableEleven}"
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" 
                                         IsHitTestVisible ="False"/>

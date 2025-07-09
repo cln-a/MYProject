@@ -7,16 +7,16 @@ namespace Application.SemiAuto
         private readonly TriggerParameterOption _option;
 
         private readonly IVariable _triggerTimeVariable;
-        private readonly IVariable _triggerTimeConsumeVariable;
+        private readonly IVariable _triggerEnableVariable;
         private readonly IVariable _triggerTimeDelayVariable;
 
         public IVariable TriggerTimeVariable => _triggerTimeVariable;
-        public IVariable TriggerTimeConsumeVariable => _triggerTimeConsumeVariable;
+        public IVariable TriggerEnableVariable => _triggerEnableVariable;
         public IVariable TriggerTimeDelayVariable => _triggerTimeDelayVariable;
 
-        public ushort TriggerTime
+        public bool TriggerTime
         {
-            get => TriggerTimeVariable.GetValueEx<ushort>();
+            get => TriggerTimeVariable.GetValueEx<bool>();
             set
             {
                 TriggerTimeVariable.WriteAnyValueEx(value);
@@ -24,19 +24,19 @@ namespace Application.SemiAuto
             }
         }
 
-        public ushort TriggerTimeConsume
+        public bool TriggerEnable
         {
-            get => TriggerTimeConsumeVariable.GetValueEx<ushort>();
+            get => TriggerEnableVariable.GetValueEx<bool>();
             set
             {
-                TriggerTimeConsumeVariable.WriteAnyValueEx(value);
-                RaisePropertyChanged(nameof(TriggerTimeConsume));
+                TriggerEnableVariable.WriteAnyValueEx(value);
+                RaisePropertyChanged(nameof(TriggerEnable));
             }
         }
 
-        public ushort TriggerTimeDelay
+        public bool TriggerTimeDelay
         {
-            get => TriggerTimeDelayVariable.GetValueEx<ushort>();
+            get => TriggerTimeDelayVariable.GetValueEx<bool>();
             set
             {
                 TriggerTimeDelayVariable.WriteAnyValueEx(value);
@@ -49,8 +49,11 @@ namespace Application.SemiAuto
             this._option = option;
 
             IO.TryGet(_option.TriggerTimeUri!, out _triggerTimeVariable);
-            IO.TryGet(_option.TriggerTimeConsumeUri!, out _triggerTimeConsumeVariable);
+            _triggerTimeVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(TriggerTime));
+            IO.TryGet(/*_option.TriggerEnableUri!*/"TriggerEnable", out _triggerEnableVariable);
+            _triggerEnableVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(TriggerEnable));
             IO.TryGet(_option.TriggerTimeDelayUri!, out _triggerTimeDelayVariable);
+            _triggerTimeDelayVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(TriggerTimeDelay));
         }
     }
 }
