@@ -1,4 +1,5 @@
 ﻿using Application.Common;
+using System.Reflection;
 
 namespace Application.SemiAuto
 {
@@ -206,34 +207,34 @@ namespace Application.SemiAuto
             _SetEnableTwoVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetEnableTwo));
             IO.TryGet(_option.SetEnableThreeUri!, out _setEnableThreeVariable);
             _setEnableThreeVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetEnableThree));
-            IO.TryGet(_option.SetEnableFourUri!,out _setEnableFourVariable);
+            IO.TryGet(_option.SetEnableFourUri!, out _setEnableFourVariable);
             _setEnableFourVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetEnableFour));
             IO.TryGet(_option.SetEnableFiveUri!, out _setEnableFiveVariable);
             _setEnableFiveVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetEnableFive));
             IO.TryGet(_option.SetEnableSixUri!, out _setEnableSixVariable);
             _setEnableSixVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetEnableSix));
-            IO.TryGet(_option.SetEnableSevenUri!,out _setEnableSevenVariable);
+            IO.TryGet(_option.SetEnableSevenUri!, out _setEnableSevenVariable);
             _setEnableSevenVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetEnableSeven));
             IO.TryGet(_option.SetEnableEightUri!, out _setEnableEightVariable);
             _setEnableEightVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetEnableEight));
             IO.TryGet(_option.SetEnableNineUri!, out _setEnableNineVariable);
             _setEnableNineVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetEnableNine));
-            IO.TryGet(_option.SetEnableTenUri!,out _setEnableTenVariable);
+            IO.TryGet(_option.SetEnableTenUri!, out _setEnableTenVariable);
             _setEnableTenVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetEnableTen));
             IO.TryGet(/*_option.SetEnableElevenUri!*/"SetEnableEleven", out _setEnableElevenVariable);
             _setEnableElevenVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetEnableEleven));
 
             IO.TryGet(_option.SetDelayOneUri!, out _setDelayOneVariable);
             _setDelayOneVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetDelayOne));
-            IO.TryGet(_option.SetDelayTwoUri!,out _setDelayTwoVariable);
+            IO.TryGet(_option.SetDelayTwoUri!, out _setDelayTwoVariable);
             _setDelayTwoVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetDelayTwo));
             IO.TryGet(_option.SetDelayThreeUri!, out _setDelayThreeVariable);
             _setDelayThreeVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetDelayThree));
-            IO.TryGet(_option.SetDelayFourUri!,out _setDelayFourVariable);
+            IO.TryGet(_option.SetDelayFourUri!, out _setDelayFourVariable);
             _setDelayFourVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetDelayFour));
             IO.TryGet(_option.SetDelayFiveUri!, out _setDelayFiveVariable);
             _setDelayFiveVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetDelayFive));
-            IO.TryGet(_option.SetDelaySixUri!,out _setDelaySixVariable);
+            IO.TryGet(_option.SetDelaySixUri!, out _setDelaySixVariable);
             _setDelaySixVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetDelaySix));
             IO.TryGet(_option.SetDelaySevenUri!, out _setDelaySevenVariable);
             _setDelaySevenVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetDelaySeven));

@@ -702,7 +702,8 @@
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Width="100"
-                                        IsReadOnly="True"/>
+                                        IsReadOnly="True"
+                                        Text="{Binding CurParamsFactory.CurDelayOne}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -752,7 +753,8 @@
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Width="100"
-                                        IsReadOnly="True"/>
+                                        IsReadOnly="True"
+                                        Text="{Binding CurParamsFactory.CurDelayTwo}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -802,7 +804,8 @@
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Width="100"
-                                        IsReadOnly="True"/>
+                                        IsReadOnly="True"
+                                        Text="{Binding CurParamsFactory.CurDelayThree}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -852,7 +855,8 @@
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Width="100"
-                                        IsReadOnly="True"/>
+                                        IsReadOnly="True"
+                                        Text="{Binding CurParamsFactory.CurDelayFour}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -902,7 +906,8 @@
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Width="100"
-                                        IsReadOnly="True"/>
+                                        IsReadOnly="True"
+                                        Text="{Binding CurParamsFactory.CurDelayFive}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -952,7 +957,8 @@
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Width="100"
-                                        IsReadOnly="True"/>
+                                        IsReadOnly="True"
+                                        Text="{Binding CurParamsFactory.CurDelaySix}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -1002,7 +1008,8 @@
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Width="100"
-                                        IsReadOnly="True"/>
+                                        IsReadOnly="True"
+                                        Text="{Binding CurParamsFactory.CurDelaySeven}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -1052,7 +1059,8 @@
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Width="100"
-                                        IsReadOnly="True"/>
+                                        IsReadOnly="True"
+                                        Text="{Binding CurParamsFactory.CurDelayEight}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -1102,7 +1110,8 @@
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Width="100"
-                                        IsReadOnly="True"/>
+                                        IsReadOnly="True"
+                                        Text="{Binding CurParamsFactory.CurDelayNine}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -1152,7 +1161,8 @@
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Width="100"
-                                        IsReadOnly="True"/>   
+                                        IsReadOnly="True"
+                                        Text="{Binding CurParamsFactory.CurDelayTen}"/>   
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                     HorizontalAlignment="Center"
@@ -1202,7 +1212,8 @@
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Width="100"
-                                        IsReadOnly="True"/>
+                                        IsReadOnly="True"
+                                        Text="{Binding CurParamsFactory.CurDelayEleven}"/>
                                 </StackPanel>
                             </UniformGrid>
                         </Grid>
