@@ -14,6 +14,7 @@ namespace Application.GeneralControl
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<GeneralControlView>();
+            containerRegistry.RegisterForNavigation<SemiAutoView>();
 
             IUnityContainer unityContainer = containerRegistry.GetContainer();
             unityContainer.RegisterSingleton<GeneralControlModel>("GeneralControl");

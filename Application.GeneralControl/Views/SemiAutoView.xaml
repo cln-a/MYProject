@@ -1,0 +1,103 @@
+﻿<UserControl x:Class="Application.GeneralControl.SemiAutoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:vm="clr-namespace:Application.GeneralControl"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" 
+             d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance vm:SemiAutoViewModel}"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:controls="https://handyorg.github.io/handycontrol"
+             FontFamily="Microsoft YaHei"
+             TextElement.FontSize="16"
+             TextElement.FontWeight="Regular"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock
+            Grid.Row="0"
+            Text="各工位耗时总览" 
+            HorizontalAlignment="Center" 
+            Style="{StaticResource TextBlockBaseStyle}" 
+            FontSize="25"
+            FontWeight="Bold"
+            Margin="5"/>
+        <DataGrid Grid.Row="1"
+                  x:Name="TimeList"
+                  Margin="5"
+                  controls:DataGridAttach.CanUnselectAllWithBlankArea="True"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  HeadersVisibility="All"
+                  IsReadOnly="True"
+                  ItemsSource="{Binding CurParamsFactory.CurTimeDisplayItems}"
+                  MinRowHeight="45"
+                  RowHeaderWidth="60"
+                  SelectionUnit="FullRow">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <Setter Property="Padding" Value="5" />
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="MinWidth" Value="100" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="DataGridColumnHeader">
+                                <Border
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <ContentPresenter
+                                    Margin="{TemplateBinding Padding}"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                    <Setter Property="HorizontalAlignment" Value="Center" />
+                    <Setter Property="BorderThickness" Value="0" />
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Width="Auto"
+                    Binding="{Binding DeviceName}"
+                    CanUserSort="True"
+                    Header="工位名称"
+                    SortMemberPath="DeviceName" />
+                <DataGridTextColumn
+                    Width="Auto"
+                    Binding="{Binding CurTimeConsume}"
+                    CanUserSort="True"
+                    Header="当前耗时"
+                    SortMemberPath="CurTimeConsume" />
+                <DataGridTextColumn
+                    Width="Auto"
+                    Binding="{Binding TimeBefore}"
+                    CanUserSort="True"
+                    Header="当前工件处理时间（开始）"
+                    SortMemberPath="TimeBefore" />
+                <DataGridTextColumn
+                    Width="Auto"
+                    Binding="{Binding TimeNow}"
+                    CanUserSort="True"
+                    Header="当前工件处理时间（结束）"
+                    SortMemberPath="TimeNow" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

@@ -221,7 +221,7 @@ namespace Application.SemiAuto
             _setEnableNineVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetEnableNine));
             IO.TryGet(_option.SetEnableTenUri!, out _setEnableTenVariable);
             _setEnableTenVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetEnableTen));
-            IO.TryGet(/*_option.SetEnableElevenUri!*/"SetEnableEleven", out _setEnableElevenVariable);
+            IO.TryGet(_option.SetEnableElevenUri!, out _setEnableElevenVariable);
             _setEnableElevenVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetEnableEleven));
 
             IO.TryGet(_option.SetDelayOneUri!, out _setDelayOneVariable);

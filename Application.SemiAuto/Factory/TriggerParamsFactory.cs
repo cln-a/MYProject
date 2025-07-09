@@ -50,7 +50,7 @@ namespace Application.SemiAuto
 
             IO.TryGet(_option.TriggerTimeUri!, out _triggerTimeVariable);
             _triggerTimeVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(TriggerTime));
-            IO.TryGet(/*_option.TriggerEnableUri!*/"TriggerEnable", out _triggerEnableVariable);
+            IO.TryGet(_option.TriggerEnableUri!, out _triggerEnableVariable);
             _triggerEnableVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(TriggerEnable));
             IO.TryGet(_option.TriggerTimeDelayUri!, out _triggerTimeDelayVariable);
             _triggerTimeDelayVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(TriggerTimeDelay));

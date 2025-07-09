@@ -1,10 +1,13 @@
 ﻿using Application.Common;
+using System.Collections.ObjectModel;
 
 namespace Application.SemiAuto
 {
     public class CurParamsFactory : BindableBase
     {
         private readonly CurParameterOption _option;
+        private ObservableCollection<CurTimeDisplayItem> curTimeDisplayItems 
+            = new ObservableCollection<CurTimeDisplayItem>();
 
         private readonly IVariable _curTimeConsumeOneVariable;
         private readonly IVariable _curTimeConsumeTwoVariable;
@@ -43,6 +46,8 @@ namespace Application.SemiAuto
         private readonly IVariable _curEnableNineVariable;
         private readonly IVariable _curEnableTenVariable;
         private readonly IVariable _curEnableElevenVariable;
+
+        public ObservableCollection<CurTimeDisplayItem> CurTimeDisplayItems => curTimeDisplayItems;
 
         public IVariable CurTimeConsumeOneVariable => _curTimeConsumeOneVariable;
         public IVariable CurTimeConsumeTwoVariable => _curTimeConsumeTwoVariable;
@@ -429,28 +434,108 @@ namespace Application.SemiAuto
         {
             this._option = option;
 
+            for (int i = 0; i < 11; i++) 
+                CurTimeDisplayItems.Add(new CurTimeDisplayItem() { DeviceName = $"工位{i}" });
+
             IO.TryGet(_option.CurTimeConsumeOneUri!, out _curTimeConsumeOneVariable);
-            _curTimeConsumeOneVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurTimeConsumeOne));
+            _curTimeConsumeOneVariable.ValueChangedEvent += (s, e) =>
+            {
+                CurTimeDisplayItems[0].CurTimeConsume = _curTimeConsumeOneVariable.GetValueEx<float>();
+                CurTimeDisplayItems[0].TimeNow = DateTime.Now;
+                CurTimeDisplayItems[0].TimeBefore = DateTime.Now.AddSeconds(-CurTimeDisplayItems[0].CurTimeConsume);
+                RaisePropertyChanged(nameof(CurTimeConsumeOne));
+                RaisePropertyChanged(nameof(CurTimeDisplayItems));
+            };
             IO.TryGet(_option.CurTimeConsumeTwoUri!, out _curTimeConsumeTwoVariable);
-            _curTimeConsumeTwoVariable.ValueChangedEvent += (s,e) => RaisePropertyChanged(nameof(CurTimeConsumeTwo));
-            IO.TryGet(_option.CurTimeConsumeThreeUri!,out _curTimeConsumeThreeVariale);
-            _curTimeConsumeThreeVariale.ValueChangedEvent += (s,e) => RaisePropertyChanged(nameof(CurTimeConsumeThree));
+            _curTimeConsumeTwoVariable.ValueChangedEvent += (s, e) =>
+            {
+                CurTimeDisplayItems[1].CurTimeConsume = _curTimeConsumeTwoVariable.GetValueEx<float>();
+                CurTimeDisplayItems[1].TimeNow = DateTime.Now;
+                CurTimeDisplayItems[1].TimeBefore = DateTime.Now.AddSeconds(-CurTimeDisplayItems[1].CurTimeConsume);
+                RaisePropertyChanged(nameof(CurTimeConsumeTwo));
+                RaisePropertyChanged(nameof(CurTimeDisplayItems));
+            };
+            IO.TryGet(_option.CurTimeConsumeThreeUri!, out _curTimeConsumeThreeVariale);
+            _curTimeConsumeThreeVariale.ValueChangedEvent += (s, e) =>
+            {
+                CurTimeDisplayItems[2].CurTimeConsume = _curTimeConsumeThreeVariale.GetValueEx<float>();
+                CurTimeDisplayItems[2].TimeNow = DateTime.Now;
+                CurTimeDisplayItems[2].TimeBefore = DateTime.Now.AddSeconds(-CurTimeDisplayItems[2].CurTimeConsume);
+                RaisePropertyChanged(nameof(CurTimeConsumeThree));
+                RaisePropertyChanged(nameof(CurTimeDisplayItems));
+            };
             IO.TryGet(_option.CurTimeConsumeFourUri!, out _curTimeConsumeFourVariable);
-            _curTimeConsumeFourVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurTimeConsumeFour));
+            _curTimeConsumeFourVariable.ValueChangedEvent += (s, e) =>
+            {
+                CurTimeDisplayItems[3].CurTimeConsume = _curTimeConsumeFourVariable.GetValueEx<float>();
+                CurTimeDisplayItems[3].TimeNow = DateTime.Now;
+                CurTimeDisplayItems[3].TimeBefore = DateTime.Now.AddSeconds(-CurTimeDisplayItems[3].CurTimeConsume);
+                RaisePropertyChanged(nameof(CurTimeConsumeFour));
+                RaisePropertyChanged(nameof(CurTimeDisplayItems));
+            };
             IO.TryGet(_option.CurTimeConsumeFiveUri!, out _curTimeConsumeFiveVariable);
-            _curTimeConsumeFiveVariable.ValueChangedEvent += (s,e) => RaisePropertyChanged(nameof(CurTimeConsumeFive));
+            _curTimeConsumeFiveVariable.ValueChangedEvent += (s, e) =>
+            {
+                CurTimeDisplayItems[4].CurTimeConsume = _curTimeConsumeFiveVariable.GetValueEx<float>();
+                CurTimeDisplayItems[4].TimeNow = DateTime.Now;
+                CurTimeDisplayItems[4].TimeBefore = DateTime.Now.AddSeconds(-CurTimeDisplayItems[4].CurTimeConsume);
+                RaisePropertyChanged(nameof(CurTimeConsumeFive));
+                RaisePropertyChanged(nameof(CurTimeDisplayItems));
+            };
             IO.TryGet(_option.CurTimeConsumeSixUri!, out _curTimeConsumeSixVariable);
-            _curTimeConsumeSixVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurTimeConsumeSix));
+            _curTimeConsumeSixVariable.ValueChangedEvent += (s, e) =>
+            {
+                CurTimeDisplayItems[5].CurTimeConsume = _curTimeConsumeSixVariable.GetValueEx<float>();
+                CurTimeDisplayItems[5].TimeNow = DateTime.Now;
+                CurTimeDisplayItems[5].TimeBefore = DateTime.Now.AddSeconds(-CurTimeDisplayItems[5].CurTimeConsume);
+                RaisePropertyChanged(nameof(CurTimeConsumeSix));
+                RaisePropertyChanged(nameof(CurTimeDisplayItems));
+            };
             IO.TryGet(_option.CurTimeConsumeSevenUri!,out _curTimeConsumeSevenVariable);
-            _curTimeConsumeSevenVariable.ValueChangedEvent += (s,e) => RaisePropertyChanged(nameof(CurTimeConsumeSeven));
+            _curTimeConsumeSevenVariable.ValueChangedEvent += (s, e) =>
+            {
+                CurTimeDisplayItems[6].CurTimeConsume = _curTimeConsumeSevenVariable.GetValueEx<float>();
+                CurTimeDisplayItems[6].TimeNow = DateTime.Now;
+                CurTimeDisplayItems[6].TimeBefore = DateTime.Now.AddSeconds(-CurTimeDisplayItems[6].CurTimeConsume);
+                RaisePropertyChanged(nameof(CurTimeConsumeSeven));
+                RaisePropertyChanged(nameof(CurTimeDisplayItems));
+            };
             IO.TryGet(_option.CurTimeConsumeEightUri!,out _curTimeConsumeEightVariable);
-            _curTimeConsumeEightVariable.ValueChangedEvent += (s,e) => RaisePropertyChanged(nameof(CurTimeConsumeEight));
+            _curTimeConsumeEightVariable.ValueChangedEvent += (s, e) =>
+            {
+                CurTimeDisplayItems[7].CurTimeConsume = _curTimeConsumeEightVariable.GetValueEx<float>();
+                CurTimeDisplayItems[7].TimeNow = DateTime.Now;
+                CurTimeDisplayItems[7].TimeBefore = DateTime.Now.AddSeconds(-CurTimeDisplayItems[7].CurTimeConsume);
+                RaisePropertyChanged(nameof(CurTimeConsumeEight));
+                RaisePropertyChanged(nameof(CurTimeDisplayItems));
+            };
             IO.TryGet(_option.CurTimeConsumeNineUri!, out _curTimeConsumeNineVariable);
-            _curTimeConsumeNineVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurTimeConsumeNine));
+            _curTimeConsumeNineVariable.ValueChangedEvent += (s, e) =>
+            {
+                CurTimeDisplayItems[8].CurTimeConsume = _curTimeConsumeNineVariable.GetValueEx<float>();
+                CurTimeDisplayItems[8].TimeNow = DateTime.Now;
+                CurTimeDisplayItems[8].TimeBefore = DateTime.Now.AddSeconds(-CurTimeDisplayItems[8].CurTimeConsume);
+                RaisePropertyChanged(nameof(CurTimeConsumeNine));
+                RaisePropertyChanged(nameof(CurTimeDisplayItems));
+            };
             IO.TryGet(_option.CurTimeConsumeTenUri!, out _curTimeConsumeTenVariable);
-            _curTimeConsumeTenVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurTimeConsumeTen));
+            _curTimeConsumeTenVariable.ValueChangedEvent += (s, e) => 
+            {
+                CurTimeDisplayItems[9].CurTimeConsume = _curTimeConsumeTenVariable.GetValueEx<float>();
+                CurTimeDisplayItems[9].TimeNow = DateTime.Now;
+                CurTimeDisplayItems[9].TimeBefore = DateTime.Now.AddSeconds(-CurTimeDisplayItems[9].CurTimeConsume);
+                RaisePropertyChanged(nameof(CurTimeConsumeTen));
+                RaisePropertyChanged(nameof(CurTimeDisplayItems));
+            };
             IO.TryGet(/*_option.CurTimeConsumeElevenUri!*/"CurTimeConsumeEleven", out _curTimeConsumeElevenVariable);
-            _curTimeConsumeElevenVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurTimeConsumeEleven));
+            _curTimeConsumeElevenVariable.ValueChangedEvent += (s, e) =>
+            {
+                CurTimeDisplayItems[10].CurTimeConsume = _curTimeConsumeElevenVariable.GetValueEx<float>();
+                CurTimeDisplayItems[10].TimeNow = DateTime.Now;
+                CurTimeDisplayItems[10].TimeBefore = DateTime.Now.AddSeconds(-CurTimeDisplayItems[10].CurTimeConsume);
+                RaisePropertyChanged(nameof(CurTimeConsumeEleven));
+                RaisePropertyChanged(nameof(CurTimeDisplayItems));
+            };
 
             IO.TryGet(_option.CurDelayOneUri!,out _curDelayOneVariable);
             _curDelayOneVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurDelayOne));
@@ -478,27 +563,27 @@ namespace Application.SemiAuto
             IO.TryGet(_option.CurTimeUri!,out _curTimeVariable);
             _curTimeVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurTime));
 
-            IO.TryGet(/*_option.CurEnableOneUri!*/"CurEnableOne", out _curEnableOneVariable);
+            IO.TryGet(_option.CurEnableOneUri!, out _curEnableOneVariable);
             _curEnableOneVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurEnableOne));
-            IO.TryGet(/*_option.CurEnableTwoUri!*/"CurEnableTwo", out _curEnableTwoVariable);
+            IO.TryGet(_option.CurEnableTwoUri!, out _curEnableTwoVariable);
             _curEnableTwoVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurEnableTwo));
-            IO.TryGet(/*_option.CurEnableThreeUri!*/"CurEnableThree", out _curEnableThreeVariable);
+            IO.TryGet(_option.CurEnableThreeUri!, out _curEnableThreeVariable);
             _curEnableThreeVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurEnableThree));
-            IO.TryGet(/*_option.CurEnableFourUri!*/"CurEnableFour", out _curEnableFourVariable);
+            IO.TryGet(_option.CurEnableFourUri!, out _curEnableFourVariable);
             _curEnableFourVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurEnableFour));
-            IO.TryGet(/*_option.CurEnableFiveUri!*/"CurEnableFive", out _curEnableFiveVariable);
+            IO.TryGet(_option.CurEnableFiveUri! , out _curEnableFiveVariable);
             _curEnableFiveVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurEnableFive));
-            IO.TryGet(/*_option.CurEnableSixUri!*/"CurEnableSix", out _curEnableSixVariable);
+            IO.TryGet(_option.CurEnableSixUri!, out _curEnableSixVariable);
             _curEnableSixVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurEnableSix));
-            IO.TryGet(/*_option.CurEnableSevenUri!*/"CurEnableSeven", out _curEnableSevenVariable);
+            IO.TryGet(_option.CurEnableSevenUri!, out _curEnableSevenVariable);
             _curEnableSevenVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurEnableSeven));
-            IO.TryGet(/*_option.CurEnableEightUri!*/"CurEnableEight", out _curEnableEightVariable);
+            IO.TryGet(_option.CurEnableEightUri!, out _curEnableEightVariable);
             _curEnableEightVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurEnableEight));
-            IO.TryGet(/*_option.CurEnableNineUri!*/"CurEnableNine", out _curEnableNineVariable);
+            IO.TryGet(_option.CurEnableNineUri!, out _curEnableNineVariable);
             _curEnableNineVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurEnableNine));
-            IO.TryGet(/*_option.CurEnableTenUri!*/"CurEnableTen", out _curEnableTenVariable);
+            IO.TryGet(_option.CurEnableTenUri!, out _curEnableTenVariable);
             _curEnableTenVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurEnableTen));
-            IO.TryGet(/*_option.CurEnableElevenUri!*/"CurEnableEleven", out _curEnableElevenVariable);
+            IO.TryGet(_option.CurEnableElevenUri!, out _curEnableElevenVariable);
             _curEnableElevenVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurEnableEleven));
         }
     }
