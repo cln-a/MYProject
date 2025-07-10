@@ -2,18 +2,6 @@
 {
     public class GeneralControlModel : BindableBase
     {
-        private float _setDelayOne;
-        private float _setDelayTwo;
-        private float _setDelayThree;
-        private float _setDelayFour;
-        private float _setDelayFive;
-        private float _setDelaySix;
-        private float _setDelaySeven;
-        private float _setDelayEight;
-        private float _setDelayNine;
-        private float _setDelayTen;
-        private float _setDelayEleven;
-
         private ushort _setEnableOne;
         private ushort _setEnableTwo;
         private ushort _setEnableThree;
@@ -27,72 +15,8 @@
         private ushort _setEnableEleven;
 
         private float _setTime;
+        private float _setDelayTime;
 
-        public float SetDelayOne
-        {
-            get => _setDelayOne;
-            set => SetProperty(ref _setDelayOne,value);
-        }
-
-        public float SetDelayTwo
-        {
-            get => _setDelayTwo;
-            set => SetProperty(ref _setDelayTwo, value);
-        }
-
-        public float SetDelayThree
-        {
-            get => _setDelayThree;
-            set => SetProperty(ref _setDelayThree, value);
-        }
-
-        public float SetDelayFour
-        {
-            get => _setDelayFour;
-            set => SetProperty(ref _setDelayFour, value);
-        }
-
-        public float SetDelayFive
-        {
-            get => _setDelayFive;
-            set => SetProperty(ref _setDelayFive, value);
-        }
-
-        public float SetDelaySix
-        {
-            get => _setDelaySix;
-            set => SetProperty(ref _setDelaySix, value);
-        }
-
-        public float SetDelaySeven
-        { 
-            get => _setDelaySeven; 
-            set => SetProperty(ref _setDelaySeven, value);
-        }
-
-        public float SetDelayEight
-        {
-            get => _setDelayEight; 
-            set => SetProperty(ref _setDelayEight, value);
-        }
-
-        public float SetDelayNine
-        {
-            get => _setDelayNine;
-            set => SetProperty(ref _setDelayNine, value);
-        }
-
-        public float SetDelayTen
-        {
-            get => _setDelayTen; 
-            set => SetProperty(ref _setDelayTen, value);
-        }
-
-        public float SetDelayEleven
-        {
-            get => _setDelayEleven; 
-            set => SetProperty(ref _setDelayEleven, value);
-        }
 
         public ushort SetEnableOne
         {
@@ -164,6 +88,12 @@
         {
             get => _setTime;
             set => SetProperty(ref _setTime, value);
+        }
+
+        public float SetDelayTime
+        {
+            get => _setDelayTime;
+            set => SetProperty(ref _setDelayTime, value);
         }
 
         public GeneralControlModel() {  }

@@ -1,5 +1,4 @@
 ﻿using Application.Common;
-using System.Reflection;
 
 namespace Application.SemiAuto
 {
@@ -32,6 +31,7 @@ namespace Application.SemiAuto
         private readonly IVariable _setDelayElevenVariable;
 
         private readonly IVariable _setTimeVariable;
+        private readonly IVariable _setTimeDelayVariable;
 
         public IVariable SetEnableOneVariable => _setEnableOneVariable;
         public IVariable SetEnableTwoVariable => _SetEnableTwoVariable;
@@ -58,6 +58,7 @@ namespace Application.SemiAuto
         public IVariable SetDelayElevenVariable => _setDelayElevenVariable;
 
         public IVariable SetTimeVariable => _setTimeVariable;
+        public IVariable SetTimeDelayVariable => _setTimeDelayVariable;
 
         public ushort SetEnableOne
         {
@@ -197,6 +198,12 @@ namespace Application.SemiAuto
             set => SetTimeVariable.WriteAnyValueEx(value);
         }
 
+        public float SetTimeDelay
+        {
+            get => _setTimeDelayVariable.GetValueEx<float>();
+            set => _setTimeDelayVariable.WriteAnyValueEx(value);
+        }
+
         public SetParamsFactory(SetParameterOption option)
         {
             _option = option;
@@ -249,6 +256,8 @@ namespace Application.SemiAuto
 
             IO.TryGet(_option.SetTimeUri!, out _setTimeVariable);
             _setTimeVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetTime));
+            IO.TryGet(_option.SetTimeDelayUri!, out _setTimeDelayVariable);
+            _setTimeDelayVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetTimeDelay));
         }
     }
 }

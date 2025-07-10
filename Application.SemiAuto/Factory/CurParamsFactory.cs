@@ -34,6 +34,7 @@ namespace Application.SemiAuto
         private readonly IVariable _curDelayElevenVariable;
 
         private readonly IVariable _curTimeVariable;
+        private readonly IVariable _curTimeDelayVariable;
 
         private readonly IVariable _curEnableOneVariable;
         private readonly IVariable _curEnableTwoVariable;
@@ -74,6 +75,7 @@ namespace Application.SemiAuto
         public IVariable CurDelayElevenVariable => _curDelayElevenVariable;
 
         public IVariable CurTimeVariable => _curTimeVariable;
+        public IVariable CurTimeDelayVariable => _curTimeDelayVariable;
 
         public IVariable CurEnableOneVariable => _curEnableOneVariable;
         public IVariable CurEnableTwoVariable => _curEnableTwoVariable;
@@ -430,6 +432,16 @@ namespace Application.SemiAuto
             }
         }
 
+        public float CurTimeDelay
+        {
+            get => CurTimeDelayVariable.GetValueEx<float>();
+            set
+            {
+                CurTimeDelayVariable.WriteAnyValueEx(value);
+                RaisePropertyChanged(nameof(CurTimeDelay));
+            }
+        }
+
         public CurParamsFactory(CurParameterOption option)
         {
             this._option = option;
@@ -562,6 +574,8 @@ namespace Application.SemiAuto
 
             IO.TryGet(_option.CurTimeUri!,out _curTimeVariable);
             _curTimeVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurTime));
+            IO.TryGet(_option.CurTimeDelayUri!, out _curTimeDelayVariable);
+            _curTimeDelayVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurTimeDelay));
 
             IO.TryGet(_option.CurEnableOneUri!, out _curEnableOneVariable);
             _curEnableOneVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(CurEnableOne));

@@ -22,4 +22,10 @@
     <ProjectReference Include="..\Application.Model\Application.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="DbContextOption\DataBase.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

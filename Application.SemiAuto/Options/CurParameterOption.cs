@@ -27,6 +27,7 @@
         public string? CurDelayElevenUri { get; set; }
 
         public string? CurTimeUri { get; set; }
+        public string? CurTimeDelayUri { get; set; }    
 
         public string? CurEnableOneUri { get; set; }
         public string? CurEnableTwoUri { get; set; }

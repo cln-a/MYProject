@@ -33,13 +33,6 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Orientation="Horizontal">
-                <Button
-                    Width="120"
-                    Margin="10"
-                    Background="#4B91E2"
-                    Content="总启动"
-                    Style="{StaticResource MaterialDesignRaisedButton}" 
-                    Command="{Binding SendStartCommand}"/>
                 <TextBlock
                     Grid.Row="0"
                     Text="设定耗时时间(单位s)：" 
@@ -52,7 +45,9 @@
                     Margin="10"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
-                    Width="300"
+                    Width="200"
+                    conv:TextBoxInputBehavior.IsDecimalOnly="True"
+                    conv:TextBoxInputBehavior.DecimalPlaces="2"
                     Text="{Binding GeneralControlModel.SetTime}"/>
                 <Button
                     Width="120"
@@ -60,14 +55,29 @@
                     Background="#4B91E2"
                     Content="设定耗时时间"
                     Style="{StaticResource MaterialDesignRaisedButton}" 
-                    Command="{Binding SendSetTimeCommand}"/>
+                    Command="{Binding SetTimeCommand}"/>
+                <TextBlock
+                    Grid.Row="0"
+                    Text="设定延时时间(单位s)：" 
+                    HorizontalAlignment="Center" 
+                    Style="{StaticResource TextBlockBaseStyle}" 
+                    Margin="5"/>
+                <TextBox
+                    x:Name="DelayTextbox"
+                    Margin="10"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Width="200"
+                    conv:TextBoxInputBehavior.IsDecimalOnly="True"
+                    conv:TextBoxInputBehavior.DecimalPlaces="2"
+                    Text="{Binding GeneralControlModel.SetDelayTime}"/>
                 <Button
                     Width="120"
                     Margin="10"
                     Background="#4B91E2"
                     Content="设定延时时间"
                     Style="{StaticResource MaterialDesignRaisedButton}" 
-                    Command="{Binding SendDeleayTimeCommand}"/>
+                    Command="{Binding SetDelayTimeCommand}"/>
             </StackPanel>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
@@ -119,8 +129,8 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="{Binding GeneralControlModel.SetEnableOne, Mode=TwoWay, Converter={StaticResource UshortToBoolConverter}, UpdateSourceTrigger=PropertyChanged}" 
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
+                                        IsChecked="{Binding SetParamsFactory.SetEnableOne,Mode=TwoWay,Converter={StaticResource UshortToBoolConverter},UpdateSourceTrigger=PropertyChanged}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" />
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
@@ -146,7 +156,8 @@
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Width="100"
-                                        Text="{Binding GeneralControlModel.SetDelayOne}"/>
+                                        IsReadOnly="True"
+                                        Text="{Binding ElementName=DelayTextbox,Path=Text,Mode=OneWay}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -168,8 +179,8 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="{Binding GeneralControlModel.SetEnableTwo, Mode=TwoWay, Converter={StaticResource UshortToBoolConverter}, UpdateSourceTrigger=PropertyChanged}" 
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
+                                        IsChecked="{Binding SetParamsFactory.SetEnableTwo,Mode=TwoWay,Converter={StaticResource UshortToBoolConverter},UpdateSourceTrigger=PropertyChanged}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" />
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
@@ -195,7 +206,8 @@
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Width="100"
-                                        Text="{Binding GeneralControlModel.SetDelayTwo}"/>
+                                        IsReadOnly="True"
+                                        Text="{Binding ElementName=DelayTextbox,Path=Text,Mode=OneWay}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -217,8 +229,8 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="{Binding GeneralControlModel.SetEnableThree, Mode=TwoWay, Converter={StaticResource UshortToBoolConverter}, UpdateSourceTrigger=PropertyChanged}" 
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
+                                        IsChecked="{Binding SetParamsFactory.SetEnableThree,Mode=TwoWay,Converter={StaticResource UshortToBoolConverter},UpdateSourceTrigger=PropertyChanged}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" />
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
@@ -244,7 +256,8 @@
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Width="100"
-                                        Text="{Binding GeneralControlModel.SetDelayThree}"/>
+                                        IsReadOnly="True"
+                                        Text="{Binding ElementName=DelayTextbox,Path=Text,Mode=OneWay}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -266,7 +279,7 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="{Binding GeneralControlModel.SetEnableFour, Mode=TwoWay, Converter={StaticResource UshortToBoolConverter}, UpdateSourceTrigger=PropertyChanged}" 
+                                        IsChecked="{Binding SetParamsFactory.SetEnableFour,Mode=TwoWay,Converter={StaticResource UshortToBoolConverter},UpdateSourceTrigger=PropertyChanged}"
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" />
                                     <TextBlock Margin="10"
@@ -293,7 +306,8 @@
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Width="100"
-                                        Text="{Binding GeneralControlModel.SetDelayFour}"/>
+                                        IsReadOnly="True"
+                                        Text="{Binding ElementName=DelayTextbox,Path=Text,Mode=OneWay}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -315,8 +329,8 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="{Binding GeneralControlModel.SetEnableFive, Mode=TwoWay, Converter={StaticResource UshortToBoolConverter}, UpdateSourceTrigger=PropertyChanged}" 
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
+                                        IsChecked="{Binding SetParamsFactory.SetEnableFive,Mode=TwoWay,Converter={StaticResource UshortToBoolConverter},UpdateSourceTrigger=PropertyChanged}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" />
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
@@ -342,7 +356,8 @@
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Width="100"
-                                        Text="{Binding GeneralControlModel.SetDelayFive}"/>
+                                        IsReadOnly="True"
+                                        Text="{Binding ElementName=DelayTextbox,Path=Text,Mode=OneWay}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -364,8 +379,8 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="{Binding GeneralControlModel.SetEnableSix, Mode=TwoWay, Converter={StaticResource UshortToBoolConverter}, UpdateSourceTrigger=PropertyChanged}" 
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
+                                        IsChecked="{Binding SetParamsFactory.SetEnableSix,Mode=TwoWay,Converter={StaticResource UshortToBoolConverter},UpdateSourceTrigger=PropertyChanged}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" />
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
@@ -391,7 +406,8 @@
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Width="100"
-                                        Text="{Binding GeneralControlModel.SetDelaySix}"/>
+                                        IsReadOnly="True"
+                                        Text="{Binding ElementName=DelayTextbox,Path=Text,Mode=OneWay}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -413,8 +429,8 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="{Binding GeneralControlModel.SetEnableSeven, Mode=TwoWay, Converter={StaticResource UshortToBoolConverter}, UpdateSourceTrigger=PropertyChanged}" 
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
+                                        IsChecked="{Binding SetParamsFactory.SetEnableSeven,Mode=TwoWay,Converter={StaticResource UshortToBoolConverter},UpdateSourceTrigger=PropertyChanged}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" />
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
@@ -440,7 +456,8 @@
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Width="100"
-                                        Text="{Binding GeneralControlModel.SetDelaySeven}"/>
+                                        IsReadOnly="True"
+                                        Text="{Binding ElementName=DelayTextbox,Path=Text,Mode=OneWay}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -462,8 +479,8 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="{Binding GeneralControlModel.SetEnableEight, Mode=TwoWay, Converter={StaticResource UshortToBoolConverter}, UpdateSourceTrigger=PropertyChanged}" 
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
+                                        IsChecked="{Binding SetParamsFactory.SetEnableEight,Mode=TwoWay,Converter={StaticResource UshortToBoolConverter},UpdateSourceTrigger=PropertyChanged}"         
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" />
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
@@ -489,7 +506,7 @@
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Width="100"
-                                        Text="{Binding GeneralControlModel.SetDelayEight}"/>
+                                        Text="{Binding ElementName=DelayTextbox,Path=Text,Mode=OneWay}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -511,8 +528,8 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="{Binding GeneralControlModel.SetEnableNine, Mode=TwoWay, Converter={StaticResource UshortToBoolConverter}, UpdateSourceTrigger=PropertyChanged}" 
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
+                                        IsChecked="{Binding SetParamsFactory.SetEnableNine,Mode=TwoWay,Converter={StaticResource UshortToBoolConverter},UpdateSourceTrigger=PropertyChanged}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" />
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
@@ -538,7 +555,8 @@
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Width="100"
-                                        Text="{Binding GeneralControlModel.SetDelayNine}"/>
+                                        Text="{Binding ElementName=DelayTextbox,Path=Text,Mode=OneWay}"
+                                        IsReadOnly="True"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -560,8 +578,8 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="{Binding GeneralControlModel.SetEnableTen, Mode=TwoWay, Converter={StaticResource UshortToBoolConverter}, UpdateSourceTrigger=PropertyChanged}" 
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
+                                        IsChecked="{Binding SetParamsFactory.SetEnableTen,Mode=TwoWay,Converter={StaticResource UshortToBoolConverter},UpdateSourceTrigger=PropertyChanged}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" />
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
@@ -587,7 +605,8 @@
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Width="100"
-                                        Text="{Binding GeneralControlModel.SetDelayTen}"/>
+                                        Text="{Binding ElementName=DelayTextbox,Path=Text,Mode=OneWay}"
+                                        IsReadOnly="True"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -609,8 +628,8 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="{Binding GeneralControlModel.SetEnableEleven, Mode=TwoWay, Converter={StaticResource UshortToBoolConverter}, UpdateSourceTrigger=PropertyChanged}" 
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
+                                        IsChecked="{Binding SetParamsFactory.SetEnableEleven,Mode=TwoWay,Converter={StaticResource UshortToBoolConverter},UpdateSourceTrigger=PropertyChanged}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" />
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
@@ -636,7 +655,8 @@
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Width="100"
-                                        Text="{Binding GeneralControlModel.SetDelayEleven}"/>
+                                        IsReadOnly="True"
+                                        Text="{Binding ElementName=DelayTextbox,Path=Text,Mode=OneWay}"/>
                                 </StackPanel>
                             </UniformGrid>
                         </Grid>
@@ -716,7 +736,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurDelayOne}"/>
+                                        Text="{Binding CurParamsFactory.CurTimeDelay}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -767,7 +787,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurDelayTwo}"/>
+                                        Text="{Binding CurParamsFactory.CurTimeDelay}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -818,7 +838,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurDelayThree}"/>
+                                        Text="{Binding CurParamsFactory.CurTimeDelay}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -869,7 +889,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurDelayFour}"/>
+                                        Text="{Binding CurParamsFactory.CurTimeDelay}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -920,7 +940,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurDelayFive}"/>
+                                        Text="{Binding CurParamsFactory.CurTimeDelay}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -971,7 +991,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurDelaySix}"/>
+                                        Text="{Binding CurParamsFactory.CurTimeDelay}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -1022,7 +1042,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurDelaySeven}"/>
+                                        Text="{Binding CurParamsFactory.CurTimeDelay}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -1073,7 +1093,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurDelayEight}"/>
+                                        Text="{Binding CurParamsFactory.CurTimeDelay}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -1124,7 +1144,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurDelayNine}"/>
+                                        Text="{Binding CurParamsFactory.CurTimeDelay}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -1175,7 +1195,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurDelayTen}"/>   
+                                        Text="{Binding CurParamsFactory.CurTimeDelay}"/>   
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                     HorizontalAlignment="Center"
@@ -1226,7 +1246,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurDelayEleven}"/>
+                                        Text="{Binding CurParamsFactory.CurTimeDelay}"/>
                                 </StackPanel>
                             </UniformGrid>
                         </Grid>

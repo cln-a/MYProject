@@ -27,5 +27,7 @@
         public string? SetDelayElevenUri { get; set; }
 
         public string? SetTimeUri { get; set; } 
+
+        public string? SetTimeDelayUri { get; set; }
     }
 }

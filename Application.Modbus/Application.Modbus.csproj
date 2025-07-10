@@ -25,4 +25,10 @@
     <ProjectReference Include="..\NModbus4\NModbus4.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="modbussettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

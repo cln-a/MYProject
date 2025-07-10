@@ -20,6 +20,7 @@ using Application.Modbus;
 using Microsoft.Extensions.Logging;
 using Application.SemiAuto;
 using Application.GeneralControl;
+using Application.Dialog;
 
 namespace ApplicationFrameWork
 {
@@ -79,6 +80,7 @@ namespace ApplicationFrameWork
             moduleCatalog.AddModule<ApplicationDeviceModule>();
             moduleCatalog.AddModule<ApplicationCommunicateModule>();
             moduleCatalog.AddModule<ApplicationJournalModule>();
+            moduleCatalog.AddModule<ApplicationDialogModule>();
         }
 
         protected override void ConfigureViewModelLocator()

@@ -22,6 +22,7 @@
     <ProjectReference Include="..\Application.Communicate\Application.Communicate.csproj" />
     <ProjectReference Include="..\Application.DAL\Application.DAL.csproj" />
     <ProjectReference Include="..\Application.Device\Application.Device.csproj" />
+    <ProjectReference Include="..\Application.Dialog\Application.Dialog.csproj" />
     <ProjectReference Include="..\Application.GeneralControl\Application.GeneralControl.csproj" />
     <ProjectReference Include="..\Application.IDAL\Application.IDAL.csproj" />
     <ProjectReference Include="..\Application.ImageProcess\Application.ImageProcess.csproj" />

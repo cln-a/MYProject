@@ -24,7 +24,8 @@
       "SetDelayNineUri": "SetDelayNine",
       "SetDelayTenUri": "SetDelayTen",
       "SetDelayElevenUri": "SetDelayEleven",
-      "SetTimeUri": "SetTime"
+      "SetTimeUri": "SetTime",
+      "SetTimeDelayUri": "SetDelayTime"
     }
   ],
   "CurParameterOption": [
@@ -63,7 +64,8 @@
       "CurDelayNineUri": "CurDelayNine",
       "CurDelayTenUri": "CurDelayTen",
       "CurDelayElevenUri": "CurDelayEleven",
-      "CurTimeUri": "CurTime"
+      "CurTimeUri": "CurTime",
+      "CurTimeDelayUri": "CurDelayTime"
     }
   ],
   "TriggerParameterOption": [

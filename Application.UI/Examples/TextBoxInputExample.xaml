@@ -1,0 +1,137 @@
+<UserControl x:Class="Application.UI.Examples.TextBoxInputExample"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ui="clr-namespace:Application.UI"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    
+    <UserControl.Resources>
+        <!-- 样式定义 -->
+        <Style x:Key="ExampleTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="0,5"/>
+            <Setter Property="Padding" Value="5,0"/>
+            <Setter Property="BorderBrush" Value="#CCCCCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+        
+        <Style x:Key="ExampleLabelStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,10,0,5"/>
+            <Setter Property="Foreground" Value="#333333"/>
+        </Style>
+    </UserControl.Resources>
+    
+    <ScrollViewer>
+        <StackPanel Margin="20">
+            <!-- 标题 -->
+            <TextBlock Text="TextBox输入限制示例" 
+                       FontSize="20" 
+                       FontWeight="Bold" 
+                       Margin="0,0,0,20"
+                       HorizontalAlignment="Center"/>
+            
+            <!-- 整数输入示例 -->
+            <TextBlock Text="1. 整数输入限制" 
+                       Style="{StaticResource ExampleLabelStyle}"/>
+            <TextBlock Text="只允许输入正整数，不允许小数点和负号" 
+                       FontSize="12" 
+                       Foreground="#666666" 
+                       Margin="0,0,0,5"/>
+            <TextBox ui:TextBoxInputBehavior.IsNumericOnly="True" 
+                     Style="{StaticResource ExampleTextBoxStyle}"
+                     ToolTip="只能输入整数"/>
+            
+            <!-- 小数输入示例 -->
+            <TextBlock Text="2. 小数输入限制（默认2位小数）" 
+                       Style="{StaticResource ExampleLabelStyle}"/>
+            <TextBlock Text="允许输入小数，默认限制2位小数" 
+                       FontSize="12" 
+                       Foreground="#666666" 
+                       Margin="0,0,0,5"/>
+            <TextBox ui:TextBoxInputBehavior.IsDecimalOnly="True" 
+                     Style="{StaticResource ExampleTextBoxStyle}"
+                     ToolTip="可以输入小数，最多2位小数"/>
+            
+            <!-- 自定义小数位数示例 -->
+            <TextBlock Text="3. 小数输入限制（3位小数）" 
+                       Style="{StaticResource ExampleLabelStyle}"/>
+            <TextBlock Text="允许输入小数，限制3位小数" 
+                       FontSize="12" 
+                       Foreground="#666666" 
+                       Margin="0,0,0,5"/>
+            <TextBox ui:TextBoxInputBehavior.IsDecimalOnly="True" 
+                     ui:TextBoxInputBehavior.DecimalPlaces="3"
+                     Style="{StaticResource ExampleTextBoxStyle}"
+                     ToolTip="可以输入小数，最多3位小数"/>
+            
+            <!-- 普通输入框对比 -->
+            <TextBlock Text="4. 普通输入框（对比）" 
+                       Style="{StaticResource ExampleLabelStyle}"/>
+            <TextBlock Text="没有任何输入限制的普通TextBox" 
+                       FontSize="12" 
+                       Foreground="#666666" 
+                       Margin="0,0,0,5"/>
+            <TextBox Style="{StaticResource ExampleTextBoxStyle}"
+                     ToolTip="可以输入任何字符"/>
+            
+            <!-- 使用说明 -->
+            <Border Background="#F5F5F5" 
+                    BorderBrush="#DDDDDD" 
+                    BorderThickness="1" 
+                    CornerRadius="5" 
+                    Padding="15" 
+                    Margin="0,20,0,0">
+                <StackPanel>
+                    <TextBlock Text="使用说明：" 
+                               FontWeight="Bold" 
+                               Margin="0,0,0,10"/>
+                    <TextBlock Text="• 整数输入：使用 ui:TextBoxInputBehavior.IsNumericOnly='True'" 
+                               Margin="0,2"/>
+                    <TextBlock Text="• 小数输入：使用 ui:TextBoxInputBehavior.IsDecimalOnly='True'" 
+                               Margin="0,2"/>
+                    <TextBlock Text="• 自定义小数位数：使用 ui:TextBoxInputBehavior.DecimalPlaces='3'" 
+                               Margin="0,2"/>
+                    <TextBlock Text="• 支持键盘导航：退格键、删除键、方向键等" 
+                               Margin="0,2"/>
+                    <TextBlock Text="• 支持粘贴验证：只允许粘贴符合格式的内容" 
+                               Margin="0,2"/>
+                </StackPanel>
+            </Border>
+            
+            <!-- 代码示例 -->
+            <Border Background="#F8F8F8" 
+                    BorderBrush="#DDDDDD" 
+                    BorderThickness="1" 
+                    CornerRadius="5" 
+                    Padding="15" 
+                    Margin="0,10,0,0">
+                <StackPanel>
+                    <TextBlock Text="XAML代码示例：" 
+                               FontWeight="Bold" 
+                               Margin="0,0,0,10"/>
+                    <TextBlock Text="xmlns:ui='clr-namespace:Application.UI'" 
+                               FontFamily="Consolas" 
+                               FontSize="11" 
+                               Margin="0,2"/>
+                    <TextBlock Text="&lt;TextBox ui:TextBoxInputBehavior.IsNumericOnly='True' /&gt;" 
+                               FontFamily="Consolas" 
+                               FontSize="11" 
+                               Margin="0,2"/>
+                    <TextBlock Text="&lt;TextBox ui:TextBoxInputBehavior.IsDecimalOnly='True' /&gt;" 
+                               FontFamily="Consolas" 
+                               FontSize="11" 
+                               Margin="0,2"/>
+                    <TextBlock Text="&lt;TextBox ui:TextBoxInputBehavior.IsDecimalOnly='True' ui:TextBoxInputBehavior.DecimalPlaces='3' /&gt;" 
+                               FontFamily="Consolas" 
+                               FontSize="11" 
+                               Margin="0,2"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl> 
