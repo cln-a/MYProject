@@ -433,8 +433,8 @@ namespace Application.Modbus
                             SetValue(value);
                     }
                 }
-                //else
-                //    throw new Exception($"{Client.DeviceName}未连接!");
+                else
+                    throw new Exception($"{Client.DeviceName}未连接!");
             }
             catch(Exception ex)
             {

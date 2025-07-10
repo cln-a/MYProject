@@ -527,7 +527,7 @@ namespace Application.SemiAuto
                 RaisePropertyChanged(nameof(CurTimeConsumeTen));
                 RaisePropertyChanged(nameof(CurTimeDisplayItems));
             };
-            IO.TryGet(/*_option.CurTimeConsumeElevenUri!*/"CurTimeConsumeEleven", out _curTimeConsumeElevenVariable);
+            IO.TryGet(_option.CurTimeConsumeElevenUri!, out _curTimeConsumeElevenVariable);
             _curTimeConsumeElevenVariable.ValueChangedEvent += (s, e) =>
             {
                 CurTimeDisplayItems[10].CurTimeConsume = _curTimeConsumeElevenVariable.GetValueEx<float>();

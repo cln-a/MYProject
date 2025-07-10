@@ -36,10 +36,24 @@
                 <Button
                     Width="120"
                     Margin="10"
-                    Background="#38A941"
+                    Background="#4B91E2"
                     Content="总启动"
                     Style="{StaticResource MaterialDesignRaisedButton}" 
                     Command="{Binding SendStartCommand}"/>
+                <TextBlock
+                    Grid.Row="0"
+                    Text="设定耗时时间(单位s)：" 
+                    HorizontalAlignment="Center" 
+                    Style="{StaticResource TextBlockBaseStyle}" 
+                    Margin="5"/>
+                <Rectangle Width="10"/>
+                <TextBox
+                    x:Name="SourceTextbox"
+                    Margin="10"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Width="300"
+                    Text="{Binding GeneralControlModel.SetTime}"/>
                 <Button
                     Width="120"
                     Margin="10"
@@ -50,7 +64,7 @@
                 <Button
                     Width="120"
                     Margin="10"
-                    Background="Crimson"
+                    Background="#4B91E2"
                     Content="设定延时时间"
                     Style="{StaticResource MaterialDesignRaisedButton}" 
                     Command="{Binding SendDeleayTimeCommand}"/>
@@ -71,7 +85,6 @@
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <TextBlock
@@ -82,26 +95,6 @@
                                 FontSize="25"
                                 FontWeight="Bold"
                                 Margin="5"/>
-                            <StackPanel 
-                                Grid.Row="1" 
-                                HorizontalAlignment="Center" 
-                                VerticalAlignment="Center"
-                                Orientation="Horizontal">
-                                <TextBlock
-                                    Grid.Row="0"
-                                    Text="设定耗时时间(单位s)：" 
-                                    HorizontalAlignment="Center" 
-                                    Style="{StaticResource TextBlockBaseStyle}" 
-                                    Margin="5"/>
-                                <Rectangle Width="10"/>
-                                <TextBox
-                                    x:Name="SourceTextbox"
-                                    Margin="10"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Center"
-                                    Width="300"
-                                    Text="{Binding GeneralControlModel.SetTime}"/>
-                            </StackPanel>
                             <UniformGrid
                                     Grid.Row="2"
                                     Rows="11"
