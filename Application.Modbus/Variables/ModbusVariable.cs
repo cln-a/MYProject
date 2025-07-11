@@ -438,8 +438,7 @@ namespace Application.Modbus
             }
             catch(Exception ex)
             {
-                //Logger
-                throw;
+                
             }
         }
 

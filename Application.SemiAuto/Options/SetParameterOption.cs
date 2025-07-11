@@ -1,4 +1,6 @@
-﻿namespace Application.SemiAuto
+﻿using System.Security.Policy;
+
+namespace Application.SemiAuto
 {
     public class SetParameterOption : BaseOption
     {
@@ -16,5 +18,17 @@
 
         public string? SetTimeUri { get; set; } 
         public string? SetTimeDelayUri { get; set; }
+
+        public string? TriggerEnableOneUri { get; set; }    
+        public string? TriggerEnableTwoUri { get; set; }
+        public string? TriggerEnableThreeUri { get; set; }  
+        public string? TriggerEnableFourUri { get; set; }
+        public string? TriggerEnableFiveUri { get; set; }
+        public string? TriggerEnableSixUri { get; set; }    
+        public string? TriggerEnableSevenUri { get; set; }  
+        public string? TriggerEnableEightUri { get; set; }
+        public string? TriggerEnableNineUri { get; set; }
+        public string? TriggerEnableTenUri { get; set; }
+        public string? TriggerEnableElevenUri { get; set; }
     }
 }

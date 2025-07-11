@@ -7,6 +7,18 @@ namespace Application.SemiAuto
         private readonly SetParameterOption _option;
         private readonly IEventAggregator _eventAggregator;
 
+        private AutoResetEvent _oneresetEvent = new AutoResetEvent(false);
+        private AutoResetEvent _tworesetEvent = new AutoResetEvent(false);
+        private AutoResetEvent _threeresetEvent = new AutoResetEvent(false);
+        private AutoResetEvent _fourresetEvent = new AutoResetEvent(false);
+        private AutoResetEvent _fiveresetEvent = new AutoResetEvent(false);
+        private AutoResetEvent _sixresetEvent = new AutoResetEvent(false);
+        private AutoResetEvent _sevenresetEvent = new AutoResetEvent(false);
+        private AutoResetEvent _eightresetEvent = new AutoResetEvent(false);
+        private AutoResetEvent _nineresetEvent = new AutoResetEvent(false);
+        private AutoResetEvent _tenresetEvent = new AutoResetEvent(false);
+        private AutoResetEvent _elevenresetEvent = new AutoResetEvent(false);
+
         private readonly IVariable _setEnableOneVariable;
         private readonly IVariable _SetEnableTwoVariable;
         private readonly IVariable _setEnableThreeVariable;
@@ -21,6 +33,20 @@ namespace Application.SemiAuto
 
         private readonly IVariable _setTimeVariable;
         private readonly IVariable _setTimeDelayVariable;
+
+        private readonly IVariable _triggerEnableOneVariable;
+        private readonly IVariable _triggerEnableTwoVariable;
+        private readonly IVariable _triggerEnableThreeVariable;
+        private readonly IVariable _triggerEnableFourVariable;
+        private readonly IVariable _triggerEnableFiveVariable;
+        private readonly IVariable _triggerEnableSixVariable;
+        private readonly IVariable _triggerEnableSevenVariable;
+        private readonly IVariable _triggerEnableEightVariable;
+        private readonly IVariable _triggerEnableNineVariable;
+        private readonly IVariable _triggerEnableTenVariable;
+        private readonly IVariable _triggerEnableElevenVariable;
+
+        private ushort _setEnableOneProxy;
 
         public IEventAggregator EventAggregator => _eventAggregator;
 
@@ -38,6 +64,85 @@ namespace Application.SemiAuto
 
         public IVariable SetTimeVariable => _setTimeVariable;
         public IVariable SetTimeDelayVariable => _setTimeDelayVariable;
+
+        public IVariable TriggerEnableOneVariable => _triggerEnableOneVariable;
+        public IVariable TriggerEnableTwoVariable => _triggerEnableTwoVariable;
+        public IVariable TriggerEnableThreeVariable => _triggerEnableThreeVariable;
+        public IVariable TriggerEnableFourVariable => _triggerEnableFourVariable;
+        public IVariable TriggerEnableFiveVariable => _triggerEnableFiveVariable;
+        public IVariable TriggerEnableSixVariable => _triggerEnableSixVariable;
+        public IVariable TriggerEnableSevenVariable => _triggerEnableSevenVariable;
+        public IVariable TriggerEnableEightVariable => _triggerEnableEightVariable;
+        public IVariable TriggerEnableNineVariable => _triggerEnableNineVariable;
+        public IVariable TriggerEnableTenVariable => _triggerEnableTenVariable;
+        public IVariable TriggerEnableElevenVariable => _triggerEnableElevenVariable;
+
+
+        public bool TriggerEnableOne
+        {
+            get => TriggerEnableOneVariable.GetValueEx<bool>();
+            set => TriggerEnableOneVariable.WriteAnyValueEx(value);
+        }
+
+        public bool TriggerEnableTwo
+        {
+            get => TriggerEnableTwoVariable.GetValueEx<bool>();
+            set => TriggerEnableTwoVariable.WriteAnyValueEx(value);
+        }
+
+        public bool TriggerEnableThree
+        {
+            get => TriggerEnableThreeVariable.GetValueEx<bool>();
+            set => TriggerEnableThreeVariable.WriteAnyValueEx(value);
+        }
+
+        public bool TriggerEnableFour
+        {
+            get => TriggerEnableFourVariable.GetValueEx<bool>();
+            set => TriggerEnableFourVariable.WriteAnyValueEx(value);
+        }
+
+        public bool TriggerEnableFive
+        {
+            get => TriggerEnableFourVariable.GetValueEx<bool>();
+            set => TriggerEnableFourVariable.WriteAnyValueEx(value);
+        }
+
+        public bool TriggerEnableSix
+        {
+            get => TriggerEnableSixVariable.GetValueEx<bool>();
+            set => TriggerEnableSixVariable.WriteAnyValueEx(value);
+        }
+
+        public bool TriggerEnableSeven
+        {
+            get => TriggerEnableSevenVariable.GetValueEx<bool>();
+            set => TriggerEnableSevenVariable.WriteAnyValueEx(value);
+        }
+
+        public bool TriggerEnableEight
+        {
+            get => TriggerEnableEightVariable.GetValueEx<bool>();
+            set => TriggerEnableEightVariable.WriteAnyValueEx(value);
+        }
+
+        public bool TriggerEnableNine
+        {
+            get => TriggerEnableNineVariable.GetValueEx<bool>();
+            set => TriggerEnableNineVariable.WriteAnyValueEx(value);
+        }
+
+        public bool TriggerEnableTen
+        {
+            get => TriggerEnableTenVariable.GetValueEx<bool>(); 
+            set => TriggerEnableTenVariable.WriteAnyValueEx(value);
+        }
+
+        public bool TriggerEnableEleven
+        {
+            get => TriggerEnableElevenVariable.GetValueEx<bool>(); 
+            set => TriggerEnableElevenVariable.WriteAnyValueEx(value);
+        }
 
         public ushort SetEnableOne
         {
@@ -61,6 +166,7 @@ namespace Application.SemiAuto
         {
             get => SetEnableFourVariable.GetValueEx<ushort>();
             set => SetEnableFourVariable.WriteAnyValueEx(value);
+
         }
 
         public ushort SetEnableFive
@@ -123,30 +229,42 @@ namespace Application.SemiAuto
             this._eventAggregator = eventAggregator;
 
             IO.TryGet(_option.SetEnableOneUri!, out _setEnableOneVariable);
-            SetEnableOneVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetEnableOne));
             IO.TryGet(_option.SetEnableTwoUri!, out _SetEnableTwoVariable);
-            SetEnableTwoVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetEnableTwo));
             IO.TryGet(_option.SetEnableThreeUri!, out _setEnableThreeVariable);
-            SetEnableThreeVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetEnableThree));
             IO.TryGet(_option.SetEnableFourUri!, out _setEnableFourVariable);
-            SetEnableFourVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetEnableFour));
             IO.TryGet(_option.SetEnableFiveUri!, out _setEnableFiveVariable);
-            SetEnableFiveVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetEnableFive));
             IO.TryGet(_option.SetEnableSixUri!, out _setEnableSixVariable);
-            SetEnableSixVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetEnableSix));
             IO.TryGet(_option.SetEnableSevenUri!, out _setEnableSevenVariable);
-            SetEnableSevenVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetEnableSeven));
             IO.TryGet(_option.SetEnableEightUri!, out _setEnableEightVariable);
-            SetEnableEightVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetEnableEight));
             IO.TryGet(_option.SetEnableNineUri!, out _setEnableNineVariable);
-            SetEnableNineVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetEnableNine));
             IO.TryGet(_option.SetEnableTenUri!, out _setEnableTenVariable);
-            SetEnableTenVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetEnableTen));
             IO.TryGet(_option.SetEnableElevenUri!, out _setEnableElevenVariable);
-            SetEnableElevenVariable.ValueChangedEvent += (s, e) => RaisePropertyChanged(nameof(SetEnableEleven));
 
             IO.TryGet(_option.SetTimeUri!, out _setTimeVariable);
             IO.TryGet(_option.SetTimeDelayUri!, out _setTimeDelayVariable);
+
+            IO.TryGet(_option.TriggerEnableOneUri!,out _triggerEnableOneVariable);
+            TriggerEnableOneVariable.ValueChangedEvent += (s, e) => { if (!e.GetNewValue<bool>()) { _oneresetEvent.Set(); } };
+            IO.TryGet(_option.TriggerEnableTwoUri!, out _triggerEnableTwoVariable);
+            TriggerEnableTwoVariable.ValueChangedEvent += (s, e) => { if (!e.GetNewValue<bool>()) { _tworesetEvent.Set(); } };
+            IO.TryGet(_option.TriggerEnableThreeUri!, out _triggerEnableThreeVariable);
+            TriggerEnableThreeVariable.ValueChangedEvent += (s, e) => { if (!e.GetNewValue<bool>()) { _threeresetEvent.Set(); } };
+            IO.TryGet(_option.TriggerEnableFourUri!, out _triggerEnableFourVariable);
+            TriggerEnableFourVariable.ValueChangedEvent += (s, e) => { if (!e.GetNewValue<bool>()) { _fourresetEvent.Set(); } };
+            IO.TryGet(_option.TriggerEnableFiveUri!, out _triggerEnableFiveVariable);
+            TriggerEnableFiveVariable.ValueChangedEvent += (s, e) => { if (!e.GetNewValue<bool>()) { _fiveresetEvent.Set(); } };
+            IO.TryGet(_option.TriggerEnableSixUri!, out _triggerEnableSixVariable);
+            TriggerEnableSixVariable.ValueChangedEvent += (s, e) => { if (!e.GetNewValue<bool>()) { _sixresetEvent.Set(); } };
+            IO.TryGet(_option.TriggerEnableSevenUri!, out _triggerEnableSevenVariable);
+            TriggerEnableSevenVariable.ValueChangedEvent += (s, e) => { if (!e.GetNewValue<bool>()) { _sevenresetEvent.Set(); } };
+            IO.TryGet(_option.TriggerEnableEightUri!, out _triggerEnableEightVariable);
+            TriggerEnableEightVariable.ValueChangedEvent += (s, e) => { if (!e.GetNewValue<bool>()) { _eightresetEvent.Set(); } };
+            IO.TryGet(_option.TriggerEnableNineUri!, out _triggerEnableNineVariable);
+            TriggerEnableNineVariable.ValueChangedEvent += (s, e) => { if (!e.GetNewValue<bool>()) { _nineresetEvent.Set(); } };
+            IO.TryGet(_option.TriggerEnableTenUri!, out _triggerEnableTenVariable);
+            TriggerEnableTenVariable.ValueChangedEvent += (s, e) => { if (!e.GetNewValue<bool>()) { _tenresetEvent.Set(); } };
+            IO.TryGet(_option.TriggerEnableElevenUri!, out _triggerEnableElevenVariable);
+            TriggerEnableElevenVariable.ValueChangedEvent += (s, e) => { if (!e.GetNewValue<bool>()) { _elevenresetEvent.Set(); } };
 
             EventAggregator.GetEvent<SetTimeEvent>().Subscribe(SetTimeChange);
             EventAggregator.GetEvent<SetTimeDelayEvent>().Subscribe(SetTimeDelayChange);

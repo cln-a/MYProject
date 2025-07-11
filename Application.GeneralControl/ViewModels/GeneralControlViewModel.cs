@@ -32,14 +32,12 @@ namespace Application.GeneralControl
                         {
                             SetParamsFactory.SetTime = GeneralControlModel.SetTime;
                             TriggerParamsFactory.TriggerTime = true;
-                           
                         }
                         catch(Exception ex)
                         {
                             PopupBox.Show(ex.Message);
                             return;
                         }
-
                         try
                         {
                             var boolresult = await Task.Run(()
@@ -96,7 +94,6 @@ namespace Application.GeneralControl
                             PopupBox.Show(ex.Message);
                             return;
                         }
-
                         try
                         {
                             var boolresult = await Task.Run(()

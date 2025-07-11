@@ -40,10 +40,10 @@ namespace Application.SemiAuto
             this._option = option;
 
             IO.TryGet(_option.TriggerTimeUri!, out _triggerTimeVariable);
-            _triggerTimeVariable.ValueChangedEvent += (s, e) => { if (!e.GetNewValue<bool>()) { _TimeresetEvent.Set(); } };
+            TriggerTimeVariable.ValueChangedEvent += (s, e) => { if (!e.GetNewValue<bool>()) { _TimeresetEvent.Set(); } };
 
             IO.TryGet(_option.TriggerTimeDelayUri!, out _triggerTimeDelayVariable);
-            _triggerTimeDelayVariable.ValueChangedEvent += (s, e) => { if (!e.GetNewValue<bool>()) { _TimerDelayesetEvent.Set(); } };
+            TriggerTimeDelayVariable.ValueChangedEvent += (s, e) => { if (!e.GetNewValue<bool>()) { _TimerDelayesetEvent.Set(); } };
         }
 
         public bool SetTimeTrigger()

@@ -14,7 +14,18 @@
       "SetEnableTenUri": "SetEnableTen",
       "SetEnableElevenUri": "SetEnableEleven",
       "SetTimeUri": "SetTime",
-      "SetTimeDelayUri": "SetDelayTime"
+      "SetTimeDelayUri": "SetDelayTime",
+      "TriggerEnableOneUri": "TriggerEnableOne",
+      "TriggerEnableTwoUri": "TriggerEnableTwo",
+      "TriggerEnableThreeUri": "TriggerEnableThree",
+      "TriggerEnableFourUri": "TriggerEnableFour",
+      "TriggerEnableFiveUri": "TriggerEnableFive",
+      "TriggerEnableSixUri": "TriggerEnableSix",
+      "TriggerEnableSevenUri": "TriggerEnableSeven",
+      "TriggerEnableEightUri": "TriggerEnableEight",
+      "TriggerEnableNineUri": "TriggerEnableNine",
+      "TriggerEnableTenUri": "TriggerEnableTen",
+      "TriggerEnableElevenUri": "TriggerEnableEleven"
     }
   ],
   "CurParameterOption": [
