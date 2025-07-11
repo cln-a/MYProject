@@ -6,9 +6,8 @@ namespace Application.SemiAuto
     {
         private System.Threading.AutoResetEvent _TimeresetEvent = new System.Threading.AutoResetEvent(false);
         private System.Threading.AutoResetEvent _TimerDelayesetEvent = new System.Threading.AutoResetEvent(false);
-
+       
         private readonly TriggerParameterOption _option;
-        private CancellationTokenSource _cts;
 
         private readonly IVariable _triggerTimeVariable;
         private readonly IVariable _triggerTimeDelayVariable;
@@ -55,7 +54,9 @@ namespace Application.SemiAuto
 
                 TriggerTime = true;
                 if (_TimeresetEvent.WaitOne(10000))
+                {
                     return true;
+                }
                 else
                 {
                     TriggerTime = false;
@@ -76,7 +77,9 @@ namespace Application.SemiAuto
 
                 TriggerTimeDelay = true;
                 if (_TimerDelayesetEvent.WaitOne(10000))
+                {
                     return true;
+                }
                 else
                 {
                     TriggerTimeDelay = false;

@@ -31,7 +31,7 @@ namespace Application.SemiAuto
                 .FirstOrDefault();
 
             unityContainer.RegisterSingleton<SetParamsFactory>
-                (setparameteroption?.Name, new InjectionConstructor(setparameteroption));
+                (setparameteroption?.Name, new InjectionConstructor(setparameteroption, typeof(IEventAggregator)));
             unityContainer.RegisterSingleton<CurParamsFactory>
                 (curparameteroption?.Name, new InjectionConstructor(curparameteroption));
             unityContainer.RegisterSingleton<TriggerParamsFactory>

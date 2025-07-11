@@ -707,9 +707,9 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="{Binding CurParamsFactory.CurEnableOne}"
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" 
+                                        IsChecked="{Binding SetParamsFactory.SetEnableOne,Mode=TwoWay,Converter={StaticResource UshortToBoolConverter},UpdateSourceTrigger=PropertyChanged}"
                                         IsHitTestVisible ="False"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
@@ -723,7 +723,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurTime}"/>
+                                        Text="{Binding SetParamsFactory.SetTime}"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
@@ -736,7 +736,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurTimeDelay}"/>
+                                        Text="{Binding SetParamsFactory.SetTimeDelay}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -758,9 +758,9 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="{Binding CurParamsFactory.CurEnableTwo}"
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" 
+                                        IsChecked="{Binding SetParamsFactory.SetEnableTwo,Mode=TwoWay,Converter={StaticResource UshortToBoolConverter},UpdateSourceTrigger=PropertyChanged}"
                                         IsHitTestVisible ="False"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
@@ -774,7 +774,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurTime}"/>
+                                        Text="{Binding SetParamsFactory.SetTime}"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
@@ -787,7 +787,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurTimeDelay}"/>
+                                        Text="{Binding SetParamsFactory.SetTimeDelay}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -809,9 +809,9 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="{Binding CurParamsFactory.CurEnableThree}"
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" 
+                                        IsChecked="{Binding SetParamsFactory.SetEnableThree,Mode=TwoWay,Converter={StaticResource UshortToBoolConverter},UpdateSourceTrigger=PropertyChanged}"
                                         IsHitTestVisible ="False"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
@@ -825,7 +825,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurTime}"/>
+                                        Text="{Binding SetParamsFactory.SetTime}"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
@@ -838,7 +838,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurTimeDelay}"/>
+                                        Text="{Binding SetParamsFactory.SetTimeDelay}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -860,9 +860,9 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="{Binding CurParamsFactory.CurEnableFour}"
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" 
+                                        IsChecked="{Binding SetParamsFactory.SetEnableFour,Mode=TwoWay,Converter={StaticResource UshortToBoolConverter},UpdateSourceTrigger=PropertyChanged}"
                                         IsHitTestVisible ="False"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
@@ -876,7 +876,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurTime}"/>
+                                        Text="{Binding SetParamsFactory.SetTime}"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
@@ -889,7 +889,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurTimeDelay}"/>
+                                        Text="{Binding SetParamsFactory.SetTimeDelay}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -911,9 +911,9 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="{Binding CurParamsFactory.CurEnableFive}"
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" 
+                                        IsChecked="{Binding SetParamsFactory.SetEnableFive,Mode=TwoWay,Converter={StaticResource UshortToBoolConverter},UpdateSourceTrigger=PropertyChanged}"
                                         IsHitTestVisible ="False"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
@@ -927,7 +927,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurTime}"/>
+                                        Text="{Binding SetParamsFactory.SetTime}"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
@@ -940,7 +940,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurTimeDelay}"/>
+                                        Text="{Binding SetParamsFactory.SetTimeDelay}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -962,9 +962,9 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="{Binding CurParamsFactory.CurEnableSix}"
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" 
+                                        IsChecked="{Binding SetParamsFactory.SetEnableSix,Mode=TwoWay,Converter={StaticResource UshortToBoolConverter},UpdateSourceTrigger=PropertyChanged}"
                                         IsHitTestVisible ="False"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
@@ -978,7 +978,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurTime}"/>
+                                        Text="{Binding SetParamsFactory.SetTime}"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
@@ -991,7 +991,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurTimeDelay}"/>
+                                        Text="{Binding SetParamsFactory.SetTimeDelay}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -1013,9 +1013,9 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="{Binding CurParamsFactory.CurEnableSeven}"
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" 
+                                        IsChecked="{Binding SetParamsFactory.SetEnableSeven,Mode=TwoWay,Converter={StaticResource UshortToBoolConverter},UpdateSourceTrigger=PropertyChanged}"
                                         IsHitTestVisible ="False"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
@@ -1029,7 +1029,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurTime}"/>
+                                        Text="{Binding SetParamsFactory.SetTime}"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
@@ -1042,7 +1042,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurTimeDelay}"/>
+                                        Text="{Binding SetParamsFactory.SetTimeDelay}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -1064,9 +1064,9 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="{Binding CurParamsFactory.CurEnableEight}"
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" 
+                                        IsChecked="{Binding SetParamsFactory.SetEnableEight,Mode=TwoWay,Converter={StaticResource UshortToBoolConverter},UpdateSourceTrigger=PropertyChanged}"
                                         IsHitTestVisible ="False"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
@@ -1080,7 +1080,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurTime}"/>
+                                        Text="{Binding SetParamsFactory.SetTime}"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
@@ -1093,7 +1093,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurTimeDelay}"/>
+                                        Text="{Binding SetParamsFactory.SetTimeDelay}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -1115,9 +1115,9 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="{Binding CurParamsFactory.CurEnableNine}"
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" 
+                                        IsChecked="{Binding SetParamsFactory.SetEnableNine,Mode=TwoWay,Converter={StaticResource UshortToBoolConverter},UpdateSourceTrigger=PropertyChanged}"
                                         IsHitTestVisible ="False"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
@@ -1131,7 +1131,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurTime}"/>
+                                        Text="{Binding SetParamsFactory.SetTime}"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
@@ -1144,7 +1144,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurTimeDelay}"/>
+                                        Text="{Binding SetParamsFactory.SetTimeDelay}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                         HorizontalAlignment="Center"
@@ -1166,9 +1166,9 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="{Binding CurParamsFactory.CurEnableTen}"
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" 
+                                        IsChecked="{Binding SetParamsFactory.SetEnableTen,Mode=TwoWay,Converter={StaticResource UshortToBoolConverter},UpdateSourceTrigger=PropertyChanged}"
                                         IsHitTestVisible ="False"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
@@ -1182,7 +1182,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurTime}"/>
+                                        Text="{Binding SetParamsFactory.SetTime}"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
@@ -1195,7 +1195,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurTimeDelay}"/>   
+                                        Text="{Binding SetParamsFactory.SetTimeDelay}"/>   
                                 </StackPanel>
                                 <StackPanel Margin="5"
                                     HorizontalAlignment="Center"
@@ -1217,9 +1217,9 @@
                                     <ToggleButton
                                         Margin="10"
                                         Content="×"
-                                        IsChecked="{Binding CurParamsFactory.CurEnableEleven}"
                                         Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
                                         ToolTip="MaterialDesignActionSecondaryToggleButton" 
+                                        IsChecked="{Binding SetParamsFactory.SetEnableEleven,Mode=TwoWay,Converter={StaticResource UshortToBoolConverter},UpdateSourceTrigger=PropertyChanged}"
                                         IsHitTestVisible ="False"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
@@ -1233,7 +1233,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurTime}"/>
+                                        Text="{Binding SetParamsFactory.SetTime}"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
@@ -1246,7 +1246,7 @@
                                         HorizontalAlignment="Center"
                                         Width="100"
                                         IsReadOnly="True"
-                                        Text="{Binding CurParamsFactory.CurTimeDelay}"/>
+                                        Text="{Binding SetParamsFactory.SetTimeDelay}"/>
                                 </StackPanel>
                             </UniformGrid>
                         </Grid>

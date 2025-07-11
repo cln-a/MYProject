@@ -6,8 +6,11 @@ namespace Application.GeneralControl
     public class GeneralControlViewModel : BindableBase
     {
         private readonly IDialogService _dialogService;
+        private readonly IEventAggregator _eventAggregator;
         private DelegateCommand _setTimeCommand;
         private DelegateCommand _setDelayTimeCommand;
+
+        public IEventAggregator EventAggregator => _eventAggregator;
 
         public DelegateCommand SetTimeCommand => _setTimeCommand ??= new DelegateCommand(() => 
         {
@@ -43,12 +46,16 @@ namespace Application.GeneralControl
                                 => TriggerParamsFactory.SetTimeTrigger());
 
                             if (boolresult)
+                            {
+                                EventAggregator.GetEvent<SetTimeEvent>().Publish();
                                 PopupBox.Show("每个工位耗时时间设定成功");
+                            }
                             else
                             {
                                 GeneralControlModel.SetTime = 0;
                                 SetParamsFactory.SetTime = 0;
                                 TriggerParamsFactory.TriggerTime = false;
+                                EventAggregator.GetEvent<SetTimeEvent>().Publish();
                                 PopupBox.Show("每个工位耗时时间设定失败，请重新设定");
                             }
                         }
@@ -96,12 +103,16 @@ namespace Application.GeneralControl
                                 => TriggerParamsFactory.SetTimeDelayTrigger()); 
 
                             if (boolresult)
+                            {
+                                EventAggregator.GetEvent<SetTimeDelayEvent>().Publish();
                                 PopupBox.Show("每个工位延时时间设定成功");
+                            }
                             else
                             {
                                 GeneralControlModel.SetDelayTime = 0;
                                 SetParamsFactory.SetTimeDelay = 0;
                                 TriggerParamsFactory.TriggerTimeDelay = false;
+                                EventAggregator.GetEvent<SetTimeDelayEvent>().Publish();
                                 PopupBox.Show("每个工位延时时间设定失败，请重新设定");
                             }
                         }
@@ -128,7 +139,10 @@ namespace Application.GeneralControl
         [Unity.Dependency("GeneralControl")]
         public GeneralControlModel GeneralControlModel { get; set; }
 
-        public GeneralControlViewModel(IDialogService dialogService) 
-            => _dialogService = dialogService; 
+        public GeneralControlViewModel(IDialogService dialogService, IEventAggregator eventAggregator)
+        {
+            this._dialogService = dialogService;
+            this._eventAggregator = eventAggregator;
+        }
     }
 }
