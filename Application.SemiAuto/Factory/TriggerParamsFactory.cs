@@ -4,8 +4,8 @@ namespace Application.SemiAuto
 {
     public class TriggerParamsFactory : BindableBase
     {
-        private System.Threading.AutoResetEvent _TimeresetEvent = new System.Threading.AutoResetEvent(false);
-        private System.Threading.AutoResetEvent _TimerDelayesetEvent = new System.Threading.AutoResetEvent(false);
+        private AutoResetEvent _TimeresetEvent = new AutoResetEvent(false);
+        private AutoResetEvent _TimerDelayesetEvent = new AutoResetEvent(false);
        
         private readonly TriggerParameterOption _option;
 
