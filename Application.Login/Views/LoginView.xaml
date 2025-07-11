@@ -109,6 +109,15 @@
                              IsChecked="False"
                              Command="{Binding CheckCommand}"
                              CommandParameter="{Binding ElementName=US,Path=Content}"/>
+                <RadioButton x:Name="Russia" 
+                             Content="Россия" 
+                             Foreground="White"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Margin="5"
+                             IsChecked="False"
+                             Command="{Binding CheckCommand}"
+                             CommandParameter="{Binding ElementName=Russia,Path=Content}"/>
             </StackPanel>
         </Grid>
     </Grid>

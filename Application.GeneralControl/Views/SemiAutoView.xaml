@@ -24,7 +24,7 @@
         </Grid.RowDefinitions>
         <TextBlock
             Grid.Row="0"
-            Text="各工位耗时总览" 
+            Text="{DynamicResource 各工位耗时总览}" 
             HorizontalAlignment="Center" 
             Style="{StaticResource TextBlockBaseStyle}" 
             FontSize="25"
@@ -77,25 +77,25 @@
                     Width="Auto"
                     Binding="{Binding DeviceName}"
                     CanUserSort="True"
-                    Header="工位名称"
+                    Header="{DynamicResource 工位序号}"
                     SortMemberPath="DeviceName" />
                 <DataGridTextColumn
                     Width="Auto"
                     Binding="{Binding CurTimeConsume}"
                     CanUserSort="True"
-                    Header="当前耗时"
+                    Header="{DynamicResource 当前耗时}"
                     SortMemberPath="CurTimeConsume" />
                 <DataGridTextColumn
                     Width="Auto"
                     Binding="{Binding TimeBefore}"
                     CanUserSort="True"
-                    Header="当前工件处理时间（开始）"
+                    Header="{DynamicResource 当前工件处理时间（开始）}"
                     SortMemberPath="TimeBefore" />
                 <DataGridTextColumn
                     Width="Auto"
                     Binding="{Binding TimeNow}"
                     CanUserSort="True"
-                    Header="当前工件处理时间（结束）"
+                    Header="{DynamicResource 当前工件处理时间（结束）}"
                     SortMemberPath="TimeNow" />
             </DataGrid.Columns>
         </DataGrid>

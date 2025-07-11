@@ -74,7 +74,6 @@ namespace Application.SemiAuto
             try
             {
                 _TimerDelayesetEvent.Reset();
-
                 TriggerTimeDelay = true;
                 if (_TimerDelayesetEvent.WaitOne(10000))
                 {

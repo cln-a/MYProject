@@ -7,17 +7,17 @@ namespace Application.SemiAuto
         private readonly SetParameterOption _option;
         private readonly IEventAggregator _eventAggregator;
 
-        private AutoResetEvent _oneresetEvent = new AutoResetEvent(false);
-        private AutoResetEvent _tworesetEvent = new AutoResetEvent(false);
-        private AutoResetEvent _threeresetEvent = new AutoResetEvent(false);
-        private AutoResetEvent _fourresetEvent = new AutoResetEvent(false);
-        private AutoResetEvent _fiveresetEvent = new AutoResetEvent(false);
-        private AutoResetEvent _sixresetEvent = new AutoResetEvent(false);
-        private AutoResetEvent _sevenresetEvent = new AutoResetEvent(false);
-        private AutoResetEvent _eightresetEvent = new AutoResetEvent(false);
-        private AutoResetEvent _nineresetEvent = new AutoResetEvent(false);
-        private AutoResetEvent _tenresetEvent = new AutoResetEvent(false);
-        private AutoResetEvent _elevenresetEvent = new AutoResetEvent(false);
+        private AutoResetEvent _oneresetEvent = new(false);
+        private AutoResetEvent _tworesetEvent = new(false);
+        private AutoResetEvent _threeresetEvent = new(false);
+        private AutoResetEvent _fourresetEvent = new(false);
+        private AutoResetEvent _fiveresetEvent = new(false);
+        private AutoResetEvent _sixresetEvent = new(false);
+        private AutoResetEvent _sevenresetEvent = new(false);
+        private AutoResetEvent _eightresetEvent = new(false);
+        private AutoResetEvent _nineresetEvent = new(false);
+        private AutoResetEvent _tenresetEvent = new(false);
+        private AutoResetEvent _elevenresetEvent = new(false);
 
         private readonly IVariable _setEnableOneVariable;
         private readonly IVariable _SetEnableTwoVariable;
@@ -45,8 +45,6 @@ namespace Application.SemiAuto
         private readonly IVariable _triggerEnableNineVariable;
         private readonly IVariable _triggerEnableTenVariable;
         private readonly IVariable _triggerEnableElevenVariable;
-
-        private ushort _setEnableOneProxy;
 
         public IEventAggregator EventAggregator => _eventAggregator;
 
@@ -104,8 +102,8 @@ namespace Application.SemiAuto
 
         public bool TriggerEnableFive
         {
-            get => TriggerEnableFourVariable.GetValueEx<bool>();
-            set => TriggerEnableFourVariable.WriteAnyValueEx(value);
+            get => TriggerEnableFiveVariable.GetValueEx<bool>();
+            set => TriggerEnableFiveVariable.WriteAnyValueEx(value);
         }
 
         public bool TriggerEnableSix
@@ -134,80 +132,80 @@ namespace Application.SemiAuto
 
         public bool TriggerEnableTen
         {
-            get => TriggerEnableTenVariable.GetValueEx<bool>(); 
+            get => TriggerEnableTenVariable.GetValueEx<bool>();
             set => TriggerEnableTenVariable.WriteAnyValueEx(value);
         }
 
         public bool TriggerEnableEleven
         {
-            get => TriggerEnableElevenVariable.GetValueEx<bool>(); 
+            get => TriggerEnableElevenVariable.GetValueEx<bool>();
             set => TriggerEnableElevenVariable.WriteAnyValueEx(value);
         }
 
-        public ushort SetEnableOne
+        public bool SetEnableOne
         {
-            get => SetEnableOneVariable.GetValueEx<ushort>();
+            get => SetEnableOneVariable.GetValueEx<bool>();
             set => SetEnableOneVariable.WriteAnyValueEx(value);
         }
 
-        public ushort SetEnableTwo
+        public bool SetEnableTwo
         {
-            get => SetEnableTwoVariable.GetValueEx<ushort>(); 
+            get => SetEnableTwoVariable.GetValueEx<bool>();
             set => SetEnableTwoVariable.WriteAnyValueEx(value);
         }
 
-        public ushort SetEnableThree
+        public bool SetEnableThree
         {
-            get => SetEnableThreeVariable.GetValueEx<ushort>();
+            get => SetEnableThreeVariable.GetValueEx<bool>();
             set => SetEnableThreeVariable.WriteAnyValueEx(value);
         }
 
-        public ushort SetEnableFour
+        public bool SetEnableFour
         {
-            get => SetEnableFourVariable.GetValueEx<ushort>();
+            get => SetEnableFourVariable.GetValueEx<bool>();
             set => SetEnableFourVariable.WriteAnyValueEx(value);
 
         }
 
-        public ushort SetEnableFive
+        public bool SetEnableFive
         {
-            get => SetEnableFiveVariable.GetValueEx<ushort>();
+            get => SetEnableFiveVariable.GetValueEx<bool>();
             set => SetEnableFiveVariable.WriteAnyValueEx(value);
         }
 
-        public ushort SetEnableSix
+        public bool SetEnableSix
         {
-            get => SetEnableSixVariable.GetValueEx<ushort>();
+            get => SetEnableSixVariable.GetValueEx<bool>();
             set => SetEnableSixVariable.WriteAnyValueEx(value);
         }
 
-        public ushort SetEnableSeven
+        public bool SetEnableSeven
         {
-            get => SetEnableSevenVariable.GetValueEx<ushort>();
+            get => SetEnableSevenVariable.GetValueEx<bool>();
             set => SetEnableSevenVariable.WriteAnyValueEx(value);
         }
 
-        public ushort SetEnableEight
+        public bool SetEnableEight
         {
-            get => SetEnableEightVariable.GetValueEx<ushort>();
+            get => SetEnableEightVariable.GetValueEx<bool>();
             set => SetEnableEightVariable.WriteAnyValueEx(value);
         }
 
-        public ushort SetEnableNine
+        public bool SetEnableNine
         {
-            get => SetEnableNineVariable.GetValueEx<ushort>();
+            get => SetEnableNineVariable.GetValueEx<bool>();
             set => SetEnableNineVariable.WriteAnyValueEx(value);
         }
-        
-        public ushort SetEnableTen
+
+        public bool SetEnableTen
         {
-            get => SetEnableTenVariable.GetValueEx<ushort>();
+            get => SetEnableTenVariable.GetValueEx<bool>();
             set => SetEnableTenVariable.WriteAnyValueEx(value);
         }
 
-        public ushort SetEnableEleven
+        public bool SetEnableEleven
         {
-            get => SetEnableElevenVariable.GetValueEx<ushort>();
+            get => SetEnableElevenVariable.GetValueEx<bool>();
             set => SetEnableElevenVariable.WriteAnyValueEx(value);
         }
 
@@ -243,7 +241,7 @@ namespace Application.SemiAuto
             IO.TryGet(_option.SetTimeUri!, out _setTimeVariable);
             IO.TryGet(_option.SetTimeDelayUri!, out _setTimeDelayVariable);
 
-            IO.TryGet(_option.TriggerEnableOneUri!,out _triggerEnableOneVariable);
+            IO.TryGet(_option.TriggerEnableOneUri!, out _triggerEnableOneVariable);
             TriggerEnableOneVariable.ValueChangedEvent += (s, e) => { if (!e.GetNewValue<bool>()) { _oneresetEvent.Set(); } };
             IO.TryGet(_option.TriggerEnableTwoUri!, out _triggerEnableTwoVariable);
             TriggerEnableTwoVariable.ValueChangedEvent += (s, e) => { if (!e.GetNewValue<bool>()) { _tworesetEvent.Set(); } };
@@ -268,10 +266,323 @@ namespace Application.SemiAuto
 
             EventAggregator.GetEvent<SetTimeEvent>().Subscribe(SetTimeChange);
             EventAggregator.GetEvent<SetTimeDelayEvent>().Subscribe(SetTimeDelayChange);
+            EventAggregator.GetEvent<EnableEvent>().Subscribe(EnableChange);
+        }
+
+        private void EnableChange()
+        {
+            RaisePropertyChanged(nameof(SetEnableOne));
+            RaisePropertyChanged(nameof(SetEnableTwo));
+            RaisePropertyChanged(nameof(SetEnableThree));
+            RaisePropertyChanged(nameof(SetEnableFour));
+            RaisePropertyChanged(nameof(SetEnableFive));
+            RaisePropertyChanged(nameof(SetEnableSix));
+            RaisePropertyChanged(nameof(SetEnableSeven));
+            RaisePropertyChanged(nameof(SetEnableEight));
+            RaisePropertyChanged(nameof(SetEnableNine));
+            RaisePropertyChanged(nameof(SetEnableTen));
+            RaisePropertyChanged(nameof(SetEnableEleven));
         }
 
         private void SetTimeChange() => RaisePropertyChanged(nameof(SetTime));
 
         private void SetTimeDelayChange() => RaisePropertyChanged(nameof(SetTimeDelay));
+
+        public async Task<bool> TriggerEnableOneAsync()
+        {
+            try
+            {
+                var result = await Task.Run(() =>
+                {
+                    _oneresetEvent.Reset();
+
+                    TriggerEnableOne = true;
+                    if (_oneresetEvent.WaitOne(10000))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        TriggerEnableOne = false;
+                        return false;
+                    }
+                });
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<bool> TriggerEnableTwoAsync()
+        {
+            try
+            {
+                var result = await Task.Run(() =>
+                {
+                    _tworesetEvent.Reset();
+
+                    TriggerEnableTwo = true;
+                    if (_tworesetEvent.WaitOne(10000))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        TriggerEnableTwo = false;
+                        return false;
+                    }
+                });
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<bool> TriggerEnableThreeAsync()
+        {
+            try
+            {
+                var result = await Task.Run(() =>
+                {
+                    _threeresetEvent.Reset();
+
+                    TriggerEnableThree = true;
+                    if (_threeresetEvent.WaitOne(10000))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        TriggerEnableThree = false;
+                        return false;
+                    }
+                });
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<bool> TriggerEnableFourAsync()
+        {
+            try
+            {
+                var result = await Task.Run(() =>
+                {
+                    _fourresetEvent.Reset();
+
+                    TriggerEnableFour = true;
+                    if (_fourresetEvent.WaitOne(10000))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        TriggerEnableFour = false;
+                        return false;
+                    }
+                });
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<bool> TriggerEnableFiveAsync()
+        {
+            try
+            {
+                var result = await Task.Run(() =>
+                {
+                    _fiveresetEvent.Reset();
+
+                    TriggerEnableFive = true;
+                    if (_fiveresetEvent.WaitOne(10000))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        TriggerEnableFive = false;
+                        return false;
+                    }
+                });
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<bool> TriggerEnableSixAsync()
+        {
+            try
+            {
+                var result = await Task.Run(() =>
+                {
+                    _sixresetEvent.Reset();
+
+                    TriggerEnableSix = true;
+                    if (_sixresetEvent.WaitOne(10000))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        TriggerEnableSix = false;
+                        return false;
+                    }
+                });
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<bool> TriggerEnableSevenAsync()
+        {
+            try
+            {
+                var result = await Task.Run(() =>
+                {
+                    _sevenresetEvent.Reset();
+
+                    TriggerEnableSeven = true;
+                    if (_sevenresetEvent.WaitOne(10000))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        TriggerEnableSeven = false;
+                        return false;
+                    }
+                });
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<bool> TriggerEnableEightAsync()
+        {
+            try
+            {
+                var result = await Task.Run(() =>
+                {
+                    _eightresetEvent.Reset();
+
+                    TriggerEnableEight = true;
+                    if (_eightresetEvent.WaitOne(10000))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        TriggerEnableEight = false;
+                        return false;
+                    }
+                });
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<bool> TriggerEnableNineAsync()
+        {
+            try
+            {
+                var result = await Task.Run(() =>
+                {
+                    _nineresetEvent.Reset();
+
+                    TriggerEnableNine = true;
+                    if (_nineresetEvent.WaitOne(10000))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        TriggerEnableNine = false;
+                        return false;
+                    }
+                });
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<bool> TriggerEnableTenAsync()
+        {
+            try
+            {
+                var result = await Task.Run(() =>
+                {
+                    _tenresetEvent.Reset();
+
+                    TriggerEnableTen = true;
+                    if (_tenresetEvent.WaitOne(10000))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        TriggerEnableTen = false;
+                        return false;
+                    }
+                });
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<bool> TriggerEnableElevenAsync()
+        {
+            try
+            {
+                var result = await Task.Run(() =>
+                {
+                    _elevenresetEvent.Reset();
+
+                    TriggerEnableEleven = true;
+                    if (_elevenresetEvent.WaitOne(10000))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        TriggerEnableEleven = false;
+                        return false;
+                    }
+                });
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

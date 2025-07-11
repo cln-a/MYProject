@@ -34,6 +34,9 @@ namespace Application.Login
                 case "English":
                     LanguageManager.SetLanguage(LanguageType.US);
                     break;
+                case "Россия":
+                    LanguageManager.SetLanguage(LanguageType.Russia);
+                    break;
                 default:
                     break;
             }

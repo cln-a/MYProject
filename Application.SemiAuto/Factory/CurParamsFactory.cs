@@ -152,7 +152,7 @@ namespace Application.SemiAuto
             this._option = option;
 
             for (int i = 0; i < 11; i++) 
-                CurTimeDisplayItems.Add(new CurTimeDisplayItem() { DeviceName = $"工位{i}" });
+                CurTimeDisplayItems.Add(new CurTimeDisplayItem() { DeviceName = $"{i}" });
 
             IO.TryGet(_option.CurTimeConsumeOneUri!, out _curTimeConsumeOneVariable);
             _curTimeConsumeOneVariable.ValueChangedEvent += (s, e) =>

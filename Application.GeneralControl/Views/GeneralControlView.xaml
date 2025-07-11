@@ -20,7 +20,8 @@
              TextElement.FontWeight="Regular"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}">
     <UserControl.Resources>
-        <conv:UshortToBoolConverter x:Key="UshortToBoolConverter" />
+        <conv:BoolToTextConverter x:Key="BoolToTextConverter" />
+        <conv:BoolToBrushConverter x:Key="BoolToBrushConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid>
@@ -35,7 +36,7 @@
                         Orientation="Horizontal">
                 <TextBlock
                     Grid.Row="0"
-                    Text="设定耗时时间(单位s)：" 
+                    Text="{DynamicResource 设定耗时时间(单位:s)}" 
                     HorizontalAlignment="Center" 
                     Style="{StaticResource TextBlockBaseStyle}" 
                     Margin="5"/>
@@ -45,20 +46,20 @@
                     Margin="10"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
-                    Width="200"
+                    Width="100"
                     conv:TextBoxInputBehavior.IsDecimalOnly="True"
                     conv:TextBoxInputBehavior.DecimalPlaces="2"
                     Text="{Binding GeneralControlModel.SetTime}"/>
                 <Button
-                    Width="120"
+                    MinWidth="200"
                     Margin="10"
                     Background="#4B91E2"
-                    Content="设定耗时时间"
+                    Content="{DynamicResource 设定耗时时间}"
                     Style="{StaticResource MaterialDesignRaisedButton}" 
                     Command="{Binding SetTimeCommand}"/>
                 <TextBlock
                     Grid.Row="0"
-                    Text="设定延时时间(单位s)：" 
+                    Text="{DynamicResource 设定延时时间(单位:s)}" 
                     HorizontalAlignment="Center" 
                     Style="{StaticResource TextBlockBaseStyle}" 
                     Margin="5"/>
@@ -67,21 +68,20 @@
                     Margin="10"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
-                    Width="200"
+                    Width="100"
                     conv:TextBoxInputBehavior.IsDecimalOnly="True"
                     conv:TextBoxInputBehavior.DecimalPlaces="2"
                     Text="{Binding GeneralControlModel.SetDelayTime}"/>
                 <Button
-                    Width="120"
+                    MinWidth="200"
                     Margin="10"
                     Background="#4B91E2"
-                    Content="设定延时时间"
+                    Content="{DynamicResource 设定延时时间}"
                     Style="{StaticResource MaterialDesignRaisedButton}" 
                     Command="{Binding SetDelayTimeCommand}"/>
             </StackPanel>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Border Grid.Column="0"
@@ -90,7 +90,10 @@
                         BorderBrush="#3F6A7F"
                         CornerRadius="10">
                     <ScrollViewer 
-                        VerticalScrollBarVisibility="Auto" 
+                        VerticalScrollBarVisibility="Auto"
+                        HorizontalScrollBarVisibility="Auto"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
                         Style="{StaticResource ScrollViewerUpDown}">
                         <Grid>
                             <Grid.RowDefinitions>
@@ -99,7 +102,7 @@
                             </Grid.RowDefinitions>
                             <TextBlock
                                 Grid.Row="0"
-                                Text="设定产线参数" 
+                                Text="{DynamicResource 设定产线参数}" 
                                 HorizontalAlignment="Center" 
                                 Style="{StaticResource TextBlockBaseStyle}" 
                                 FontSize="25"
@@ -118,30 +121,32 @@
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="工位1" />
+                                        Text="{DynamicResource 工位1}" />
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="是否启用：" />
-                                    <ToggleButton
+                                        Text="{DynamicResource 是否启用：}" />
+                                    <Button
+                                        Width="120"
                                         Margin="10"
-                                        Content="×"
-                                        Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
-                                        ToolTip="MaterialDesignActionSecondaryToggleButton" />
+                                        Background="{Binding SetParamsFactory.SetEnableOne, Converter={StaticResource BoolToBrushConverter}}"
+                                        Content="{Binding SetParamsFactory.SetEnableOne, Converter={StaticResource BoolToTextConverter}}"
+                                        Style="{StaticResource MaterialDesignRaisedButton}" 
+                                        Command="{Binding EnableOneCommand}"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="耗时时间(单位:s)：" />
-                                    <TextBox Margin="10"
+                                        Text="{DynamicResource 耗时时间(单位:s)：}" />
+                                    <TextBox Margin="0"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"
+                                        Width="120"
                                         IsReadOnly="True"
                                         Text="{Binding ElementName=SourceTextbox,Path=Text,Mode=OneWay}"/>
                                     <TextBlock Margin="10"
@@ -150,11 +155,11 @@
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="延时时间(单位:s)：" />
+                                        Text="{DynamicResource 延时时间(单位:s)：}" />
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"
+                                        Width="120"
                                         IsReadOnly="True"
                                         Text="{Binding ElementName=DelayTextbox,Path=Text,Mode=OneWay}"/>
                                 </StackPanel>
@@ -167,79 +172,32 @@
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="工位2" />
+                                        Text="{DynamicResource 工位2}" />
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="是否启用：" />
-                                    <ToggleButton
-                                        Content="×"
-                                        Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
-                                        ToolTip="MaterialDesignActionSecondaryToggleButton" />
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="耗时时间(单位:s)：" />
-                                    
-                                    <TextBox Margin="10"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Width="100"
-                                        IsReadOnly="True"
-                                        Text="{Binding ElementName=SourceTextbox,Path=Text,Mode=OneWay}"/>
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="延时时间(单位:s)：" />
-                                    <TextBox Margin="10"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Width="100"
-                                        IsReadOnly="True"
-                                        Text="{Binding ElementName=DelayTextbox,Path=Text,Mode=OneWay}"/>
-                                </StackPanel>
-                                <StackPanel Margin="5"
-                                        HorizontalAlignment="Center"
-                                        Orientation="Horizontal">
-                                    <TextBlock Margin="5"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="工位3" />
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="是否启用：" />
-                                    <ToggleButton
+                                        Text="{DynamicResource 是否启用：}" />
+                                    <Button
+                                        Width="120"
                                         Margin="10"
-                                        Content="×"
-                                        Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
-                                        ToolTip="MaterialDesignActionSecondaryToggleButton" />
+                                        Background="{Binding SetParamsFactory.SetEnableTwo, Converter={StaticResource BoolToBrushConverter}}"
+                                        Content="{Binding SetParamsFactory.SetEnableTwo, Converter={StaticResource BoolToTextConverter}}"
+                                        Style="{StaticResource MaterialDesignRaisedButton}" 
+                                        Command="{Binding EnableTwoCommand}"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="耗时时间(单位:s)：" />
+                                        Text="{DynamicResource 耗时时间(单位:s)：}"  />
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"
+                                        Width="120"
                                         IsReadOnly="True"
                                         Text="{Binding ElementName=SourceTextbox,Path=Text,Mode=OneWay}"/>
                                     <TextBlock Margin="10"
@@ -248,11 +206,11 @@
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="延时时间(单位:s)：" />
+                                        Text="{DynamicResource 延时时间(单位:s)：}" />
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"
+                                        Width="120"
                                         IsReadOnly="True"
                                         Text="{Binding ElementName=DelayTextbox,Path=Text,Mode=OneWay}"/>
                                 </StackPanel>
@@ -265,30 +223,83 @@
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                    Text="工位4" />
+                                        Text="{DynamicResource 工位3}" />
+                                    <TextBlock Margin="10"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="15"
+                                        Foreground="#1b2755"
+                                        Style="{StaticResource TextBlockDefaultSecLight}"
+                                        Text="{DynamicResource 是否启用：}" />
+                                    <Button
+                                        Width="120"
+                                        Margin="10"
+                                        Background="{Binding SetParamsFactory.SetEnableThree, Converter={StaticResource BoolToBrushConverter}}"
+                                        Content="{Binding SetParamsFactory.SetEnableThree, Converter={StaticResource BoolToTextConverter}}"
+                                        Style="{StaticResource MaterialDesignRaisedButton}" 
+                                        Command="{Binding EnableThreeCommand}"/>
+                                    <TextBlock Margin="10"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="15"
+                                        Foreground="#1b2755"
+                                        Style="{StaticResource TextBlockDefaultSecLight}"
+                                        Text="{DynamicResource 耗时时间(单位:s)：}"  />
+                                    <TextBox Margin="10"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Width="120"
+                                        IsReadOnly="True"
+                                        Text="{Binding ElementName=SourceTextbox,Path=Text,Mode=OneWay}"/>
+                                    <TextBlock Margin="10"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="15"
+                                        Foreground="#1b2755"
+                                        Style="{StaticResource TextBlockDefaultSecLight}"
+                                        Text="{DynamicResource 延时时间(单位:s)：}" />
+                                    <TextBox Margin="10"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Width="120"
+                                        IsReadOnly="True"
+                                        Text="{Binding ElementName=DelayTextbox,Path=Text,Mode=OneWay}"/>
+                                </StackPanel>
+                                <StackPanel Margin="5"
+                                        HorizontalAlignment="Center"
+                                        Orientation="Horizontal">
+                                    <TextBlock Margin="5"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="15"
+                                        Foreground="#1b2755"
+                                        Style="{StaticResource TextBlockDefaultSecLight}"
+                                        Text="{DynamicResource 工位4}" />
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"  
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="是否启用：" />
-                                    <ToggleButton
+                                        Text="{DynamicResource 是否启用：}" />
+                                    <Button
+                                        Width="120"
                                         Margin="10"
-                                        Content="×"
-                                        Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
-                                        ToolTip="MaterialDesignActionSecondaryToggleButton" />
+                                        Background="{Binding SetParamsFactory.SetEnableFour, Converter={StaticResource BoolToBrushConverter}}"
+                                        Content="{Binding SetParamsFactory.SetEnableFour, Converter={StaticResource BoolToTextConverter}}"
+                                        Style="{StaticResource MaterialDesignRaisedButton}" 
+                                        Command="{Binding EnableFourCommand}"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="耗时时间(单位:s)：" />
+                                        Text="{DynamicResource 耗时时间(单位:s)：}"  />
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"
+                                        Width="120"
                                         IsReadOnly="True"
                                         Text="{Binding ElementName=SourceTextbox,Path=Text,Mode=OneWay}"/>
                                     <TextBlock Margin="10"
@@ -297,11 +308,11 @@
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="延时时间(单位:s)：" />
+                                        Text="{DynamicResource 延时时间(单位:s)：}" />
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"
+                                        Width="120"
                                         IsReadOnly="True"
                                         Text="{Binding ElementName=DelayTextbox,Path=Text,Mode=OneWay}"/>
                                 </StackPanel>
@@ -314,30 +325,32 @@
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="工位5" />
+                                        Text="{DynamicResource 工位5}" />
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="是否启用：" />
-                                    <ToggleButton
+                                        Text="{DynamicResource 是否启用：}" />
+                                    <Button
+                                        Width="120"
                                         Margin="10"
-                                        Content="×"
-                                        Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
-                                        ToolTip="MaterialDesignActionSecondaryToggleButton" />
+                                        Background="{Binding SetParamsFactory.SetEnableFive, Converter={StaticResource BoolToBrushConverter}}"
+                                        Content="{Binding SetParamsFactory.SetEnableFive, Converter={StaticResource BoolToTextConverter}}"
+                                        Style="{StaticResource MaterialDesignRaisedButton}" 
+                                        Command="{Binding EnableFiveCommand}"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="耗时时间(单位:s)：" />
+                                        Text="{DynamicResource 耗时时间(单位:s)：}"  />
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"
+                                        Width="120"
                                         IsReadOnly="True"
                                         Text="{Binding ElementName=SourceTextbox,Path=Text,Mode=OneWay}"/>
                                     <TextBlock Margin="10"
@@ -346,11 +359,11 @@
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="延时时间(单位:s)：" />
+                                        Text="{DynamicResource 延时时间(单位:s)：}" />
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"
+                                        Width="120"
                                         IsReadOnly="True"
                                         Text="{Binding ElementName=DelayTextbox,Path=Text,Mode=OneWay}"/>
                                 </StackPanel>
@@ -363,30 +376,32 @@
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="工位6" />
+                                        Text="{DynamicResource 工位6}" />
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="是否启用：" />
-                                    <ToggleButton
+                                        Text="{DynamicResource 是否启用：}" />
+                                    <Button
+                                        Width="120"
                                         Margin="10"
-                                        Content="×"
-                                        Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
-                                        ToolTip="MaterialDesignActionSecondaryToggleButton" />
+                                        Background="{Binding SetParamsFactory.SetEnableSix, Converter={StaticResource BoolToBrushConverter}}"
+                                        Content="{Binding SetParamsFactory.SetEnableSix, Converter={StaticResource BoolToTextConverter}}"
+                                        Style="{StaticResource MaterialDesignRaisedButton}" 
+                                        Command="{Binding EnableSixCommand}"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="耗时时间(单位:s)：" />
+                                        Text="{DynamicResource 耗时时间(单位:s)：}"  />
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"
+                                        Width="120"
                                         IsReadOnly="True"
                                         Text="{Binding ElementName=SourceTextbox,Path=Text,Mode=OneWay}"/>
                                     <TextBlock Margin="10"
@@ -395,11 +410,11 @@
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="延时时间(单位:s)：" />
+                                        Text="{DynamicResource 延时时间(单位:s)：}" />
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"
+                                        Width="120"
                                         IsReadOnly="True"
                                         Text="{Binding ElementName=DelayTextbox,Path=Text,Mode=OneWay}"/>
                                 </StackPanel>
@@ -412,30 +427,32 @@
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="工位7" />
+                                        Text="{DynamicResource 工位7}" />
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="是否启用：" />
-                                    <ToggleButton
+                                        Text="{DynamicResource 是否启用：}"/>
+                                    <Button
+                                        Width="120"
                                         Margin="10"
-                                        Content="×"
-                                        Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
-                                        ToolTip="MaterialDesignActionSecondaryToggleButton" />
+                                        Background="{Binding SetParamsFactory.SetEnableSeven, Converter={StaticResource BoolToBrushConverter}}"
+                                        Content="{Binding SetParamsFactory.SetEnableSeven, Converter={StaticResource BoolToTextConverter}}"
+                                        Style="{StaticResource MaterialDesignRaisedButton}" 
+                                        Command="{Binding EnableSevenCommand}"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="耗时时间(单位:s)：" />
+                                        Text="{DynamicResource 耗时时间(单位:s)：}"  />
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"
+                                        Width="120"
                                         IsReadOnly="True"
                                         Text="{Binding ElementName=SourceTextbox,Path=Text,Mode=OneWay}"/>
                                     <TextBlock Margin="10"
@@ -444,11 +461,11 @@
                                         FontSize="15"
                                         Foreground="#1b2755"    
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="延时时间(单位:s)：" />
+                                        Text="{DynamicResource 延时时间(单位:s)：}"/>
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"
+                                        Width="120"
                                         IsReadOnly="True"
                                         Text="{Binding ElementName=DelayTextbox,Path=Text,Mode=OneWay}"/>
                                 </StackPanel>
@@ -461,30 +478,32 @@
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="工位8" />
+                                        Text="{DynamicResource 工位8}" />
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"       
-                                        Text="是否启用：" />
-                                    <ToggleButton
+                                        Text="{DynamicResource 是否启用：}" />
+                                    <Button
+                                        Width="120"
                                         Margin="10"
-                                        Content="×"
-                                        Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"      
-                                        ToolTip="MaterialDesignActionSecondaryToggleButton" />
+                                        Background="{Binding SetParamsFactory.SetEnableEight, Converter={StaticResource BoolToBrushConverter}}"
+                                        Content="{Binding SetParamsFactory.SetEnableEight, Converter={StaticResource BoolToTextConverter}}"
+                                        Style="{StaticResource MaterialDesignRaisedButton}" 
+                                        Command="{Binding EnableEightCommand}"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="耗时时间(单位:s)：" />
+                                        Text="{DynamicResource 耗时时间(单位:s)：}"  />
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"
+                                        Width="120"
                                         IsReadOnly="True"
                                         Text="{Binding ElementName=SourceTextbox,Path=Text,Mode=OneWay}"/>
                                     <TextBlock Margin="10"
@@ -493,11 +512,11 @@
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="延时时间(单位:s)：" />
+                                        Text="{DynamicResource 延时时间(单位:s)：}" />
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"
+                                        Width="120"
                                         Text="{Binding ElementName=DelayTextbox,Path=Text,Mode=OneWay}"/>
                                 </StackPanel>
                                 <StackPanel Margin="5"
@@ -509,30 +528,32 @@
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="工位9" />
+                                        Text="{DynamicResource 工位9}" />
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="是否启用：" />
-                                    <ToggleButton
+                                        Text="{DynamicResource 是否启用：}" />
+                                    <Button
+                                        Width="120"
                                         Margin="10"
-                                        Content="×"
-                                        Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
-                                        ToolTip="MaterialDesignActionSecondaryToggleButton" />
+                                        Background="{Binding SetParamsFactory.SetEnableNine, Converter={StaticResource BoolToBrushConverter}}"
+                                        Content="{Binding SetParamsFactory.SetEnableNine, Converter={StaticResource BoolToTextConverter}}"
+                                        Style="{StaticResource MaterialDesignRaisedButton}" 
+                                        Command="{Binding EnableNineCommand}"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="耗时时间(单位:s)：" />
+                                        Text="{DynamicResource 耗时时间(单位:s)：}"  />
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"
+                                        Width="120"
                                         IsReadOnly="True"
                                         Text="{Binding ElementName=SourceTextbox,Path=Text,Mode=OneWay}"/>
                                     <TextBlock Margin="10"
@@ -541,11 +562,11 @@
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="延时时间(单位:s)：" />
+                                        Text="{DynamicResource 延时时间(单位:s)：}" />
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"
+                                        Width="120"
                                         Text="{Binding ElementName=DelayTextbox,Path=Text,Mode=OneWay}"
                                         IsReadOnly="True"/>
                                 </StackPanel>
@@ -558,30 +579,32 @@
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="工位10" />
+                                        Text="{DynamicResource 工位10}" />
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="是否启用：" />
-                                    <ToggleButton
+                                        Text="{DynamicResource 是否启用：}" />
+                                    <Button
+                                        Width="120"
                                         Margin="10"
-                                        Content="×"
-                                        Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
-                                        ToolTip="MaterialDesignActionSecondaryToggleButton" />
+                                        Background="{Binding SetParamsFactory.SetEnableTen, Converter={StaticResource BoolToBrushConverter}}"
+                                        Content="{Binding SetParamsFactory.SetEnableTen, Converter={StaticResource BoolToTextConverter}}"
+                                        Style="{StaticResource MaterialDesignRaisedButton}" 
+                                        Command="{Binding EnableTenCommand}"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="耗时时间(单位:s)：" />
+                                        Text="{DynamicResource 耗时时间(单位:s)：}"  />
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"
+                                        Width="120"
                                         IsReadOnly="True"
                                         Text="{Binding ElementName=SourceTextbox,Path=Text,Mode=OneWay}"/>
                                     <TextBlock Margin="10"
@@ -590,11 +613,11 @@
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="延时时间(单位:s)：" />
+                                        Text="{DynamicResource 延时时间(单位:s)：}" />
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"
+                                        Width="120"
                                         Text="{Binding ElementName=DelayTextbox,Path=Text,Mode=OneWay}"
                                         IsReadOnly="True"/>
                                 </StackPanel>
@@ -607,30 +630,32 @@
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="工位11" />
+                                        Text="{DynamicResource 工位11}" />
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="是否启用：" />
-                                    <ToggleButton
+                                        Text="{DynamicResource 是否启用：}" />
+                                    <Button
+                                        Width="120"
                                         Margin="10"
-                                        Content="×"
-                                        Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
-                                        ToolTip="MaterialDesignActionSecondaryToggleButton" />
+                                        Background="{Binding SetParamsFactory.SetEnableEleven, Converter={StaticResource BoolToBrushConverter}}"
+                                        Content="{Binding SetParamsFactory.SetEnableEleven, Converter={StaticResource BoolToTextConverter}}"
+                                        Style="{StaticResource MaterialDesignRaisedButton}" 
+                                        Command="{Binding EnableElevenCommand}"/>
                                     <TextBlock Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="耗时时间(单位:s)：" />
+                                       Text="{DynamicResource 耗时时间(单位:s)：}" />
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"
+                                        Width="120"
                                         IsReadOnly="True"
                                         Text="{Binding ElementName=SourceTextbox,Path=Text,Mode=OneWay}"/>
                                     <TextBlock Margin="10"
@@ -639,592 +664,13 @@
                                         FontSize="15"
                                         Foreground="#1b2755"
                                         Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="延时时间(单位:s)：" />
+                                        Text="{DynamicResource 延时时间(单位:s)：}"/>
                                     <TextBox Margin="10"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Width="100"
+                                        Width="120"
                                         IsReadOnly="True"
                                         Text="{Binding ElementName=DelayTextbox,Path=Text,Mode=OneWay}"/>
-                                </StackPanel>
-                            </UniformGrid>
-                        </Grid>
-                    </ScrollViewer>
-                </Border>
-                <Border Grid.Column="1"
-                        Margin="5"
-                        BorderThickness="0.5"
-                        BorderBrush="#3F6A7F"
-                        CornerRadius="10">
-                    <ScrollViewer 
-                        VerticalScrollBarVisibility="Auto" 
-                        Style="{StaticResource ScrollViewerUpDown}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock
-                                Grid.Row="0"
-                                Text="当前产线参数" 
-                                HorizontalAlignment="Center" 
-                                Style="{StaticResource TextBlockBaseStyle}" 
-                                FontSize="25"
-                                FontWeight="Bold"
-                                Margin="5"/>
-                            <UniformGrid
-                                    Grid.Row="1"
-                                    Rows="11"
-                                    Columns="1">
-                                <StackPanel Margin="5"
-                                        HorizontalAlignment="Center"
-                                        Orientation="Horizontal">
-                                    <TextBlock Margin="5"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="工位1" />
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="是否启用：" />
-                                    <ToggleButton
-                                        Margin="10"
-                                        Content="×"
-                                        Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
-                                        ToolTip="MaterialDesignActionSecondaryToggleButton" 
-                                        IsHitTestVisible ="False"/>
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="耗时时间(单位:s)：" />
-                                    <TextBox Margin="10"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Width="100"
-                                        IsReadOnly="True"
-                                        Text="{Binding SetParamsFactory.SetTime}"/>
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="延时时间(单位:s)：" />
-                                    <TextBox Margin="10"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Width="100"
-                                        IsReadOnly="True"
-                                        Text="{Binding SetParamsFactory.SetTimeDelay}"/>
-                                </StackPanel>
-                                <StackPanel Margin="5"
-                                        HorizontalAlignment="Center"
-                                        Orientation="Horizontal">
-                                    <TextBlock Margin="5"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="工位2" />
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="是否启用：" />
-                                    <ToggleButton
-                                        Margin="10"
-                                        Content="×"
-                                        Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
-                                        ToolTip="MaterialDesignActionSecondaryToggleButton" 
-                                        IsHitTestVisible ="False"/>
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="耗时时间(单位:s)：" />
-                                    <TextBox Margin="10"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Width="100"
-                                        IsReadOnly="True"
-                                        Text="{Binding SetParamsFactory.SetTime}"/>
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="延时时间(单位:s)：" />
-                                    <TextBox Margin="10"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Width="100"
-                                        IsReadOnly="True"
-                                        Text="{Binding SetParamsFactory.SetTimeDelay}"/>
-                                </StackPanel>
-                                <StackPanel Margin="5"
-                                        HorizontalAlignment="Center"
-                                        Orientation="Horizontal">
-                                    <TextBlock Margin="5"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="工位3" />
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="是否启用：" />
-                                    <ToggleButton
-                                        Margin="10"
-                                        Content="×"
-                                        Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
-                                        ToolTip="MaterialDesignActionSecondaryToggleButton" 
-                                        IsHitTestVisible ="False"/>
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="耗时时间(单位:s)：" />
-                                    <TextBox Margin="10"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Width="100"
-                                        IsReadOnly="True"
-                                        Text="{Binding SetParamsFactory.SetTime}"/>
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="延时时间(单位:s)：" />
-                                    <TextBox Margin="10"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Width="100"
-                                        IsReadOnly="True"
-                                        Text="{Binding SetParamsFactory.SetTimeDelay}"/>
-                                </StackPanel>
-                                <StackPanel Margin="5"
-                                        HorizontalAlignment="Center"
-                                        Orientation="Horizontal">
-                                    <TextBlock Margin="5"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="工位4" />
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"  
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="是否启用：" />
-                                    <ToggleButton
-                                        Margin="10"
-                                        Content="×"
-                                        Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
-                                        ToolTip="MaterialDesignActionSecondaryToggleButton" 
-                                        IsHitTestVisible ="False"/>
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="耗时时间(单位:s)：" />
-                                    <TextBox Margin="10"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Width="100"
-                                        IsReadOnly="True"
-                                        Text="{Binding SetParamsFactory.SetTime}"/>
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="延时时间(单位:s)：" />
-                                    <TextBox Margin="10"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Width="100"
-                                        IsReadOnly="True"
-                                        Text="{Binding SetParamsFactory.SetTimeDelay}"/>
-                                </StackPanel>
-                                <StackPanel Margin="5"
-                                        HorizontalAlignment="Center"
-                                        Orientation="Horizontal">
-                                    <TextBlock Margin="5"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="工位5" />
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="是否启用：" />
-                                    <ToggleButton
-                                        Margin="10"
-                                        Content="×"
-                                        Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
-                                        ToolTip="MaterialDesignActionSecondaryToggleButton" 
-                                        IsHitTestVisible ="False"/>
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="耗时时间(单位:s)：" />
-                                    <TextBox Margin="10"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Width="100"
-                                        IsReadOnly="True"
-                                        Text="{Binding SetParamsFactory.SetTime}"/>
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="延时时间(单位:s)：" />
-                                    <TextBox Margin="10"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Width="100"
-                                        IsReadOnly="True"
-                                        Text="{Binding SetParamsFactory.SetTimeDelay}"/>
-                                </StackPanel>
-                                <StackPanel Margin="5"
-                                        HorizontalAlignment="Center"
-                                        Orientation="Horizontal">
-                                    <TextBlock Margin="5"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="工位6" />
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="是否启用：" />
-                                    <ToggleButton
-                                        Margin="10"
-                                        Content="×"
-                                        Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
-                                        ToolTip="MaterialDesignActionSecondaryToggleButton" 
-                                        IsHitTestVisible ="False"/>
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="耗时时间(单位:s)：" />
-                                    <TextBox Margin="10"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Width="100"
-                                        IsReadOnly="True"
-                                        Text="{Binding SetParamsFactory.SetTime}"/>
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="延时时间(单位:s)：" />
-                                    <TextBox Margin="10"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Width="100"
-                                        IsReadOnly="True"
-                                        Text="{Binding SetParamsFactory.SetTimeDelay}"/>
-                                </StackPanel>
-                                <StackPanel Margin="5"
-                                        HorizontalAlignment="Center"
-                                        Orientation="Horizontal">
-                                    <TextBlock Margin="5"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="工位7" />
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="是否启用：" />
-                                    <ToggleButton
-                                        Margin="10"
-                                        Content="×"
-                                        Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
-                                        ToolTip="MaterialDesignActionSecondaryToggleButton" 
-                                        IsHitTestVisible ="False"/>
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="耗时时间(单位:s)：" />
-                                    <TextBox Margin="10"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Width="100"
-                                        IsReadOnly="True"
-                                        Text="{Binding SetParamsFactory.SetTime}"/>
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"    
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="延时时间(单位:s)：" />
-                                    <TextBox Margin="10"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Width="100"
-                                        IsReadOnly="True"
-                                        Text="{Binding SetParamsFactory.SetTimeDelay}"/>
-                                </StackPanel>
-                                <StackPanel Margin="5"
-                                        HorizontalAlignment="Center"
-                                        Orientation="Horizontal">
-                                    <TextBlock Margin="5"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="工位8" />
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"       
-                                        Text="是否启用：" />
-                                    <ToggleButton
-                                        Margin="10"
-                                        Content="×"
-                                        Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
-                                        ToolTip="MaterialDesignActionSecondaryToggleButton" 
-                                        IsHitTestVisible ="False"/>
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="耗时时间(单位:s)：" />
-                                    <TextBox Margin="10"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Width="100"
-                                        IsReadOnly="True"
-                                        Text="{Binding SetParamsFactory.SetTime}"/>
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="延时时间(单位:s)：" />
-                                    <TextBox Margin="10"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Width="100"
-                                        IsReadOnly="True"
-                                        Text="{Binding SetParamsFactory.SetTimeDelay}"/>
-                                </StackPanel>
-                                <StackPanel Margin="5"
-                                        HorizontalAlignment="Center"
-                                        Orientation="Horizontal">
-                                    <TextBlock Margin="5"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="工位9" />
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="是否启用：" />
-                                    <ToggleButton
-                                        Margin="10"
-                                        Content="×"
-                                        Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
-                                        ToolTip="MaterialDesignActionSecondaryToggleButton" 
-                                        IsHitTestVisible ="False"/>
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="耗时时间(单位:s)：" />
-                                    <TextBox Margin="10"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Width="100"
-                                        IsReadOnly="True"
-                                        Text="{Binding SetParamsFactory.SetTime}"/>
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="延时时间(单位:s)：" />
-                                    <TextBox Margin="10"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Width="100"
-                                        IsReadOnly="True"
-                                        Text="{Binding SetParamsFactory.SetTimeDelay}"/>
-                                </StackPanel>
-                                <StackPanel Margin="5"
-                                        HorizontalAlignment="Center"
-                                        Orientation="Horizontal">
-                                    <TextBlock Margin="5"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="工位10" />
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="是否启用：" />
-                                    <ToggleButton
-                                        Margin="10"
-                                        Content="×"
-                                        Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
-                                        ToolTip="MaterialDesignActionSecondaryToggleButton" 
-                                        IsHitTestVisible ="False"/>
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="耗时时间(单位:s)：" />
-                                    <TextBox Margin="10"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Width="100"
-                                        IsReadOnly="True"
-                                        Text="{Binding SetParamsFactory.SetTime}"/>
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="延时时间(单位:s)：" />
-                                    <TextBox Margin="10"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Width="100"
-                                        IsReadOnly="True"
-                                        Text="{Binding SetParamsFactory.SetTimeDelay}"/>
-                                </StackPanel>
-                                <StackPanel Margin="5"
-                                    HorizontalAlignment="Center"
-                                    Orientation="Horizontal">
-                                    <TextBlock Margin="5"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="工位11" />
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="是否启用：" />
-                                    <ToggleButton
-                                        Margin="10"
-                                        Content="×"
-                                        Style="{StaticResource MaterialDesignActionSecondaryToggleButton}"
-                                        ToolTip="MaterialDesignActionSecondaryToggleButton" 
-                                        IsHitTestVisible ="False"/>
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="耗时时间(单位:s)：" />
-                                    <TextBox Margin="10"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Width="100"
-                                        IsReadOnly="True"
-                                        Text="{Binding SetParamsFactory.SetTime}"/>
-                                    <TextBlock Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        Foreground="#1b2755"
-                                        Style="{StaticResource TextBlockDefaultSecLight}"
-                                        Text="延时时间(单位:s)：" />
-                                    <TextBox Margin="10"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Width="100"
-                                        IsReadOnly="True"
-                                        Text="{Binding SetParamsFactory.SetTimeDelay}"/>
                                 </StackPanel>
                             </UniformGrid>
                         </Grid>

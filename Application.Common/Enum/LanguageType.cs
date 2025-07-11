@@ -9,8 +9,8 @@ public enum LanguageType
 {
     [Description(("简体中文"))]
     CN,
-    [Description("繁体中文")]
-    TW,
+    [Description("Россия")]
+    Russia,
     [Description("English")]
     US
 }

@@ -5,13 +5,25 @@ namespace Application.GeneralControl
 {
     public class GeneralControlViewModel : BindableBase
     {
+        
         private readonly IDialogService _dialogService;
         private readonly IEventAggregator _eventAggregator;
         private DelegateCommand _setTimeCommand;
         private DelegateCommand _setDelayTimeCommand;
+        private DelegateCommand _enableOneCommand;
+        private DelegateCommand _enableTwoCommand;
+        private DelegateCommand _enableThreeCommand;
+        private DelegateCommand _enableFourCommand;
+        private DelegateCommand _enableFiveCommand;
+        private DelegateCommand _enableSixCommand;
+        private DelegateCommand _enableSevenCommand;
+        private DelegateCommand _enableEightCommand;
+        private DelegateCommand _enableNineCommand;
+        private DelegateCommand _enableTenCommand;
+        private DelegateCommand _enableElevenCommand;
+        private ushort _enableOne;
 
         public IEventAggregator EventAggregator => _eventAggregator;
-
         public DelegateCommand SetTimeCommand => _setTimeCommand ??= new DelegateCommand(() => 
         {
             _dialogService.Show("DialogView",new DialogParameters
@@ -67,7 +79,6 @@ namespace Application.GeneralControl
                     PopupBox.Show("每个工位耗时时间设定已取消");
             });
         });
-
         public DelegateCommand SetDelayTimeCommand => _setDelayTimeCommand ??= new DelegateCommand(() =>
         {
             _dialogService.Show("DialogView", new DialogParameters
@@ -123,18 +134,252 @@ namespace Application.GeneralControl
                     PopupBox.Show("每个工位延时时间设定已取消");
             });
         });
+        public DelegateCommand EnableOneCommand => _enableOneCommand ??= new DelegateCommand(async () =>
+        {
+            try
+            {
+                SetParamsFactory.SetEnableOne = !SetParamsFactory.SetEnableOne;
+                var result = await SetParamsFactory.TriggerEnableOneAsync();
+                if (result)
+                {
+                    EventAggregator.GetEvent<EnableEvent>().Publish();
+                }
+                else
+                {
+                    SetParamsFactory.SetEnableOne = false;
+                    EventAggregator.GetEvent<EnableEvent>().Publish();
+                    PopupBox.Show("系统未响应，请重新启动工位");
+                }
+            }
+            catch(Exception ex)
+            {
+                PopupBox.Show(ex.Message);
+            }
+        });
+        public DelegateCommand EnableTwoCommand => _enableTwoCommand ??= new DelegateCommand(async () =>
+        {
+            try
+            {
+                SetParamsFactory.SetEnableTwo = !SetParamsFactory.SetEnableTwo;
+                var result = await SetParamsFactory.TriggerEnableTwoAsync();
+                if (result)
+                {
+                    EventAggregator.GetEvent<EnableEvent>().Publish();
+                }
+                else
+                {
+                    SetParamsFactory.SetEnableTwo = false;
+                    EventAggregator.GetEvent<EnableEvent>().Publish();
+                    PopupBox.Show("系统未响应，请重新启动工位");
+                }
+            }
+            catch (Exception ex)
+            {
+                PopupBox.Show(ex.Message);
+            }
+        });
+        public DelegateCommand EnableThreeCommand => _enableThreeCommand ??= new DelegateCommand(async () =>
+        {
+            try
+            {
+                SetParamsFactory.SetEnableThree = !SetParamsFactory.SetEnableThree;
+                var result = await SetParamsFactory.TriggerEnableThreeAsync();
+                if (result)
+                {
+                    EventAggregator.GetEvent<EnableEvent>().Publish();
+                }
+                else
+                {
+                    SetParamsFactory.SetEnableThree = false;
+                    EventAggregator.GetEvent<EnableEvent>().Publish();
+                    PopupBox.Show("系统未响应，请重新启动工位");
+                }
+            }
+            catch (Exception ex)
+            {
+                PopupBox.Show(ex.Message);
+            }
+        });
+        public DelegateCommand EnableFourCommand => _enableFourCommand ??= new DelegateCommand(async () =>
+        {
+            try
+            {
+                SetParamsFactory.SetEnableFour = !SetParamsFactory.SetEnableFour;
+                var result = await SetParamsFactory.TriggerEnableFourAsync();
+                if (result)
+                {
+                    EventAggregator.GetEvent<EnableEvent>().Publish();
+                }
+                else
+                {
+                    SetParamsFactory.SetEnableFour = false;
+                    EventAggregator.GetEvent<EnableEvent>().Publish();
+                    PopupBox.Show("系统未响应，请重新启动工位");
+                }
+            }
+            catch (Exception ex)
+            {
+                PopupBox.Show(ex.Message);
+            }
+        });
+        public DelegateCommand EnableFiveCommand => _enableFiveCommand ??= new DelegateCommand(async () =>
+        {
+            try
+            {
+                SetParamsFactory.SetEnableFive = !SetParamsFactory.SetEnableFive;
+                var result = await SetParamsFactory.TriggerEnableFiveAsync();
+                if (result)
+                {
+                    EventAggregator.GetEvent<EnableEvent>().Publish();
+                }
+                else
+                {
+                    SetParamsFactory.SetEnableFive = false;
+                    EventAggregator.GetEvent<EnableEvent>().Publish();
+                    PopupBox.Show("系统未响应，请重新启动工位");
+                }
+            }
+            catch (Exception ex)
+            {
+                PopupBox.Show(ex.Message);
+            }
+        });
+        public DelegateCommand EnableSixCommand => _enableSixCommand ??= new DelegateCommand(async () =>
+        {
+            try
+            {
+                SetParamsFactory.SetEnableSix = !SetParamsFactory.SetEnableSix;
+                var result = await SetParamsFactory.TriggerEnableSixAsync();
+                if (result)
+                {
+                    EventAggregator.GetEvent<EnableEvent>().Publish();
+                }
+                else
+                {
+                    SetParamsFactory.SetEnableSix = false;
+                    EventAggregator.GetEvent<EnableEvent>().Publish();
+                    PopupBox.Show("系统未响应，请重新启动工位");
+                }
+            }
+            catch (Exception ex)
+            {
+                PopupBox.Show(ex.Message);
+            }
+        });
+        public DelegateCommand EnableSevenCommand => _enableSevenCommand ??= new DelegateCommand(async () =>
+        {
+            try
+            {
+                SetParamsFactory.SetEnableSeven = !SetParamsFactory.SetEnableSeven;
+                var result = await SetParamsFactory.TriggerEnableSevenAsync();
+                if (result)
+                {
+                    EventAggregator.GetEvent<EnableEvent>().Publish();
+                }
+                else
+                {
+                    SetParamsFactory.SetEnableSeven = false;
+                    EventAggregator.GetEvent<EnableEvent>().Publish();
+                    PopupBox.Show("系统未响应，请重新启动工位");
+                }
+            }
+            catch (Exception ex)
+            {
+                PopupBox.Show(ex.Message);
+            }
+        });
+        public DelegateCommand EnableEightCommand => _enableEightCommand ??= new DelegateCommand(async () =>
+        {
+            try
+            {
+                SetParamsFactory.SetEnableEight = !SetParamsFactory.SetEnableEight;
+                var result = await SetParamsFactory.TriggerEnableEightAsync();
+                if (result)
+                {
+                    EventAggregator.GetEvent<EnableEvent>().Publish();
+                }
+                else
+                {
+                    SetParamsFactory.SetEnableEight = false;
+                    EventAggregator.GetEvent<EnableEvent>().Publish();
+                    PopupBox.Show("系统未响应，请重新启动工位");
+                }
+            }
+            catch (Exception ex)
+            {
+                PopupBox.Show(ex.Message);
+            }
+        });
+        public DelegateCommand EnableNineCommand => _enableNineCommand ??= new DelegateCommand(async () =>
+        {
+            try
+            {
+                SetParamsFactory.SetEnableNine = !SetParamsFactory.SetEnableNine;
+                var result = await SetParamsFactory.TriggerEnableNineAsync();
+                if (result)
+                {
+                    EventAggregator.GetEvent<EnableEvent>().Publish();
+                }
+                else
+                {
+                    SetParamsFactory.SetEnableNine = false;
+                    EventAggregator.GetEvent<EnableEvent>().Publish();
+                    PopupBox.Show("系统未响应，请重新启动工位");
+                }
+            }
+            catch (Exception ex)
+            {
+                PopupBox.Show(ex.Message);
+            }
+        });
+        public DelegateCommand EnableTenCommand => _enableTenCommand ??= new DelegateCommand(async () =>
+        {
+            try
+            {
+                SetParamsFactory.SetEnableTen = !SetParamsFactory.SetEnableTen;
+                var result = await SetParamsFactory.TriggerEnableTenAsync();
+                if (result)
+                {
+                    EventAggregator.GetEvent<EnableEvent>().Publish();
+                }
+                else
+                {
+                    SetParamsFactory.SetEnableTen = false;
+                    EventAggregator.GetEvent<EnableEvent>().Publish();
+                    PopupBox.Show("系统未响应，请重新启动工位");
+                }
+            }
+            catch (Exception ex)
+            {
+                PopupBox.Show(ex.Message);
+            }
+        });
+        public DelegateCommand EnableElevenCommand => _enableElevenCommand ??= new DelegateCommand(async () =>
+        {
+            try
+            {
+                SetParamsFactory.SetEnableEleven = !SetParamsFactory.SetEnableEleven;
+                var result = await SetParamsFactory.TriggerEnableElevenAsync();
+                if (result)
+                {
+                    EventAggregator.GetEvent<EnableEvent>().Publish();
+                }
+                else
+                {
+                    SetParamsFactory.SetEnableEleven = false;
+                    EventAggregator.GetEvent<EnableEvent>().Publish();
+                    PopupBox.Show("系统未响应，请重新启动工位");
+                }
+            }
+            catch (Exception ex)
+            {
+                PopupBox.Show(ex.Message);
+            }
+        });
 
-        [Unity.Dependency("Set")] 
-        public SetParamsFactory SetParamsFactory { get; set; }
-        
-        [Unity.Dependency("Cur")]
-        public CurParamsFactory CurParamsFactory { get; set; }
-
-        [Unity.Dependency("Trigger")]
-        public TriggerParamsFactory TriggerParamsFactory { get; set; }
-
-        [Unity.Dependency("GeneralControl")]
-        public GeneralControlModel GeneralControlModel { get; set; }
+        [Unity.Dependency("Set")] public SetParamsFactory SetParamsFactory { get; set; }
+        [Unity.Dependency("Trigger")] public TriggerParamsFactory TriggerParamsFactory { get; set; }
+        [Unity.Dependency("GeneralControl")] public GeneralControlModel GeneralControlModel { get; set; }
 
         public GeneralControlViewModel(IDialogService dialogService, IEventAggregator eventAggregator)
         {

@@ -8,20 +8,24 @@ namespace Application.Main
     {
         private readonly ISystemMenuDAL _systemMenuDAL;
         private readonly IRegionManager _regionManager;
+        private readonly ILanguageManager _languageManager;
         private ObservableCollection<MenuBar>? _menuBars;
         private DelegateCommand? _loadMenuCommand;
         private DelegateCommand<object> _navigateCommand;
+        private DelegateCommand<string>? _checkCommand;
 
         public ISystemMenuDAL SystemMenuDAL => _systemMenuDAL;
         public IRegionManager RegionManager => _regionManager;
+        public ILanguageManager LanguageManager => _languageManager;
         public ObservableCollection<MenuBar>? MenuBars { get => _menuBars; set => SetProperty(ref _menuBars, value); }
         public DelegateCommand LoadMenuCommand => _loadMenuCommand ??= new DelegateCommand(LoadMenu);
         public DelegateCommand<object> NavigateCommand => _navigateCommand ??= new DelegateCommand<object>(NavigateCmd);
 
-        public MainViewModel(ISystemMenuDAL systemMenuDAL, IRegionManager regionManager)
+        public MainViewModel(ISystemMenuDAL systemMenuDAL, IRegionManager regionManager, ILanguageManager languageManager)
         {
             this._systemMenuDAL = systemMenuDAL;
             this._regionManager = regionManager;
+            this._languageManager = languageManager;
         }
 
         private void LoadMenu()
@@ -38,7 +42,27 @@ namespace Application.Main
                 };
                 MenuBars.Add(menubar);
             }
+
+            LanguageManager.SetLanguage(LanguageType.CN);
         }
+
+        public DelegateCommand<string> CheckCommand => _checkCommand ??= new DelegateCommand<string>(context =>
+        {
+            switch (context.ToString())
+            {
+                case "简体中文":
+                    LanguageManager.SetLanguage(LanguageType.CN);
+                    break;
+                case "English":
+                    LanguageManager.SetLanguage(LanguageType.US);
+                    break;
+                case "Россия":
+                    LanguageManager.SetLanguage(LanguageType.Russia);
+                    break;
+                default:
+                    break;
+            }
+        });
 
         private void NavigateCmd(object obj)
         {
