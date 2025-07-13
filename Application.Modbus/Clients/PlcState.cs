@@ -1,31 +1,125 @@
 ﻿using Application.Common;
+using CommonServiceLocator;
+using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Net.Sockets;
-using System.Timers;
 
 namespace Application.Modbus
 {
-    public class PlcState : ICommunicationStateMachine
+    public class PLCState : ICommunicationStateMachine
     {
-        private System.Timers.Timer _timer = null!;
-        private TcpClient _tcpClient = null!;
-        private readonly Model.ModbusDevice _device = null!;
-        private CommunicationStateEnum _state;
+        public string Name => _device.DeviceUri!;
+        public string Description => _device.DeviceName!;
+        public string RemoteIPAddress { set; get; }
+        public string LocalIPAddress { set; get; }
+        public int Port { set; get; }
+        public int ConnectInterval { get; set; }
+        public ILogger Logger
+        {
+            get
+            {
+                if (_logger == null)
+                    _logger = ServiceLocator.Current.GetInstance<ILogger>();
+                return _logger;
+            }
+        }
+        public bool Enable { get; set; }
+        public bool IsConnected { get => Enable && State == CommunicationStateEnum.Connected; }
+        public bool IsNotConnected { get => Enable && State != CommunicationStateEnum.Connected; }
+        public bool IsCommunicating { get => Enable && State == CommunicationStateEnum.Communicating; }
 
-        public string Name => _device.DeviceUri;
-        public string Description => _device.DeviceName;
-        private string RemoteIpAddress { set; get; } = null!;
-        private string LocalIpAddress { set; get; } = null!;
-        private int RemotePort { set; get; }
-        private int ConnectInterval { get; set; }
-        private bool Enable { get; set; }
-        public bool IsConnected => Enable && State == CommunicationStateEnum.Connected; 
-        public bool IsNotConnected => Enable && State != CommunicationStateEnum.Connected;
-        public bool IsCommunicating => Enable && State == CommunicationStateEnum.Communicating;
-        public TcpClient Client => _tcpClient;
+        public TcpClient Client { get => _tcpClient; }
+
+        public event EventHandler ConnectEvent;
+        public event EventHandler DisConnectEvent;
+        public event EventHandler<CommunicationStateChangedEventArgs> CommunicationStateChangedEvent;
+
+        public PLCState(Model.ModbusDevice device)
+        {
+            _device = device;
+            Init(_device.LocalIpAddress!, _device.RemoteIpAddress!, _device.RemotePort, _device.ReconnectInterval);
+        }
+
+        public PLCState(string localIp, string remoteIp, int port, int interval)
+        {
+            Init(localIp, remoteIp, port, interval);
+        }
+
+        public void Init(string localIp, string remoteIp, int port, int interval)
+        {
+            LocalIPAddress = localIp;
+            RemoteIPAddress = remoteIp;
+            Port = port;
+            ConnectInterval = interval;
+            _state = CommunicationStateEnum.NotConnected;
+            timer = new System.Timers.Timer(ConnectInterval)
+            {
+                AutoReset = false
+            };
+            timer.Elapsed += Timer_Elapsed;
+        }
+
+        private void Timer_Elapsed(object? sender, EventArgs e)
+        {
+            if (!IsConnected)
+            {
+                SetCommunicating();
+                try
+                {
+                    _tcpClient = new TcpClient();
+                    if (!string.IsNullOrEmpty(LocalIPAddress))
+                        _tcpClient.Client.Bind(new IPEndPoint(IPAddress.Parse(LocalIPAddress), 0));
+                    _tcpClient.Connect(RemoteIPAddress, Port);
+                    SetConnected();
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogDebug(ex, ex.Message);
+                    SetDisConnected();
+                }
+            }
+        }
+
+        private void SetCommunicating()
+        {
+            if (IsNotConnected)
+                State = CommunicationStateEnum.Communicating;
+        }
+
+        private void SetConnected()
+        {
+            if (IsCommunicating)
+            {
+                timer.Stop();
+                timer.AutoReset = false;
+                State = CommunicationStateEnum.Connected;
+            }
+        }
+
+        public void SetDisConnected()
+        {
+            if (IsConnected)
+                State = CommunicationStateEnum.NotConnected;
+            timer.Interval = ConnectInterval;
+            if (IsNotConnected)
+                timer.Start();
+            else
+                timer.Stop();
+        }
+
+        public IEventAggregator EventAggregator
+        {
+            get
+            {
+                if (_eventAggregator == null)
+                    _eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+                return _eventAggregator;
+            }
+        }
+
         public CommunicationStateEnum State
         {
-            get  => _state;
+            get => _state;
             private set
             {
                 if (_state != value)
@@ -36,103 +130,22 @@ namespace Application.Modbus
                         switch (_state)
                         {
                             case CommunicationStateEnum.Connected:
-                                ConnectEvent?.Invoke(this, EventArgs.Empty);
+                                ConnectEvent?.Invoke(this, new EventArgs());
                                 break;
                             case CommunicationStateEnum.NotConnected:
-                                DisConnectEvent?.Invoke(this, EventArgs.Empty);
+                                DisConnectEvent?.Invoke(this, new EventArgs());
                                 break;
                             case CommunicationStateEnum.Communicating:
                                 break;
+                            default:
+                                break;
                         }
-                        CommunicationStateChangedEvent?.Invoke(this,
-                            new CommunicationStateChangedEventArgs(Name, Description, State));
+                        CommunicationStateChangedEvent?.Invoke(this, new CommunicationStateChangedEventArgs(Name, Description, State));
                     }
                 }
             }
         }
 
-        public event EventHandler ConnectEvent = null!;
-        public event EventHandler DisConnectEvent = null!;
-        public event EventHandler<CommunicationStateChangedEventArgs>? CommunicationStateChangedEvent;
-
-        public PlcState(Model.ModbusDevice device)
-        {
-            _device = device;
-            Init(_device.LocalIpAddress, _device.RemoteIpAddress, _device.RemotePort, _device.ReconnectInterval);
-        }
-
-        public PlcState(string localIp, string remoteIp, int port, int interval) =>
-            Init(localIp, remoteIp, port, interval);
-        
-        
-        private void Init(string localIpAddress, string remoteIpAddress, int remotePort, int reconnectInterval)
-        {
-            LocalIpAddress = localIpAddress;
-            RemoteIpAddress = remoteIpAddress;
-            RemotePort = remotePort;
-            ConnectInterval = reconnectInterval;
-            _state = CommunicationStateEnum.NotConnected;
-            _timer = new System.Timers.Timer(ConnectInterval) { AutoReset = false };
-            _timer.Elapsed += TimerOnElapsed;
-        }
-
-        private void TimerOnElapsed(object? sender, ElapsedEventArgs e)
-        {
-            if (!IsConnected)
-            {
-                SetCommunicating();
-                try
-                {
-                    _tcpClient = new TcpClient();
-                    if (!string.IsNullOrEmpty(LocalIpAddress))
-                        _tcpClient.Client.Bind(new IPEndPoint(IPAddress.Parse(LocalIpAddress), 0));
-                    //主动向远程端口发起连接
-                    _tcpClient.Connect(RemoteIpAddress, RemotePort);
-                    SetConnected();
-                }
-                catch (Exception ex)
-                {
-                    SetDisConnected();
-                }
-            }
-        }
-        
-        /// <summary>
-        /// 设置状态为正在连接中
-        /// </summary>
-        public void SetCommunicating()
-        {
-            if (IsNotConnected)
-                State = CommunicationStateEnum.Communicating;
-        }
-
-        /// <summary>
-        /// 设置状态为已经连接
-        /// </summary>
-        public void SetConnected()
-        {
-            if (IsCommunicating)
-            {
-                _timer.Stop();
-                _timer.AutoReset = false;
-                State = CommunicationStateEnum.Connected;
-            }
-        }
-
-        /// <summary>
-        /// 该方法为出现异常时的重连方法
-        /// </summary>
-        public void SetDisConnected()
-        {
-            if (IsConnected)
-                State = CommunicationStateEnum.NotConnected;
-            _timer.Interval = ConnectInterval;
-            if (IsNotConnected)
-                _timer.Start();
-            else
-                _timer.Stop();
-        }
-        
         public void Start()
         {
             if (!Enable)
@@ -147,7 +160,15 @@ namespace Application.Modbus
             Enable = false;
             if (_tcpClient != null && _tcpClient.Connected)
                 _tcpClient.Close();
-            _tcpClient = null!;
+            _tcpClient = null;
         }
+
+        private System.Timers.Timer timer;
+        private ILogger _logger;
+        private TcpClient _tcpClient;
+        private IEventAggregator _eventAggregator;
+        private readonly Model.ModbusDevice _device;
+        private CommunicationStateEnum _state;
+        private readonly object _tcpLock = new object();
     }
 }

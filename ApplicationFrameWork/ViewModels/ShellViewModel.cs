@@ -22,9 +22,7 @@ public class ShellViewModel : BindableBase
         this.RegionManager.RequestNavigate(ConstName.MainRegion, nameof(LoginView));
         this.EventAggregator.GetEvent<LoginInEvents>().Subscribe(() =>
         {
-            //����������ģ��
             ModuleManager.LoadModule(ConstName.ApplicationMainModule);
-            //������������
             RegionManager.RequestNavigate(ConstName.MainRegion, nameof(MainView));
             PopupBox.Show(_languageManager["Welcome to ApplicationFrameWork"]);
         },ThreadOption.UIThread);

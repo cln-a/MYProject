@@ -52,7 +52,7 @@ namespace Application.Modbus
             var devices = deviceDAL.GetAllEnabledDevices();
             foreach (var device in devices)
             {
-                unityContainer.RegisterType<ICommunicationStateMachine, PlcState>(
+                unityContainer.RegisterType<ICommunicationStateMachine, PLCState>(
                     device.DeviceUri!.Trim(), 
                     TypeLifetime.Singleton,
                     new InjectionConstructor(device));

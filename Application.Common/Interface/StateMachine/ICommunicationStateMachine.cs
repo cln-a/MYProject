@@ -10,9 +10,6 @@
         public CommunicationStateEnum State { get; }
         void Start();
         void Stop();
-        void SetCommunicating();
-        void SetConnected();
-        void SetDisConnected();
 
         event EventHandler<CommunicationStateChangedEventArgs> CommunicationStateChangedEvent;
     }
