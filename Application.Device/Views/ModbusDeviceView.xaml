@@ -33,41 +33,6 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Orientation="Horizontal">
-            <Button
-                Width="120"
-                Margin="10"
-                materialDesign:ButtonProgressAssist.IsIndeterminate="True"
-                materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
-                materialDesign:ButtonProgressAssist.Value="-1"
-                Background="#38A941"
-                Content="刷新"
-                Style="{StaticResource MaterialDesignRaisedButton}" />
-            <Button
-                Width="120"
-                Margin="10"
-                materialDesign:ButtonProgressAssist.IsIndeterminate="True"
-                materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
-                materialDesign:ButtonProgressAssist.Value="-1"
-                Background="#4B91E2"
-                Content="增加"
-                Style="{StaticResource MaterialDesignRaisedButton}" />
-            <Button
-                Width="120"
-                Margin="10"
-                materialDesign:ButtonProgressAssist.IsIndeterminate="True"
-                materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
-                materialDesign:ButtonProgressAssist.Value="-1"
-                Background="Crimson"
-                Content="删除"
-                Style="{StaticResource MaterialDesignRaisedButton}" />
-            <Button
-                Width="120"
-                Margin="10"
-                materialDesign:ButtonProgressAssist.IsIndeterminate="True"
-                materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
-                materialDesign:ButtonProgressAssist.Value="-1"
-                Content="更新"
-                Style="{StaticResource MaterialDesignRaisedButton}" />
         </StackPanel>
         <DataGrid 
             x:Name="ModbusDeviceDataGrid"
