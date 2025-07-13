@@ -21,6 +21,7 @@ using Microsoft.Extensions.Logging;
 using Application.SemiAuto;
 using Application.GeneralControl;
 using Application.Dialog;
+using Application.Startup;
 
 namespace ApplicationFrameWork
 {
@@ -30,6 +31,7 @@ namespace ApplicationFrameWork
     public partial class App : PrismApplication
     {
         IContainerExtension _containerExtension;
+        private MainSplashScreenView _splashScreen;
 
         protected override IContainerExtension CreateContainerExtension()
         {
@@ -48,6 +50,27 @@ namespace ApplicationFrameWork
         {
             base.Initialize();
             DisPlayShellView();
+        }
+
+        protected override async void OnStartup(StartupEventArgs e)
+        {
+            _splashScreen = new MainSplashScreenView();
+            _splashScreen.Show();
+            _splashScreen.Topmost = true;
+
+            await Task.Delay(1500);
+
+            base.OnStartup(e);
+        }
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+            if (_splashScreen != null)
+            {
+                _splashScreen.Close();
+                _splashScreen = null!;
+            }
         }
 
         private void DisPlayShellView()

@@ -1,7 +1,6 @@
 using Application.Common;
 using Application.Login;
 using Application.Main;
-using Application.UI.Dialog;
 
 namespace ApplicationFrameWork.ViewModels;
 
@@ -18,14 +17,16 @@ public class ShellViewModel : BindableBase
     public IEventAggregator EventAggregator => _eventAggregator;
     public DelegateCommand ShellLoadCommand => _shellLoadCommand ??= new DelegateCommand(() =>
     {
-        this.ModuleManager.LoadModule(ConstName.ApplicationLoginModule);
-        this.RegionManager.RequestNavigate(ConstName.MainRegion, nameof(LoginView));
-        this.EventAggregator.GetEvent<LoginInEvents>().Subscribe(() =>
-        {
-            ModuleManager.LoadModule(ConstName.ApplicationMainModule);
-            RegionManager.RequestNavigate(ConstName.MainRegion, nameof(MainView));
-            PopupBox.Show(_languageManager["Welcome to ApplicationFrameWork"]);
-        },ThreadOption.UIThread);
+        //this.ModuleManager.LoadModule(ConstName.ApplicationLoginModule);
+        //this.RegionManager.RequestNavigate(ConstName.MainRegion, nameof(LoginView));
+        //this.EventAggregator.GetEvent<LoginInEvents>().Subscribe(() =>
+        //{
+        //    ModuleManager.LoadModule(ConstName.ApplicationMainModule);
+        //    RegionManager.RequestNavigate(ConstName.MainRegion, nameof(MainView));
+        //},ThreadOption.UIThread);
+
+        ModuleManager.LoadModule(ConstName.ApplicationMainModule);
+        RegionManager.RequestNavigate(ConstName.MainRegion, nameof(MainView));
     });
 
     public ShellViewModel(IModuleManager moduleManager, IRegionManager regionManager, IEventAggregator eventAggregator, ILanguageManager languageManager)

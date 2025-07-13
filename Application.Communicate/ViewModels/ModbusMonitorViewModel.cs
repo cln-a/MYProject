@@ -3,7 +3,6 @@ using Application.IDAL;
 using Application.Mapper;
 using Application.Model;
 using Application.UI;
-using Application.UI.Dialog;
 
 namespace Application.Communicate
 {
@@ -31,12 +30,12 @@ namespace Application.Communicate
                 if (IO.TryGet(dto.RegisterUri, out var variable))
                 {
                     variable.WriteAnyValue(dto.WriteValue);
-                    PopupBox.Show($"写入{dto.Description}-值:{dto.WriteValue}完成");
+                    InfoGlobal($"写入{dto.Description}-值:{dto.WriteValue}完成");
                 }
             }
             catch (Exception ex)
             {
-                PopupBox.Show(ex.Message);
+                ErrorGlobal(ex.Message);
             }
         }
 
@@ -68,7 +67,7 @@ namespace Application.Communicate
             }
             catch (Exception ex)
             {
-                PopupBox.Show(ex.Message);
+                ErrorGlobal(ex.Message);
             }
         }
     }

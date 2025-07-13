@@ -30,6 +30,7 @@
     <system:String x:Key="各工位耗时总览">各工位耗时总览</system:String>
     <system:String x:Key="取消">取消</system:String>
     <system:String x:Key="确认">确认</system:String>
+    <system:String x:Key="设备未连接">设备未连接</system:String>
     
     <!-- 弹出对话框消息 -->
     <system:String x:Key="输入各工位耗时时间不应为0，请重新输入">输入各工位耗时时间不应为0，请重新输入</system:String>

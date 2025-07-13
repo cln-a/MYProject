@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CommonServiceLocator" Version="2.0.7" />
     <PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
     <PackageReference Include="MaterialDesignThemes.MahApps" Version="5.2.1" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.6" />
@@ -17,6 +18,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Application.Common\Application.Common.csproj" />
     <ProjectReference Include="..\Application.IDAL\Application.IDAL.csproj" />
+    <ProjectReference Include="..\Application.Modbus\Application.Modbus.csproj" />
+    <ProjectReference Include="..\Application.S7net\Application.S7net.csproj" />
     <ProjectReference Include="..\Application.UI\Application.UI.csproj" />
   </ItemGroup>
 

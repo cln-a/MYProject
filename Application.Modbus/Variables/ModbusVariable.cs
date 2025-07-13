@@ -301,7 +301,7 @@ namespace Application.Modbus
                     }
                 }
                 else
-                    throw new Exception($"{Client.DeviceName}未连接!");
+                    throw new Exception($"{Client.DeviceName}");
             }
             catch (Exception e)
             {

@@ -36,6 +36,7 @@
     <ProjectReference Include="..\Application.RestSharp\Application.RestSharp.csproj" />
     <ProjectReference Include="..\Application.S7net\Application.S7net.csproj" />
     <ProjectReference Include="..\Application.SemiAuto\Application.SemiAuto.csproj" />
+    <ProjectReference Include="..\Application.Startup\Application.Startup.csproj" />
     <ProjectReference Include="..\Application.UI\Application.UI.csproj" />
     <ProjectReference Include="..\ApplicationFrame.Mapper\Application.Mapper.csproj" />
     <ProjectReference Include="..\NModbus4\NModbus4.csproj" />

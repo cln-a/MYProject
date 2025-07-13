@@ -9,8 +9,12 @@
 
   <ItemGroup>
     <None Remove="Font\FontAwesome.otf" />
+    <None Remove="Image\connection.png" />
+    <None Remove="Image\disconnection.png" />
     <None Remove="Image\Exit.png" />
     <None Remove="Image\LoginBackground.png" />
+    <None Remove="Image\Logo.ico" />
+    <None Remove="Image\LogoLarge.jpg" />
     <None Remove="Image\莫比乌斯环.png" />
   </ItemGroup>
 
@@ -28,8 +32,11 @@
 
   <ItemGroup>
     <Resource Include="Font\FontAwesome.otf" />
-    <Resource Include="Image\Exit.png" />
+    <Resource Include="Image\connection.png" />
+    <Resource Include="Image\disconnection.png" />
     <Resource Include="Image\LoginBackground.png" />
+    <Resource Include="Image\Logo.ico" />
+    <Resource Include="Image\LogoLarge.jpg" />
     <Resource Include="Image\莫比乌斯环.png" />
     <Resource Include="Language\Russia.xaml" />
   </ItemGroup>

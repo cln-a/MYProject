@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HandyControl.Controls;
 using Microsoft.Extensions.Logging;
 
 namespace Application.UI
@@ -11,6 +12,24 @@ namespace Application.UI
 
         [Unity.Dependency] public ILogger Logger { get; set; }
         [Unity.Dependency] public IMapper Mapper { get; set; }
+
+        public void InfoGlobal(string message)
+        {
+            Logger.LogDebug(message);
+            Growl.Info(message);
+        }
+
+        public void ErrorGlobal(string msg)
+        {
+            Logger.LogDebug(msg);
+            Growl.Error(msg);
+        }
+
+        public void WarnGlobal(string msg)
+        {
+            Logger.LogDebug(msg);
+            Growl.Warning(msg);
+        }
 
         protected virtual void Initialize() { }
     }

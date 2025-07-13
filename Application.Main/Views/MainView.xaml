@@ -23,6 +23,7 @@
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadMenuCommand}" />
+            <i:InvokeCommandAction Command="{Binding LoadDeviceStateCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <materiaDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
@@ -79,6 +80,29 @@
                         VerticalAlignment="Stretch"
                         prism:RegionManager.RegionName="{x:Static common:ConstName.MainViewRegion}" />
                     <DockPanel Grid.Row="1" Background="#cfd8dc">
+                        <ItemsControl ItemsSource="{Binding StateBars}"
+                                      DockPanel.Dock="Left">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="10,0" Orientation="Horizontal">
+                                        <Image 
+                                            Source="{Binding StateImageSource}" 
+                                            Width="20" 
+                                            Height="20" />
+                                        <TextBlock 
+                                            Text="{Binding DeviceName}" 
+                                            Margin="5,5,5,5" 
+                                            FontSize="16" 
+                                            FontWeight="Bold"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                         <RadioButton x:Name="Russia" 
                              Content="Россия" 
                              Foreground="White"
@@ -109,12 +133,6 @@
                              Command="{Binding CheckCommand}"
                              CommandParameter="{Binding ElementName=US,Path=Content}"
                              DockPanel.Dock="Right"/>
-                        <Image
-                            Width="25"
-                            Margin="0,0,20,0"
-                            DockPanel.Dock="Right"
-                            Source="D:\WorkSpace\ApplicationFrameWork\Application.UI\Image\Exit.png">
-                        </Image>
                         <ToggleButton
                             Name="MenuToggleButton"
                             Margin="0,0,20,0"

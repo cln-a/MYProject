@@ -30,6 +30,7 @@
     <system:String x:Key="各工位耗时总览">Обзор общего времени на каждом рабочем месте</system:String>
     <system:String x:Key="取消">Отменить</system:String>
     <system:String x:Key="确认">Подтверждение</system:String>
+    <system:String x:Key="设备未连接">Устройство не подключено</system:String>
 
     <!-- 弹出对话框消息 -->
     <system:String x:Key="输入各工位耗时时间不应为0，请重新输入">Время ожидания для каждого рабочего места не должно быть 0, пожалуйста, введите заново</system:String>

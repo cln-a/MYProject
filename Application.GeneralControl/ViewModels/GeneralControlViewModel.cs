@@ -1,10 +1,10 @@
 ﻿using Application.SemiAuto;
-using Application.UI.Dialog;
 using Application.Common;
+using Application.UI;
 
 namespace Application.GeneralControl
 {
-    public class GeneralControlViewModel : BindableBase
+    public class GeneralControlViewModel : BaseViewModel
     {
         
         private readonly IDialogService _dialogService;
@@ -37,7 +37,7 @@ namespace Application.GeneralControl
                 {
                     if (GeneralControlModel.SetTime == 0)
                     {
-                        PopupBox.Show(_languageManager["输入各工位耗时时间不应为0，请重新输入"]);
+                        InfoGlobal(_languageManager["输入各工位耗时时间不应为0，请重新输入"]);
                         return;
                     }
                     else
@@ -49,7 +49,7 @@ namespace Application.GeneralControl
                         }
                         catch(Exception ex)
                         {
-                            PopupBox.Show(ex.Message);
+                            ErrorGlobal(ex.Message + "---" + _languageManager["设备未连接"]);
                             return;
                         }
                         try
@@ -60,7 +60,7 @@ namespace Application.GeneralControl
                             if (boolresult)
                             {
                                 EventAggregator.GetEvent<SetTimeEvent>().Publish();
-                                PopupBox.Show(_languageManager["每个工位耗时时间设定成功"]);
+                                InfoGlobal(_languageManager["每个工位耗时时间设定成功"]);
                             }
                             else
                             {
@@ -68,17 +68,17 @@ namespace Application.GeneralControl
                                 SetParamsFactory.SetTime = 0;
                                 TriggerParamsFactory.TriggerTime = false;
                                 EventAggregator.GetEvent<SetTimeEvent>().Publish();
-                                PopupBox.Show(_languageManager["每个工位耗时时间设定失败，请重新设定"]);
+                                ErrorGlobal(_languageManager["每个工位耗时时间设定失败，请重新设定"]);
                             }
                         }
                         catch (Exception ex)
                         {
-                            PopupBox.Show(ex.Message);
+                            ErrorGlobal(ex.Message);
                         }
                     }
                 }
                 else
-                    PopupBox.Show(_languageManager["每个工位耗时时间设定已取消"]);
+                    InfoGlobal(_languageManager["每个工位耗时时间设定已取消"]);
             });
         });
         public DelegateCommand SetDelayTimeCommand => _setDelayTimeCommand ??= new DelegateCommand(() =>
@@ -92,7 +92,7 @@ namespace Application.GeneralControl
                 {
                     if (GeneralControlModel.SetDelayTime == 0)
                     {
-                        PopupBox.Show(_languageManager["输入各工位延时时间不应为0，请重新输入"]);
+                        InfoGlobal(_languageManager["输入各工位延时时间不应为0，请重新输入"]);
                         return;
                     }
                     else
@@ -104,7 +104,7 @@ namespace Application.GeneralControl
                         }
                         catch (Exception ex)
                         {
-                            PopupBox.Show(ex.Message);
+                            ErrorGlobal(ex.Message + "---" + _languageManager["设备未连接"]);
                             return;
                         }
                         try
@@ -115,7 +115,7 @@ namespace Application.GeneralControl
                             if (boolresult)
                             {
                                 EventAggregator.GetEvent<SetTimeDelayEvent>().Publish();
-                                PopupBox.Show(_languageManager["每个工位延时时间设定成功"]);
+                                InfoGlobal(_languageManager["每个工位延时时间设定成功"]);
                             }
                             else
                             {
@@ -123,17 +123,17 @@ namespace Application.GeneralControl
                                 SetParamsFactory.SetTimeDelay = 0;
                                 TriggerParamsFactory.TriggerTimeDelay = false;
                                 EventAggregator.GetEvent<SetTimeDelayEvent>().Publish();
-                                PopupBox.Show(_languageManager["每个工位延时时间设定失败，请重新设定"]);
+                                ErrorGlobal(_languageManager["每个工位延时时间设定失败，请重新设定"]);
                             }
                         }
                         catch (Exception ex)
                         {
-                            PopupBox.Show(ex.Message);
+                            ErrorGlobal(ex.Message);
                         }
                     }
                 }
                 else
-                    PopupBox.Show(_languageManager["每个工位延时时间设定已取消"]);
+                    InfoGlobal(_languageManager["每个工位延时时间设定已取消"]);
             });
         });
         public DelegateCommand EnableOneCommand => _enableOneCommand ??= new DelegateCommand(async () =>
@@ -150,12 +150,12 @@ namespace Application.GeneralControl
                 {
                     SetParamsFactory.SetEnableOne = false;
                     EventAggregator.GetEvent<EnableEvent>().Publish();
-                    PopupBox.Show(_languageManager["系统未响应，请重新启动工位"]);
+                    ErrorGlobal(_languageManager["系统未响应，请重新启动工位"]);
                 }
             }
             catch(Exception ex)
             {
-                PopupBox.Show(ex.Message);
+                ErrorGlobal(ex.Message + "---" + _languageManager["设备未连接"]);
             }
         });
         public DelegateCommand EnableTwoCommand => _enableTwoCommand ??= new DelegateCommand(async () =>
@@ -172,12 +172,12 @@ namespace Application.GeneralControl
                 {
                     SetParamsFactory.SetEnableTwo = false;
                     EventAggregator.GetEvent<EnableEvent>().Publish();
-                    PopupBox.Show(_languageManager["系统未响应，请重新启动工位"]);
+                    ErrorGlobal(_languageManager["系统未响应，请重新启动工位"]);
                 }
             }
             catch (Exception ex)
             {
-                PopupBox.Show(ex.Message);
+                ErrorGlobal(ex.Message + "---" + _languageManager["设备未连接"]);
             }
         });
         public DelegateCommand EnableThreeCommand => _enableThreeCommand ??= new DelegateCommand(async () =>
@@ -194,12 +194,12 @@ namespace Application.GeneralControl
                 {
                     SetParamsFactory.SetEnableThree = false;
                     EventAggregator.GetEvent<EnableEvent>().Publish();
-                    PopupBox.Show(_languageManager["系统未响应，请重新启动工位"]);
+                    ErrorGlobal(_languageManager["系统未响应，请重新启动工位"]);
                 }
             }
             catch (Exception ex)
             {
-                PopupBox.Show(ex.Message);
+                ErrorGlobal(ex.Message + "---" + _languageManager["设备未连接"]);
             }
         });
         public DelegateCommand EnableFourCommand => _enableFourCommand ??= new DelegateCommand(async () =>
@@ -216,12 +216,12 @@ namespace Application.GeneralControl
                 {
                     SetParamsFactory.SetEnableFour = false;
                     EventAggregator.GetEvent<EnableEvent>().Publish();
-                    PopupBox.Show(_languageManager["系统未响应，请重新启动工位"]);
+                    ErrorGlobal(_languageManager["系统未响应，请重新启动工位"]);
                 }
             }
             catch (Exception ex)
             {
-                PopupBox.Show(ex.Message);
+                ErrorGlobal(ex.Message + "---" + _languageManager["设备未连接"]);
             }
         });
         public DelegateCommand EnableFiveCommand => _enableFiveCommand ??= new DelegateCommand(async () =>
@@ -238,12 +238,12 @@ namespace Application.GeneralControl
                 {
                     SetParamsFactory.SetEnableFive = false;
                     EventAggregator.GetEvent<EnableEvent>().Publish();
-                    PopupBox.Show(_languageManager["系统未响应，请重新启动工位"]);
+                    ErrorGlobal(_languageManager["系统未响应，请重新启动工位"]);
                 }
             }
             catch (Exception ex)
             {
-                PopupBox.Show(ex.Message);
+                ErrorGlobal(ex.Message + "---" + _languageManager["设备未连接"]);
             }
         });
         public DelegateCommand EnableSixCommand => _enableSixCommand ??= new DelegateCommand(async () =>
@@ -260,12 +260,12 @@ namespace Application.GeneralControl
                 {
                     SetParamsFactory.SetEnableSix = false;
                     EventAggregator.GetEvent<EnableEvent>().Publish();
-                    PopupBox.Show(_languageManager["系统未响应，请重新启动工位"]);
+                    ErrorGlobal(_languageManager["系统未响应，请重新启动工位"]);
                 }
             }
             catch (Exception ex)
             {
-                PopupBox.Show(ex.Message);
+                ErrorGlobal(ex.Message + "---" + _languageManager["设备未连接"]);
             }
         });
         public DelegateCommand EnableSevenCommand => _enableSevenCommand ??= new DelegateCommand(async () =>
@@ -282,12 +282,12 @@ namespace Application.GeneralControl
                 {
                     SetParamsFactory.SetEnableSeven = false;
                     EventAggregator.GetEvent<EnableEvent>().Publish();
-                    PopupBox.Show(_languageManager["系统未响应，请重新启动工位"]);
+                    ErrorGlobal(_languageManager["系统未响应，请重新启动工位"]);
                 }
             }
             catch (Exception ex)
             {
-                PopupBox.Show(ex.Message);
+                ErrorGlobal(ex.Message + "---" + _languageManager["设备未连接"]);
             }
         });
         public DelegateCommand EnableEightCommand => _enableEightCommand ??= new DelegateCommand(async () =>
@@ -304,12 +304,12 @@ namespace Application.GeneralControl
                 {
                     SetParamsFactory.SetEnableEight = false;
                     EventAggregator.GetEvent<EnableEvent>().Publish();
-                    PopupBox.Show(_languageManager["系统未响应，请重新启动工位"]);
+                    ErrorGlobal(_languageManager["系统未响应，请重新启动工位"]);
                 }
             }
             catch (Exception ex)
             {
-                PopupBox.Show(ex.Message);
+                ErrorGlobal(ex.Message + "---" + _languageManager["设备未连接"]);
             }
         });
         public DelegateCommand EnableNineCommand => _enableNineCommand ??= new DelegateCommand(async () =>
@@ -326,12 +326,12 @@ namespace Application.GeneralControl
                 {
                     SetParamsFactory.SetEnableNine = false;
                     EventAggregator.GetEvent<EnableEvent>().Publish();
-                    PopupBox.Show(_languageManager["系统未响应，请重新启动工位"]);
+                    ErrorGlobal(_languageManager["系统未响应，请重新启动工位"]);
                 }
             }
             catch (Exception ex)
             {
-                PopupBox.Show(ex.Message);
+                ErrorGlobal(ex.Message + "---" + _languageManager["设备未连接"]);
             }
         });
         public DelegateCommand EnableTenCommand => _enableTenCommand ??= new DelegateCommand(async () =>
@@ -348,12 +348,12 @@ namespace Application.GeneralControl
                 {
                     SetParamsFactory.SetEnableTen = false;
                     EventAggregator.GetEvent<EnableEvent>().Publish();
-                    PopupBox.Show(_languageManager["系统未响应，请重新启动工位"]);
+                    ErrorGlobal(_languageManager["系统未响应，请重新启动工位"]);
                 }
             }
             catch (Exception ex)
             {
-                PopupBox.Show(ex.Message);
+                ErrorGlobal(ex.Message + "---" + _languageManager["设备未连接"]);
             }
         });
         public DelegateCommand EnableElevenCommand => _enableElevenCommand ??= new DelegateCommand(async () =>
@@ -370,12 +370,12 @@ namespace Application.GeneralControl
                 {
                     SetParamsFactory.SetEnableEleven = false;
                     EventAggregator.GetEvent<EnableEvent>().Publish();
-                    PopupBox.Show(_languageManager["系统未响应，请重新启动工位"]);
+                    ErrorGlobal(_languageManager["系统未响应，请重新启动工位"]);
                 }
             }
             catch (Exception ex)
             {
-                PopupBox.Show(ex.Message);
+                ErrorGlobal(ex.Message + "---" + _languageManager["设备未连接"]);
             }
         });
 
