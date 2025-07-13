@@ -28,4 +28,21 @@
     <system:String x:Key="当前工件处理时间（开始）">当前工件处理时间（开始）</system:String>
     <system:String x:Key="当前工件处理时间（结束）">当前工件处理时间（结束）</system:String>
     <system:String x:Key="各工位耗时总览">各工位耗时总览</system:String>
+    <system:String x:Key="取消">取消</system:String>
+    <system:String x:Key="确认">确认</system:String>
+    
+    <!-- 弹出对话框消息 -->
+    <system:String x:Key="输入各工位耗时时间不应为0，请重新输入">输入各工位耗时时间不应为0，请重新输入</system:String>
+    <system:String x:Key="每个工位耗时时间设定成功">每个工位耗时时间设定成功</system:String>
+    <system:String x:Key="每个工位耗时时间设定失败，请重新设定">每个工位耗时时间设定失败，请重新设定</system:String>
+    <system:String x:Key="每个工位耗时时间设定已取消">每个工位耗时时间设定已取消</system:String>
+    <system:String x:Key="输入各工位延时时间不应为0，请重新输入">输入各工位延时时间不应为0，请重新输入</system:String>
+    <system:String x:Key="每个工位延时时间设定成功">每个工位延时时间设定成功</system:String>
+    <system:String x:Key="每个工位延时时间设定失败，请重新设定">每个工位延时时间设定失败，请重新设定</system:String>
+    <system:String x:Key="每个工位延时时间设定已取消">每个工位延时时间设定已取消</system:String>
+    <system:String x:Key="系统未响应，请重新启动工位">系统未响应，请重新启动工位</system:String>
+    <system:String x:Key="是否确认设定每个工位耗时时间为">是否确认设定每个工位耗时时间为</system:String>
+    <system:String x:Key="是否确认设定每个工位延时时间为">是否确认设定每个工位延时时间为</system:String>
+    <system:String x:Key="写入完成">写入完成</system:String>
+    <system:String x:Key="Welcome to ApplicationFrameWork">欢迎使用 ApplicationFrameWork</system:String>
 </ResourceDictionary>

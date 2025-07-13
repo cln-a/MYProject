@@ -10,6 +10,7 @@ public class ShellViewModel : BindableBase
     private readonly IModuleManager _moduleManager;
     private readonly IRegionManager _regionManager;
     private readonly IEventAggregator _eventAggregator;
+    private readonly ILanguageManager _languageManager;
     private DelegateCommand _shellLoadCommand = null!;
 
     public IModuleManager ModuleManager => _moduleManager;
@@ -21,18 +22,19 @@ public class ShellViewModel : BindableBase
         this.RegionManager.RequestNavigate(ConstName.MainRegion, nameof(LoginView));
         this.EventAggregator.GetEvent<LoginInEvents>().Subscribe(() =>
         {
-            //¼ÓÔØÖ÷½çÃæÄ£¿é
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½
             ModuleManager.LoadModule(ConstName.ApplicationMainModule);
-            //µ¼º½µ½Ö÷ÇøÓò
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             RegionManager.RequestNavigate(ConstName.MainRegion, nameof(MainView));
-            PopupBox.Show("Welcome to ApplicationFrameWork");
+            PopupBox.Show(_languageManager["Welcome to ApplicationFrameWork"]);
         },ThreadOption.UIThread);
     });
 
-    public ShellViewModel(IModuleManager moduleManager, IRegionManager regionManager, IEventAggregator eventAggregator)
+    public ShellViewModel(IModuleManager moduleManager, IRegionManager regionManager, IEventAggregator eventAggregator, ILanguageManager languageManager)
     {
         this._moduleManager = moduleManager;
         this._regionManager = regionManager;
         this._eventAggregator = eventAggregator;
+        this._languageManager = languageManager;
     }
 }

@@ -36,10 +36,16 @@ namespace Application.Main
             {
                 var menubar = new MenuBar()
                 {
-                    MenuName = menu.MenuName,
+                    MenuNames = new Dictionary<LanguageType, string>
+                    {
+                        { LanguageType.CN, menu.MenuNameCN! },
+                        { LanguageType.US, menu.MenuNameUS! },
+                        { LanguageType.Russia, menu.MenuNameRussia! }
+                    },
                     Icon = menu.MenuIcon,
                     View = menu.MenuView,
                 };
+                menubar.MenuName = menubar.MenuNames[LanguageManager.CurrentLanguageType];
                 MenuBars.Add(menubar);
             }
 
@@ -61,6 +67,10 @@ namespace Application.Main
                     break;
                 default:
                     break;
+            }
+            foreach (var menubar in MenuBars!)
+            {
+                menubar.MenuName = menubar.MenuNames[LanguageManager.CurrentLanguageType];
             }
         });
 

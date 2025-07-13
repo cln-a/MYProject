@@ -22,7 +22,7 @@
             <Setter Property="prism:Dialog.WindowStartupLocation" Value="CenterScreen" />
             <Setter Property="ShowInTaskbar" Value="False"/>
             <Setter Property="WindowStyle" Value="None"/>
-            <Setter Property="Width" Value="500"/>
+            <Setter Property="MinWidth" Value="1000"/>
             <Setter Property="Height" Value="250"/>
         </Style>
     </prism:Dialog.WindowStyle>
@@ -39,6 +39,7 @@
                        TextWrapping="WrapWithOverflow"
                        Text="{Binding Title}"
                        FontSize="25"
+                       Width="800"
                        Style="{StaticResource TextBlockBaseStyle}" 
                        FontWeight="Bold"
                        Margin="5"/>
@@ -52,10 +53,10 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Orientation="Horizontal">
-                <Button Width="150"
+                <Button Width="200"
                         Height="40"
                         Background="#F44F50"
-                        Content="取消"
+                        Content="{DynamicResource 取消}"
                         TextElement.FontSize="20"
                         Foreground="White"
                         Command="{Binding CancelCommand}"/>
@@ -64,10 +65,10 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Orientation="Horizontal">
-                <Button Width="150"
+                <Button Width="200"
                     Height="40"
                     Background="#4B91E2"
-                    Content="确认"
+                    Content="{DynamicResource 确认}"
                     TextElement.FontSize="20"
                     Foreground="White"
                     Command="{Binding OkCommand}"/>

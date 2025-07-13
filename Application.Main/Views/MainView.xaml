@@ -57,7 +57,8 @@
                                 <TextBlock
                                     Margin="0,0,20,0"
                                     VerticalAlignment="Center" 
-                                    Text="{Binding MenuName}"/>
+                                    Text="{Binding MenuName}"
+                                    MinWidth="150"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>

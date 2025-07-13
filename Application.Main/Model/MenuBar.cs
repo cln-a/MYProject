@@ -1,10 +1,13 @@
-﻿namespace Application.Main
+﻿using Application.Common;
+
+namespace Application.Main
 {
     public class MenuBar : BindableBase
     {
         private string? _menuName;
         private string? _icon;
         private string? _view;
+        public Dictionary<LanguageType, string> MenuNames { get; set; }
 
         public string? MenuName
         {

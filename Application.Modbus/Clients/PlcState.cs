@@ -1,5 +1,4 @@
 ﻿using Application.Common;
-using CommonServiceLocator;
 using System.Net;
 using System.Net.Sockets;
 using System.Timers;
@@ -18,7 +17,6 @@ namespace Application.Modbus
         private string RemoteIpAddress { set; get; } = null!;
         private string LocalIpAddress { set; get; } = null!;
         private int RemotePort { set; get; }
-        private int LocalPort => _device.LocalPort;
         private int ConnectInterval { get; set; }
         private bool Enable { get; set; }
         public bool IsConnected => Enable && State == CommunicationStateEnum.Connected; 
@@ -74,7 +72,7 @@ namespace Application.Modbus
             RemotePort = remotePort;
             ConnectInterval = reconnectInterval;
             _state = CommunicationStateEnum.NotConnected;
-            _timer = new System.Timers.Timer(ConnectInterval) { AutoReset = false, Interval = ConnectInterval };
+            _timer = new System.Timers.Timer(ConnectInterval) { AutoReset = false };
             _timer.Elapsed += TimerOnElapsed;
         }
 
@@ -87,7 +85,7 @@ namespace Application.Modbus
                 {
                     _tcpClient = new TcpClient();
                     if (!string.IsNullOrEmpty(LocalIpAddress))
-                        _tcpClient.Client.Bind(new IPEndPoint(IPAddress.Parse(LocalIpAddress), LocalPort));
+                        _tcpClient.Client.Bind(new IPEndPoint(IPAddress.Parse(LocalIpAddress), 0));
                     //主动向远程端口发起连接
                     _tcpClient.Connect(RemoteIpAddress, RemotePort);
                     SetConnected();
@@ -116,6 +114,7 @@ namespace Application.Modbus
             if (IsCommunicating)
             {
                 _timer.Stop();
+                _timer.AutoReset = false;
                 State = CommunicationStateEnum.Connected;
             }
         }
@@ -127,6 +126,7 @@ namespace Application.Modbus
         {
             if (IsConnected)
                 State = CommunicationStateEnum.NotConnected;
+            _timer.Interval = ConnectInterval;
             if (IsNotConnected)
                 _timer.Start();
             else
@@ -145,7 +145,7 @@ namespace Application.Modbus
         public void Stop()
         {
             Enable = false;
-            if (_tcpClient.Connected)
+            if (_tcpClient != null && _tcpClient.Connected)
                 _tcpClient.Close();
             _tcpClient = null!;
         }

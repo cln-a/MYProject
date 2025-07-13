@@ -28,4 +28,21 @@
     <system:String x:Key="当前工件处理时间（开始）">Текущее время обработки детали (начало)</system:String>
     <system:String x:Key="当前工件处理时间（结束）">Текущее время обработки детали (окончание)</system:String>
     <system:String x:Key="各工位耗时总览">Обзор общего времени на каждом рабочем месте</system:String>
+    <system:String x:Key="取消">Отменить</system:String>
+    <system:String x:Key="确认">Подтверждение</system:String>
+
+    <!-- 弹出对话框消息 -->
+    <system:String x:Key="输入各工位耗时时间不应为0，请重新输入">Время ожидания для каждого рабочего места не должно быть 0, пожалуйста, введите заново</system:String>
+    <system:String x:Key="每个工位耗时时间设定成功">Время ожидания для каждого рабочего места успешно установлено</system:String>
+    <system:String x:Key="每个工位耗时时间设定失败，请重新设定">Не удалось установить время ожидания для каждого рабочего места, пожалуйста, сбросьте</system:String>
+    <system:String x:Key="每个工位耗时时间设定已取消">Установка времени ожидания для каждого рабочего места отменена</system:String>
+    <system:String x:Key="输入各工位延时时间不应为0，请重新输入">Время задержки для каждого рабочего места не должно быть 0, пожалуйста, введите заново</system:String>
+    <system:String x:Key="每个工位延时时间设定成功">Время задержки для каждого рабочего места успешно установлено</system:String>
+    <system:String x:Key="每个工位延时时间设定失败，请重新设定">Не удалось установить время задержки для каждого рабочего места, пожалуйста, сбросьте</system:String>
+    <system:String x:Key="每个工位延时时间设定已取消">Установка времени задержки для каждого рабочего места отменена</system:String>
+    <system:String x:Key="系统未响应，请重新启动工位">Система не отвечает, пожалуйста, перезапустите рабочее место</system:String>
+    <system:String x:Key="是否确认设定每个工位耗时时间为">Вы уверены, что хотите установить время ожидания для каждого рабочего места равным</system:String>
+    <system:String x:Key="是否确认设定每个工位延时时间为">Вы уверены, что хотите установить время задержки для каждого рабочего места равным</system:String>
+    <system:String x:Key="写入完成">Запись завершена</system:String>
+    <system:String x:Key="Welcome to ApplicationFrameWork">Добро пожаловать в ApplicationFrameWork</system:String>
 </ResourceDictionary>

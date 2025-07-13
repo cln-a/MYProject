@@ -1,5 +1,6 @@
 ﻿using Application.SemiAuto;
 using Application.UI.Dialog;
+using Application.Common;
 
 namespace Application.GeneralControl
 {
@@ -8,6 +9,7 @@ namespace Application.GeneralControl
         
         private readonly IDialogService _dialogService;
         private readonly IEventAggregator _eventAggregator;
+        private readonly ILanguageManager _languageManager;
         private DelegateCommand _setTimeCommand;
         private DelegateCommand _setDelayTimeCommand;
         private DelegateCommand _enableOneCommand;
@@ -28,14 +30,14 @@ namespace Application.GeneralControl
         {
             _dialogService.Show("DialogView",new DialogParameters
             {
-                { "Title", $"是否确认设定每个工位耗时时间为{GeneralControlModel.SetTime}？" }
+                { "Title", $"{_languageManager["是否确认设定每个工位耗时时间为"]}{GeneralControlModel.SetTime}？" }
             }, async result =>
             {
                 if (result.Result == ButtonResult.OK)
                 {
                     if (GeneralControlModel.SetTime == 0)
                     {
-                        PopupBox.Show("输入各工位耗时时间不应为0，请重新输入");
+                        PopupBox.Show(_languageManager["输入各工位耗时时间不应为0，请重新输入"]);
                         return;
                     }
                     else
@@ -58,7 +60,7 @@ namespace Application.GeneralControl
                             if (boolresult)
                             {
                                 EventAggregator.GetEvent<SetTimeEvent>().Publish();
-                                PopupBox.Show("每个工位耗时时间设定成功");
+                                PopupBox.Show(_languageManager["每个工位耗时时间设定成功"]);
                             }
                             else
                             {
@@ -66,7 +68,7 @@ namespace Application.GeneralControl
                                 SetParamsFactory.SetTime = 0;
                                 TriggerParamsFactory.TriggerTime = false;
                                 EventAggregator.GetEvent<SetTimeEvent>().Publish();
-                                PopupBox.Show("每个工位耗时时间设定失败，请重新设定");
+                                PopupBox.Show(_languageManager["每个工位耗时时间设定失败，请重新设定"]);
                             }
                         }
                         catch (Exception ex)
@@ -76,21 +78,21 @@ namespace Application.GeneralControl
                     }
                 }
                 else
-                    PopupBox.Show("每个工位耗时时间设定已取消");
+                    PopupBox.Show(_languageManager["每个工位耗时时间设定已取消"]);
             });
         });
         public DelegateCommand SetDelayTimeCommand => _setDelayTimeCommand ??= new DelegateCommand(() =>
         {
             _dialogService.Show("DialogView", new DialogParameters
             {
-                { "Title", $"是否确认设定每个工位延时时间为{GeneralControlModel.SetDelayTime}？" }
+                { "Title", $"{_languageManager["是否确认设定每个工位延时时间为"]}{GeneralControlModel.SetDelayTime}？" }
             }, async result =>
             {
                 if (result.Result == ButtonResult.OK)
                 {
                     if (GeneralControlModel.SetDelayTime == 0)
                     {
-                        PopupBox.Show("输入各工位延时时间不应为0，请重新输入");
+                        PopupBox.Show(_languageManager["输入各工位延时时间不应为0，请重新输入"]);
                         return;
                     }
                     else
@@ -113,7 +115,7 @@ namespace Application.GeneralControl
                             if (boolresult)
                             {
                                 EventAggregator.GetEvent<SetTimeDelayEvent>().Publish();
-                                PopupBox.Show("每个工位延时时间设定成功");
+                                PopupBox.Show(_languageManager["每个工位延时时间设定成功"]);
                             }
                             else
                             {
@@ -121,7 +123,7 @@ namespace Application.GeneralControl
                                 SetParamsFactory.SetTimeDelay = 0;
                                 TriggerParamsFactory.TriggerTimeDelay = false;
                                 EventAggregator.GetEvent<SetTimeDelayEvent>().Publish();
-                                PopupBox.Show("每个工位延时时间设定失败，请重新设定");
+                                PopupBox.Show(_languageManager["每个工位延时时间设定失败，请重新设定"]);
                             }
                         }
                         catch (Exception ex)
@@ -131,7 +133,7 @@ namespace Application.GeneralControl
                     }
                 }
                 else
-                    PopupBox.Show("每个工位延时时间设定已取消");
+                    PopupBox.Show(_languageManager["每个工位延时时间设定已取消"]);
             });
         });
         public DelegateCommand EnableOneCommand => _enableOneCommand ??= new DelegateCommand(async () =>
@@ -148,7 +150,7 @@ namespace Application.GeneralControl
                 {
                     SetParamsFactory.SetEnableOne = false;
                     EventAggregator.GetEvent<EnableEvent>().Publish();
-                    PopupBox.Show("系统未响应，请重新启动工位");
+                    PopupBox.Show(_languageManager["系统未响应，请重新启动工位"]);
                 }
             }
             catch(Exception ex)
@@ -170,7 +172,7 @@ namespace Application.GeneralControl
                 {
                     SetParamsFactory.SetEnableTwo = false;
                     EventAggregator.GetEvent<EnableEvent>().Publish();
-                    PopupBox.Show("系统未响应，请重新启动工位");
+                    PopupBox.Show(_languageManager["系统未响应，请重新启动工位"]);
                 }
             }
             catch (Exception ex)
@@ -192,7 +194,7 @@ namespace Application.GeneralControl
                 {
                     SetParamsFactory.SetEnableThree = false;
                     EventAggregator.GetEvent<EnableEvent>().Publish();
-                    PopupBox.Show("系统未响应，请重新启动工位");
+                    PopupBox.Show(_languageManager["系统未响应，请重新启动工位"]);
                 }
             }
             catch (Exception ex)
@@ -214,7 +216,7 @@ namespace Application.GeneralControl
                 {
                     SetParamsFactory.SetEnableFour = false;
                     EventAggregator.GetEvent<EnableEvent>().Publish();
-                    PopupBox.Show("系统未响应，请重新启动工位");
+                    PopupBox.Show(_languageManager["系统未响应，请重新启动工位"]);
                 }
             }
             catch (Exception ex)
@@ -236,7 +238,7 @@ namespace Application.GeneralControl
                 {
                     SetParamsFactory.SetEnableFive = false;
                     EventAggregator.GetEvent<EnableEvent>().Publish();
-                    PopupBox.Show("系统未响应，请重新启动工位");
+                    PopupBox.Show(_languageManager["系统未响应，请重新启动工位"]);
                 }
             }
             catch (Exception ex)
@@ -258,7 +260,7 @@ namespace Application.GeneralControl
                 {
                     SetParamsFactory.SetEnableSix = false;
                     EventAggregator.GetEvent<EnableEvent>().Publish();
-                    PopupBox.Show("系统未响应，请重新启动工位");
+                    PopupBox.Show(_languageManager["系统未响应，请重新启动工位"]);
                 }
             }
             catch (Exception ex)
@@ -280,7 +282,7 @@ namespace Application.GeneralControl
                 {
                     SetParamsFactory.SetEnableSeven = false;
                     EventAggregator.GetEvent<EnableEvent>().Publish();
-                    PopupBox.Show("系统未响应，请重新启动工位");
+                    PopupBox.Show(_languageManager["系统未响应，请重新启动工位"]);
                 }
             }
             catch (Exception ex)
@@ -302,7 +304,7 @@ namespace Application.GeneralControl
                 {
                     SetParamsFactory.SetEnableEight = false;
                     EventAggregator.GetEvent<EnableEvent>().Publish();
-                    PopupBox.Show("系统未响应，请重新启动工位");
+                    PopupBox.Show(_languageManager["系统未响应，请重新启动工位"]);
                 }
             }
             catch (Exception ex)
@@ -324,7 +326,7 @@ namespace Application.GeneralControl
                 {
                     SetParamsFactory.SetEnableNine = false;
                     EventAggregator.GetEvent<EnableEvent>().Publish();
-                    PopupBox.Show("系统未响应，请重新启动工位");
+                    PopupBox.Show(_languageManager["系统未响应，请重新启动工位"]);
                 }
             }
             catch (Exception ex)
@@ -346,7 +348,7 @@ namespace Application.GeneralControl
                 {
                     SetParamsFactory.SetEnableTen = false;
                     EventAggregator.GetEvent<EnableEvent>().Publish();
-                    PopupBox.Show("系统未响应，请重新启动工位");
+                    PopupBox.Show(_languageManager["系统未响应，请重新启动工位"]);
                 }
             }
             catch (Exception ex)
@@ -368,7 +370,7 @@ namespace Application.GeneralControl
                 {
                     SetParamsFactory.SetEnableEleven = false;
                     EventAggregator.GetEvent<EnableEvent>().Publish();
-                    PopupBox.Show("系统未响应，请重新启动工位");
+                    PopupBox.Show(_languageManager["系统未响应，请重新启动工位"]);
                 }
             }
             catch (Exception ex)
@@ -381,10 +383,11 @@ namespace Application.GeneralControl
         [Unity.Dependency("Trigger")] public TriggerParamsFactory TriggerParamsFactory { get; set; }
         [Unity.Dependency("GeneralControl")] public GeneralControlModel GeneralControlModel { get; set; }
 
-        public GeneralControlViewModel(IDialogService dialogService, IEventAggregator eventAggregator)
+        public GeneralControlViewModel(IDialogService dialogService, IEventAggregator eventAggregator, ILanguageManager languageManager)
         {
             this._dialogService = dialogService;
             this._eventAggregator = eventAggregator;
+            this._languageManager = languageManager;
         }
     }
 }

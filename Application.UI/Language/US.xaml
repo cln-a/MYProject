@@ -28,4 +28,21 @@
     <system:String x:Key="当前工件处理时间（开始）">Current workpiece processing time (start)</system:String>
     <system:String x:Key="当前工件处理时间（结束）">Current workpiece processing time (end)</system:String>
     <system:String x:Key="各工位耗时总览">Overview of time spent at each workstation</system:String>
+    <system:String x:Key="取消">Cancel</system:String>
+    <system:String x:Key="确认">Confirm</system:String>
+
+    <!-- 弹出对话框消息 -->
+    <system:String x:Key="输入各工位耗时时间不应为0，请重新输入">The timeout duration for each workstation should not be 0, please re-enter</system:String>
+    <system:String x:Key="每个工位耗时时间设定成功">Timeout duration for each workstation set successfully</system:String>
+    <system:String x:Key="每个工位耗时时间设定失败，请重新设定">Failed to set timeout duration for each workstation, please reset</system:String>
+    <system:String x:Key="每个工位耗时时间设定已取消">Timeout duration setting for each workstation has been cancelled</system:String>
+    <system:String x:Key="输入各工位延时时间不应为0，请重新输入">The delay time for each workstation should not be 0, please re-enter</system:String>
+    <system:String x:Key="每个工位延时时间设定成功">Delay time for each workstation set successfully</system:String>
+    <system:String x:Key="每个工位延时时间设定失败，请重新设定">Failed to set delay time for each workstation, please reset</system:String>
+    <system:String x:Key="每个工位延时时间设定已取消">Delay time setting for each workstation has been cancelled</system:String>
+    <system:String x:Key="系统未响应，请重新启动工位">System not responding, please restart the workstation</system:String>
+    <system:String x:Key="是否确认设定每个工位耗时时间为">Are you sure to set the timeout duration for each workstation to</system:String>
+    <system:String x:Key="是否确认设定每个工位延时时间为">Are you sure to set the delay time for each workstation to</system:String>
+    <system:String x:Key="写入完成">Write completed</system:String>
+    <system:String x:Key="Welcome to ApplicationFrameWork">Welcome to ApplicationFrameWork</system:String>
 </ResourceDictionary>
