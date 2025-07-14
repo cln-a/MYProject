@@ -14,6 +14,7 @@ namespace Application.Main
         private readonly ISystemMenuDAL _systemMenuDAL;
         private readonly IRegionManager _regionManager;
         private readonly ILanguageManager _languageManager;
+        private readonly IEventAggregator _eventAggregator;
         private ObservableCollection<StateBar>? _deviceStateBar;
         private ObservableCollection<MenuBar>? _menuBars;
         private DelegateCommand? _loadMenuCommand;
@@ -24,17 +25,19 @@ namespace Application.Main
         public ISystemMenuDAL SystemMenuDAL => _systemMenuDAL;
         public IRegionManager RegionManager => _regionManager;
         public ILanguageManager LanguageManager => _languageManager;
+        public IEventAggregator EventAggregator => _eventAggregator;
         public ObservableCollection<MenuBar>? MenuBars { get => _menuBars; set => SetProperty(ref _menuBars, value); }
         public ObservableCollection<StateBar> StateBars { get => _deviceStateBar; set => SetProperty(ref _deviceStateBar, value);  }
         public DelegateCommand LoadMenuCommand => _loadMenuCommand ??= new DelegateCommand(LoadMenu);
         public DelegateCommand LoadDeviceStateCommand => _loadDeviceStateCommand ??= new DelegateCommand(LoadDeviceState);
         public DelegateCommand<object> NavigateCommand => _navigateCommand ??= new DelegateCommand<object>(NavigateCmd);
 
-        public MainViewModel(ISystemMenuDAL systemMenuDAL, IRegionManager regionManager, ILanguageManager languageManager)
+        public MainViewModel(ISystemMenuDAL systemMenuDAL, IRegionManager regionManager, ILanguageManager languageManager, IEventAggregator eventAggregator)
         {
             this._systemMenuDAL = systemMenuDAL;
             this._regionManager = regionManager;
             this._languageManager = languageManager;
+            this._eventAggregator = eventAggregator;
         }
 
         private void LoadMenu()
@@ -81,6 +84,7 @@ namespace Application.Main
             {
                 menubar.MenuName = menubar.MenuNames[LanguageManager.CurrentLanguageType];
             }
+            EventAggregator.GetEvent<LanguageChangedEvent>().Publish();
         });
 
         private void NavigateCmd(object obj)

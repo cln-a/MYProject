@@ -14,9 +14,15 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:controls="https://handyorg.github.io/handycontrol"
              FontFamily="Microsoft YaHei"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              TextElement.FontSize="16"
              TextElement.FontWeight="Regular"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LanguageChangeCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -77,25 +83,25 @@
                     Width="Auto"
                     Binding="{Binding DeviceName}"
                     CanUserSort="True"
-                    Header="{DynamicResource 工位序号}"
+                    Header="工位序号"
                     SortMemberPath="DeviceName" />
                 <DataGridTextColumn
                     Width="Auto"
                     Binding="{Binding CurTimeConsume}"
                     CanUserSort="True"
-                    Header="{DynamicResource 当前耗时}"
+                    Header="当前耗时"
                     SortMemberPath="CurTimeConsume" />
                 <DataGridTextColumn
                     Width="Auto"
                     Binding="{Binding TimeBefore}"
                     CanUserSort="True"
-                    Header="{DynamicResource 当前工件处理时间（开始）}"
+                    Header="当前工件处理时间（开始）"
                     SortMemberPath="TimeBefore" />
                 <DataGridTextColumn
                     Width="Auto"
                     Binding="{Binding TimeNow}"
                     CanUserSort="True"
-                    Header="{DynamicResource 当前工件处理时间（结束）}"
+                    Header="当前工件处理时间（结束）"
                     SortMemberPath="TimeNow" />
             </DataGrid.Columns>
         </DataGrid>
