@@ -56,10 +56,19 @@
                     </TextBlock>
                 </StackPanel>
                 <StackPanel Margin="5">
-                    <ListView Margin="5"
-                              ItemsSource="{Binding LogFiles}"
-                              ScrollViewer.VerticalScrollBarVisibility="Auto"
-                              SelectedItem="{Binding SelectedLogFile}">
+                    <ListView
+                        x:Name="LogListView"
+                        Margin="5"
+                        ItemsSource="{Binding LogFiles}"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                        SelectedItem="{Binding SelectedLogFile}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedLogFileChangedCommand}" 
+                                                       CommandParameter="{Binding SelectedItem, ElementName=LogListView}"/>
+
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Width="150" DisplayMemberBinding="{Binding Name}" />
@@ -93,7 +102,7 @@
                             <GridViewColumn Width="150"
                                             DisplayMemberBinding="{Binding Logger}"
                                             Header="来源" />
-                            <GridViewColumn Width="150"
+                            <GridViewColumn Width="10000"
                                             DisplayMemberBinding="{Binding Message}"
                                             Header="内容" />
                         </GridView>
