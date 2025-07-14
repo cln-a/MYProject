@@ -28,4 +28,9 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DataBase\SemiAuto\" />
+    <Folder Include="DataBase\HaiLu\" />
+  </ItemGroup>
+
 </Project>

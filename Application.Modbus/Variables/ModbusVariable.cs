@@ -79,7 +79,7 @@ namespace Application.Modbus
             }
             catch (Exception e)
             {
-                Logger.LogError(e, e.Message);
+                Logger.LogError( e.Message);
             }
         }
 
@@ -91,7 +91,7 @@ namespace Application.Modbus
             }
             catch (Exception e)
             {
-                Logger.LogError(e, e.Message);
+                Logger.LogError( e.Message);
             }
         }
 
@@ -165,7 +165,7 @@ namespace Application.Modbus
             }
             catch (Exception e)
             {
-                Logger.LogError(e, e.Message);
+                Logger.LogError( e.Message);
             }
         }
 
@@ -216,7 +216,7 @@ namespace Application.Modbus
             }
             catch (Exception e)
             {
-                Logger.LogError(e, e.Message);
+                Logger.LogError( e.Message);
             }
         }
 
@@ -246,7 +246,7 @@ namespace Application.Modbus
             }
             catch (Exception e)
             {
-                Logger.LogError(e, e.Message);
+                Logger.LogError( e.Message);
                 throw;
             }
         }
@@ -270,7 +270,7 @@ namespace Application.Modbus
             }
             catch (Exception e)
             {
-                Logger.LogError(e, e.Message);
+                Logger.LogError( e.Message);
                 throw;
             }
         }
@@ -301,11 +301,11 @@ namespace Application.Modbus
                     }
                 }
                 else
-                    throw new Exception($"{Client.DeviceName}");
+                    throw new Exception($"PLC设备未连接：设备名称---{Client.DeviceName}");
             }
             catch (Exception e)
             {
-                Logger?.LogError(e, e.Message);
+                Logger?.LogError( e.Message);
                 throw;
             }
         }
@@ -322,7 +322,7 @@ namespace Application.Modbus
             }
             catch (Exception e)
             {
-                Logger.LogError(e, e.Message);
+                Logger.LogError( e.Message);
                 throw;
             }
         }
@@ -403,7 +403,7 @@ namespace Application.Modbus
             }
             catch (Exception e)
             {
-                Logger.LogError(e, e.Message);
+                Logger.LogError( e.Message);
                 throw e;
             }
         }
@@ -446,7 +446,7 @@ namespace Application.Modbus
             }
             catch (Exception e)
             {
-                Logger.LogError(e, e.Message);
+                Logger.LogError( e.Message);
                 throw e;
             }
         }
@@ -497,7 +497,7 @@ namespace Application.Modbus
             }
             catch (Exception e)
             {
-                Logger?.LogError(e, e.Message);
+                Logger?.LogError( e.Message);
             }
             return default;
         }
@@ -523,7 +523,7 @@ namespace Application.Modbus
             }
             catch (Exception e)
             {
-                Logger.LogError(e, e.Message);
+                Logger.LogError( e.Message);
             }
         }
 
@@ -536,7 +536,7 @@ namespace Application.Modbus
             }
             catch (Exception e)
             {
-                Logger.LogError(e, e.Message);
+                Logger.LogError( e.Message);
             }
         }
 
@@ -548,7 +548,7 @@ namespace Application.Modbus
             }
             catch (Exception e)
             {
-                Logger.LogError(e, e.Message);
+                Logger.LogError( e.Message);
             }
         }
 

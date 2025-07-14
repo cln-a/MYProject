@@ -40,9 +40,7 @@ namespace ApplicationFrameWork
             return new UnityContainerExtension(unityContainer);
         }
 
-        protected override void RegisterTypes(IContainerRegistry containerRegistry)
-        {
-        }
+        protected override void RegisterTypes(IContainerRegistry containerRegistry) { }
 
         protected override Window CreateShell() => null!;
 
@@ -91,19 +89,36 @@ namespace ApplicationFrameWork
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
             base.ConfigureModuleCatalog(moduleCatalog);
+
+            #region SemiAuto
+            //moduleCatalog.AddModule<LoggerModule>();
+            //moduleCatalog.AddModule<ApplicationMapperModule>();
+            //moduleCatalog.AddModule<SemiAutoModule>();
+            //moduleCatalog.AddModule<DALModule>();
+            //moduleCatalog.AddModule<ModbusModule>();
+            //moduleCatalog.AddModule<UIModule>();
+            //moduleCatalog.AddModule<ApplicationLoginModule>();
+            //moduleCatalog.AddModule<ApplicationMainModule>(ConstName.ApplicationMainModule, InitializationMode.OnDemand);
+            //moduleCatalog.AddModule<ApplicationGeneralControlModule>();
+            //moduleCatalog.AddModule<ApplicationDeviceModule>();
+            //moduleCatalog.AddModule<ApplicationCommunicateModule>();
+            //moduleCatalog.AddModule<ApplicationJournalModule>();
+            //moduleCatalog.AddModule<ApplicationDialogModule>();
+            #endregion
+
+            #region HaiLu
             moduleCatalog.AddModule<LoggerModule>();
             moduleCatalog.AddModule<ApplicationMapperModule>();
-            moduleCatalog.AddModule<SemiAutoModule>();
             moduleCatalog.AddModule<DALModule>();
             moduleCatalog.AddModule<ModbusModule>();
             moduleCatalog.AddModule<UIModule>();
             moduleCatalog.AddModule<ApplicationLoginModule>();
-            moduleCatalog.AddModule<ApplicationMainModule>(ConstName.ApplicationMainModule, InitializationMode.OnDemand);
-            moduleCatalog.AddModule<ApplicationGeneralControlModule>();
+            moduleCatalog.AddModule<ApplicationMainModule>();
             moduleCatalog.AddModule<ApplicationDeviceModule>();
             moduleCatalog.AddModule<ApplicationCommunicateModule>();
             moduleCatalog.AddModule<ApplicationJournalModule>();
             moduleCatalog.AddModule<ApplicationDialogModule>();
+            #endregion
         }
 
         protected override void ConfigureViewModelLocator()

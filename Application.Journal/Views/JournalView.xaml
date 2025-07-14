@@ -4,10 +4,102 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:prism="http://prismlibrary.com/"
+             xmlns:viewmodel="clr-namespace:Application.Journal"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance viewmodel:JournalViewModel}"
+             FontFamily="Microsoft YaHei"
+             TextElement.FontSize="16"
+             TextElement.FontWeight="Regular"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}">
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Border BorderBrush="#546e7a"
+                BorderThickness="1">
+            <StackPanel>
+                <TextBlock 
+                    Text="日志控制台" 
+                    FontSize="16"
+                    Background="#546e7a"
+                    Foreground="White"
+                    TextAlignment="Center"/>
+                <StackPanel Margin="5"
+                            Background="#546e7a"
+                            Orientation="Horizontal">
+                    <materialDesign:PackIcon 
+                        Width="50"                   
+                        Height="50"                   
+                        Margin="5"                  
+                        VerticalAlignment="Center"               
+                        Foreground="white"              
+                        Kind="FolderInformation" />
+                    <TextBlock 
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="30"
+                        Foreground="White"
+                        Style="{StaticResource MaterialDesignTitleSmallTextBlock}"
+                        Text="显示一周日志">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding OpenLogFolderCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Margin="5">
+                    <ListView Margin="5"
+                              ItemsSource="{Binding LogFiles}"
+                              ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              SelectedItem="{Binding SelectedLogFile}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Width="150" DisplayMemberBinding="{Binding Name}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        <Border Grid.Column="1"
+                BorderBrush="#546e7a"
+                BorderThickness="1">
+            <DockPanel>
+                <TextBlock Background="#546e7a"
+                           DockPanel.Dock="Top"
+                           FontSize="16"
+                           Foreground="White"
+                           Text="日志内容"
+                           TextAlignment="Center" />
+                <ListView Margin="5"
+                          ItemsSource="{Binding LogEntries}"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="200"
+                                            DisplayMemberBinding="{Binding Timestamp}"
+                                            Header="时间" />
+                            <GridViewColumn Width="100"
+                                            DisplayMemberBinding="{Binding Level}"
+                                            Header="级别" />
+                            <GridViewColumn Width="150"
+                                            DisplayMemberBinding="{Binding Logger}"
+                                            Header="来源" />
+                            <GridViewColumn Width="150"
+                                            DisplayMemberBinding="{Binding Message}"
+                                            Header="内容" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </DockPanel>
+        </Border>
     </Grid>
 </UserControl>
