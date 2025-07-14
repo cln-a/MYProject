@@ -31,6 +31,7 @@
     <system:String x:Key="取消">Cancel</system:String>
     <system:String x:Key="确认">Confirm</system:String>
     <system:String x:Key="设备未连接">Device not connected</system:String>
+    <system:String x:Key="启动工位成功">Successfully started the workstation</system:String>
     
 
     <!-- 弹出对话框消息 -->

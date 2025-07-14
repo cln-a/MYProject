@@ -23,7 +23,6 @@ namespace Application.GeneralControl
         private DelegateCommand _enableNineCommand;
         private DelegateCommand _enableTenCommand;
         private DelegateCommand _enableElevenCommand;
-        private ushort _enableOne;
 
         public IEventAggregator EventAggregator => _eventAggregator;
         public DelegateCommand SetTimeCommand => _setTimeCommand ??= new DelegateCommand(() => 
@@ -145,6 +144,7 @@ namespace Application.GeneralControl
                 if (result)
                 {
                     EventAggregator.GetEvent<EnableEvent>().Publish();
+                    InfoGlobal(_languageManager["启动工位成功"]);
                 }
                 else
                 {
@@ -167,6 +167,7 @@ namespace Application.GeneralControl
                 if (result)
                 {
                     EventAggregator.GetEvent<EnableEvent>().Publish();
+                    InfoGlobal(_languageManager["启动工位成功"]);
                 }
                 else
                 {
@@ -189,6 +190,7 @@ namespace Application.GeneralControl
                 if (result)
                 {
                     EventAggregator.GetEvent<EnableEvent>().Publish();
+                    InfoGlobal(_languageManager["启动工位成功"]);
                 }
                 else
                 {
@@ -211,6 +213,7 @@ namespace Application.GeneralControl
                 if (result)
                 {
                     EventAggregator.GetEvent<EnableEvent>().Publish();
+                    InfoGlobal(_languageManager["启动工位成功"]);
                 }
                 else
                 {
@@ -233,6 +236,7 @@ namespace Application.GeneralControl
                 if (result)
                 {
                     EventAggregator.GetEvent<EnableEvent>().Publish();
+                    InfoGlobal(_languageManager["启动工位成功"]);
                 }
                 else
                 {
@@ -255,6 +259,7 @@ namespace Application.GeneralControl
                 if (result)
                 {
                     EventAggregator.GetEvent<EnableEvent>().Publish();
+                    InfoGlobal(_languageManager["启动工位成功"]);
                 }
                 else
                 {
@@ -277,6 +282,7 @@ namespace Application.GeneralControl
                 if (result)
                 {
                     EventAggregator.GetEvent<EnableEvent>().Publish();
+                    InfoGlobal(_languageManager["启动工位成功"]);
                 }
                 else
                 {
@@ -299,6 +305,7 @@ namespace Application.GeneralControl
                 if (result)
                 {
                     EventAggregator.GetEvent<EnableEvent>().Publish();
+                    InfoGlobal(_languageManager["启动工位成功"]);
                 }
                 else
                 {
@@ -321,6 +328,7 @@ namespace Application.GeneralControl
                 if (result)
                 {
                     EventAggregator.GetEvent<EnableEvent>().Publish();
+                    InfoGlobal(_languageManager["启动工位成功"]);
                 }
                 else
                 {
@@ -343,6 +351,7 @@ namespace Application.GeneralControl
                 if (result)
                 {
                     EventAggregator.GetEvent<EnableEvent>().Publish();
+                    InfoGlobal(_languageManager["启动工位成功"]);
                 }
                 else
                 {
@@ -365,6 +374,7 @@ namespace Application.GeneralControl
                 if (result)
                 {
                     EventAggregator.GetEvent<EnableEvent>().Publish();
+                    InfoGlobal(_languageManager["启动工位成功"]);
                 }
                 else
                 {
