@@ -1,5 +1,5 @@
 ﻿using Application.Common;
-using ApplicationFrame.ImportUtil;
+using Application.ImportUtil;
 using Microsoft.Extensions.Logging;
 using System.IO;
 using System.Text.Json;
@@ -11,14 +11,15 @@ namespace ApplicationFrame
     {
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            var 
+            var importutil = CommonServiceLocator.ServiceLocator.Current.GetInstance<IImportUtil>();
+            importutil.StartImport();
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             IUnityContainer unityContainer = containerRegistry.GetContainer();
 
-            var configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "importUtilHaiLuConfig.json");
+            var configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "UtilConfig.json");
             var json = File.ReadAllText(configPath);
             var config = JsonSerializer.Deserialize<ImportUtilConfig>(json);
 

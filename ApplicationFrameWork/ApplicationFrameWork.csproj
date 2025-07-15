@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="MahApps.Metro" Version="2.4.10" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.7" />
     <PackageReference Include="Prism.Unity" Version="9.0.537" />
     <PackageReference Include="Unity.ServiceLocation" Version="5.11.1" />
   </ItemGroup>
@@ -24,6 +24,7 @@
     <ProjectReference Include="..\Application.Device\Application.Device.csproj" />
     <ProjectReference Include="..\Application.Dialog\Application.Dialog.csproj" />
     <ProjectReference Include="..\Application.GeneralControl\Application.GeneralControl.csproj" />
+    <ProjectReference Include="..\Application.Hailu\Application.Hailu.csproj" />
     <ProjectReference Include="..\Application.IDAL\Application.IDAL.csproj" />
     <ProjectReference Include="..\Application.ImageProcess\Application.ImageProcess.csproj" />
     <ProjectReference Include="..\Application.Image\Application.Image.csproj" />
@@ -38,7 +39,7 @@
     <ProjectReference Include="..\Application.SemiAuto\Application.SemiAuto.csproj" />
     <ProjectReference Include="..\Application.Startup\Application.Startup.csproj" />
     <ProjectReference Include="..\Application.UI\Application.UI.csproj" />
-    <ProjectReference Include="..\ApplicationFrame.ImportUtil\ApplicationFrame.ImportUtil.csproj" />
+    <ProjectReference Include="..\ApplicationFrame.ImportUtil\Application.ImportUtil.csproj" />
     <ProjectReference Include="..\ApplicationFrame.Mapper\Application.Mapper.csproj" />
     <ProjectReference Include="..\NModbus4\NModbus4.csproj" />
     <ProjectReference Include="..\S7.Net\S7.Net.csproj" />

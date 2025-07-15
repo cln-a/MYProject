@@ -23,6 +23,7 @@ using Application.GeneralControl;
 using Application.Dialog;
 using Application.Startup;
 using ApplicationFrame;
+using Application.Hailu;
 
 namespace ApplicationFrameWork
 {
@@ -51,13 +52,13 @@ namespace ApplicationFrameWork
             DisPlayShellView();
         }
 
-        protected override async void OnStartup(StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {
-            _splashScreen = new MainSplashScreenView();
-            _splashScreen.Show();
-            _splashScreen.Topmost = true;
+            //_splashScreen = new MainSplashScreenView();
+            //_splashScreen.Show();
+            //_splashScreen.Topmost = true;
 
-            await Task.Delay(1500);
+            //await Task.Delay(1500);
 
             base.OnStartup(e);
         }
@@ -65,11 +66,11 @@ namespace ApplicationFrameWork
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            if (_splashScreen != null)
-            {
-                _splashScreen.Close();
-                _splashScreen = null!;
-            }
+            //if (_splashScreen != null)
+            //{
+            //    _splashScreen.Close();
+            //    _splashScreen = null!;
+            //}
         }
 
         private void DisPlayShellView()
@@ -119,6 +120,7 @@ namespace ApplicationFrameWork
             moduleCatalog.AddModule<ApplicationCommunicateModule>();
             moduleCatalog.AddModule<ApplicationJournalModule>();
             moduleCatalog.AddModule<ApplicationDialogModule>();
+            moduleCatalog.AddModule<ApplicationHailuModule>();
             #endregion
         }
 
@@ -138,6 +140,8 @@ namespace ApplicationFrameWork
         {
             var logger = ServiceLocator.Current.GetInstance<ILogger>();
             var clients = ServiceLocator.Current.GetAllInstances<ModbusClient>();
+            var heartBeatMasters = ServiceLocator.Current.GetAllInstances<HeartBeatMaster>();
+            var importutil = ServiceLocator.Current.GetInstance<IImportUtil>();
 
             foreach (var client in clients)
             {
@@ -150,8 +154,7 @@ namespace ApplicationFrameWork
                     logger.LogError( ex.Message);
                 }
             }
-
-            var heartBeatMasters = ServiceLocator.Current.GetAllInstances<HeartBeatMaster>();
+            
             foreach (var master in heartBeatMasters)
             {
                 try
@@ -163,6 +166,8 @@ namespace ApplicationFrameWork
                     logger.LogError( ex.Message);
                 }
             }
+
+            importutil.StopImport();
         }
     }
 }

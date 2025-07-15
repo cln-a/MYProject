@@ -1,0 +1,19 @@
+﻿{
+  "ParameterOption": [
+    {
+      "Name": "HaiLu",
+      "ReadyFlagUri": "ReadyFlag",
+      "RequestFlagUri": "RequestFlag",
+      "LengthUri": "Length",
+      "WidthUri": "WidthUri",
+      "ThicknessUri": "Thickness",
+      "RemarkUri": "Remark",
+      "CountUri": "Count",
+      "OffLineFlagUri": "OffLineFlag",
+      "MeasureOKFlagUri": "MeasureOKFlag",
+      "MeasureErrorFlagUri": "MeasureErrorFlag",
+      "IdentityToPLCUri": "IdentityToPLC",
+      "IdentityFromPLCUri": "IdentityFromPLC"
+    }
+  ]
+}

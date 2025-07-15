@@ -1,5 +1,4 @@
 using Application.Common;
-using Application.Login;
 using Application.Main;
 
 namespace ApplicationFrameWork.ViewModels;
@@ -29,7 +28,10 @@ public class ShellViewModel : BindableBase
         RegionManager.RequestNavigate(ConstName.MainRegion, nameof(MainView));
     });
 
-    public ShellViewModel(IModuleManager moduleManager, IRegionManager regionManager, IEventAggregator eventAggregator, ILanguageManager languageManager)
+    public ShellViewModel(IModuleManager moduleManager, 
+        IRegionManager regionManager, 
+        IEventAggregator eventAggregator, 
+        ILanguageManager languageManager)
     {
         this._moduleManager = moduleManager;
         this._regionManager = regionManager;

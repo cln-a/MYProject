@@ -51,6 +51,7 @@ namespace Application.DAL
             unityContainer.RegisterType<IS7netRegisterDAL, S7netRegisterDAL>();
             unityContainer.RegisterType<ISystemUserDAL, SystemUserDAL>();
             unityContainer.RegisterType<ISystemMenuDAL, SystemMenuDAL>();
+            unityContainer.RegisterType<IPartsInfoDAL, PartsInfoDAL>();
         }
     }
 }

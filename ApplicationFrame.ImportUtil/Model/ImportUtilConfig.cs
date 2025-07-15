@@ -1,4 +1,4 @@
-﻿namespace ApplicationFrame.ImportUtil
+﻿namespace Application.ImportUtil
 {
     public class ImportUtilConfig
     {

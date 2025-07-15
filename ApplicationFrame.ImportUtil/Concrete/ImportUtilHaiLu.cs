@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 using System.IO;
 
-namespace ApplicationFrame.ImportUtil
+namespace Application.ImportUtil
 {
     public class ImportUtilHaiLu : IImportUtil
     {
