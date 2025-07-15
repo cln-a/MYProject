@@ -22,6 +22,7 @@ using Application.SemiAuto;
 using Application.GeneralControl;
 using Application.Dialog;
 using Application.Startup;
+using ApplicationFrame;
 
 namespace ApplicationFrameWork
 {
@@ -108,11 +109,11 @@ namespace ApplicationFrameWork
 
             #region HaiLu
             moduleCatalog.AddModule<LoggerModule>();
+            moduleCatalog.AddModule<ApplicationFrameImportUtilModule>();
             moduleCatalog.AddModule<ApplicationMapperModule>();
             moduleCatalog.AddModule<DALModule>();
             moduleCatalog.AddModule<ModbusModule>();
             moduleCatalog.AddModule<UIModule>();
-            moduleCatalog.AddModule<ApplicationLoginModule>();
             moduleCatalog.AddModule<ApplicationMainModule>();
             moduleCatalog.AddModule<ApplicationDeviceModule>();
             moduleCatalog.AddModule<ApplicationCommunicateModule>();

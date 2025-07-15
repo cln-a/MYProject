@@ -38,6 +38,7 @@
     <ProjectReference Include="..\Application.SemiAuto\Application.SemiAuto.csproj" />
     <ProjectReference Include="..\Application.Startup\Application.Startup.csproj" />
     <ProjectReference Include="..\Application.UI\Application.UI.csproj" />
+    <ProjectReference Include="..\ApplicationFrame.ImportUtil\ApplicationFrame.ImportUtil.csproj" />
     <ProjectReference Include="..\ApplicationFrame.Mapper\Application.Mapper.csproj" />
     <ProjectReference Include="..\NModbus4\NModbus4.csproj" />
     <ProjectReference Include="..\S7.Net\S7.Net.csproj" />
