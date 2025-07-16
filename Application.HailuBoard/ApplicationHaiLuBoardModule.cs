@@ -9,6 +9,8 @@ namespace Application.HailuBoard
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterForNavigation<PartsInfoView>();
+            containerRegistry.RegisterForNavigation<SinglePartInfoView>();
         }
     }
 }

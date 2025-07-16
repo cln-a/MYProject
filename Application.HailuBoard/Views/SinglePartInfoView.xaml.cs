@@ -1,6 +1,6 @@
 using System.Windows.Controls;
 
-namespace Application.HailuBoard.Views;
+namespace Application.HailuBoard;
 
 public partial class SinglePartInfoView : UserControl
 {

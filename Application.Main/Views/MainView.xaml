@@ -103,7 +103,7 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                        <RadioButton x:Name="Russia" 
+                        <!--<RadioButton x:Name="Russia" 
                              Content="Россия" 
                              Foreground="White"
                              HorizontalAlignment="Center"
@@ -132,7 +132,7 @@
                              IsChecked="False"
                              Command="{Binding CheckCommand}"
                              CommandParameter="{Binding ElementName=US,Path=Content}"
-                             DockPanel.Dock="Right"/>
+                             DockPanel.Dock="Right"/>-->
                         <ToggleButton
                             Name="MenuToggleButton"
                             Margin="0,0,20,0"

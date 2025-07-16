@@ -2,7 +2,7 @@ namespace Application.Mapper;
 
 public class SinglePartInfoDto : BaseDomainDto
 {
-    protected int _countNumber;   
+    protected int _countNumber;   //数量
     protected string? _batchcode; //合同号
     protected string? _code;      //编码
     protected string? _name;      //名称

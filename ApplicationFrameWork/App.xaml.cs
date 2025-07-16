@@ -24,6 +24,7 @@ using Application.Dialog;
 using Application.Startup;
 using ApplicationFrame;
 using Application.Hailu;
+using Application.HailuBoard;
 
 namespace ApplicationFrameWork
 {
@@ -110,10 +111,10 @@ namespace ApplicationFrameWork
 
             #region HaiLu
             moduleCatalog.AddModule<LoggerModule>();
-            moduleCatalog.AddModule<ApplicationFrameImportUtilModule>();
-            moduleCatalog.AddModule<ApplicationMapperModule>();
             moduleCatalog.AddModule<DALModule>();
             moduleCatalog.AddModule<ModbusModule>();
+            moduleCatalog.AddModule<ApplicationMapperModule>();
+            moduleCatalog.AddModule<ApplicationFrameImportUtilModule>();
             moduleCatalog.AddModule<UIModule>();
             moduleCatalog.AddModule<ApplicationMainModule>();
             moduleCatalog.AddModule<ApplicationDeviceModule>();
@@ -121,6 +122,7 @@ namespace ApplicationFrameWork
             moduleCatalog.AddModule<ApplicationJournalModule>();
             moduleCatalog.AddModule<ApplicationDialogModule>();
             moduleCatalog.AddModule<ApplicationHailuModule>();
+            moduleCatalog.AddModule<ApplicationHaiLuBoardModule>();
             #endregion
         }
 
