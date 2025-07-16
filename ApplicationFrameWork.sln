@@ -91,6 +91,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.ImportUtil", "A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Hailu", "Application.Hailu\Application.Hailu.csproj", "{8B891595-634D-4052-A317-B10CAD580E4C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.HailuBoard", "Application.HailuBoard\Application.HailuBoard.csproj", "{4FF4379B-AE6E-4E39-AE7F-BC7118C73C6D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -209,6 +211,10 @@ Global
 		{8B891595-634D-4052-A317-B10CAD580E4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B891595-634D-4052-A317-B10CAD580E4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B891595-634D-4052-A317-B10CAD580E4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FF4379B-AE6E-4E39-AE7F-BC7118C73C6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FF4379B-AE6E-4E39-AE7F-BC7118C73C6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FF4379B-AE6E-4E39-AE7F-BC7118C73C6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FF4379B-AE6E-4E39-AE7F-BC7118C73C6D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -250,6 +256,7 @@ Global
 		{693D2BE4-64B7-4A92-96AB-5FDCA63ACCF4} = {CAD44F8A-AE6F-4F9B-9650-F15AE019869F}
 		{F7A8A880-F283-4681-AF9B-8772B9034A8B} = {693D2BE4-64B7-4A92-96AB-5FDCA63ACCF4}
 		{8B891595-634D-4052-A317-B10CAD580E4C} = {693D2BE4-64B7-4A92-96AB-5FDCA63ACCF4}
+		{4FF4379B-AE6E-4E39-AE7F-BC7118C73C6D} = {872EA5C2-959B-4929-A7F7-16E072575C20}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {03FAA2E3-B831-4B51-9E55-9E41C3365066}
