@@ -27,5 +27,17 @@ namespace Application.DAL
             }
         }
 
+        public async Task<int> UpdatePartsInfoAsync(PartsInfo partsInfo)
+        {
+            try
+            {
+                var result = await SqlSugarClient.Updateable(partsInfo).ExecuteCommandAsync();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
     }
 }

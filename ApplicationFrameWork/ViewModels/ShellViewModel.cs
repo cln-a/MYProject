@@ -1,4 +1,5 @@
 using Application.Common;
+using Application.IDAL;
 using Application.Main;
 
 namespace ApplicationFrameWork.ViewModels;
@@ -10,6 +11,7 @@ public class ShellViewModel : BindableBase
     private readonly IEventAggregator _eventAggregator;
     private readonly ILanguageManager _languageManager;
     private DelegateCommand _shellLoadCommand = null!;
+    private readonly ISinglePartInfoDAL _singlePartInfoDAL;
 
     public IModuleManager ModuleManager => _moduleManager;
     public IRegionManager RegionManager => _regionManager;
@@ -31,11 +33,14 @@ public class ShellViewModel : BindableBase
     public ShellViewModel(IModuleManager moduleManager, 
         IRegionManager regionManager, 
         IEventAggregator eventAggregator, 
-        ILanguageManager languageManager)
+        ILanguageManager languageManager,
+        ISinglePartInfoDAL singlePartInfoDAL)
     {
         this._moduleManager = moduleManager;
         this._regionManager = regionManager;
         this._eventAggregator = eventAggregator;
         this._languageManager = languageManager;
+        this._singlePartInfoDAL = singlePartInfoDAL;
+        _singlePartInfoDAL.CreateTable();
     }
 }

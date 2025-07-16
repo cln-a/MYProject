@@ -8,6 +8,8 @@ namespace Application.Mapper
         {
             CreateMap<ModbusDevice, ModbusDeviceDto>().ReverseMap();
             CreateMap<ModbusRegister, ModbusRegisterDto>().ReverseMap();
+            CreateMap<PartsInfo, PartsInfoDto>().ReverseMap();
+            CreateMap<SinglePartInfo, SinglePartInfoDto>().ReverseMap();
         }
     }
 }

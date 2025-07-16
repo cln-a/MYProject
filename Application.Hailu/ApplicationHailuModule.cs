@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Application.IDAL;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Unity.Injection;
 
 namespace Application.Hailu
@@ -7,6 +9,8 @@ namespace Application.Hailu
     {
         public void OnInitialized(IContainerProvider containerProvider)
         {
+            var mannager = containerProvider.Resolve<IManager>();
+            mannager.StartService();
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
@@ -22,7 +26,9 @@ namespace Application.Hailu
                 .Get<ParameterOption[]>()!
                 .FirstOrDefault();
             unityContainer.RegisterSingleton<ParameterFactory>
-                (parameteroption?.Name, new InjectionConstructor(parameteroption, typeof(IEventAggregator)));
+                (parameteroption.Name, new InjectionConstructor(parameteroption, typeof(IEventAggregator)));
+
+            unityContainer.RegisterType<IManager, HaiLuManager>(new InjectionConstructor(typeof(ILogger), typeof(IEventAggregator), typeof(IPartsInfoDAL), typeof(ISinglePartInfoDAL)));
         }
     }
 }

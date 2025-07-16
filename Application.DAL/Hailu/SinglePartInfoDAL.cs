@@ -15,12 +15,28 @@ namespace Application.DAL
         {
             try
             {
-                var id = await SqlSugarClient.Insertable<SinglePartInfo>(singlepartinfo).ExecuteCommandAsync();
+                var id = await SqlSugarClient.Insertable<SinglePartInfo>(singlepartinfo).ExecuteReturnIdentityAsync();
                 return id;
             }
             catch(Exception ex) 
             {
-                return default;
+                return 0;
+            }
+        }
+
+        public async Task<int> UpdateSingleAsync(int id,SinglePartInfo singlepartinfo)
+        {
+            try
+            {
+                var result = await SqlSugarClient
+                    .Updateable(singlepartinfo)
+                    .Where(x=>x.Id==id)
+                    .ExecuteCommandAsync();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return 0;
             }
         }
     }

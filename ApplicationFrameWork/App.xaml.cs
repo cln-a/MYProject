@@ -142,6 +142,7 @@ namespace ApplicationFrameWork
             var clients = ServiceLocator.Current.GetAllInstances<ModbusClient>();
             var heartBeatMasters = ServiceLocator.Current.GetAllInstances<HeartBeatMaster>();
             var importutil = ServiceLocator.Current.GetInstance<IImportUtil>();
+            var manager = ServiceLocator.Current.GetInstance<IManager>();
 
             foreach (var client in clients)
             {
@@ -168,6 +169,7 @@ namespace ApplicationFrameWork
             }
 
             importutil.StopImport();
+            manager.StopService();
         }
     }
 }

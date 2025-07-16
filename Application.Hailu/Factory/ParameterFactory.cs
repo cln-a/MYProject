@@ -135,9 +135,9 @@ namespace Application.Hailu
             IO.TryGet(_option.MeasureErrorFlagUri!, out _measureErrorFlagVariable);
             IO.TryGet(_option.IdentityToPLCUri!,out _identityToPLVariable);
             IO.TryGet(_option.IdentityFromPLCUri!, out _identityFromPLCVariable);
-            IdentityFromPLCVariable.ValueReadedEvent += (s, e) =>
+            IdentityFromPLCVariable.ValueChangedEvent += (s, e) =>
             {
-
+                eventAggregator.GetEvent<IdentityChangedEvent>().Publish(e.GetNewValue<int>());
             };
         }
     }

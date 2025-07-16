@@ -16,7 +16,7 @@ namespace Application.Model
         protected int _quautity;      //数量
         protected int _remark;       //备注
         protected string? _area;      //平方数
-        protected int _countinfo;     //状态信息
+        protected int _countinfo;     //数量信息
 
         [SugarColumn]
         public string? BatchCode { get => _batchcode; set => _batchcode = value; }
