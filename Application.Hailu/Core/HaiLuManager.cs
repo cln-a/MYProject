@@ -86,7 +86,7 @@ namespace Application.Hailu
                     var result = await _singlePartInfoDAL.UpdateSingleAsync(id, partInfo);
                     if (result == 1)
                     {
-                        var partsInfo = await _partsInfoDAL.QueryProduceData(_parameterFactory.BatchCode!);
+                        var partsInfo = await _partsInfoDAL.QueryProduceDataAsync(_parameterFactory.BatchCode!);
                         partsInfo.Countinfo += 1;
                         var rowNumber = await _partsInfoDAL.UpdatePartsInfoAsync(partsInfo);
                         if (rowNumber == 1)
@@ -110,7 +110,7 @@ namespace Application.Hailu
         {
             try
             {
-                var result = await _partsInfoDAL.QueryProduceData(_parameterFactory.BatchCode!);
+                var result = await _partsInfoDAL.QueryProduceDataAsync(_parameterFactory.BatchCode!);
                 var singlePart = new SinglePartInfo()
                 {
                     CountNumber = result.Countinfo + 1,
@@ -153,10 +153,10 @@ namespace Application.Hailu
                 {
                     try
                     {
-                        if(_parameterFactory.BatchCode != null)
+                        if (_parameterFactory.BatchCode != null)
                         {
-                            var result = await _partsInfoDAL.QueryProduceData(_parameterFactory.BatchCode);
-                            if(result != null)
+                            var result = _partsInfoDAL.QueryProduceDataCount(_parameterFactory.BatchCode);
+                            if (result != 0)
                                 _parameterFactory.ReadyFlag = 1;
                             else
                                 _parameterFactory.ReadyFlag = 0;

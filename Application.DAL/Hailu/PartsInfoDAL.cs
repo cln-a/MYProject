@@ -11,19 +11,34 @@ namespace Application.DAL
         {
         }
 
-        public async Task<PartsInfo> QueryProduceData(string batchcode)
+        public async Task<PartsInfo> QueryProduceDataAsync(string batchcode)
         {
             try
             {
                 var result = await SqlSugarClient.Queryable<PartsInfo>()
                     .Where(x => x.BatchCode == batchcode && x.Countinfo < x.Quautity)
                     .OrderBy(x => x.Id)
-                    .FirstAsync();
+                    .SingleAsync();
                 return result;
             }
             catch (Exception ex)
             {
                 return null!;
+            }
+        }
+
+        public int QueryProduceDataCount(string batchcode)
+        {
+            try
+            {
+                return SqlSugarClient
+                    .Queryable<PartsInfo>()
+                    .Where(x => x.BatchCode == batchcode)
+                    .Count();
+            }
+            catch(Exception ex)
+            {
+                return 0;
             }
         }
 
