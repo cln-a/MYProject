@@ -1,9 +1,5 @@
-﻿using Application.Common;
-using Application.Hailu.Events;
-using Application.IDAL;
-using Application.Modbus;
+﻿using Application.IDAL;
 using Application.Model;
-using CommonServiceLocator;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 
@@ -118,6 +114,7 @@ namespace Application.Hailu
                         if (rowNumber == 1)
                         {
                             _logger.LogDebug($"序号为{id}的板件处理完成");
+                            _eventAggregator.GetEvent<RefreshUiEvent>().Publish();
                         }
                     }
                     await Task.Run(() =>
@@ -160,6 +157,7 @@ namespace Application.Hailu
                         ParameterFactory.Thickness = result.Thickness;
                     });
                     _dir[identity] = singlePart;
+                    _eventAggregator.GetEvent<RefreshUiEvent>().Publish();
                 }
                 else
                 {

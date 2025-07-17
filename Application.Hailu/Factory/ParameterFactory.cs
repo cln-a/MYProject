@@ -1,5 +1,4 @@
 ﻿using Application.Common;
-using Application.Hailu.Events;
 
 namespace Application.Hailu
 {

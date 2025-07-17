@@ -1,5 +1,4 @@
 using Application.Hailu;
-using Application.Hailu.Events;
 using Application.IDAL;
 using Application.Mapper;
 using Application.Model;
@@ -27,6 +26,8 @@ namespace Application.HailuBoard
         {
             this._partsInfoDAL = partsInfoDAL;
             this._eventAggregator = eventAggregator;
+
+            this._eventAggregator.GetEvent<RefreshUiEvent>().Subscribe(Initialize);
         }
         protected override async Task<PageResult<PartsInfoDto>> GetPage()
         {
