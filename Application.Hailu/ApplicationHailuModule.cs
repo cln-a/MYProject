@@ -9,8 +9,8 @@ namespace Application.Hailu
     {
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            var mannager = containerProvider.Resolve<IManager>();
-            mannager.StartService();
+            var manager = CommonServiceLocator.ServiceLocator.Current.GetInstance<IManager>();
+            manager.StartService();
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
@@ -28,7 +28,7 @@ namespace Application.Hailu
             unityContainer.RegisterSingleton<ParameterFactory>
                 (parameteroption?.Name, new InjectionConstructor(parameteroption, typeof(IEventAggregator)));
 
-            unityContainer.RegisterType<IManager, HaiLuManager>(new InjectionConstructor(typeof(ILogger), typeof(IEventAggregator), typeof(IPartsInfoDAL), typeof(ISinglePartInfoDAL)));
+            unityContainer.RegisterSingleton<IManager, HaiLuManager>(new InjectionConstructor(typeof(ILogger), typeof(IEventAggregator), typeof(IPartsInfoDAL), typeof(ISinglePartInfoDAL)));
         }
     }
 }

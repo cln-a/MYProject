@@ -47,11 +47,15 @@
                     Margin="5"
                     VerticalAlignment="Center"
                     Text="设定当前批次：" />
-                <TextBox Width="250" Margin="5" />
+                <TextBox
+                    Width="250"
+                    Margin="5"
+                    Text="{Binding BatchCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <Button
                     Width="150"
                     Margin="5"
                     Background="#47a0ff"
+                    Command="{Binding SetBatchCodeCommand}"
                     Content="设定批次"
                     Style="{StaticResource MaterialDesignRaisedButton}" />
             </StackPanel>

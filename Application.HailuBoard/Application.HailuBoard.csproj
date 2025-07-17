@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Application.Hailu\Application.Hailu.csproj" />
     <ProjectReference Include="..\Application.IDAL\Application.IDAL.csproj" />
     <ProjectReference Include="..\Application.UI\Application.UI.csproj" />
   </ItemGroup>

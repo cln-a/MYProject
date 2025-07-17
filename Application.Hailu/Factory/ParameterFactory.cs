@@ -1,5 +1,5 @@
 ﻿using Application.Common;
-using System.Security.Policy;
+using Application.Hailu.Events;
 
 namespace Application.Hailu
 {
@@ -19,7 +19,7 @@ namespace Application.Hailu
         private readonly IVariable _measureErrorFlagVariable;
         private readonly IVariable _identityToPLVariable;
         private readonly IVariable _identityFromPLCVariable;
-        private string? _batchCode = "202530221";
+        private string? _batchCode;
 
         public IEventAggregator EventAggregator => _eventAggregator;
         public IVariable ReadyFlagVariable => _readyFlagVariable;

@@ -1,4 +1,5 @@
 ﻿using Application.Common;
+using Application.Hailu.Events;
 using Application.IDAL;
 using Application.Modbus;
 using Application.Model;
@@ -14,9 +15,9 @@ namespace Application.Hailu
         private readonly ILogger _logger;
         private readonly IPartsInfoDAL _partsInfoDAL;
         private readonly ISinglePartInfoDAL _singlePartInfoDAL;
+        private readonly IEventAggregator _eventAggregator;
         private ConcurrentDictionary<int, SinglePartInfo> _dir 
             = new ConcurrentDictionary<int, SinglePartInfo>();
-        private CancellationTokenSource _cancellationTokenSource;
         private bool IsEnabled { get; set; }
 
         [Dependency("HaiLu")] public ParameterFactory ParameterFactory { get; set; }
@@ -28,11 +29,11 @@ namespace Application.Hailu
             ISinglePartInfoDAL singlePartInfoDAL)
         {
             this._logger = logger;
-            this._cancellationTokenSource = new CancellationTokenSource();
             this._partsInfoDAL = partsInfoDAL;
             this._singlePartInfoDAL = singlePartInfoDAL;
+            this._eventAggregator = eventAggregator;
 
-            eventAggregator.GetEvent<RequestFlagReadedEvent>().Subscribe(async void () =>
+            _eventAggregator.GetEvent<RequestFlagReadedEvent>().Subscribe(async void () =>
             {
                 try
                 {
@@ -44,7 +45,7 @@ namespace Application.Hailu
                 }
             },ThreadOption.BackgroundThread);
 
-            eventAggregator.GetEvent<IdentityChangedEvent>().Subscribe(async void (id) =>
+            _eventAggregator.GetEvent<IdentityChangedEvent>().Subscribe(async void (id) =>
             {
                 try
                 {
@@ -56,32 +57,27 @@ namespace Application.Hailu
                 }
             }, ThreadOption.BackgroundThread);
 
-            LoadDeviceState();
+            _eventAggregator.GetEvent<BatchCodeChangedEvent>().Subscribe(SendReadyFlagToPLC,ThreadOption.BackgroundThread);
         }
 
-        private void LoadDeviceState()
+        private void SendReadyFlagToPLC(string batchcode)
         {
-            var plcStates = ServiceLocator.Current.GetAllInstances<ICommunicationStateMachine>();
             try
             {
-                foreach (var plcState in plcStates)
+                if (batchcode != null)
                 {
-                    if (plcState is PLCState state)
-                    {
-                        state.ConnectEvent += StateMachine_ConnectEvent;
-                        state.DisConnectEvent += StateMachine_DisConnectEvent;
-                    }
+                    var result = _partsInfoDAL.QueryProduceDataCount(batchcode);
+                    if (result != 0)
+                        ParameterFactory.ReadyFlag = 1;
+                    else
+                        ParameterFactory.ReadyFlag = 0;
                 }
             }
-            catch(Exception ex)
+            catch (Exception e) 
             {
-                _logger.LogError(ex.Message);
+                _logger.LogError(e.Message);
             }
         }
-
-        private void StateMachine_DisConnectEvent(object? sender, EventArgs e) => IsEnabled = false;
-
-        private void StateMachine_ConnectEvent(object? sender, EventArgs e) => IsEnabled = true;
 
         private async Task ProcessReturnSignalAsync(int id)
         {
@@ -166,7 +162,10 @@ namespace Application.Hailu
                     _dir[identity] = singlePart;
                 }
                 else
-                    return;
+                {
+                    ParameterFactory.ReadyFlag = 0;
+                    ParameterFactory.RequestFlag = 0;
+                }
             }
             catch (Exception ex)
             {
@@ -174,43 +173,14 @@ namespace Application.Hailu
             }
         }
 
-        public void StartService() =>
-            Task.Factory.StartNew(SendReadyFlagToPLC,
-                _cancellationTokenSource.Token, 
-                TaskCreationOptions.LongRunning, 
-                TaskScheduler.Default);
-
-        private async void SendReadyFlagToPLC()
+        public void StartService()
         {
-            try
-            {
-                while (!_cancellationTokenSource.IsCancellationRequested)
-                {
-                    try
-                    {
-                        if (IsEnabled && ParameterFactory.BatchCode != null)
-                        {
-                            var result = _partsInfoDAL.QueryProduceDataCount(ParameterFactory.BatchCode);
-                            if (result != 0)
-                                ParameterFactory.ReadyFlag = 1;
-                            else
-                                ParameterFactory.ReadyFlag = 0;
-                        }
-                        await Task.Delay(100, _cancellationTokenSource.Token);
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogError(ex.Message);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                _logger.LogDebug(e.Message);
-            }
+
         }
 
         public void StopService()
-            => _cancellationTokenSource.Cancel();
+        {
+
+        }
     }
 }

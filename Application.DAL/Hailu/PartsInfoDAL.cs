@@ -31,10 +31,10 @@ namespace Application.DAL
         {
             try
             {
-                return SqlSugarClient
+                var result = SqlSugarClient
                     .Queryable<PartsInfo>()
-                    .Where(x => x.BatchCode == batchcode && x.Countinfo < x.Quautity)
-                    .Count();
+                    .Where(x => x.BatchCode == batchcode && x.Countinfo < x.Quautity);
+                return result.Count();
             }
             catch(Exception ex)
             {
