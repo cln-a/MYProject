@@ -32,7 +32,10 @@ namespace Application.Main
         public DelegateCommand LoadDeviceStateCommand => _loadDeviceStateCommand ??= new DelegateCommand(LoadDeviceState);
         public DelegateCommand<object> NavigateCommand => _navigateCommand ??= new DelegateCommand<object>(NavigateCmd);
 
-        public MainViewModel(ISystemMenuDAL systemMenuDAL, IRegionManager regionManager, ILanguageManager languageManager, IEventAggregator eventAggregator)
+        public MainViewModel(ISystemMenuDAL systemMenuDAL, 
+            IRegionManager regionManager,
+            ILanguageManager languageManager, 
+            IEventAggregator eventAggregator)
         {
             this._systemMenuDAL = systemMenuDAL;
             this._regionManager = regionManager;
@@ -62,6 +65,8 @@ namespace Application.Main
             }
 
             LanguageManager.SetLanguage(LanguageType.CN);
+
+            RegionManager.RequestNavigate(ConstName.MainViewRegion, "PartsInfoView");
         }
 
         public DelegateCommand<string> CheckCommand => _checkCommand ??= new DelegateCommand<string>(context =>

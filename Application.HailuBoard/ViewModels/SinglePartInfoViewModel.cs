@@ -16,7 +16,7 @@ namespace Application.HailuBoard
         public SinglePartInfoViewModel(ISinglePartInfoDAL singlePartInfoDAL, IEventAggregator eventAggregator)
         {
             this._singlePartInfoDAL = singlePartInfoDAL;
-            this._eventAggregator = eventAggregator
+            this._eventAggregator = eventAggregator;
 
             this._eventAggregator.GetEvent<RefreshUiEvent>().Subscribe(Initialize);
         }

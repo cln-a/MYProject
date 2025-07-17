@@ -1,4 +1,6 @@
-﻿namespace Application.Common
+﻿using System.Runtime.CompilerServices;
+
+namespace Application.Common
 {
     public class ConstName
     {

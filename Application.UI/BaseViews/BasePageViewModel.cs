@@ -1,5 +1,7 @@
 ﻿using Application.Model;
 using System.Collections.ObjectModel;
+using System.Windows;              // Application
+using System.Windows.Threading;   // Dispatcher
 
 namespace Application.UI
 {
@@ -48,9 +50,12 @@ namespace Application.UI
         protected virtual async void PageUpdateCmd()
         {
             var pageResult = await GetPage();
-            Items.Clear();
-            Items.AddRange(pageResult.items);
-            SetPageResult(pageResult);
+            System.Windows.Application.Current.Dispatcher.Invoke(() =>
+            {
+                Items.Clear();
+                Items.AddRange(pageResult.items);
+                SetPageResult(pageResult);
+            });
         }
 
         protected override void Initialize() =>  PageUpdateCmd();

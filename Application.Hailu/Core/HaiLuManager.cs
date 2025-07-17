@@ -64,9 +64,15 @@ namespace Application.Hailu
                 {
                     var result = _partsInfoDAL.QueryProduceDataCount(batchcode);
                     if (result != 0)
+                    {
                         ParameterFactory.ReadyFlag = 1;
+                        _eventAggregator.GetEvent<SendMessageEvent>().Publish($"开始处理批次号为{batchcode}的板件");
+                    }
                     else
+                    {
                         ParameterFactory.ReadyFlag = 0;
+                        _eventAggregator.GetEvent<SendMessageEvent>().Publish($"未查找到批次号为{batchcode}的数据");
+                    }
                 }
             }
             catch (Exception e) 
@@ -163,6 +169,7 @@ namespace Application.Hailu
                 {
                     ParameterFactory.ReadyFlag = 0;
                     ParameterFactory.RequestFlag = 0;
+                    _eventAggregator.GetEvent<SendMessageEvent>().Publish($"批次{ParameterFactory.BatchCode}已处理完成");
                 }
             }
             catch (Exception ex)
