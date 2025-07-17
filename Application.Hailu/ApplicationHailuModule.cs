@@ -26,7 +26,7 @@ namespace Application.Hailu
                 .Get<ParameterOption[]>()!
                 .FirstOrDefault();
             unityContainer.RegisterSingleton<ParameterFactory>
-                (parameteroption.Name, new InjectionConstructor(parameteroption, typeof(IEventAggregator)));
+                (parameteroption?.Name, new InjectionConstructor(parameteroption, typeof(IEventAggregator)));
 
             unityContainer.RegisterType<IManager, HaiLuManager>(new InjectionConstructor(typeof(ILogger), typeof(IEventAggregator), typeof(IPartsInfoDAL), typeof(ISinglePartInfoDAL)));
         }

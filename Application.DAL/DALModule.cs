@@ -33,14 +33,16 @@ namespace Application.DAL
                 {
                     if (sqliteOption.IsEnabled)
                     {
-                        unityContainer.RegisterInstance<ISqlSugarClient>(sqliteOption.ConnectionName.Trim(),
-                            new SqlSugarClient(new ConnectionConfig() 
-                            { 
-                                DbType = DbType.Sqlite, 
-                                ConnectionString = sqliteOption.ConnectionString, 
-                                IsAutoCloseConnection = true, 
-                                InitKeyType = InitKeyType.Attribute 
-                            }));
+                        unityContainer.RegisterFactory<ISqlSugarClient>(sqliteOption.ConnectionName?.Trim(), factory =>
+                        {
+                            return new SqlSugarClient(new ConnectionConfig
+                            {
+                                DbType = DbType.Sqlite,
+                                ConnectionString = sqliteOption.ConnectionString,
+                                IsAutoCloseConnection = true,
+                                InitKeyType = InitKeyType.Attribute
+                            });
+                        });
                     }
                 }
             }

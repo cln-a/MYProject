@@ -18,7 +18,7 @@ namespace Application.DAL
                 var result = await SqlSugarClient.Queryable<PartsInfo>()
                     .Where(x => x.BatchCode == batchcode && x.Countinfo < x.Quautity)
                     .OrderBy(x => x.Id)
-                    .SingleAsync();
+                    .FirstAsync();
                 return result;
             }
             catch (Exception ex)
@@ -33,7 +33,7 @@ namespace Application.DAL
             {
                 return SqlSugarClient
                     .Queryable<PartsInfo>()
-                    .Where(x => x.BatchCode == batchcode)
+                    .Where(x => x.BatchCode == batchcode && x.Countinfo < x.Quautity)
                     .Count();
             }
             catch(Exception ex)
