@@ -54,50 +54,6 @@ namespace Application.Hailu
             }
         }
 
-        //private async Task ProcessReturnSignalAsync(int id)
-        //{
-        //    try
-        //    {
-        //        var stateinfo = "";
-            
-        //        if (ParameterFactory.OffLineFlag == 1)
-        //        {
-        //            stateinfo = "工件下线";
-        //            _logger.LogDebug($"产品{id}状态--{stateinfo}");
-        //            ParameterFactory.OffLineFlag = 0;
-        //        }
-
-        //        if (ParameterFactory.MeasureOKFlag == 1)
-        //        {
-        //            stateinfo = "测量正确";
-        //            _logger.LogDebug($"产品{id}状态--{stateinfo}");
-        //            ParameterFactory.MeasureOKFlag = 0;
-        //        }
-
-        //        if (ParameterFactory.MeasureErrorFlag == 1)
-        //        {
-        //            stateinfo = "测量错误";
-        //            _logger.LogDebug($"产品{id}状态--{stateinfo}");
-        //            ParameterFactory.MeasureErrorFlag = 0;
-        //        }
-                
-        //        if (_dir.TryRemove(id, out var partInfo)) 
-        //        {
-        //            partInfo.StateInfo = stateinfo;
-        //            var result = await _singlePartInfoDAL.UpdateSingleAsync(id, partInfo);
-        //            if (result == 1)
-        //            {
-        //                _logger.LogDebug($"序号为{id}的板件处理完成");
-        //                _eventAggregator.GetEvent<RefreshUiEvent>().Publish();
-        //            }
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        _logger.LogError(e.Message);
-        //    }
-        //}
-
         private async Task WorkActionAsync()
         {
             try
@@ -118,8 +74,11 @@ namespace Application.Hailu
                         Width1 = result.Width1,
                         Thickness = result.Thickness,
                         Remark = result.Remark,
+                        McOrNot = result.McOrNot,
+                        StateInfo = "",
                     };
                     var identity = await _singlePartInfoDAL.InsertSingleAsync(singlePart);
+                    singlePart.Id = identity;
                     await Task.Run(() =>
                     {
                         ParameterFactory.Length = result.Length;
@@ -157,12 +116,89 @@ namespace Application.Hailu
                 }
             }, ThreadOption.BackgroundThread);
 
+            _eventAggregator.GetEvent<MeasureWidthFlagReadedEvent>()
+                .Subscribe(async () =>
+                {
+                    await ProcessMeasureWidthFlagAsync();
+                }, ThreadOption.BackgroundThread);
+
+            _eventAggregator.GetEvent<MillingCutterFlagReadedEvent>()
+                .Subscribe(async () =>
+                {
+                    await ProcessMillingCutterFlagAsync();
+                }, ThreadOption.BackgroundThread);
+
+            _eventAggregator.GetEvent<OffLineFlagReadedEvent>()
+                .Subscribe(async () =>
+                {
+                    await ProcessOffLineFlagAsync();
+                }, ThreadOption.BackgroundThread);
+
             _eventAggregator.GetEvent<BatchCodeChangedEvent>().Subscribe(SendReadyFlagToPLC, ThreadOption.BackgroundThread);
+        }
+
+        private async Task ProcessMeasureWidthFlagAsync()
+        {
+            var record = _dir.Values
+                .Where(x => x.StateInfo == "")
+                .OrderBy(x => x.Id)
+                .FirstOrDefault();
+            if (record != null)
+            {
+                record.StateInfo = "测量完成";
+                var result = await _singlePartInfoDAL.UpdateSingleAsync(record.Id, record);
+
+                if (_dir.TryGetValue(record.Id, out var singlePart))
+                    singlePart.StateInfo = "测量完成";
+
+                _logger.LogDebug($"产品{record.Id}状态--{record.StateInfo}");
+                _eventAggregator.GetEvent<RefreshUiEvent>().Publish();
+            }
+            ParameterFactory.MeasureWidthFlag = 0;
+        }
+
+        private async Task ProcessMillingCutterFlagAsync()
+        {
+            var record = _dir.Values
+                .Where(x=>x.StateInfo == "测量完成" && x.McOrNot == true)
+                .OrderBy(x => x.Id)
+                .FirstOrDefault();
+            if (record != null) 
+            {
+                record.StateInfo = "铣刀完成";
+                var result = await _singlePartInfoDAL.UpdateSingleAsync(record.Id, record);
+
+                if (_dir.TryGetValue(record.Id, out var singlePart))
+                    singlePart.StateInfo = "铣刀完成";
+
+                _logger.LogDebug($"产品{record.Id}状态--{record.StateInfo}");
+                _eventAggregator.GetEvent<RefreshUiEvent>().Publish();
+            }
+            ParameterFactory.MillingCutterFlag = 0;
+        }
+
+        private async Task ProcessOffLineFlagAsync()
+        {
+            var record = _dir.Values
+                .Where(x => (x.StateInfo == "铣刀完成" && x.McOrNot == true)
+                         || (x.StateInfo == "测量完成" && x.McOrNot == false))
+                .OrderBy(x => x.Id)
+                .FirstOrDefault();
+            if(record != null)
+            {
+                record.StateInfo = "工件下线";
+                var result = await _singlePartInfoDAL.UpdateSingleAsync(record.Id, record);
+                if(_dir.TryRemove(record.Id,out var singlePart))
+                {
+                    _logger.LogDebug($"序号为{record.Id}的板件处理完成");
+                    _eventAggregator.GetEvent<RefreshUiEvent>().Publish();
+                }
+            }
+            ParameterFactory.OffLineFlag = 0;
         }
 
         public void StopService()
         {
-
         }
     }
 }

@@ -105,8 +105,23 @@ namespace Application.Hailu
             IO.TryGet(_option.ThicknessUri!, out _thicknessVariable);
             IO.TryGet(_option.RemarkUri!, out _remarkVariable);
             IO.TryGet(_option.OffLineFlagUri!,out _offLineFlagVariable);
+            OffLineFlagVariable.ValueChangedEvent += (s, e) =>
+            {
+                if (e.GetNewValue<ushort>() == 1) 
+                    eventAggregator.GetEvent<OffLineFlagReadedEvent>().Publish();
+            };
             IO.TryGet(_option.MeasureWidthFlagUri!, out _measureWidthFlagVariable);
+            MeasureWidthFlagVariable.ValueChangedEvent += (s, e) =>
+            {
+                if (e.GetNewValue<ushort>() == 1)
+                    eventAggregator.GetEvent<MeasureWidthFlagReadedEvent>().Publish();
+            };
             IO.TryGet(_option.MillingCutterFlagUri!, out _millingCutterFlagVariable);
+            MillingCutterFlagVariable.ValueChangedEvent += (s, e) =>
+            {
+                if (e.GetNewValue<ushort>() == 1)
+                    eventAggregator.GetEvent<MillingCutterFlagReadedEvent>().Publish();
+            };
         }
     }
 }

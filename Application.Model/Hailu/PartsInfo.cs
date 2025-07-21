@@ -17,6 +17,7 @@ namespace Application.Model
         protected int _remark;       //备注
         protected string? _area;      //平方数
         protected int _countinfo;     //数量信息
+        protected bool _mcOrNot;          //是否需要铣刀
 
         [SugarColumn]
         public string? BatchCode { get => _batchcode; set => _batchcode = value; }
@@ -53,5 +54,8 @@ namespace Application.Model
 
         [SugarColumn]
         public int Countinfo { get => _countinfo; set => _countinfo = value; }
+
+        [SugarColumn]
+        public bool McOrNot { get => _mcOrNot; set => _mcOrNot = value; }
     }
 }
