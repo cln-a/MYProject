@@ -8,11 +8,8 @@
         public string? WidthUri { get; set; }
         public string? ThicknessUri { get; set; }
         public string? RemarkUri { get; set; }  
-        public string? CountUri { get; set; }
         public string? OffLineFlagUri { get; set; }
-        public string? MeasureOKFlagUri { get; set; }
-        public string? MeasureErrorFlagUri { get; set; }   
-        public string? IdentityToPLCUri { get;set; }
-        public string? IdentityFromPLCUri {  get; set; }
+        public string? MeasureWidthFlagUri { get; set; }
+        public string? MillingCutterFlagUri { get; set; }
     }
 }

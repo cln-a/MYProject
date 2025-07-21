@@ -12,12 +12,9 @@ namespace Application.Hailu
         private readonly IVariable _widthVariable;
         private readonly IVariable _thicknessVariable;
         private readonly IVariable _remarkVariable;
-        private readonly IVariable _countVariable;
         private readonly IVariable _offLineFlagVariable;
-        private readonly IVariable _measureOKFlagVariable;
-        private readonly IVariable _measureErrorFlagVariable;
-        private readonly IVariable _identityToPLVariable;
-        private readonly IVariable _identityFromPLCVariable;
+        private readonly IVariable _measureWidthFlagVariable;
+        private readonly IVariable _millingCutterFlagVariable;
         private string? _batchCode;
 
         public IEventAggregator EventAggregator => _eventAggregator;
@@ -27,12 +24,9 @@ namespace Application.Hailu
         public IVariable WidthVariable => _widthVariable;
         public IVariable ThicknessVariable => _thicknessVariable;
         public IVariable RemarkVariable => _remarkVariable;
-        public IVariable CountVariable => _countVariable;
         public IVariable OffLineFlagVariable => _offLineFlagVariable;
-        public IVariable MeasureOKFlagVariable => _measureOKFlagVariable;
-        public IVariable MeasureErrorFlagVariable => _measureErrorFlagVariable;
-        public IVariable IdentityToPLVariable => _identityToPLVariable;
-        public IVariable IdentityFromPLCVariable => _identityFromPLCVariable;
+        public IVariable MeasureWidthFlagVariable => _measureWidthFlagVariable;
+        public IVariable MillingCutterFlagVariable => _millingCutterFlagVariable;
 
         public ushort ReadyFlag
         {
@@ -70,40 +64,22 @@ namespace Application.Hailu
             set => RemarkVariable.WriteAnyValueEx(value);
         }
 
-        public int Count
-        {
-            get => CountVariable.GetValueEx<int>();
-            set => CountVariable.WriteAnyValueEx(value);
-        }
-
         public ushort OffLineFlag
         {
             get => OffLineFlagVariable.GetValueEx<ushort>(); 
             set => OffLineFlagVariable.WriteAnyValueEx(value);
         }
 
-        public ushort MeasureOKFlag
+        public ushort MeasureWidthFlag
         {
-            get => MeasureOKFlagVariable.GetValueEx<ushort>(); 
-            set => MeasureOKFlagVariable.WriteAnyValueEx(value);
+            get => MeasureWidthFlagVariable.GetValue<ushort>();
+            set => MeasureWidthFlagVariable.WriteAnyValueEx(value);
         }
 
-        public ushort MeasureErrorFlag
+        public ushort MillingCutterFlag
         {
-            get => MeasureErrorFlagVariable.GetValueEx<ushort>();
-            set => MeasureErrorFlagVariable.WriteAnyValueEx(value);
-        }
-
-        public int IdentityToPLC
-        {
-            get => IdentityToPLVariable.GetValueEx<int>();
-            set => IdentityToPLVariable.WriteAnyValueEx(value);
-        }
-
-        public int IdentityFromPLC
-        {
-            get => IdentityFromPLCVariable.GetValueEx<int>();
-            set => IdentityFromPLCVariable.WriteAnyValueEx(value);
+            get => MillingCutterFlagVariable.GetValue<ushort>();
+            set => MillingCutterFlagVariable.WriteAnyValueEx(value);
         }
 
         public string? BatchCode
@@ -128,16 +104,9 @@ namespace Application.Hailu
             IO.TryGet(_option.WidthUri!, out _widthVariable);
             IO.TryGet(_option.ThicknessUri!, out _thicknessVariable);
             IO.TryGet(_option.RemarkUri!, out _remarkVariable);
-            IO.TryGet(_option.CountUri!, out _countVariable);
             IO.TryGet(_option.OffLineFlagUri!,out _offLineFlagVariable);
-            IO.TryGet(_option.MeasureOKFlagUri!,out _measureOKFlagVariable);
-            IO.TryGet(_option.MeasureErrorFlagUri!, out _measureErrorFlagVariable);
-            IO.TryGet(_option.IdentityToPLCUri!,out _identityToPLVariable);
-            IO.TryGet(_option.IdentityFromPLCUri!, out _identityFromPLCVariable);
-            IdentityFromPLCVariable.ValueChangedEvent += (s, e) =>
-            {
-                eventAggregator.GetEvent<IdentityChangedEvent>().Publish(e.GetNewValue<int>());
-            };
+            IO.TryGet(_option.MeasureWidthFlagUri!, out _measureWidthFlagVariable);
+            IO.TryGet(_option.MillingCutterFlagUri!, out _millingCutterFlagVariable);
         }
     }
 }

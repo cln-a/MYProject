@@ -5,15 +5,12 @@
       "ReadyFlagUri": "ReadyFlag",
       "RequestFlagUri": "RequestFlag",
       "LengthUri": "Length",
-      "WidthUri": "WidthUri",
+      "WidthUri": "Width",
       "ThicknessUri": "Thickness",
       "RemarkUri": "Remark",
-      "CountUri": "Count",
       "OffLineFlagUri": "OffLineFlag",
-      "MeasureOKFlagUri": "MeasureOKFlag",
-      "MeasureErrorFlagUri": "MeasureErrorFlag",
-      "IdentityToPLCUri": "IdentityToPLC",
-      "IdentityFromPLCUri": "IdentityFromPLC"
+      "MeasureWidthFlagUri": "MeasureWidthFlag",
+      "MillingCutterFlagUri": "MillingCutterFlag"
     }
   ]
 }
