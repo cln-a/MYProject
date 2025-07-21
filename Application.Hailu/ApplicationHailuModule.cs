@@ -28,7 +28,8 @@ namespace Application.Hailu
             unityContainer.RegisterSingleton<ParameterFactory>
                 (parameteroption?.Name, new InjectionConstructor(parameteroption, typeof(IEventAggregator)));
 
-            unityContainer.RegisterSingleton<IManager, HaiLuManager>(new InjectionConstructor(typeof(ILogger), typeof(IEventAggregator), typeof(IPartsInfoDAL), typeof(ISinglePartInfoDAL)));
+            unityContainer.RegisterSingleton<IManager, HaiLuManager>
+                (new InjectionConstructor(typeof(ILogger), typeof(IEventAggregator), typeof(IPartsInfoDAL), typeof(ISinglePartInfoDAL)));
         }
     }
 }

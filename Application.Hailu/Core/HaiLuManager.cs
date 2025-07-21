@@ -7,7 +7,6 @@ namespace Application.Hailu
 {
     public class HaiLuManager : IManager
     {
-        
         private readonly ILogger _logger;
         private readonly IPartsInfoDAL _partsInfoDAL;
         private readonly ISinglePartInfoDAL _singlePartInfoDAL;
