@@ -114,7 +114,6 @@ namespace ApplicationFrameWork
             moduleCatalog.AddModule<DALModule>();
             moduleCatalog.AddModule<ModbusModule>();
             moduleCatalog.AddModule<ApplicationMapperModule>();
-            moduleCatalog.AddModule<ApplicationFrameImportUtilModule>();
             moduleCatalog.AddModule<UIModule>();
             moduleCatalog.AddModule<ApplicationMainModule>();
             moduleCatalog.AddModule<ApplicationDeviceModule>();
@@ -143,7 +142,6 @@ namespace ApplicationFrameWork
             var logger = ServiceLocator.Current.GetInstance<ILogger>();
             var clients = ServiceLocator.Current.GetAllInstances<ModbusClient>();
             var heartBeatMasters = ServiceLocator.Current.GetAllInstances<HeartBeatMaster>();
-            var importutil = ServiceLocator.Current.GetInstance<IImportUtil>();
 
             foreach (var client in clients)
             {
@@ -168,8 +166,6 @@ namespace ApplicationFrameWork
                     logger.LogError( ex.Message);
                 }
             }
-
-            importutil.StopImport();
         }
     }
 }

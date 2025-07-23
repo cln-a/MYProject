@@ -11,7 +11,12 @@ namespace Application.Hailu
         private readonly IVariable _lengthVariable;
         private readonly IVariable _widthVariable;
         private readonly IVariable _thicknessVariable;
-        private readonly IVariable _remarkVariable;
+        private readonly IVariable _holeLengthRightVariable;
+        private readonly IVariable _holeDistanceRightVariable;
+        private readonly IVariable _holeLengthMiddleVariable;
+        private readonly IVariable _holeDistanceMiddleVariable;
+        private readonly IVariable _holeLengthLeftVariable;
+        private readonly IVariable _holeDistanceLeftVariable;
         private readonly IVariable _offLineFlagVariable;
         private readonly IVariable _measureWidthFlagVariable;
         private readonly IVariable _millingCutterFlagVariable;
@@ -23,7 +28,12 @@ namespace Application.Hailu
         public IVariable LengthVariable => _lengthVariable;
         public IVariable WidthVariable => _widthVariable;
         public IVariable ThicknessVariable => _thicknessVariable;
-        public IVariable RemarkVariable => _remarkVariable;
+        public IVariable HoleLengthRightVariable => _holeLengthRightVariable;
+        public IVariable HoleDistanceRightVariable => _holeDistanceRightVariable;
+        public IVariable HoleLengthMiddleVariable => _holeLengthMiddleVariable;
+        public IVariable HoleDistanceMiddleVariable => _holeDistanceMiddleVariable;
+        public IVariable HoleLengthLeftVariable => _holeLengthLeftVariable;
+        public IVariable HoleDistanceLeftVariable => _holeDistanceLeftVariable;
         public IVariable OffLineFlagVariable => _offLineFlagVariable;
         public IVariable MeasureWidthFlagVariable => _measureWidthFlagVariable;
         public IVariable MillingCutterFlagVariable => _millingCutterFlagVariable;
@@ -58,10 +68,40 @@ namespace Application.Hailu
             set => ThicknessVariable.WriteAnyValueEx(value);
         }
 
-        public int Remark
+        public int HoleLengthRight
         {
-            get => RemarkVariable.GetValueEx<int>(); 
-            set => RemarkVariable.WriteAnyValueEx(value);
+            get => HoleLengthRightVariable.GetValueEx<int>();
+            set => HoleLengthRightVariable.WriteAnyValueEx(value);
+        }
+
+        public int HoleDistanceRight
+        {
+            get => HoleDistanceRightVariable.GetValueEx<int>();
+            set => HoleDistanceRightVariable.WriteAnyValueEx(value);
+        }
+
+        public int HoleLengthMiddle
+        {
+            get => HoleLengthMiddleVariable.GetValueEx<int>();
+            set => HoleLengthMiddleVariable.WriteAnyValueEx(value);
+        }
+
+        public int HoleDistanceMiddle
+        {
+            get => HoleDistanceMiddleVariable.GetValueEx<int>(); 
+            set => HoleDistanceMiddleVariable.WriteAnyValueEx(value);
+        }
+
+        public int HoleLengthLeft
+        {
+            get => HoleLengthLeftVariable.GetValueEx<int>();
+            set => HoleLengthLeftVariable.WriteAnyValueEx(value);
+        }
+
+        public int HoleDistanceLeft
+        {
+            get => HoleDistanceLeftVariable.GetValueEx<int>();
+            set => HoleDistanceLeftVariable.WriteAnyValueEx(value);
         }
 
         public ushort OffLineFlag
@@ -103,7 +143,12 @@ namespace Application.Hailu
             IO.TryGet(_option.LengthUri!,out _lengthVariable);
             IO.TryGet(_option.WidthUri!, out _widthVariable);
             IO.TryGet(_option.ThicknessUri!, out _thicknessVariable);
-            IO.TryGet(_option.RemarkUri!, out _remarkVariable);
+            IO.TryGet(_option.HoleLengthRightUri!,out _holeLengthRightVariable);
+            IO.TryGet(_option.HoleDistanceRightUri!,out _holeDistanceRightVariable);
+            IO.TryGet(_option.HoleLengthMiddleUri!, out _holeLengthMiddleVariable);
+            IO.TryGet(_option.HoleDistanceMiddleUri!, out _holeDistanceMiddleVariable);
+            IO.TryGet(_option.HoleLengthLeftUri!, out _holeLengthLeftVariable);
+            IO.TryGet(_option.HoleDistanceLeftUri!, out _holeDistanceLeftVariable);
             IO.TryGet(_option.OffLineFlagUri!,out _offLineFlagVariable);
             OffLineFlagVariable.ValueChangedEvent += (s, e) =>
             {

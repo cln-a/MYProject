@@ -103,7 +103,7 @@ namespace Application.Model
         public int ReadInterval
         {
             get => _readInterval;
-            set => _reconnectInterval= value;
+            set => _readInterval = value;
         }
 
         /// <summary>

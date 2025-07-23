@@ -112,22 +112,10 @@
                     SortMemberPath="BatchCode" />
                 <DataGridTextColumn
                     Width="Auto"
-                    Binding="{Binding Code}"
-                    CanUserSort="True"
-                    Header="编码"
-                    SortMemberPath="Code" />
-                <DataGridTextColumn
-                    Width="Auto"
                     Binding="{Binding Name}"
                     CanUserSort="True"
                     Header="名称"
                     SortMemberPath="Name" />
-                <DataGridTextColumn
-                    Width="Auto"
-                    Binding="{Binding CodeName}"
-                    CanUserSort="True"
-                    Header="代号"
-                    SortMemberPath="CodeName" />
                 <DataGridTextColumn
                     Width="Auto"
                     Binding="{Binding Length}"
@@ -148,16 +136,40 @@
                     SortMemberPath="Thickness" />
                 <DataGridTextColumn
                     Width="Auto"
-                    Binding="{Binding Remark}"
+                    Binding="{Binding HoleLengthRight}"
                     CanUserSort="True"
-                    Header="铣刀数据"
-                    SortMemberPath="Remark" />
+                    Header="右侧铣刀长度"
+                    SortMemberPath="HoleLengthRight" />
                 <DataGridTextColumn
                     Width="Auto"
-                    Binding="{Binding Area}"
+                    Binding="{Binding HoleDistanceRight}"
                     CanUserSort="True"
-                    Header="平方数"
-                    SortMemberPath="Area" />
+                    Header="右侧铣刀距离底部距离"
+                    SortMemberPath="HoleDistanceRight" />
+                <DataGridTextColumn
+                    Width="Auto"
+                    Binding="{Binding HoleLengthMiddle}"
+                    CanUserSort="True"
+                    Header="中间铣刀长度"
+                    SortMemberPath="HoleLengthMiddle" />
+                <DataGridTextColumn
+                    Width="Auto"
+                    Binding="{Binding HoleDistanceMiddle}"
+                    CanUserSort="True"
+                    Header="中间铣刀距离底部距离"
+                    SortMemberPath="HoleDistanceMiddle" />
+                <DataGridTextColumn
+                    Width="Auto"
+                    Binding="{Binding HoleLengthLeft}"
+                    CanUserSort="True"
+                    Header="左侧铣刀长度"
+                    SortMemberPath="HoleLengthLeft" />
+                <DataGridTextColumn
+                    Width="Auto"
+                    Binding="{Binding HoleDistanceLeft}"
+                    CanUserSort="True"
+                    Header="左侧铣刀距离底部距离"
+                    SortMemberPath="HoleDistanceLeft" />
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel

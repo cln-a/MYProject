@@ -7,7 +7,12 @@
       "LengthUri": "Length",
       "WidthUri": "Width",
       "ThicknessUri": "Thickness",
-      "RemarkUri": "Remark",
+      "HoleLengthRightUri": "HoleLengthRight",
+      "HoleDistanceRightUri": "HoleDistanceRight",
+      "HoleLengthMiddleUri": "HoleLengthMiddle",
+      "HoleDistanceMiddleUri": "HoleDistanceMiddle",
+      "HoleLengthLeftUri": "HoleLengthLeft",
+      "HoleDistanceLeftUri": "HoleDistanceLeft",
       "OffLineFlagUri": "OffLineFlag",
       "MeasureWidthFlagUri": "MeasureWidthFlag",
       "MillingCutterFlagUri": "MillingCutterFlag"

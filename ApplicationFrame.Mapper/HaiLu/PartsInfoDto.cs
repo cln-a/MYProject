@@ -14,7 +14,13 @@ public class PartsInfoDto : BaseDomainDto
     protected int _remark;       //备注
     protected string? _area;      //平方数
     protected int _countinfo;     //数量信息
-    
+    protected int _holeLengthRight;    //右侧铣刀长度
+    protected int _holeDistanceRight;  //右侧铣刀距离底部距离
+    protected int _holeLengthMiddle;   //中间铣刀长度 
+    protected int _holeDistanceMiddle; //中间铣刀距离底部距离
+    protected int _holeLengthLeft;     //左侧铣刀长度
+    protected int _holeDistanceLeft;   //左侧铣刀距离底部距离
+
     public string? BatchCode
     {
         get => _batchcode;
@@ -85,5 +91,41 @@ public class PartsInfoDto : BaseDomainDto
     {
         get => _countinfo;
         set => SetProperty(ref this._countinfo, value);
+    }
+
+    public int HoleLengthRight 
+    { 
+        get => _holeLengthRight; 
+        set => SetProperty(ref _holeLengthRight, value);
+    }
+
+    public int HoleDistanceRight 
+    { 
+        get => _holeDistanceRight; 
+        set => SetProperty(ref _holeDistanceRight, value);
+    }
+
+    public int HoleLengthMiddle 
+    { 
+        get => _holeLengthMiddle; 
+        set => SetProperty(ref _holeLengthMiddle, value); 
+    }
+
+    public int HoleDistanceMiddle 
+    { 
+        get => _holeDistanceMiddle; 
+        set => SetProperty(ref _holeDistanceMiddle, value);
+    }
+
+    public int HoleLengthLeft 
+    { 
+        get => _holeLengthLeft; 
+        set => SetProperty(ref _holeLengthLeft, value); 
+    }
+
+    public int HoleDistanceLeft 
+    { 
+        get => _holeDistanceLeft; 
+        set => SetProperty(ref _holeDistanceLeft, value); 
     }
 }
