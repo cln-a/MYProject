@@ -9,7 +9,7 @@ namespace Application.Model
         protected DateTime? _createTime = DateTime.Now;
         protected string? _updater = "admin";
         protected DateTime? _updateTime = DateTime.Now;
-        protected bool _isEnabled;
+        protected bool _isEnabled = true;
         protected string? _description;
 
         [SugarColumn(IsPrimaryKey = true, IsIdentity = true)]

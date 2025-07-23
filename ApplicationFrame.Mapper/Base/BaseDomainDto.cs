@@ -3,11 +3,11 @@
     public class BaseDomainDto : BindableBase
     {
         protected int _id;
-        protected string? _creator;
-        protected DateTime? _createTime;
-        protected string? _updater;
-        protected DateTime? _updateTime;
-        protected bool _isEnabled;
+        protected string? _creator = "admin";
+        protected DateTime? _createTime = DateTime.Now;
+        protected string? _updater = "admin";
+        protected DateTime? _updateTime = DateTime.Now;
+        protected bool _isEnabled = true;
         protected string? _description;
         protected bool _isChecked = true;
 

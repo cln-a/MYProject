@@ -20,6 +20,7 @@ public class PartsInfoDto : BaseDomainDto
     protected int _holeDistanceMiddle; //中间铣刀距离底部距离
     protected int _holeLengthLeft;     //左侧铣刀长度
     protected int _holeDistanceLeft;   //左侧铣刀距离底部距离
+    protected bool _mcOrNot;          //是否需要铣刀
 
     public string? BatchCode
     {
@@ -127,5 +128,11 @@ public class PartsInfoDto : BaseDomainDto
     { 
         get => _holeDistanceLeft; 
         set => SetProperty(ref _holeDistanceLeft, value); 
+    }
+
+    public bool McOrNot 
+    { 
+        get => _mcOrNot;
+        set => SetProperty(ref _mcOrNot, value); 
     }
 }

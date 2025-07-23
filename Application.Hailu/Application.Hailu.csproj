@@ -21,6 +21,7 @@
     <ProjectReference Include="..\Application.Common\Application.Common.csproj" />
     <ProjectReference Include="..\Application.IDAL\Application.IDAL.csproj" />
     <ProjectReference Include="..\Application.Modbus\Application.Modbus.csproj" />
+    <ProjectReference Include="..\Application.Model\Application.Model.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -10,8 +10,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
     xmlns:viewmodel="clr-namespace:Application.HailuBoard"
+    d:DataContext="{d:DesignInstance viewmodel:PartsInfoView}"
     d:DesignHeight="450"
-    d:DesignWidth="800"
+    d:DesignWidth="1000"
     mc:Ignorable="d">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -43,6 +44,28 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Orientation="Horizontal">
+                <Button
+                    Width="120"
+                    Margin="10"
+                    Background="#4B91E2"
+                    Command="{Binding InsertCommand}"
+                    Content="增加数据"
+                    Style="{StaticResource MaterialDesignRaisedButton}" />
+                <Button
+                    Width="120"
+                    Margin="10"
+                    Background="Crimson"
+                    Command="{Binding DelegateCommand}"
+                    CommandParameter="{Binding ElementName=ProduceParameterDataGrid, Path=SelectedItem}"
+                    Content="删除数据"
+                    Style="{StaticResource MaterialDesignRaisedButton}" />
+                <Button
+                    Width="120"
+                    Margin="10,10,60,10"
+                    Command="{Binding UpdateCommand}"
+                    CommandParameter="{Binding ElementName=ProduceParameterDataGrid, Path=SelectedItem}"
+                    Content="更新数据"
+                    Style="{StaticResource MaterialDesignRaisedButton}" />
                 <TextBlock
                     Margin="5"
                     VerticalAlignment="Center"
@@ -52,7 +75,7 @@
                     Margin="5"
                     Text="{Binding BatchCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <Button
-                    Width="150"
+                    Width="120"
                     Margin="5"
                     Background="#47a0ff"
                     Command="{Binding SetBatchCodeCommand}"
@@ -61,6 +84,7 @@
             </StackPanel>
         </Grid>
         <DataGrid
+            x:Name="ProduceParameterDataGrid"
             Grid.Row="1"
             Margin="0,5,0,10"
             controls:DataGridAttach.CanUnselectAllWithBlankArea="True"
@@ -134,6 +158,11 @@
                     CanUserSort="True"
                     Header="厚度"
                     SortMemberPath="Thickness" />
+                <DataGridCheckBoxColumn
+                    Binding="{Binding McOrNot}"
+                    CanUserSort="True"
+                    Header="是否需要铣刀"
+                    SortMemberPath="McOrNot" />
                 <DataGridTextColumn
                     Width="Auto"
                     Binding="{Binding HoleLengthRight}"

@@ -9,8 +9,13 @@ namespace Application.HailuBoard
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            IUnityContainer unityContainer = containerRegistry.GetContainer();
+            unityContainer.RegisterSingleton<ViewModelDtoMapepr>();
+
             containerRegistry.RegisterForNavigation<PartsInfoView>();
             containerRegistry.RegisterForNavigation<SinglePartInfoView>();
+
+            containerRegistry.RegisterDialog<PartsInfoEditView, PartsInfoEditViewModel>("PartsInfoEditDialog");
         }
     }
 }

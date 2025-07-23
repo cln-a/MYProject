@@ -73,7 +73,12 @@ namespace Application.Hailu
                         Length = result.Length,
                         Width1 = result.Width1,
                         Thickness = result.Thickness,
-                        Remark = result.Remark,
+                        HoleLengthRight = result.HoleLengthRight,
+                        HoleDistanceRight = result.HoleDistanceRight,
+                        HoleLengthMiddle = result.HoleLengthMiddle,
+                        HoleDistanceMiddle = result.HoleDistanceMiddle,
+                        HoleLengthLeft = result.HoleLengthLeft,
+                        HoleDistanceLeft = result.HoleDistanceLeft,
                         McOrNot = result.McOrNot,
                         StateInfo = "",
                     };
@@ -84,6 +89,12 @@ namespace Application.Hailu
                         ParameterFactory.Length = result.Length;
                         ParameterFactory.Width = result.Width1;
                         ParameterFactory.Thickness = result.Thickness;
+                        ParameterFactory.HoleLengthRight = result.HoleLengthRight;
+                        ParameterFactory.HoleDistanceRight = result.HoleDistanceRight;
+                        ParameterFactory.HoleLengthMiddle = result.HoleLengthMiddle;
+                        ParameterFactory.HoleDistanceMiddle = result.HoleDistanceMiddle;
+                        ParameterFactory.HoleLengthLeft = result.HoleLengthLeft;
+                        ParameterFactory.HoleDistanceLeft = result.HoleDistanceLeft;
                     });
                     _dir[identity] = singlePart;
                     _eventAggregator.GetEvent<RefreshUiEvent>().Publish();
