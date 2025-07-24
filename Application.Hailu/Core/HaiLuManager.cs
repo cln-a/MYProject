@@ -13,7 +13,6 @@ namespace Application.Hailu
         private readonly IEventAggregator _eventAggregator;
         private ConcurrentDictionary<int, SinglePartInfo> _dir 
             = new ConcurrentDictionary<int, SinglePartInfo>();
-        private bool IsEnabled { get; set; }
 
         [Dependency("HaiLu")] public ParameterFactory ParameterFactory { get; set; }
         
