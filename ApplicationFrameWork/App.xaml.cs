@@ -22,7 +22,6 @@ using Application.SemiAuto;
 using Application.GeneralControl;
 using Application.Dialog;
 using Application.Startup;
-using ApplicationFrame;
 using Application.Hailu;
 using Application.HailuBoard;
 
