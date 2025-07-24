@@ -55,23 +55,12 @@ namespace ApplicationFrameWork
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            //_splashScreen = new MainSplashScreenView();
-            //_splashScreen.Show();
-            //_splashScreen.Topmost = true;
-
-            //await Task.Delay(1500);
-
             base.OnStartup(e);
         }
 
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            //if (_splashScreen != null)
-            //{
-            //    _splashScreen.Close();
-            //    _splashScreen = null!;
-            //}
         }
 
         private void DisPlayShellView()

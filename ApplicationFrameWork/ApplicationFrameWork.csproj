@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Application.ArtificialIntelligence\Application.ArtificialIntelligence.csproj" />
     <ProjectReference Include="..\Application.Camera\Application.Camera.csproj" />
     <ProjectReference Include="..\Application.Common\Application.Common.csproj" />
     <ProjectReference Include="..\Application.Communicate\Application.Communicate.csproj" />
@@ -35,7 +34,6 @@
     <ProjectReference Include="..\Application.Main\Application.Main.csproj" />
     <ProjectReference Include="..\Application.Modbus\Application.Modbus.csproj" />
     <ProjectReference Include="..\Application.Model\Application.Model.csproj" />
-    <ProjectReference Include="..\Application.RestSharp\Application.RestSharp.csproj" />
     <ProjectReference Include="..\Application.S7net\Application.S7net.csproj" />
     <ProjectReference Include="..\Application.SemiAuto\Application.SemiAuto.csproj" />
     <ProjectReference Include="..\Application.Startup\Application.Startup.csproj" />
