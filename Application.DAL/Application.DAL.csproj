@@ -24,10 +24,10 @@
 
   <ItemGroup>
     <None Update="DataBase\HaiLu\ApplicationDataBase.db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Update="DataBase\SemiAuto\ApplicationDataBase.db">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="DbContextOption\DataBase.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
