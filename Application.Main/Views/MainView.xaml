@@ -34,7 +34,7 @@
                         Width="100"
                         Height="50"
                         Margin="0,20,0,5"
-                        Source="D:\WorkSpace\ApplicationFrameWork\Application.UI\Image\莫比乌斯环.png" />
+                        Source="/Application.Main;component/Image/莫比乌斯环.png" />
                     <TextBlock
                         Margin="0,10"
                         HorizontalAlignment="Center"

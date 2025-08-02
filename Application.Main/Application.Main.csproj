@@ -23,4 +23,11 @@
     <ProjectReference Include="..\Application.UI\Application.UI.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Resource Include="Image\connection.png" />
+    <Resource Include="Image\disconnection.png" />
+    <Resource Include="Image\Logo.ico" />
+    <Resource Include="Image\莫比乌斯环.png" />
+  </ItemGroup>
+
 </Project>

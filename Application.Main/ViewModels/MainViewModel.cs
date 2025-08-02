@@ -114,7 +114,7 @@ namespace Application.Main
                         StateBars.Add(new()
                         {
                             Tag = state,
-                            StateImageSource = state.IsConnected ? "D:\\WorkSpace\\ApplicationFrameWork\\Application.UI\\Image\\connection.png" : "D:\\WorkSpace\\ApplicationFrameWork\\Application.UI\\Image\\disconnection.png",
+                            StateImageSource = state.IsConnected ? "../Image/connection.png" : "../Image/disconnection.png",
                             DeviceName = state.Description
                         });
                     }
@@ -137,7 +137,7 @@ namespace Application.Main
                         StateBar? deviceStateBar = StateBars.Where(x => x.Tag is ICommunicationStateMachine y && y.Name == state.Name).FirstOrDefault();
                         if (deviceStateBar != null)
                         {
-                            deviceStateBar.StateImageSource = "D:\\WorkSpace\\ApplicationFrameWork\\Application.UI\\Image\\disconnection.png";
+                            deviceStateBar.StateImageSource = "../Image/disconnection.png";
                         }
                     }));
                 }
@@ -159,7 +159,7 @@ namespace Application.Main
                         StateBar? deviceStateBar = StateBars.Where(x => x.Tag is ICommunicationStateMachine y && y.Name == stateMachine.Name).FirstOrDefault();
                         if (deviceStateBar != null)
                         {
-                            deviceStateBar.StateImageSource = "D:\\WorkSpace\\ApplicationFrameWork\\Application.UI\\Image\\connection.png";
+                            deviceStateBar.StateImageSource = "../Image/connection.png";
                         }
                     }));
                 }
