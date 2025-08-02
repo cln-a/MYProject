@@ -4,6 +4,7 @@ using Application.IDAL;
 using Application.Mapper;
 using Application.Model;
 using Application.UI;
+using Azure.Core;
 using HandyControl.Controls;
 
 namespace Application.HailuBoard
@@ -16,6 +17,7 @@ namespace Application.HailuBoard
         private readonly ViewModelDtoMapepr _viewModelDtoMapepr;
         private string? _batchcode;
         private DelegateCommand _setBatchCodeCommmand;
+        private DelegateCommand<PartsInfoDto> _forceQuitCommand; 
 
         [Dependency("HaiLu")] public ParameterFactory ParameterFactory { get; set; }
         public IPartsInfoDAL PartsInfoDAL => _partsInfoDAL;
@@ -38,7 +40,7 @@ namespace Application.HailuBoard
                 }
             });
         });
-
+        public DelegateCommand<PartsInfoDto> ForceQuitCommand => _forceQuitCommand ??= new DelegateCommand<PartsInfoDto>(ForceQuitCmd);
 
         public PartsInfoViewModel(
             IPartsInfoDAL partsInfoDAL, 
@@ -115,6 +117,22 @@ namespace Application.HailuBoard
                     {CommandTypeKey,CommandTypeEnum.Edit }
                 };
                 _dialogService.ShowDialog("PartsInfoEditDialog", parameter, arg => { Initialize(); });
+            }
+        }
+
+        private void ForceQuitCmd(PartsInfoDto entity)
+        {
+            if (entity == null)
+            {
+                Growl.Error("未选中需要强制结束的数据！");
+                return;
+            }
+            else
+            {
+                entity.Countinfo = entity.Quautity;
+                _partsInfoDAL.UpdatePartsInfoAsync(Mapper.Map<PartsInfo>(entity));
+                Initialize();
+                InfoGlobal("所选中数据已强制结束！");
             }
         }
     }

@@ -66,7 +66,7 @@ namespace Application.Main
 
             LanguageManager.SetLanguage(LanguageType.CN);
 
-            RegionManager.RequestNavigate(ConstName.MainViewRegion, "GeneralControlView");
+            RegionManager.RequestNavigate(ConstName.MainViewRegion, "PartsInfoView");
         }
 
         public DelegateCommand<string> CheckCommand => _checkCommand ??= new DelegateCommand<string>(context =>

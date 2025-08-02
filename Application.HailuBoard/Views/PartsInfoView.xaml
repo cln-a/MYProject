@@ -61,10 +61,18 @@
                     Style="{StaticResource MaterialDesignRaisedButton}" />
                 <Button
                     Width="120"
-                    Margin="10,10,60,10"
+                    Margin="10"
                     Command="{Binding UpdateCommand}"
                     CommandParameter="{Binding ElementName=ProduceParameterDataGrid, Path=SelectedItem}"
                     Content="更新数据"
+                    Style="{StaticResource MaterialDesignRaisedButton}" />
+                <Button
+                    Width="120"
+                    Margin="10,10,60,10"
+                    Background="Orange"
+                    Command="{Binding ForceQuitCommand}"
+                    CommandParameter="{Binding ElementName=ProduceParameterDataGrid, Path=SelectedItem}"
+                    Content="强制结束"
                     Style="{StaticResource MaterialDesignRaisedButton}" />
                 <TextBlock
                     Margin="5"

@@ -82,33 +82,33 @@ namespace ApplicationFrameWork
             base.ConfigureModuleCatalog(moduleCatalog);
 
             #region SemiAuto
-            moduleCatalog.AddModule<LoggerModule>();
-            moduleCatalog.AddModule<ApplicationMapperModule>();
-            moduleCatalog.AddModule<SemiAutoModule>();
-            moduleCatalog.AddModule<DALModule>();
-            moduleCatalog.AddModule<ModbusModule>();
-            moduleCatalog.AddModule<UIModule>();
-            moduleCatalog.AddModule<ApplicationMainModule>();
-            moduleCatalog.AddModule<ApplicationGeneralControlModule>();
-            moduleCatalog.AddModule<ApplicationDeviceModule>();
-            moduleCatalog.AddModule<ApplicationCommunicateModule>();
-            moduleCatalog.AddModule<ApplicationJournalModule>();
-            moduleCatalog.AddModule<ApplicationDialogModule>();
-            #endregion
-
-            #region HaiLu
             //moduleCatalog.AddModule<LoggerModule>();
+            //moduleCatalog.AddModule<ApplicationMapperModule>();
+            //moduleCatalog.AddModule<SemiAutoModule>();
             //moduleCatalog.AddModule<DALModule>();
             //moduleCatalog.AddModule<ModbusModule>();
-            //moduleCatalog.AddModule<ApplicationMapperModule>();
             //moduleCatalog.AddModule<UIModule>();
             //moduleCatalog.AddModule<ApplicationMainModule>();
+            //moduleCatalog.AddModule<ApplicationGeneralControlModule>();
             //moduleCatalog.AddModule<ApplicationDeviceModule>();
             //moduleCatalog.AddModule<ApplicationCommunicateModule>();
             //moduleCatalog.AddModule<ApplicationJournalModule>();
             //moduleCatalog.AddModule<ApplicationDialogModule>();
-            //moduleCatalog.AddModule<ApplicationHailuModule>();
-            //moduleCatalog.AddModule<ApplicationHaiLuBoardModule>();
+            #endregion
+
+            #region HaiLu
+            moduleCatalog.AddModule<LoggerModule>();
+            moduleCatalog.AddModule<DALModule>();
+            moduleCatalog.AddModule<ModbusModule>();
+            moduleCatalog.AddModule<ApplicationMapperModule>();
+            moduleCatalog.AddModule<UIModule>();
+            moduleCatalog.AddModule<ApplicationMainModule>();
+            moduleCatalog.AddModule<ApplicationDeviceModule>();
+            moduleCatalog.AddModule<ApplicationCommunicateModule>();
+            moduleCatalog.AddModule<ApplicationJournalModule>();
+            moduleCatalog.AddModule<ApplicationDialogModule>();
+            moduleCatalog.AddModule<ApplicationHailuModule>();
+            moduleCatalog.AddModule<ApplicationHaiLuBoardModule>();
             #endregion
         }
 

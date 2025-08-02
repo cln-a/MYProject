@@ -1,7 +1,5 @@
 ﻿using Application.Model;
 using System.Collections.ObjectModel;
-using System.Windows;              // Application
-using System.Windows.Threading;   // Dispatcher
 
 namespace Application.UI
 {
