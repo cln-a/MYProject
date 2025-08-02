@@ -14,7 +14,8 @@
       "HoleLengthLeftUri": "HoleLengthLeft",
       "HoleDistanceLeftUri": "HoleDistanceLeft",
       "OffLineFlagUri": "OffLineFlag",
-      "MeasureWidthFlagUri": "MeasureWidthFlag"
+      "MeasureWidthFlagUri": "MeasureWidthFlag",
+      "BoardTypeFlagUri": "BoardType"
     }
   ]
 }

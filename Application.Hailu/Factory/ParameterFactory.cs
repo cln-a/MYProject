@@ -19,9 +19,9 @@ namespace Application.Hailu
         private readonly IVariable _holeDistanceLeftVariable;
         private readonly IVariable _offLineFlagVariable;
         private readonly IVariable _measureWidthFlagVariable;
+        private readonly IVariable _boardTypeVariable;
         private string? _batchCode;
 
-        public IEventAggregator EventAggregator => _eventAggregator;
         public IVariable ReadyFlagVariable => _readyFlagVariable;
         public IVariable RequestFlagVariable => _requestFlagVariable;
         public IVariable LengthVariable => _lengthVariable;
@@ -35,6 +35,7 @@ namespace Application.Hailu
         public IVariable HoleDistanceLeftVariable => _holeDistanceLeftVariable;
         public IVariable OffLineFlagVariable => _offLineFlagVariable;
         public IVariable MeasureWidthFlagVariable => _measureWidthFlagVariable;
+        public IVariable BoardTypeVariable => _boardTypeVariable;
 
         public ushort ReadyFlag
         {
@@ -114,6 +115,12 @@ namespace Application.Hailu
             set => MeasureWidthFlagVariable.WriteAnyValueEx(value);
         }
 
+        public ushort BoardType
+        {
+            get => BoardTypeVariable.GetValueEx<ushort>();
+            set => BoardTypeVariable.WriteAnyValueEx(value);
+        }
+
         public string? BatchCode
         {
             get => _batchCode;
@@ -153,6 +160,7 @@ namespace Application.Hailu
                 if (e.GetNewValue<ushort>() == 1)
                     eventAggregator.GetEvent<MeasureWidthFlagReadedEvent>().Publish();
             };
+            IO.TryGet(_option.BoardTypeFlagUri!, out _boardTypeVariable);
         }
     }
 }
