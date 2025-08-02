@@ -14,8 +14,7 @@
       "HoleLengthLeftUri": "HoleLengthLeft",
       "HoleDistanceLeftUri": "HoleDistanceLeft",
       "OffLineFlagUri": "OffLineFlag",
-      "MeasureWidthFlagUri": "MeasureWidthFlag",
-      "MillingCutterFlagUri": "MillingCutterFlag"
+      "MeasureWidthFlagUri": "MeasureWidthFlag"
     }
   ]
 }

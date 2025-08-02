@@ -7,17 +7,17 @@ public class SinglePartInfoDto : BaseDomainDto
     protected string? _code;      //编码
     protected string? _name;      //名称
     protected string? _codename;  //代号
-    protected int _length;        //长度L
-    protected int _width1;        //宽度W1
-    protected int _thickness;     //厚度
-    protected int _remark;       //备注
+    protected ushort _length;        //长度L
+    protected ushort _width1;        //宽度W1
+    protected ushort _thickness;     //厚度
+    protected ushort _remark;       //备注
     protected string? _stateinfo;     //状态信息
-    protected int _holeLengthRight;    //右侧铣刀长度
-    protected int _holeDistanceRight;  //右侧铣刀距离底部距离
-    protected int _holeLengthMiddle;   //中间铣刀长度 
-    protected int _holeDistanceMiddle; //中间铣刀距离底部距离
-    protected int _holeLengthLeft;     //左侧铣刀长度
-    protected int _holeDistanceLeft;   //左侧铣刀距离底部距离
+    protected ushort _holeLengthRight;    //右侧铣刀长度
+    protected ushort _holeDistanceRight;  //右侧铣刀距离底部距离
+    protected ushort _holeLengthMiddle;   //中间铣刀长度 
+    protected ushort _holeDistanceMiddle; //中间铣刀距离底部距离
+    protected ushort _holeLengthLeft;     //左侧铣刀长度
+    protected ushort _holeDistanceLeft;   //左侧铣刀距离底部距离
 
     public int CountNumber
     {
@@ -49,25 +49,25 @@ public class SinglePartInfoDto : BaseDomainDto
         set => SetProperty(ref this._codename, value);
     }
     
-    public int Length
+    public ushort Length
     {
         get => _length;
         set => SetProperty(ref this._length, value);
     }
     
-    public int Width1
+    public ushort Width1
     {
         get => _width1;
         set => SetProperty(ref this._width1, value);
     }
     
-    public int Thickness
+    public ushort Thickness
     {
         get => _thickness;
         set => SetProperty(ref this._thickness, value);
     }
     
-    public int Remark
+    public ushort Remark
     {
         get => _remark;
         set => SetProperty(ref this._remark, value);
@@ -79,37 +79,37 @@ public class SinglePartInfoDto : BaseDomainDto
         set => SetProperty(ref this._stateinfo, value);
     }
 
-    public int HoleLengthRight 
+    public ushort HoleLengthRight 
     { 
         get => _holeLengthRight;
         set => SetProperty(ref _holeLengthRight, value);
     }
 
-    public int HoleDistanceRight 
+    public ushort HoleDistanceRight 
     { 
         get => _holeDistanceRight; 
         set => SetProperty(ref _holeDistanceRight, value);
     }
 
-    public int HoleLengthMiddle 
+    public ushort HoleLengthMiddle 
     {
         get => _holeLengthMiddle; 
         set => SetProperty(ref _holeLengthMiddle, value); 
     }
 
-    public int HoleDistanceMiddle
+    public ushort HoleDistanceMiddle
     {
         get => _holeDistanceMiddle; 
         set => SetProperty(ref _holeDistanceMiddle, value);
     }
 
-    public int HoleLengthLeft 
+    public ushort HoleLengthLeft 
     { 
         get => _holeLengthLeft; 
         set => SetProperty(ref _holeLengthLeft, value);
     }
 
-    public int HoleDistanceLeft
+    public ushort HoleDistanceLeft
     { 
         get => _holeDistanceLeft; 
         set => SetProperty(ref _holeDistanceLeft, value); 

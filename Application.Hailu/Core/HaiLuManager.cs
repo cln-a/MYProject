@@ -131,13 +131,6 @@ namespace Application.Hailu
                 {
                     await ProcessMeasureWidthFlagAsync();
                 }, ThreadOption.BackgroundThread);
-
-            _eventAggregator.GetEvent<MillingCutterFlagReadedEvent>()
-                .Subscribe(async () =>
-                {
-                    await ProcessMillingCutterFlagAsync();
-                }, ThreadOption.BackgroundThread);
-
             _eventAggregator.GetEvent<OffLineFlagReadedEvent>()
                 .Subscribe(async () =>
                 {
@@ -167,31 +160,10 @@ namespace Application.Hailu
             ParameterFactory.MeasureWidthFlag = 0;
         }
 
-        private async Task ProcessMillingCutterFlagAsync()
-        {
-            var record = _dir.Values
-                .Where(x=>x.StateInfo == "测量完成" && x.McOrNot == true)
-                .OrderBy(x => x.Id)
-                .FirstOrDefault();
-            if (record != null) 
-            {
-                record.StateInfo = "铣刀完成";
-                var result = await _singlePartInfoDAL.UpdateSingleAsync(record.Id, record);
-
-                if (_dir.TryGetValue(record.Id, out var singlePart))
-                    singlePart.StateInfo = "铣刀完成";
-
-                _logger.LogDebug($"产品{record.Id}状态--{record.StateInfo}");
-                _eventAggregator.GetEvent<RefreshUiEvent>().Publish();
-            }
-            ParameterFactory.MillingCutterFlag = 0;
-        }
-
         private async Task ProcessOffLineFlagAsync()
         {
             var record = _dir.Values
-                .Where(x => (x.StateInfo == "铣刀完成" && x.McOrNot == true)
-                         || (x.StateInfo == "测量完成" && x.McOrNot == false))
+                .Where(x => x.StateInfo == "测量完成")
                 .OrderBy(x => x.Id)
                 .FirstOrDefault();
             if(record != null)

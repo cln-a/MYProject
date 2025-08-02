@@ -15,6 +15,5 @@
         public string? HoleDistanceLeftUri { get; set; }
         public string? OffLineFlagUri { get; set; }
         public string? MeasureWidthFlagUri { get; set; }
-        public string? MillingCutterFlagUri { get; set; }
     }
 }
