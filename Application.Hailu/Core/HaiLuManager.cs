@@ -57,18 +57,19 @@ namespace Application.Hailu
         {
             try
             {
-                var result = await _partsInfoDAL.QueryProduceDataAsync(ParameterFactory.BatchCode!);
+                var result = await _partsInfoDAL.QueryProduceDataAsync(ParameterFactory.Identity!);
                 if (result != null)
                 {
                     result.Countinfo += 1;
                     await _partsInfoDAL.UpdatePartsInfoAsync(result);
                     var singlePart = new SinglePartInfo()
                     {
-                        CountNumber = result.Countinfo + 1,
+                        CountNumber = result.Countinfo,
                         BatchCode = result.BatchCode,
-                        Code = result.Code,
+                        Batch = result.Batch,
+                        Identity = result.Identity,
                         Name = result.Name,
-                        CodeName = result.CodeName,
+                        Description = result.Description,
                         Length = result.Length,
                         Width1 = result.Width1,
                         Thickness = result.Thickness,
@@ -83,6 +84,11 @@ namespace Application.Hailu
                     };
                     var identity = await _singlePartInfoDAL.InsertSingleAsync(singlePart);
                     singlePart.Id = identity;
+                    ushort boardtype = 0;
+                    if(result.Description!.Contains("L3") || result.Description!.Contains("C2") || result.Description!.Contains("C2A") || result.Description!.Contains("L3S") || result.Description!.Contains("C2S"))
+                        boardtype = 1;
+                    else if (result.Description!.Contains("L2"))
+                        boardtype = 3;
                     await Task.Run(() =>
                     {
                         ParameterFactory.Length = result.Length;
@@ -94,15 +100,14 @@ namespace Application.Hailu
                         ParameterFactory.HoleDistanceMiddle = result.HoleDistanceMiddle;
                         ParameterFactory.HoleLengthLeft = result.HoleLengthLeft;
                         ParameterFactory.HoleDistanceLeft = result.HoleDistanceLeft;
+                        ParameterFactory.BoardType = boardtype;
                     });
                     _dir[identity] = singlePart;
                     _eventAggregator.GetEvent<RefreshUiEvent>().Publish();
-                    await Task.Run(() => { ParameterFactory.RequestFlag = 0; });
                 }
                 else
                 {
                     ParameterFactory.ReadyFlag = 0;
-                    ParameterFactory.RequestFlag = 0;
                     _eventAggregator.GetEvent<SendMessageEvent>().Publish($"批次{ParameterFactory.BatchCode}已处理完成");
                 }
             }

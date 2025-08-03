@@ -74,14 +74,26 @@
                     Width="Auto"
                     Binding="{Binding BatchCode}"
                     CanUserSort="True"
-                    Header="批次号"
+                    Header="合同号"
                     SortMemberPath="BatchCode" />
+                <DataGridTextColumn
+                    Width="Auto"
+                    Binding="{Binding Batch}"
+                    CanUserSort="True"
+                    Header="批次号"
+                    SortMemberPath="Batch" />
                 <DataGridTextColumn
                     Width="Auto"
                     Binding="{Binding Name}"
                     CanUserSort="True"
                     Header="名称"
                     SortMemberPath="Name" />
+                <DataGridTextColumn
+                    Width="Auto"
+                    Binding="{Binding Description}"
+                    CanUserSort="True"
+                    Header="类型"
+                    SortMemberPath="Description" />
                 <DataGridTextColumn
                     Width="Auto"
                     Binding="{Binding Length}"

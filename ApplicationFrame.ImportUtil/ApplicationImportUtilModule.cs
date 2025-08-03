@@ -1,4 +1,5 @@
 ﻿using Application.Common;
+using Application.IDAL;
 using Microsoft.Extensions.Logging;
 using System.IO;
 using System.Text.Json;
@@ -23,7 +24,7 @@ namespace Application.ImportUtil
             var config = JsonSerializer.Deserialize<ImportUtilConfig>(json);
 
             unityContainer.RegisterType<IImportUtil, ImportUtilHaiLu>
-                (new InjectionConstructor(config?.FolderPaths, config?.HistoryFolderPath, typeof(ILogger)));
+                (new InjectionConstructor(config?.FolderPaths, config?.HistoryFolderPath, typeof(ILogger), typeof(IPartsInfoDAL), typeof(IEventAggregator)));
         }
     }
 }

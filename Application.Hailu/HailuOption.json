@@ -15,7 +15,8 @@
       "HoleDistanceLeftUri": "HoleDistanceLeft",
       "OffLineFlagUri": "OffLineFlag",
       "MeasureWidthFlagUri": "MeasureWidthFlag",
-      "BoardTypeFlagUri": "BoardType"
+      "BoardTypeFlagUri": "BoardType",
+      "PLCStateFalgUri": "PLCStateFalg"
     }
   ]
 }

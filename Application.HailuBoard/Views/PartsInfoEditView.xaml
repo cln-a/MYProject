@@ -56,39 +56,46 @@
                         Grid.Column="0"
                         Margin="5"
                         controls:InfoElement.Necessary="True"
-                        controls:InfoElement.Title="批次号"
+                        controls:InfoElement.Title="合同号"
                         Text="{Binding Dto.BatchCode}" />
                     <controls:TextBox
                         Grid.Row="0"
                         Grid.Column="1"
                         Margin="5"
                         controls:InfoElement.Necessary="True"
-                        controls:InfoElement.Title="名称"
-                        Text="{Binding Dto.Name}" />
+                        controls:InfoElement.Title="批次"
+                        Text="{Binding Dto.Batch}" />
                     <controls:TextBox
                         Grid.Row="1"
                         Grid.Column="0"
                         Margin="5"
                         controls:InfoElement.Necessary="True"
-                        controls:InfoElement.Title="长度"
-                        Text="{Binding Dto.Length}" />
+                        controls:InfoElement.Title="名称"
+                        Text="{Binding Dto.Name}" />
                     <controls:TextBox
                         Grid.Row="1"
                         Grid.Column="1"
+                        Margin="5"
+                        controls:InfoElement.Necessary="True"
+                        controls:InfoElement.Title="长度"
+                        Text="{Binding Dto.Length}" />
+                    <controls:TextBox
+                        Grid.Row="2"
+                        Grid.Column="0"
                         Margin="5"
                         controls:InfoElement.Necessary="True"
                         controls:InfoElement.Title="宽度"
                         Text="{Binding Dto.Width1}" />
                     <controls:TextBox
                         Grid.Row="2"
-                        Grid.Column="0"
+                        Grid.Column="1"
                         Margin="5"
                         controls:InfoElement.Necessary="True"
                         controls:InfoElement.Title="厚度"
                         Text="{Binding Dto.Thickness}" />
                     <Grid
-                        Grid.Row="2"
-                        Grid.Column="2"
+                        Grid.Row="3"
+                        Grid.Column="0"
                         Margin="5">
                         <Grid.RowDefinitions>
                             <RowDefinition />
@@ -107,49 +114,49 @@
                     </Grid>
                     <controls:TextBox
                         Grid.Row="3"
-                        Grid.Column="0"
+                        Grid.Column="1"
                         Margin="5"
                         controls:InfoElement.Title="右侧铣刀长度"
                         IsEnabled="{Binding ElementName=MCToggleButton, Path=IsChecked}"
                         Text="{Binding Dto.HoleLengthRight}" />
                     <controls:TextBox
-                        Grid.Row="3"
-                        Grid.Column="1"
+                        Grid.Row="4"
+                        Grid.Column="0"
                         Margin="5"
                         controls:InfoElement.Title="右侧铣刀距离底部距离"
                         IsEnabled="{Binding ElementName=MCToggleButton, Path=IsChecked}"
                         Text="{Binding Dto.HoleDistanceRight}" />
                     <controls:TextBox
                         Grid.Row="4"
-                        Grid.Column="0"
+                        Grid.Column="1"
                         Margin="5"
                         controls:InfoElement.Title="中间铣刀长度"
                         IsEnabled="{Binding ElementName=MCToggleButton, Path=IsChecked}"
                         Text="{Binding Dto.HoleLengthMiddle}" />
                     <controls:TextBox
-                        Grid.Row="4"
-                        Grid.Column="1"
+                        Grid.Row="5"
+                        Grid.Column="0"
                         Margin="5"
                         controls:InfoElement.Title="中间铣刀距离底部距离"
                         IsEnabled="{Binding ElementName=MCToggleButton, Path=IsChecked}"
                         Text="{Binding Dto.HoleDistanceMiddle}" />
                     <controls:TextBox
                         Grid.Row="5"
-                        Grid.Column="0"
+                        Grid.Column="1"
                         Margin="5"
                         controls:InfoElement.Title="左侧铣刀长度"
                         IsEnabled="{Binding ElementName=MCToggleButton, Path=IsChecked}"
                         Text="{Binding Dto.HoleLengthLeft}" />
                     <controls:TextBox
-                        Grid.Row="5"
-                        Grid.Column="1"
+                        Grid.Row="6"
+                        Grid.Column="0"
                         Margin="5"
                         controls:InfoElement.Title="左侧铣刀距离底部距离"
                         IsEnabled="{Binding ElementName=MCToggleButton, Path=IsChecked}"
                         Text="{Binding Dto.HoleDistanceLeft}" />
                     <controls:TextBox
                         Grid.Row="6"
-                        Grid.Column="0"
+                        Grid.Column="1"
                         Margin="5"
                         controls:InfoElement.Necessary="True"
                         controls:InfoElement.Title="数量"

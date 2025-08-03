@@ -11,12 +11,31 @@ namespace Application.DAL
         {
         }
 
+        public int BatchInsertWithOutSame(List<PartsInfo> partsInfos, HashSet<string> identities)
+        {
+            try
+            {
+                var existingidentities = SqlSugarClient.Queryable<PartsInfo>()
+                    .Where(x => identities.Contains(x.Identity!))
+                    .Select(x=>x.Identity)
+                    .ToList();
+                partsInfos = partsInfos.Where(x => !existingidentities.Contains(x.Identity)).ToList();
+                if (partsInfos.Any())
+                    return SqlSugarClient.Insertable(partsInfos).ExecuteCommand();
+                return 0;
+            }
+            catch(Exception ex)
+            {
+                return 0;
+            }
+        }
+
         public async Task<PartsInfo> QueryProduceDataAsync(string batchcode)
         {
             try
             {
                 var result = await SqlSugarClient.Queryable<PartsInfo>()
-                    .Where(x => x.BatchCode == batchcode && x.Countinfo < x.Quautity)
+                    .Where(x => x.Identity == batchcode && x.Countinfo < x.Quautity)
                     .OrderBy(x => x.Id)
                     .FirstAsync();
                 return result;
@@ -33,7 +52,7 @@ namespace Application.DAL
             {
                 var result = SqlSugarClient
                     .Queryable<PartsInfo>()
-                    .Where(x => x.BatchCode == batchcode && x.Countinfo < x.Quautity);
+                    .Where(x => x.Identity == batchcode && x.Countinfo < x.Quautity);
                 return result.Count();
             }
             catch(Exception ex)

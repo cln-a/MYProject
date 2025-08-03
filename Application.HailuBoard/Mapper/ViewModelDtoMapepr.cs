@@ -14,6 +14,9 @@ namespace Application.HailuBoard
         {
             Id = dto.Id,
             BatchCode = dto.BatchCode,
+            Batch = dto.Batch,
+            Identity = dto.Identity,
+            Code = dto.Code,
             Name = dto.Name,
             Length = dto.Length,
             Width1 = dto.Width1,
@@ -31,6 +34,7 @@ namespace Application.HailuBoard
             UpdateTime = dto.UpdateTime,
             IsEnabled = dto.IsEnabled,
             McOrNot = dto.McOrNot,
+            Description = dto.Description,
         };
     }
 }

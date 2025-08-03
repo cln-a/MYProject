@@ -19,9 +19,11 @@ namespace Application.HailuBoard
                 switch (CommandType)
                 {
                     case Common.CommandTypeEnum.Add:
+                        dto.Identity = dto.BatchCode + dto.Batch;
                         _partsInfoDAL.SingleInsertAsync(Mapper.Map<PartsInfo>(dto));
                         break;
                     case Common.CommandTypeEnum.Edit:
+                        dto.Identity = dto.BatchCode + dto.Batch;
                         _partsInfoDAL.UpdatePartsInfoAsync(Mapper.Map<PartsInfo>(dto));
                         break;
                 }

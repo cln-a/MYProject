@@ -20,7 +20,10 @@ namespace Application.Hailu
         private readonly IVariable _offLineFlagVariable;
         private readonly IVariable _measureWidthFlagVariable;
         private readonly IVariable _boardTypeVariable;
+        private readonly IVariable _pLCStateFalgVariable;
         private string? _batchCode;
+        private string? _batch;
+        private string? _identity;
 
         public IVariable ReadyFlagVariable => _readyFlagVariable;
         public IVariable RequestFlagVariable => _requestFlagVariable;
@@ -36,6 +39,7 @@ namespace Application.Hailu
         public IVariable OffLineFlagVariable => _offLineFlagVariable;
         public IVariable MeasureWidthFlagVariable => _measureWidthFlagVariable;
         public IVariable BoardTypeVariable => _boardTypeVariable;
+        public IVariable PLCStateFalgVariable => _pLCStateFalgVariable;
 
         public ushort ReadyFlag
         {
@@ -121,10 +125,28 @@ namespace Application.Hailu
             set => BoardTypeVariable.WriteAnyValueEx(value);
         }
 
+        public ushort PLCStateFalg
+        {
+            get => PLCStateFalgVariable.GetValueEx<ushort>();
+            set => PLCStateFalgVariable.WriteAnyValue(value);
+        }
+
         public string? BatchCode
         {
             get => _batchCode;
             set => SetProperty(ref _batchCode, value);
+        }
+
+        public string? Batch
+        {
+            get => _batch;
+            set => SetProperty(ref _batch, value);  
+        }
+
+        public string? Identity
+        {
+            get => _identity;
+            set => SetProperty(ref _identity, value);
         }
 
         public ParameterFactory(ParameterOption option, IEventAggregator eventAggregator)
@@ -161,6 +183,7 @@ namespace Application.Hailu
                     eventAggregator.GetEvent<MeasureWidthFlagReadedEvent>().Publish();
             };
             IO.TryGet(_option.BoardTypeFlagUri!, out _boardTypeVariable);
+            IO.TryGet(_option.PLCStateFalgUri!, out _pLCStateFalgVariable);
         }
     }
 }

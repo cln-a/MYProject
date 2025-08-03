@@ -6,6 +6,6 @@
 
         void StopImport();
 
-        void ExecuteImport();
+        void ExecuteImport(string filePath);
     }
 }

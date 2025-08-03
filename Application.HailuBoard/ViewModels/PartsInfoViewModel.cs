@@ -16,12 +16,14 @@ namespace Application.HailuBoard
         private readonly IDialogService _dialogService;
         private readonly ViewModelDtoMapepr _viewModelDtoMapepr;
         private string? _batchcode;
+        private string? _batch;
         private DelegateCommand _setBatchCodeCommmand;
         private DelegateCommand<PartsInfoDto> _forceQuitCommand; 
 
         [Dependency("HaiLu")] public ParameterFactory ParameterFactory { get; set; }
         public IPartsInfoDAL PartsInfoDAL => _partsInfoDAL;
         public string? BatchCode { get => _batchcode; set => SetProperty(ref _batchcode, value); }
+        public string? Batch { get => _batch; set => SetProperty(ref _batch, value); }
         public DelegateCommand SetBatchCodeCommand => _setBatchCodeCommmand ??= new DelegateCommand(() =>
         {
             _dialogService.Show("DialogView",new DialogParameters
@@ -32,7 +34,9 @@ namespace Application.HailuBoard
                 if(result.Result == ButtonResult.OK)
                 {
                     ParameterFactory.BatchCode = BatchCode;
-                    _eventAggregator.GetEvent<BatchCodeChangedEvent>().Publish(BatchCode!);
+                    ParameterFactory.Batch = Batch;
+                    ParameterFactory.Identity = BatchCode + Batch;
+                    _eventAggregator.GetEvent<BatchCodeChangedEvent>().Publish((BatchCode + Batch)!);
                 }
                 else
                 {

@@ -4,6 +4,8 @@ public class SinglePartInfoDto : BaseDomainDto
 {
     protected int _countNumber;   //数量
     protected string? _batchcode; //合同号
+    protected string? _batch;     //批次
+    protected string? _identity;  //唯一标识符
     protected string? _code;      //编码
     protected string? _name;      //名称
     protected string? _codename;  //代号
@@ -18,6 +20,7 @@ public class SinglePartInfoDto : BaseDomainDto
     protected ushort _holeDistanceMiddle; //中间铣刀距离底部距离
     protected ushort _holeLengthLeft;     //左侧铣刀长度
     protected ushort _holeDistanceLeft;   //左侧铣刀距离底部距离
+    protected bool _mcOrNot;          //是否需要铣刀
 
     public int CountNumber
     {
@@ -30,7 +33,19 @@ public class SinglePartInfoDto : BaseDomainDto
         get => _batchcode;
         set => SetProperty(ref this._batchcode, value);
     }
-    
+
+    public string? Batch
+    {
+        get => _batch;
+        set => SetProperty(ref _batch, value);
+    }
+
+    public string? Identity
+    {
+        get => _identity;
+        set => SetProperty(ref _identity, value);
+    }
+
     public string? Code
     {
         get => _code;
@@ -113,5 +128,11 @@ public class SinglePartInfoDto : BaseDomainDto
     { 
         get => _holeDistanceLeft; 
         set => SetProperty(ref _holeDistanceLeft, value); 
+    }
+
+    public bool McOrNot
+    {
+        get => _mcOrNot;
+        set => SetProperty(ref _mcOrNot, value);
     }
 }

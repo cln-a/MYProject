@@ -16,5 +16,6 @@
         public string? OffLineFlagUri { get; set; }
         public string? MeasureWidthFlagUri { get; set; }
         public string? BoardTypeFlagUri { get; set; }   
+        public string? PLCStateFalgUri { get; set; }
     }
 }

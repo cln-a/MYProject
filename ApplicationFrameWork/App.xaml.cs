@@ -1,29 +1,30 @@
-﻿using Application.DAL;
-using Application.Login;
-using Application.Main;
-using ApplicationFrameWork.ViewModels;
-using ApplicationFrameWork.Views;
-using Prism.Common;
-using System.Windows;
-using Application.UI;
-using Application.Common;
-using Application.Logger;
-using CommonServiceLocator;
-using Unity.ServiceLocation;
-using ControlzEx.Theming;
-using System.Windows.Media;
+﻿using Application.Common;
 using Application.Communicate;
-using Application.Journal;
+using Application.DAL;
 using Application.Device;
-using Application.Mapper;
-using Application.Modbus;
-using Microsoft.Extensions.Logging;
-using Application.SemiAuto;
-using Application.GeneralControl;
 using Application.Dialog;
-using Application.Startup;
+using Application.GeneralControl;
 using Application.Hailu;
 using Application.HailuBoard;
+using Application.ImportUtil;
+using Application.Journal;
+using Application.Logger;
+using Application.Login;
+using Application.Main;
+using Application.Mapper;
+using Application.Modbus;
+using Application.SemiAuto;
+using Application.Startup;
+using Application.UI;
+using ApplicationFrameWork.ViewModels;
+using ApplicationFrameWork.Views;
+using CommonServiceLocator;
+using ControlzEx.Theming;
+using Microsoft.Extensions.Logging;
+using Prism.Common;
+using System.Windows;
+using System.Windows.Media;
+using Unity.ServiceLocation;
 
 namespace ApplicationFrameWork
 {
@@ -109,6 +110,7 @@ namespace ApplicationFrameWork
             moduleCatalog.AddModule<ApplicationDialogModule>();
             moduleCatalog.AddModule<ApplicationHailuModule>();
             moduleCatalog.AddModule<ApplicationHaiLuBoardModule>();
+            moduleCatalog.AddModule<ApplicationFrameImportUtilModule>();
             #endregion
         }
 
@@ -129,6 +131,7 @@ namespace ApplicationFrameWork
             var logger = ServiceLocator.Current.GetInstance<ILogger>();
             var clients = ServiceLocator.Current.GetAllInstances<ModbusClient>();
             var heartBeatMasters = ServiceLocator.Current.GetAllInstances<HeartBeatMaster>();
+            var importutil = ServiceLocator.Current.GetInstance<IImportUtil>();
 
             foreach (var client in clients)
             {
@@ -153,6 +156,8 @@ namespace ApplicationFrameWork
                     logger.LogError( ex.Message);
                 }
             }
+
+            importutil.StopImport();
         }
     }
 }

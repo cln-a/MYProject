@@ -7,6 +7,8 @@ namespace Application.Model
     {
         protected int _countNumber;   
         protected string? _batchcode; //合同号
+        protected string? _batch;     //批次
+        protected string? _identity;  //唯一标识符
         protected string? _code;      //编码
         protected string? _name;      //名称
         protected string? _codename;  //代号
@@ -28,6 +30,13 @@ namespace Application.Model
 
         [SugarColumn]
         public string? BatchCode { get => _batchcode;set => _batchcode = value; }
+
+
+        [SugarColumn]
+        public string? Batch { get => _batch; set => _batch = value; }
+
+        [SugarColumn]
+        public string? Identity { get => _identity; set => _identity = value; }
 
         [SugarColumn]
         public string? Code { get => _code; set => _code = value; }
