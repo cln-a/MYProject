@@ -23,6 +23,7 @@ namespace Application.Hailu
         private readonly IVariable _pLCStateFalgVariable;
         private string? _batchCode;
         private string? _batch;
+        private string? _name;
         private string? _identity;
 
         public IVariable ReadyFlagVariable => _readyFlagVariable;
@@ -141,6 +142,12 @@ namespace Application.Hailu
         {
             get => _batch;
             set => SetProperty(ref _batch, value);  
+        }
+
+        public string? Name
+        {
+            get => _name;
+            set => SetProperty(ref _name, value);
         }
 
         public string? Identity

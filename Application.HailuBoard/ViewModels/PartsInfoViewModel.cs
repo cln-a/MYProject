@@ -4,7 +4,6 @@ using Application.IDAL;
 using Application.Mapper;
 using Application.Model;
 using Application.UI;
-using Azure.Core;
 using HandyControl.Controls;
 
 namespace Application.HailuBoard
@@ -17,6 +16,7 @@ namespace Application.HailuBoard
         private readonly ViewModelDtoMapepr _viewModelDtoMapepr;
         private string? _batchcode;
         private string? _batch;
+        private string? _name;
         private DelegateCommand _setBatchCodeCommmand;
         private DelegateCommand<PartsInfoDto> _forceQuitCommand; 
 
@@ -24,23 +24,25 @@ namespace Application.HailuBoard
         public IPartsInfoDAL PartsInfoDAL => _partsInfoDAL;
         public string? BatchCode { get => _batchcode; set => SetProperty(ref _batchcode, value); }
         public string? Batch { get => _batch; set => SetProperty(ref _batch, value); }
+        public string? Name { get => _name; set => SetProperty(ref _name, value); }
         public DelegateCommand SetBatchCodeCommand => _setBatchCodeCommmand ??= new DelegateCommand(() =>
         {
             _dialogService.Show("DialogView",new DialogParameters
             {
-                { "Title", $"是否设定当前批次为{BatchCode}？" }
+                { "Title", $"是否设定合同号：{BatchCode}，批次：{Batch}，名称：{Name}的生产数据？" }
             }, result =>
             {
                 if(result.Result == ButtonResult.OK)
                 {
                     ParameterFactory.BatchCode = BatchCode;
                     ParameterFactory.Batch = Batch;
-                    ParameterFactory.Identity = BatchCode + Batch;
-                    _eventAggregator.GetEvent<BatchCodeChangedEvent>().Publish((BatchCode + Batch)!);
+                    ParameterFactory.Name = Name;
+                    ParameterFactory.Identity = BatchCode + Batch + Name;
+                    _eventAggregator.GetEvent<BatchCodeChangedEvent>().Publish((BatchCode + Batch + Name)!);
                 }
                 else
                 {
-                    InfoGlobal($"{BatchCode}批次已取消设定，请重新输入");
+                    InfoGlobal($"合同号：{ParameterFactory.BatchCode}，批次：{ParameterFactory.Batch}，名称：{ParameterFactory.Name}已取消设定，请重新输入");
                 }
             });
         });

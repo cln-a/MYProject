@@ -195,8 +195,8 @@ namespace Application.ImportUtil
                         var partsinfo = new PartsInfo();
                         partsinfo.BatchCode = row.GetCell(0).ToString(); //合同号
                         partsinfo.Batch = row.GetCell(1).ToString();     //批次
-                        partsinfo.Identity = row.GetCell(0).ToString() + row.GetCell(1).ToString(); //唯一标识符
                         partsinfo.Name = row.GetCell(5).ToString(); //名称
+                        partsinfo.Identity = row.GetCell(0).ToString() + row.GetCell(1).ToString() + row.GetCell(5).ToString(); //唯一标识符
                         partsinfo.Description = row.GetCell(6).ToString();//型号
                         partsinfo.Length = ushort.Parse(row.GetCell(7).ToString()!);//长度L
                         partsinfo.Width1 = ushort.Parse(row.GetCell(8).ToString()!);//宽度W1

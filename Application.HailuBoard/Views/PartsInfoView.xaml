@@ -90,6 +90,14 @@
                     Width="100"
                     Margin="5"
                     Text="{Binding Batch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock
+                    Margin="5"
+                    VerticalAlignment="Center"
+                    Text="设定名称：" />
+                <TextBox
+                    Width="100"
+                    Margin="5"
+                    Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <Button
                     Width="120"
                     Margin="5"

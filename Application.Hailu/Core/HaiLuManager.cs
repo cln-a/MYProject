@@ -38,12 +38,12 @@ namespace Application.Hailu
                     if (result != 0)
                     {
                         ParameterFactory.ReadyFlag = 1;
-                        _eventAggregator.GetEvent<SendMessageEvent>().Publish($"开始处理批次号为{batchcode}的板件");
+                        _eventAggregator.GetEvent<SendMessageEvent>().Publish($"开始处理合同号：{ParameterFactory.BatchCode}，批次：{ParameterFactory.Batch}，名称：{ParameterFactory.Name}的板件");
                     }
                     else
                     {
                         ParameterFactory.ReadyFlag = 0;
-                        _eventAggregator.GetEvent<SendMessageEvent>().Publish($"未查找到批次号为{batchcode}的数据");
+                        _eventAggregator.GetEvent<SendMessageEvent>().Publish($"未查找到合同号：{ParameterFactory.BatchCode}，批次：{ParameterFactory.Batch}，名称：{ParameterFactory.Name}的数据");
                     }
                 }
             }
@@ -108,7 +108,7 @@ namespace Application.Hailu
                 else
                 {
                     ParameterFactory.ReadyFlag = 0;
-                    _eventAggregator.GetEvent<SendMessageEvent>().Publish($"批次{ParameterFactory.BatchCode}已处理完成");
+                    _eventAggregator.GetEvent<SendMessageEvent>().Publish($"合同号：{ParameterFactory.BatchCode}，批次：{ParameterFactory.Batch}，名称：{ParameterFactory.Name}已处理完成");
                 }
             }
             catch (Exception ex)
