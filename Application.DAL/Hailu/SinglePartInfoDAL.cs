@@ -11,6 +11,22 @@ namespace Application.DAL
         {
         }
 
+        public async Task<int> BatchDeleteByIdAsync(List<int> identityList)
+        {
+            try
+            {
+                var affectrows = await SqlSugarClient
+                    .Deleteable<SinglePartInfo>()
+                    .Where(x => identityList.Contains(x.ProductId))
+                    .ExecuteCommandAsync();
+                return affectrows;
+            }
+            catch (Exception ex) 
+            {
+                return 0;
+            }
+        }
+
         public async Task<int> InsertSingleAsync(SinglePartInfo singlepartinfo)
         {
             try

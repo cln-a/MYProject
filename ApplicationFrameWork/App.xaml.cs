@@ -3,7 +3,6 @@ using Application.Communicate;
 using Application.DAL;
 using Application.Device;
 using Application.Dialog;
-using Application.GeneralControl;
 using Application.Hailu;
 using Application.HailuBoard;
 using Application.ImportUtil;
@@ -13,8 +12,6 @@ using Application.Login;
 using Application.Main;
 using Application.Mapper;
 using Application.Modbus;
-using Application.SemiAuto;
-using Application.Startup;
 using Application.UI;
 using ApplicationFrameWork.ViewModels;
 using ApplicationFrameWork.Views;
@@ -34,7 +31,6 @@ namespace ApplicationFrameWork
     public partial class App : PrismApplication
     {
         IContainerExtension _containerExtension;
-        private MainSplashScreenView _splashScreen;
 
         protected override IContainerExtension CreateContainerExtension()
         {
@@ -123,7 +119,6 @@ namespace ApplicationFrameWork
             ViewModelLocationProvider.Register<ModbusMonitorView, ModbusMonitorViewModel>();
             ViewModelLocationProvider.Register<JournalView, JournalViewModel>();
             ViewModelLocationProvider.Register<ModbusDeviceView, ModbusDeviceViewModel>();
-            ViewModelLocationProvider.Register<GeneralControlView, GeneralControlViewModel>();
         }
 
         protected override void OnExit(ExitEventArgs e)

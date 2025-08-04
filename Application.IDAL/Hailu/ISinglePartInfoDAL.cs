@@ -7,5 +7,7 @@ namespace Application.IDAL
         Task<int> InsertSingleAsync(SinglePartInfo singlepartinfo);
         
         Task<int> UpdateSingleAsync(int id,SinglePartInfo singlepartinfo);
+
+        Task<int> BatchDeleteByIdAsync(List<int> identityList);
     }
 }

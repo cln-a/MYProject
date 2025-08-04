@@ -6,6 +6,7 @@ namespace Application.UI
     public class BasePageViewModel<T> : BaseViewModel
     {
         protected ObservableCollection<T> _items;
+        protected ObservableCollection<T> _selectedItems;
         protected int _pagenumber = 1;
         protected int _pagesize = 15;
         protected int _totalcount;
@@ -20,6 +21,7 @@ namespace Application.UI
         protected DelegateCommand<T> _writeCommand;
 
         public ObservableCollection<T> Items => _items;
+        public ObservableCollection<T> SelectedItems => _selectedItems;
         public int pageNumber { get => _pagenumber; set => SetProperty(ref _pagenumber, value); }
         public int pageSize { get => _pagesize; set => SetProperty(ref _pagesize, value); }
         public int totalCount { get => _totalcount; set => SetProperty(ref _totalcount, value); }
@@ -33,7 +35,11 @@ namespace Application.UI
         public DelegateCommand NextPageCommand => _nextPageCommand ??= new DelegateCommand(NextPageCmd);
         public DelegateCommand<T> WriteValueCommand => _writeCommand ??= new DelegateCommand<T>(WriteValueCmd);
 
-        public BasePageViewModel() => _items = [];
+        public BasePageViewModel()
+        {
+            _items = [];
+            _selectedItems = [];
+        }
 
         protected void SetPageResult(PageResult<T> pageResult)
         {

@@ -27,7 +27,6 @@
     <ProjectReference Include="..\Application.DAL\Application.DAL.csproj" />
     <ProjectReference Include="..\Application.Device\Application.Device.csproj" />
     <ProjectReference Include="..\Application.Dialog\Application.Dialog.csproj" />
-    <ProjectReference Include="..\Application.GeneralControl\Application.GeneralControl.csproj" />
     <ProjectReference Include="..\Application.HailuBoard\Application.HailuBoard.csproj" />
     <ProjectReference Include="..\Application.Hailu\Application.Hailu.csproj" />
     <ProjectReference Include="..\Application.IDAL\Application.IDAL.csproj" />
@@ -40,7 +39,6 @@
     <ProjectReference Include="..\Application.Modbus\Application.Modbus.csproj" />
     <ProjectReference Include="..\Application.Model\Application.Model.csproj" />
     <ProjectReference Include="..\Application.S7net\Application.S7net.csproj" />
-    <ProjectReference Include="..\Application.SemiAuto\Application.SemiAuto.csproj" />
     <ProjectReference Include="..\Application.Startup\Application.Startup.csproj" />
     <ProjectReference Include="..\Application.UI\Application.UI.csproj" />
     <ProjectReference Include="..\ApplicationFrame.ImportUtil\Application.ImportUtil.csproj" />

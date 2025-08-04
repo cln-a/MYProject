@@ -27,7 +27,7 @@ namespace Application.Communicate
         {
             try
             {
-                if (IO.TryGet(dto.RegisterUri, out var variable))
+                if (IO.TryGet(dto.RegisterUri!, out var variable))
                 {
                     variable.WriteAnyValue(dto.WriteValue);
                     InfoGlobal($"写入{dto.Description}-值:{dto.WriteValue}完成");

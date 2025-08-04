@@ -64,6 +64,7 @@ namespace Application.Hailu
                     await _partsInfoDAL.UpdatePartsInfoAsync(result);
                     var singlePart = new SinglePartInfo()
                     {
+                        ProductId = result.Id,
                         CountNumber = result.Countinfo,
                         BatchCode = result.BatchCode,
                         Batch = result.Batch,

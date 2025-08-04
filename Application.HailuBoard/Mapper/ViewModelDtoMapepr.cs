@@ -35,6 +35,7 @@ namespace Application.HailuBoard
             IsEnabled = dto.IsEnabled,
             McOrNot = dto.McOrNot,
             Description = dto.Description,
+            Countinfo = dto.Countinfo
         };
     }
 }

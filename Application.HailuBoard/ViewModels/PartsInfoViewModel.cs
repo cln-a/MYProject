@@ -1,10 +1,12 @@
 using Application.Common;
 using Application.Hailu;
+using Application.HailuBoard.Event;
 using Application.IDAL;
 using Application.Mapper;
 using Application.Model;
 using Application.UI;
 using HandyControl.Controls;
+using System;
 
 namespace Application.HailuBoard
 {
@@ -18,10 +20,10 @@ namespace Application.HailuBoard
         private string? _batch;
         private string? _name;
         private DelegateCommand _setBatchCodeCommmand;
-        private DelegateCommand<PartsInfoDto> _forceQuitCommand; 
+        private DelegateCommand<PartsInfoDto> _forceQuitCommand;
+        private DelegateCommand _batchDeleteCommand;
 
         [Dependency("HaiLu")] public ParameterFactory ParameterFactory { get; set; }
-        public IPartsInfoDAL PartsInfoDAL => _partsInfoDAL;
         public string? BatchCode { get => _batchcode; set => SetProperty(ref _batchcode, value); }
         public string? Batch { get => _batch; set => SetProperty(ref _batch, value); }
         public string? Name { get => _name; set => SetProperty(ref _name, value); }
@@ -47,6 +49,7 @@ namespace Application.HailuBoard
             });
         });
         public DelegateCommand<PartsInfoDto> ForceQuitCommand => _forceQuitCommand ??= new DelegateCommand<PartsInfoDto>(ForceQuitCmd);
+        public DelegateCommand BatchDeleteCommand => _batchDeleteCommand ??= new DelegateCommand(BatchDeleteCmd);
 
         public PartsInfoViewModel(
             IPartsInfoDAL partsInfoDAL, 
@@ -63,9 +66,9 @@ namespace Application.HailuBoard
             this._eventAggregator.GetEvent<SendMessageEvent>().Subscribe(InfoGlobal);
         }
 
-        protected override async Task<PageResult<PartsInfoDto>> GetPage()
+        protected override async Task<PageResult<PartsInfoDto>> GetPage() 
         {
-            var result = await PartsInfoDAL.GetPage(pageNumber, pageSize);
+            var result = await _partsInfoDAL.GetPage(pageNumber, pageSize);
             return result.Map(x => Mapper.Map<PartsInfoDto>(x));
         }
 
@@ -80,9 +83,9 @@ namespace Application.HailuBoard
             _dialogService.ShowDialog("PartsInfoEditDialog", parameter, arg => { Initialize(); });
         }
 
-        protected override void DeleteCmd(PartsInfoDto entity)
+        protected void BatchDeleteCmd()
         {
-            if (entity == null)
+            if (SelectedItems == null)
             {
                 Growl.Error("未选中需要删除的数据！");
                 return;
@@ -96,7 +99,12 @@ namespace Application.HailuBoard
             {
                 if (result.Result == ButtonResult.OK)
                 {
-                    _partsInfoDAL.SingleDeleteByIdAsync(entity.Id);
+                    foreach (var entity in SelectedItems) 
+                    {
+                        _partsInfoDAL.SingleDeleteByIdAsync(entity.Id);
+                    }
+                    var identityList = SelectedItems.Select(item => item.Id).ToList();
+                    _eventAggregator.GetEvent<BatchDeleteByIdEvent>().Publish(identityList);
                     Initialize();
                 }
                 else

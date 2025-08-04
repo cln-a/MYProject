@@ -5,6 +5,7 @@ namespace Application.Model
     [SugarTable]    
     public class SinglePartInfo : BaseDomain
     {
+        protected int _productId;     //对应产品ID
         protected int _countNumber;   
         protected string? _batchcode; //合同号
         protected string? _batch;     //批次
@@ -26,12 +27,11 @@ namespace Application.Model
         protected ushort _holeDistanceLeft;   //左侧铣刀距离底部距离
 
         [SugarColumn]
+        public int ProductId { get => _productId; set => _productId = value; }
+        [SugarColumn]
         public int CountNumber { get => _countNumber; set => _countNumber = value; }
-
         [SugarColumn]
         public string? BatchCode { get => _batchcode;set => _batchcode = value; }
-
-
         [SugarColumn]
         public string? Batch { get => _batch; set => _batch = value; }
 
