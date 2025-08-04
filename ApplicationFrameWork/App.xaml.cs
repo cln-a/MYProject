@@ -12,6 +12,7 @@ using Application.Login;
 using Application.Main;
 using Application.Mapper;
 using Application.Modbus;
+using Application.Russia;
 using Application.UI;
 using ApplicationFrameWork.ViewModels;
 using ApplicationFrameWork.Views;
@@ -78,22 +79,7 @@ namespace ApplicationFrameWork
         {
             base.ConfigureModuleCatalog(moduleCatalog);
 
-            #region SemiAuto
-            //moduleCatalog.AddModule<LoggerModule>();
-            //moduleCatalog.AddModule<ApplicationMapperModule>();
-            //moduleCatalog.AddModule<SemiAutoModule>();
-            //moduleCatalog.AddModule<DALModule>();
-            //moduleCatalog.AddModule<ModbusModule>();
-            //moduleCatalog.AddModule<UIModule>();
-            //moduleCatalog.AddModule<ApplicationMainModule>();
-            //moduleCatalog.AddModule<ApplicationGeneralControlModule>();
-            //moduleCatalog.AddModule<ApplicationDeviceModule>();
-            //moduleCatalog.AddModule<ApplicationCommunicateModule>();
-            //moduleCatalog.AddModule<ApplicationJournalModule>();
-            //moduleCatalog.AddModule<ApplicationDialogModule>();
-            #endregion
-
-            #region HaiLu
+            #region Russia
             moduleCatalog.AddModule<LoggerModule>();
             moduleCatalog.AddModule<DALModule>();
             moduleCatalog.AddModule<ModbusModule>();
@@ -104,9 +90,23 @@ namespace ApplicationFrameWork
             moduleCatalog.AddModule<ApplicationCommunicateModule>();
             moduleCatalog.AddModule<ApplicationJournalModule>();
             moduleCatalog.AddModule<ApplicationDialogModule>();
-            moduleCatalog.AddModule<ApplicationHailuModule>();
-            moduleCatalog.AddModule<ApplicationHaiLuBoardModule>();
-            moduleCatalog.AddModule<ApplicationFrameImportUtilModule>();
+            moduleCatalog.AddModule<ApplicationRussiaModule>();
+            #endregion
+
+            #region HaiLu
+            //moduleCatalog.AddModule<LoggerModule>();
+            //moduleCatalog.AddModule<DALModule>();
+            //moduleCatalog.AddModule<ModbusModule>();
+            //moduleCatalog.AddModule<ApplicationMapperModule>();
+            //moduleCatalog.AddModule<UIModule>();
+            //moduleCatalog.AddModule<ApplicationMainModule>();
+            //moduleCatalog.AddModule<ApplicationDeviceModule>();
+            //moduleCatalog.AddModule<ApplicationCommunicateModule>();
+            //moduleCatalog.AddModule<ApplicationJournalModule>();
+            //moduleCatalog.AddModule<ApplicationDialogModule>();
+            //moduleCatalog.AddModule<ApplicationHailuModule>();
+            //moduleCatalog.AddModule<ApplicationHaiLuBoardModule>();
+            //moduleCatalog.AddModule<ApplicationFrameImportUtilModule>();
             #endregion
         }
 
@@ -126,7 +126,7 @@ namespace ApplicationFrameWork
             var logger = ServiceLocator.Current.GetInstance<ILogger>();
             var clients = ServiceLocator.Current.GetAllInstances<ModbusClient>();
             var heartBeatMasters = ServiceLocator.Current.GetAllInstances<HeartBeatMaster>();
-            var importutil = ServiceLocator.Current.GetInstance<IImportUtil>();
+            //var importutil = ServiceLocator.Current.GetInstance<IImportUtil>();
 
             foreach (var client in clients)
             {
@@ -152,7 +152,7 @@ namespace ApplicationFrameWork
                 }
             }
 
-            importutil.StopImport();
+            //importutil.StopImport();
         }
     }
 }

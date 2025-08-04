@@ -66,7 +66,7 @@ namespace Application.Main
 
             LanguageManager.SetLanguage(LanguageType.CN);
 
-            RegionManager.RequestNavigate(ConstName.MainViewRegion, "PartsInfoView");
+            RegionManager.RequestNavigate(ConstName.MainViewRegion, "ModbusMonitorView");
         }
 
         public DelegateCommand<string> CheckCommand => _checkCommand ??= new DelegateCommand<string>(context =>
