@@ -38,6 +38,7 @@
     <ProjectReference Include="..\Application.Main\Application.Main.csproj" />
     <ProjectReference Include="..\Application.Modbus\Application.Modbus.csproj" />
     <ProjectReference Include="..\Application.Model\Application.Model.csproj" />
+    <ProjectReference Include="..\Application.RussiaUI\Application.RussiaUI.csproj" />
     <ProjectReference Include="..\Application.Russia\Application.Russia.csproj" />
     <ProjectReference Include="..\Application.S7net\Application.S7net.csproj" />
     <ProjectReference Include="..\Application.Startup\Application.Startup.csproj" />

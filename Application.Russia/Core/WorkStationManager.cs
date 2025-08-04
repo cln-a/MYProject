@@ -30,7 +30,7 @@ namespace Application.Russia
                     IO.TryGet(setDelayKey, out var setDelayValue) &&
                     IO.TryGet(triggerKey, out var triggerValue))  
                 {
-                    var workStation = new WorkStationFactory(setEnableValue, setTimeValue, setDelayValue, triggerValue);
+                    var workStation = new WorkStationFactory(index, setEnableValue, setTimeValue, setDelayValue, triggerValue);
                     WorkStations.Add(workStation);
                 }
             }

@@ -85,6 +85,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Russia", "Russia", "{5B6F4C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Russia", "Application.Russia\Application.Russia.csproj", "{26D285C2-87E0-4DF1-AD52-0D5D36E3C0D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.RussiaUI", "Application.RussiaUI\Application.RussiaUI.csproj", "{B4159935-8FFB-4B8A-9131-76C91E42BBDE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -195,6 +197,10 @@ Global
 		{26D285C2-87E0-4DF1-AD52-0D5D36E3C0D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26D285C2-87E0-4DF1-AD52-0D5D36E3C0D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26D285C2-87E0-4DF1-AD52-0D5D36E3C0D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4159935-8FFB-4B8A-9131-76C91E42BBDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4159935-8FFB-4B8A-9131-76C91E42BBDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4159935-8FFB-4B8A-9131-76C91E42BBDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4159935-8FFB-4B8A-9131-76C91E42BBDE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -233,6 +239,7 @@ Global
 		{2005C99F-883A-47C7-85C8-3AAA6A0BDCB5} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{5B6F4C9B-8DEA-43F4-865A-771421C875F0} = {CAD44F8A-AE6F-4F9B-9650-F15AE019869F}
 		{26D285C2-87E0-4DF1-AD52-0D5D36E3C0D5} = {5B6F4C9B-8DEA-43F4-865A-771421C875F0}
+		{B4159935-8FFB-4B8A-9131-76C91E42BBDE} = {2005C99F-883A-47C7-85C8-3AAA6A0BDCB5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {03FAA2E3-B831-4B51-9E55-9E41C3365066}

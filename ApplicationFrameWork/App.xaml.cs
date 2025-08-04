@@ -13,6 +13,7 @@ using Application.Main;
 using Application.Mapper;
 using Application.Modbus;
 using Application.Russia;
+using Application.RussiaUI;
 using Application.UI;
 using ApplicationFrameWork.ViewModels;
 using ApplicationFrameWork.Views;
@@ -84,13 +85,14 @@ namespace ApplicationFrameWork
             moduleCatalog.AddModule<DALModule>();
             moduleCatalog.AddModule<ModbusModule>();
             moduleCatalog.AddModule<ApplicationMapperModule>();
+            moduleCatalog.AddModule<ApplicationRussiaModule>();
             moduleCatalog.AddModule<UIModule>();
             moduleCatalog.AddModule<ApplicationMainModule>();
             moduleCatalog.AddModule<ApplicationDeviceModule>();
             moduleCatalog.AddModule<ApplicationCommunicateModule>();
             moduleCatalog.AddModule<ApplicationJournalModule>();
             moduleCatalog.AddModule<ApplicationDialogModule>();
-            moduleCatalog.AddModule<ApplicationRussiaModule>();
+            moduleCatalog.AddModule<ApplicationRussiaUIModule>();
             #endregion
 
             #region HaiLu
