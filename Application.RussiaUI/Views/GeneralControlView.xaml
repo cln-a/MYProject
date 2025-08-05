@@ -103,7 +103,7 @@
                                 Margin="5,0,0,0"
                                 controls:IconElement.Geometry="{StaticResource SaveGeometry}"
                                 Command="{Binding OptionCommand}"
-                                Content="{Binding 设定}"
+                                Content="{DynamicResource 设定}"
                                 Style="{StaticResource ButtonDefault}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
