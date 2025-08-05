@@ -8,8 +8,10 @@ namespace Application.RussiaUI
     {
         private readonly IWorkStationManager _workStationManager;
         private readonly IEventAggregator _eventAggregator;
+        private DelegateCommand _languageChangeCommand;
 
         public IWorkStationManager WorkStationManager => _workStationManager;
+        public DelegateCommand LanguageChangeCommand => _languageChangeCommand ??= new DelegateCommand(LanguageChanged);
         public event Action RefreshDataGridHeaderRequested;
 
         public GeneralControlViewModel(
@@ -20,7 +22,9 @@ namespace Application.RussiaUI
             this._eventAggregator = eventAggregator;
 
             _eventAggregator.GetEvent<DialogMessageEvent>().Subscribe(InfoGlobal);
-            _eventAggregator.GetEvent<LanguageChangedEvent>().Subscribe(() => RefreshDataGridHeaderRequested?.Invoke());
+            _eventAggregator.GetEvent<LanguageChangedEvent>().Subscribe(LanguageChanged);
         }
+
+        private void LanguageChanged() => RefreshDataGridHeaderRequested?.Invoke();
     }
 }
