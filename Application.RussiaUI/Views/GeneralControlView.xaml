@@ -75,7 +75,10 @@
                     Header="工位是否启用">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox IsChecked="{Binding SetEnable, Mode=TwoWay, Converter={StaticResource UShortToBoolConverter}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsConnected}" />
+                            <CheckBox
+                                x:Name="EnableOrNotCheckBox"
+                                IsChecked="{Binding SetEnable, Mode=TwoWay, Converter={StaticResource UShortToBoolConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                IsEnabled="{Binding IsConnected}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -87,7 +90,7 @@
                         <DataTemplate>
                             <TextBox
                                 Width="150"
-                                IsEnabled="{Binding IsConnected}"
+                                IsEnabled="{Binding IsElementEnabled}"
                                 Text="{Binding SetTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -100,7 +103,7 @@
                         <DataTemplate>
                             <TextBox
                                 Width="150"
-                                IsEnabled="{Binding IsConnected}"
+                                IsEnabled="{Binding IsElementEnabled}"
                                 Text="{Binding SetDelayTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -117,7 +120,7 @@
                                 controls:IconElement.Geometry="{StaticResource SaveGeometry}"
                                 Command="{Binding OptionCommand}"
                                 Content="{DynamicResource 设定}"
-                                IsEnabled="{Binding IsConnected}"
+                                IsEnabled="{Binding IsElementEnabled}"
                                 Style="{StaticResource ButtonDefault}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

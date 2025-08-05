@@ -20,6 +20,7 @@ namespace Application.Russia
         private DateTime _pastTime = DateTime.Now;
         private readonly IDialogService _dialogService = ServiceLocator.Current.GetInstance<IDialogService>();
         private readonly IEventAggregator _eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+        private readonly ILanguageManager _languageManager = ServiceLocator.Current.GetInstance<ILanguageManager>();
 
         [Unity.Dependency] public ILogger Logger { get; set; }  
         public IVariable SetEnableVariable => _setEnableVariable;
@@ -46,6 +47,7 @@ namespace Application.Russia
             {
                 SetEnableVariable.WriteAnyValueEx(value);
                 RaisePropertyChanged(nameof(SetEnable));
+                RaisePropertyChanged(nameof(IsElementEnabled));
             }
         }
 
@@ -86,6 +88,8 @@ namespace Application.Russia
             get => TriggerTimeConsumeVariable.GetValue<ushort>();
             set => TriggerTimeConsumeVariable.WriteAnyValueEx(value);
         }
+
+        public bool IsElementEnabled => SetEnable == 1;
 
         public WorkStationFactory(int id,
             IVariable setEnableVariable, 
@@ -150,7 +154,12 @@ namespace Application.Russia
             {
                 _dialogService.Show("DialogView", new DialogParameters
                 {
-                    { "Title", $"是否启用工位{Id}，设定耗时时间为{SetTime},设定延时时间为{SetDelayTime}?" }
+                    {"Title",_languageManager["是否启用工位"] 
+                    + $":{Id}," 
+                    + _languageManager["设定耗时时间"] 
+                    + $":{SetTime}," 
+                    + _languageManager["设定延时时间"] 
+                    + $":{SetDelayTime}?" }
                 }, 
                 result =>
                 {
@@ -163,12 +172,22 @@ namespace Application.Russia
                             if (_autoResetEvent.WaitOne(10000))
                             {
                                 _eventAggregator.GetEvent<DialogMessageEvent>()
-                                .Publish($"工位{Id}已启用,耗时时间{SetTime}设定成功,延时时间{SetDelayTime}设定成功");
+                                .Publish(_languageManager["工位"] 
+                                + $":{Id}" 
+                                + _languageManager["已启用"] 
+                                + "," 
+                                + _languageManager["耗时时间"] 
+                                + $"{SetTime}" 
+                                + _languageManager["设定成功"]
+                                + ","
+                                + _languageManager["延时时间"]
+                                + $"{SetDelayTime}"
+                                + _languageManager["设定成功"]);
                             }
                             else
                             {
                                 TriggerSignal = 0;
-                                _eventAggregator.GetEvent<DialogMessageEvent>().Publish($"系统失去响应，请重新设定");
+                                _eventAggregator.GetEvent<DialogMessageEvent>().Publish(_languageManager["系统失去响应，请重新设定"]);
                             }
                         });
                     }

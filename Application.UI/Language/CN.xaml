@@ -23,4 +23,16 @@
     <system:String x:Key="工位设定延时时间">工位设定延时时间</system:String>
     <system:String x:Key="当前工位耗时时间（开始）">当前工位耗时时间（开始）</system:String>
     <system:String x:Key="当前工位耗时时间（结束）">当前工位耗时时间（开始）</system:String>
+
+    <system:String x:Key="是否启用工位">是否启用工位</system:String>
+    <system:String x:Key="设定耗时时间">设定耗时时间</system:String>
+    <system:String x:Key="设定延时时间">设定延时时间</system:String>
+
+    <system:String x:Key="工位">工位</system:String>
+    <system:String x:Key="已启用">已启用</system:String>
+    <system:String x:Key="耗时时间">耗时时间</system:String>
+    <system:String x:Key="设定成功">设定成功</system:String>
+    <system:String x:Key="延时时间">延时时间</system:String>
+
+    <system:String x:Key="系统失去响应，请重新设定">系统失去响应，请重新设定</system:String>
 </ResourceDictionary>

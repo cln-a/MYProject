@@ -85,13 +85,13 @@ namespace ApplicationFrameWork
             moduleCatalog.AddModule<DALModule>();
             moduleCatalog.AddModule<ModbusModule>();
             moduleCatalog.AddModule<ApplicationMapperModule>();
-            moduleCatalog.AddModule<ApplicationRussiaModule>();
             moduleCatalog.AddModule<UIModule>();
             moduleCatalog.AddModule<ApplicationMainModule>();
             moduleCatalog.AddModule<ApplicationDeviceModule>();
             moduleCatalog.AddModule<ApplicationCommunicateModule>();
             moduleCatalog.AddModule<ApplicationJournalModule>();
             moduleCatalog.AddModule<ApplicationDialogModule>();
+            moduleCatalog.AddModule<ApplicationRussiaModule>();
             moduleCatalog.AddModule<ApplicationRussiaUIModule>();
             #endregion
 

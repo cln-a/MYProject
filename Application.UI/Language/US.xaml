@@ -8,8 +8,8 @@
     <system:String x:Key="登录">Login IN</system:String>
 
     <!--  DialogService  -->
-    <system:String x:Key="取消">Confirm</system:String>
-    <system:String x:Key="确认">Cancel</system:String>
+    <system:String x:Key="取消">Cancel</system:String>
+    <system:String x:Key="确认">Confirm</system:String>
 
     <!--  Russia  -->
     <system:String x:Key="工位总控页面">Workstation Control Page</system:String>
@@ -23,4 +23,16 @@
     <system:String x:Key="工位设定延时时间">Station Setting Delay Time</system:String>
     <system:String x:Key="当前工位耗时时间（开始）">Time Spent at Current Station (Start)</system:String>
     <system:String x:Key="当前工位耗时时间（结束）">Time Spent at Current Station (End)</system:String>
+
+    <system:String x:Key="是否启用工位">Whether to enable the workstation</system:String>
+    <system:String x:Key="设定耗时时间">Set the time it takes</system:String>
+    <system:String x:Key="设定延时时间">Set the delay time</system:String>
+
+    <system:String x:Key="工位">Station</system:String>
+    <system:String x:Key="已启用">enabled</system:String>
+    <system:String x:Key="耗时时间">Time-consuming</system:String>
+    <system:String x:Key="设定成功">Set success</system:String>
+    <system:String x:Key="延时时间">Delay time</system:String>
+
+    <system:String x:Key="系统失去响应，请重新设定">The system is unresponsive, please reset it</system:String>
 </ResourceDictionary>
