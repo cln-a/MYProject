@@ -61,11 +61,11 @@
                 <DataGridTextColumn
                     Width="Auto"
                     Binding="{Binding Id}"
-                    Header="工位序号" />
+                    Header="{DynamicResource 工位序号}" />
                 <DataGridTemplateColumn
                     Width="Auto"
                     CanUserSort="False"
-                    Header="工位是否启用">
+                    Header="{DynamicResource 工位是否启用}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <CheckBox IsChecked="{Binding SetEnable, Mode=TwoWay, Converter={StaticResource UShortToBoolConverter}, UpdateSourceTrigger=PropertyChanged}" />
@@ -75,7 +75,7 @@
                 <DataGridTemplateColumn
                     Width="Auto"
                     CanUserSort="False"
-                    Header="设定当前工位耗时时间">
+                    Header="{DynamicResource 设定当前工位耗时时间}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBox Width="150" Text="{Binding SetTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -85,7 +85,7 @@
                 <DataGridTemplateColumn
                     Width="Auto"
                     CanUserSort="False"
-                    Header="设定当前工位延时时间">
+                    Header="{DynamicResource 设定当前工位延时时间}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBox Width="150" Text="{Binding SetDelayTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -95,7 +95,7 @@
                 <DataGridTemplateColumn
                     Width="Auto"
                     CanUserResize="False"
-                    Header="设定">
+                    Header="{DynamicResource 设定}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button
@@ -103,7 +103,7 @@
                                 Margin="5,0,0,0"
                                 controls:IconElement.Geometry="{StaticResource SaveGeometry}"
                                 Command="{Binding OptionCommand}"
-                                Content="设定"
+                                Content="{Binding 设定}"
                                 Style="{StaticResource ButtonDefault}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
