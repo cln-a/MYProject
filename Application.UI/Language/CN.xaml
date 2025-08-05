@@ -19,4 +19,8 @@
     <system:String x:Key="设定当前工位耗时时间">设定当前工位耗时时间</system:String>
     <system:String x:Key="设定当前工位延时时间">设定当前工位延时时间</system:String>
     <system:String x:Key="设定">设定</system:String>
+    <system:String x:Key="工位设定耗时时间">工位设定耗时时间</system:String>
+    <system:String x:Key="工位设定延时时间">工位设定延时时间</system:String>
+    <system:String x:Key="当前工位耗时时间（开始）">当前工位耗时时间（开始）</system:String>
+    <system:String x:Key="当前工位耗时时间（结束）">当前工位耗时时间（开始）</system:String>
 </ResourceDictionary>

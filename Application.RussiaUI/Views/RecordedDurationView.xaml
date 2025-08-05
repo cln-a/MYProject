@@ -29,7 +29,7 @@
             FontWeight="Bold"
             Text="{DynamicResource 工位计时页面}" />
         <DataGrid
-            x:Name="ProduceParameterDataGrid"
+            x:Name="RecordedDurationDataGrid"
             Grid.Row="1"
             Margin="0,5,0,10"
             controls:DataGridAttach.CanUnselectAllWithBlankArea="True"
@@ -58,15 +58,7 @@
                 <DataGridTextColumn
                     Width="Auto"
                     Binding="{Binding Id}"
-                    Header="序号" />
-                <DataGridTextColumn
-                    Width="Auto"
-                    Binding="{Binding SetTime}"
-                    Header="工位设定耗时时间" />
-                <DataGridTextColumn
-                    Width="Auto"
-                    Binding="{Binding SetDelayTime}"
-                    Header="工位设定延时时间" />
+                    Header="工位序号" />
                 <DataGridTextColumn
                     Width="Auto"
                     Binding="{Binding PastTime}"

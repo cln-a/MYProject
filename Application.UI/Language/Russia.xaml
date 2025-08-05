@@ -19,4 +19,8 @@
     <system:String x:Key="设定当前工位耗时时间">Установить время затраты на рабочее место</system:String>
     <system:String x:Key="设定当前工位延时时间">Установить время задержки рабочего места</system:String>
     <system:String x:Key="设定">Установление</system:String>
+    <system:String x:Key="工位设定耗时时间">Настройка станции требует времени</system:String>
+    <system:String x:Key="工位设定延时时间">Станция устанавливает время задержки</system:String>
+    <system:String x:Key="当前工位耗时时间（开始）">Время, проведенное на текущей станции (начало)</system:String>
+    <system:String x:Key="当前工位耗时时间（结束）">Время, проведенное на текущей станции (конец)）</system:String>
 </ResourceDictionary>

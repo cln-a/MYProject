@@ -30,7 +30,7 @@
             VerticalAlignment="Center"
             FontSize="30"
             FontWeight="Bold"
-            Text="设备总控" />
+            Text="{DynamicResource 工位总控页面}" />
         <DataGrid
             x:Name="WorkStationDataGrid"
             Grid.Row="1"
@@ -61,41 +61,47 @@
                 <DataGridTextColumn
                     Width="Auto"
                     Binding="{Binding Id}"
-                    Header="{DynamicResource 工位序号}" />
+                    Header="工位序号" />
                 <DataGridTemplateColumn
                     Width="Auto"
                     CanUserSort="False"
-                    Header="{DynamicResource 工位是否启用}">
+                    Header="工位是否启用">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox IsChecked="{Binding SetEnable, Mode=TwoWay, Converter={StaticResource UShortToBoolConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                            <CheckBox IsChecked="{Binding SetEnable, Mode=TwoWay, Converter={StaticResource UShortToBoolConverter}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsConnected}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn
                     Width="Auto"
                     CanUserSort="False"
-                    Header="{DynamicResource 设定当前工位耗时时间}">
+                    Header="设定当前工位耗时时间">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox Width="150" Text="{Binding SetTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox
+                                Width="150"
+                                IsEnabled="{Binding IsConnected}"
+                                Text="{Binding SetTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn
                     Width="Auto"
                     CanUserSort="False"
-                    Header="{DynamicResource 设定当前工位延时时间}">
+                    Header="设定当前工位延时时间">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox Width="150" Text="{Binding SetDelayTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox
+                                Width="150"
+                                IsEnabled="{Binding IsConnected}"
+                                Text="{Binding SetDelayTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn
                     Width="Auto"
                     CanUserResize="False"
-                    Header="{DynamicResource 设定}">
+                    Header="设定">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button
@@ -104,6 +110,7 @@
                                 controls:IconElement.Geometry="{StaticResource SaveGeometry}"
                                 Command="{Binding OptionCommand}"
                                 Content="{DynamicResource 设定}"
+                                IsEnabled="{Binding IsConnected}"
                                 Style="{StaticResource ButtonDefault}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

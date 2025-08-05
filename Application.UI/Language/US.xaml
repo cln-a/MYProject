@@ -19,4 +19,8 @@
     <system:String x:Key="设定当前工位耗时时间">Set The Workstation Time Consumption</system:String>
     <system:String x:Key="设定当前工位延时时间">Set The Workstation Delay Time</system:String>
     <system:String x:Key="设定">Setting</system:String>
+    <system:String x:Key="工位设定耗时时间">Station Setting Takes Time</system:String>
+    <system:String x:Key="工位设定延时时间">Station Setting Delay Time</system:String>
+    <system:String x:Key="当前工位耗时时间（开始）">Time Spent at Current Station (Start)</system:String>
+    <system:String x:Key="当前工位耗时时间（结束）">Time Spent at Current Station (End)</system:String>
 </ResourceDictionary>
