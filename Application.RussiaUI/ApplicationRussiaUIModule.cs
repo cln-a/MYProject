@@ -10,6 +10,7 @@ namespace Application.RussiaUI
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<GeneralControlView>();
+            containerRegistry.RegisterForNavigation<RecordedDurationView>();
         }
     }
 }

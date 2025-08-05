@@ -33,8 +33,5 @@ public class ShellViewModel : BindableBase
         this._eventAggregator = eventAggregator;
         this._partsInfoDAL = partsInfoDAL;
         this._singlePartInfoDAL = singlePartInfoDAL;
-
-        _partsInfoDAL.CreateTable();
-        _singlePartInfoDAL.CreateTable();   
     }
 }

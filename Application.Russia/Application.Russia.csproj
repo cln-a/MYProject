@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Application.Common\Application.Common.csproj" />
+    <ProjectReference Include="..\Application.Modbus\Application.Modbus.csproj" />
   </ItemGroup>
 
 </Project>

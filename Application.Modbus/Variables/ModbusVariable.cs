@@ -17,7 +17,7 @@ namespace Application.Modbus
         public ModbusMessage Message { get; set; }
         public ModbusRegister Model { get; set; }
         public ModbusDevice DeviceModel { get; set; }
-        [Dependency] public ILogger Logger { get; set; }
+        [Unity.Dependency] public ILogger Logger { get; set; }
         public ModbusClient Client => _client ?? ServiceLocator.Current.GetInstance<ModbusClient>(DeviceModel.DeviceUri!.Trim());
         public string ValueString => GetValueString();
         public string Description => Model?.Description;
@@ -304,7 +304,6 @@ namespace Application.Modbus
                 {
                     throw new Exception($"PLC设备未连接：设备名称---{Client.DeviceName}");
                 }
-
             }
             catch (Exception e)
             {

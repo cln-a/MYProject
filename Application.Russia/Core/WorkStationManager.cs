@@ -15,7 +15,6 @@ namespace Application.Russia
             Initialization();
         }
 
-
         private void Initialization()
         {
             for (var index = 1; index <= 18; index++)
@@ -24,13 +23,23 @@ namespace Application.Russia
                 var setTimeKey = $"SetTime{index}";
                 var setDelayKey = $"SetDelayTime{index}";
                 var triggerKey = $"TriggerSignal{index}";
+                var curTimeConsumeKey = $"CurTimeConsume{index}";
+                var triggerTimeConsumeKey = $"TriggerTimeConsume{index}";
 
                 if (IO.TryGet(setEnableKey, out var setEnableValue) &&
                     IO.TryGet(setTimeKey, out var setTimeValue) &&
                     IO.TryGet(setDelayKey, out var setDelayValue) &&
-                    IO.TryGet(triggerKey, out var triggerValue))  
+                    IO.TryGet(triggerKey, out var triggerValue) &&
+                    IO.TryGet(curTimeConsumeKey, out var curTimeConsumeValue) &&
+                    IO.TryGet(triggerTimeConsumeKey, out var triggerTimeConsumeValue))   
                 {
-                    var workStation = new WorkStationFactory(index, setEnableValue, setTimeValue, setDelayValue, triggerValue);
+                    var workStation = new WorkStationFactory(index,
+                        setEnableValue,
+                        setTimeValue,
+                        setDelayValue,
+                        triggerValue,
+                        curTimeConsumeValue,
+                        triggerTimeConsumeValue);
                     WorkStations.Add(workStation);
                 }
             }
