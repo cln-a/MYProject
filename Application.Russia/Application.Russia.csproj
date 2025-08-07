@@ -22,4 +22,10 @@
     <ProjectReference Include="..\Application.Modbus\Application.Modbus.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Config\index.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

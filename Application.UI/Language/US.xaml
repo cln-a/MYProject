@@ -15,6 +15,7 @@
     <system:String x:Key="工位总控页面">Workstation Control Page</system:String>
     <system:String x:Key="工位计时页面">Workstation Timing Page</system:String>
     <system:String x:Key="工位序号">Workstation Number</system:String>
+    <system:String x:Key="工位状态">Status</system:String>
     <system:String x:Key="工位是否启用">Enable Workstation</system:String>
     <system:String x:Key="设定当前工位耗时时间">Set The Workstation Time Consumption</system:String>
     <system:String x:Key="设定当前工位延时时间">Set The Workstation Delay Time</system:String>
@@ -35,4 +36,7 @@
     <system:String x:Key="延时时间">Delay time</system:String>
 
     <system:String x:Key="系统失去响应，请重新设定">The system is unresponsive, please reset it</system:String>
+    <system:String x:Key="已修改参数，未设定">Modifiy Parameter, Not set.</system:String>
+    <system:String x:Key="参数设定成功">Parameter setting successful</system:String>
+    <system:String x:Key="参数设定失败">Parameter setting failed</system:String>
 </ResourceDictionary>

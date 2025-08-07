@@ -1,5 +1,7 @@
 ﻿using Application.Common;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Text.Json;
 
 namespace Application.Russia
 {
@@ -17,7 +19,11 @@ namespace Application.Russia
 
         private void Initialization()
         {
-            for (var index = 1; index <= 18; index++)
+            var jsonText = File.ReadAllText("index.json");
+            var config = JsonSerializer.Deserialize<IndexConfig>(jsonText);
+            var sortedIndices = config!.Indices.OrderBy(i => i);
+
+            foreach (var index in sortedIndices)
             {
                 var setEnableKey = $"SetEnable{index}";
                 var setTimeKey = $"SetTime{index}";
@@ -31,7 +37,7 @@ namespace Application.Russia
                     IO.TryGet(setDelayKey, out var setDelayValue) &&
                     IO.TryGet(triggerKey, out var triggerValue) &&
                     IO.TryGet(curTimeConsumeKey, out var curTimeConsumeValue) &&
-                    IO.TryGet(triggerTimeConsumeKey, out var triggerTimeConsumeValue))   
+                    IO.TryGet(triggerTimeConsumeKey, out var triggerTimeConsumeValue))
                 {
                     var workStation = new WorkStationFactory(index,
                         setEnableValue,

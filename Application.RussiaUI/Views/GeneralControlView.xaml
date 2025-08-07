@@ -59,16 +59,15 @@
                     <Setter Property="BorderThickness" Value="0" />
                 </Style>
             </DataGrid.Resources>
-            <DataGrid.RowHeaderTemplate>
-                <DataTemplate>
-                    <CheckBox Margin="20,0,0,0" IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=DataGridRow}}" />
-                </DataTemplate>
-            </DataGrid.RowHeaderTemplate>
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="Auto"
                     Binding="{Binding Id}"
                     Header="工位序号" />
+                <DataGridTextColumn
+                    Width="Auto"
+                    Binding="{Binding StationStatus}"
+                    Header="工位状态" />
                 <DataGridTemplateColumn
                     Width="Auto"
                     CanUserSort="False"

@@ -16,6 +16,7 @@ namespace Application.Russia
         private DelegateCommand _optionCommand;
         private int _id;
         private bool _isConnected;
+        private string _stationStatus;
         private DateTime _recordedTime = DateTime.Now;
         private DateTime _pastTime = DateTime.Now;
         private readonly IDialogService _dialogService = ServiceLocator.Current.GetInstance<IDialogService>();
@@ -32,6 +33,7 @@ namespace Application.Russia
         public DelegateCommand OptionCommand => _optionCommand ??= new DelegateCommand(SetParameterTrigger);
         public int Id { get => _id; set => SetProperty(ref _id, value); }
         public bool IsConnected { get => _isConnected; set => SetProperty(ref _isConnected, value); }
+        public string StationStatus { get => _stationStatus; set => SetProperty(ref _stationStatus, value); }
         public DateTime RecordedTime { get => _recordedTime; set => SetProperty(ref _recordedTime, value); }
         public DateTime PastTime { get => _pastTime; set => SetProperty(ref _pastTime, value); }
 
