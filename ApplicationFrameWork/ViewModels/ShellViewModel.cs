@@ -9,8 +9,6 @@ public class ShellViewModel : BindableBase
     private readonly IModuleManager _moduleManager;
     private readonly IRegionManager _regionManager;
     private readonly IEventAggregator _eventAggregator;
-    private readonly IPartsInfoDAL _partsInfoDAL;
-    private readonly ISinglePartInfoDAL _singlePartInfoDAL;
     private DelegateCommand _shellLoadCommand = null!;
 
     public IModuleManager ModuleManager => _moduleManager;
@@ -31,7 +29,5 @@ public class ShellViewModel : BindableBase
         this._moduleManager = moduleManager;
         this._regionManager = regionManager;
         this._eventAggregator = eventAggregator;
-        this._partsInfoDAL = partsInfoDAL;
-        this._singlePartInfoDAL = singlePartInfoDAL;
     }
 }

@@ -64,10 +64,19 @@
                     Width="Auto"
                     Binding="{Binding Id}"
                     Header="工位序号" />
-                <DataGridTextColumn
+                <DataGridTemplateColumn
                     Width="Auto"
-                    Binding="{Binding StationStatus}"
-                    Header="工位状态" />
+                    CanUserSort="False"
+                    Header="工位状态">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <viewmodel:StatusIndicatorControl
+                                HorizontalAlignment="Center"
+                                ButtonBackground="{Binding IsElementEnabled}"
+                                IsIndeterminate="true" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTemplateColumn
                     Width="Auto"
                     CanUserSort="False"

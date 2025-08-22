@@ -43,6 +43,27 @@ namespace Application.UI
                     _ => TextBoxTemplate,
                 };
             }
+
+            if (item is S7netRegisterDto s7RegisterViewDto)
+            {
+                return s7RegisterViewDto.ValueDataType switch
+                {
+                    ValueDataType.Boolean => CheckBoxTemplate,
+                    ValueDataType.Byte => ByteNumericUpDownTemplate,
+                    ValueDataType.Int16 => Int16NumericUpDownTemplate,
+                    ValueDataType.UInt16 => UInt16NumericUpDownTemplate,
+                    ValueDataType.Int32 => Int32NumericUpDownTemplate,
+                    ValueDataType.UInt32 => UInt32NumericUpDownTemplate,
+                    ValueDataType.Int64 => Int64NumericUpDownTemplate,
+                    ValueDataType.UInt64 => UInt64NumericUpDownTemplate,
+                    ValueDataType.Single => SingleNumericUpDownTemplate,
+                    ValueDataType.Double => DoubleNumericUpDownTemplate,
+                    ValueDataType.Word => WordNumericUpDownTemplate,
+                    ValueDataType.DWord => DWordNumericUpDownTemplate,
+                    _ => TextBoxTemplate,
+                };
+            }
+
             return base.SelectTemplate(item, container);
         }
     }

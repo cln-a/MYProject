@@ -9,6 +9,7 @@
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<ModbusMonitorView>();
+            containerRegistry.RegisterForNavigation<S7netMonitorView>();
         }
     }
 }

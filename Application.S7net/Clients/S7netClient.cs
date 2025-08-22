@@ -20,7 +20,7 @@ namespace Application.S7net
         public Plc PlcClient => _plcClient;
         public int DeviceId => DeviceModel.Id;
         public string DeviceName => DeviceModel.DeviceName;
-        public CpuType PlcCpuType => _s7netDevice.DeviceBrand.GetValueByDescription<CpuType>();
+        public CpuType PlcCpuType => /*_s7netDevice.DeviceBrand.GetValueByDescription<CpuType>();*/ CpuType.S71500;
         public string IpAddress => _s7netDevice.RemoteIpAddress;
         public int Port => _s7netDevice.RemotePort;
         public short Rack => _s7netDevice.DeviceRack;

@@ -36,7 +36,4 @@
     <system:String x:Key="延时时间">Время задержки</system:String>
 
     <system:String x:Key="系统失去响应，请重新设定">Система не отвечает, пожалуйста, сбросьте ее</system:String>
-    <system:String x:Key="已修改参数，未设定">Параметры изменены, не установлены.</system:String>
-    <system:String x:Key="参数设定成功">Настройка параметров выполнена успешно</system:String>
-    <system:String x:Key="参数设定失败">Ошибка настройки параметров</system:String>
 </ResourceDictionary>

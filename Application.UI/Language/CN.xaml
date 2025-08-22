@@ -36,7 +36,4 @@
     <system:String x:Key="延时时间">延时时间</system:String>
 
     <system:String x:Key="系统失去响应，请重新设定">系统失去响应，请重新设定</system:String>
-    <system:String x:Key="已修改参数，未设定">已修改参数，未设定</system:String>
-    <system:String x:Key="参数设定成功">参数设定成功</system:String>
-    <system:String x:Key="参数设定失败">参数设定失败</system:String>
 </ResourceDictionary>

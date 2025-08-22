@@ -14,6 +14,7 @@ using Application.Mapper;
 using Application.Modbus;
 using Application.Russia;
 using Application.RussiaUI;
+using Application.S7net;
 using Application.UI;
 using ApplicationFrameWork.ViewModels;
 using ApplicationFrameWork.Views;
@@ -81,21 +82,6 @@ namespace ApplicationFrameWork
             base.ConfigureModuleCatalog(moduleCatalog);
 
             #region Russia
-            moduleCatalog.AddModule<LoggerModule>();
-            moduleCatalog.AddModule<DALModule>();
-            moduleCatalog.AddModule<ModbusModule>();
-            moduleCatalog.AddModule<ApplicationMapperModule>();
-            moduleCatalog.AddModule<UIModule>();
-            moduleCatalog.AddModule<ApplicationMainModule>();
-            moduleCatalog.AddModule<ApplicationDeviceModule>();
-            moduleCatalog.AddModule<ApplicationCommunicateModule>();
-            moduleCatalog.AddModule<ApplicationJournalModule>();
-            moduleCatalog.AddModule<ApplicationDialogModule>();
-            moduleCatalog.AddModule<ApplicationRussiaModule>();
-            moduleCatalog.AddModule<ApplicationRussiaUIModule>();
-            #endregion
-
-            #region HaiLu
             //moduleCatalog.AddModule<LoggerModule>();
             //moduleCatalog.AddModule<DALModule>();
             //moduleCatalog.AddModule<ModbusModule>();
@@ -106,9 +92,25 @@ namespace ApplicationFrameWork
             //moduleCatalog.AddModule<ApplicationCommunicateModule>();
             //moduleCatalog.AddModule<ApplicationJournalModule>();
             //moduleCatalog.AddModule<ApplicationDialogModule>();
-            //moduleCatalog.AddModule<ApplicationHailuModule>();
-            //moduleCatalog.AddModule<ApplicationHaiLuBoardModule>();
-            //moduleCatalog.AddModule<ApplicationFrameImportUtilModule>();
+            //moduleCatalog.AddModule<ApplicationRussiaModule>();
+            //moduleCatalog.AddModule<ApplicationRussiaUIModule>();
+            #endregion
+
+            #region HaiLu
+            moduleCatalog.AddModule<LoggerModule>();
+            moduleCatalog.AddModule<DALModule>();
+            moduleCatalog.AddModule<ModbusModule>();
+            moduleCatalog.AddModule<S7netModule>();
+            moduleCatalog.AddModule<ApplicationMapperModule>();
+            moduleCatalog.AddModule<UIModule>();
+            moduleCatalog.AddModule<ApplicationMainModule>();
+            moduleCatalog.AddModule<ApplicationDeviceModule>();
+            moduleCatalog.AddModule<ApplicationCommunicateModule>();
+            moduleCatalog.AddModule<ApplicationJournalModule>();
+            moduleCatalog.AddModule<ApplicationDialogModule>();
+            moduleCatalog.AddModule<ApplicationHailuModule>();
+            moduleCatalog.AddModule<ApplicationHaiLuBoardModule>();
+            moduleCatalog.AddModule<ApplicationFrameImportUtilModule>();
             #endregion
         }
 
@@ -127,8 +129,9 @@ namespace ApplicationFrameWork
         {
             var logger = ServiceLocator.Current.GetInstance<ILogger>();
             var clients = ServiceLocator.Current.GetAllInstances<ModbusClient>();
-            var heartBeatMasters = ServiceLocator.Current.GetAllInstances<HeartBeatMaster>();
-            //var importutil = ServiceLocator.Current.GetInstance<IImportUtil>();
+            var modbusheartBeatMasters = ServiceLocator.Current.GetAllInstances<Application.Modbus.HeartBeatMaster>();
+            var s7netheartBeatMasters = ServiceLocator.Current.GetAllInstances<Application.S7net.HeartBeatMaster>();
+            var importutil = ServiceLocator.Current.GetInstance<IImportUtil>();
 
             foreach (var client in clients)
             {
@@ -142,7 +145,7 @@ namespace ApplicationFrameWork
                 }
             }
             
-            foreach (var master in heartBeatMasters)
+            foreach (var master in modbusheartBeatMasters)
             {
                 try
                 {
@@ -154,7 +157,19 @@ namespace ApplicationFrameWork
                 }
             }
 
-            //importutil.StopImport();
+            foreach (var master in s7netheartBeatMasters) 
+            {
+                try
+                {
+                    master.Stop();
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError(ex.Message);
+                }
+            }
+
+            importutil.StopImport();
         }
     }
 }

@@ -1,0 +1,10 @@
+﻿{
+  "HeartBeatMasterOptions": [
+    {
+      "DeviceName": "S7Device",
+      "VariablePath": "McPC_HeartBeat",
+      "HeartBeatInterval": "1000",
+      "HeartBeatValues": [ 0, 1 ]
+    }
+  ]
+}

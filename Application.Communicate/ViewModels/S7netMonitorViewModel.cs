@@ -3,25 +3,26 @@ using Application.IDAL;
 using Application.Mapper;
 using Application.Model;
 using Application.UI;
+using System.Windows;
 
 namespace Application.Communicate
 {
-    public class ModbusMonitorViewModel : BasePageViewModel<ModbusRegisterDto>
+    public class S7netMonitorViewModel : BasePageViewModel<S7netRegisterDto>
     {
-        private readonly IModbusRegisterDAL _modbusRegisterDAL;
+        private readonly IS7netRegisterDAL _s7NetRegisterDAL;
 
-        public IModbusRegisterDAL ModbusRegisterDAL => _modbusRegisterDAL;
+        public IS7netRegisterDAL S7NetRegisterDAL => _s7NetRegisterDAL;
 
-        public ModbusMonitorViewModel(IModbusRegisterDAL modbusRegisterDAL)
-            => this._modbusRegisterDAL = modbusRegisterDAL;     
+        public S7netMonitorViewModel(IS7netRegisterDAL s7NetRegisterDAL)
+            => this._s7NetRegisterDAL = s7NetRegisterDAL;
 
-        protected async override Task<PageResult<ModbusRegisterDto>> GetPage()
+        protected async override Task<PageResult<S7netRegisterDto>> GetPage()
         {
-            var result = await ModbusRegisterDAL.GetPage(pageNumber, pageSize);
-            return result.Map(x => Mapper.Map<ModbusRegisterDto>(x));
+            var result = await S7NetRegisterDAL.GetPage(pageNumber, pageSize);
+            return result.Map(x => Mapper.Map<S7netRegisterDto>(x));
         }
 
-        protected override void WriteValueCmd(ModbusRegisterDto dto)
+        protected override void WriteValueCmd(S7netRegisterDto dto)
         {
             try
             {

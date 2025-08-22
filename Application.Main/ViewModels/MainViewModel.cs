@@ -1,6 +1,7 @@
 ﻿using Application.Common;
 using Application.IDAL;
 using Application.Modbus;
+using Application.S7net;
 using Application.UI;
 using CommonServiceLocator;
 using Microsoft.Extensions.Logging;
@@ -102,6 +103,7 @@ namespace Application.Main
         {
             StateBars = new ObservableCollection<StateBar>();
             var plcStates = ServiceLocator.Current.GetAllInstances<ICommunicationStateMachine>();
+            var s7Clients = ServiceLocator.Current.GetAllInstances<S7netClient>();
 
             try
             {
@@ -116,6 +118,21 @@ namespace Application.Main
                             Tag = state,
                             StateImageSource = state.IsConnected ? "../Image/connection.png" : "../Image/disconnection.png",
                             DeviceName = state.Description
+                        });
+                    }
+                }
+
+                foreach (var client in s7Clients)
+                {
+                    if (client != null)
+                    {
+                        client.ConnectEvent += StateMachine_ConnectEvent;
+                        client.DisConnectEvent += StateMachine_DisConnectEvent;
+                        StateBars.Add(new()
+                        {
+                            Tag = client,
+                            StateImageSource = client.Connected ? "../Image/connection.png" : "../Image/disconnection.png",
+                            DeviceName = client.DeviceName
                         });
                     }
                 }
@@ -141,6 +158,18 @@ namespace Application.Main
                         }
                     }));
                 }
+
+                if (sender is S7netClient client)
+                {
+                    Dispatcher.CurrentDispatcher.Invoke(new System.Action(() =>
+                    {
+                        StateBar? deviceStateBar = StateBars.Where(x => x.Tag is S7netClient y && y.DeviceModel.DeviceUri == client.DeviceModel.DeviceUri).FirstOrDefault();
+                        if (deviceStateBar != null)
+                        {
+                            deviceStateBar.StateImageSource = "../Image/disconnection.png";
+                        }
+                    }));
+                }
             }
             catch(Exception ex)
             {
@@ -157,6 +186,18 @@ namespace Application.Main
                     Dispatcher.CurrentDispatcher.Invoke(new System.Action(() =>
                     {
                         StateBar? deviceStateBar = StateBars.Where(x => x.Tag is ICommunicationStateMachine y && y.Name == stateMachine.Name).FirstOrDefault();
+                        if (deviceStateBar != null)
+                        {
+                            deviceStateBar.StateImageSource = "../Image/connection.png";
+                        }
+                    }));
+                }
+
+                if (sender is S7netClient client)
+                {
+                    Dispatcher.CurrentDispatcher.Invoke(new System.Action(() =>
+                    {
+                        StateBar? deviceStateBar = StateBars.Where(x => x.Tag is S7netClient y && y.DeviceModel.DeviceUri == client.DeviceModel.DeviceUri).FirstOrDefault();
                         if (deviceStateBar != null)
                         {
                             deviceStateBar.StateImageSource = "../Image/connection.png";

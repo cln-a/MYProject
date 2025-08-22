@@ -21,4 +21,10 @@
     <ProjectReference Include="..\S7.Net\S7.Net.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="s7settings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
