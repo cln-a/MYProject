@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ApplicationFrameWork 项目说明
 
 ## 项目概述
@@ -64,3 +65,6 @@ DataGrid的列标题通过以下方式实现国际化：
 - MVVM架构模式
 - 模块化设计
 - 事件驱动架构 
+=======
+hello my name is lonic penguin
+>>>>>>> 9539b04e24fc36485a7590db1ea15478c636c986
